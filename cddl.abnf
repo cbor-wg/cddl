@@ -1,0 +1,87 @@
+cddl = S 1*rule
+rule = typename [genericparm] S assign S type S
+     / groupname [genericparm] S assign S grpent S
+
+typename = id
+groupname = id
+
+assign = "=" / "/=" / "//="
+
+genericparm = "<" S id S *("," S id S ) ">"
+genericarg = "<" S type1 S *("," S type1 S ) ">"
+
+type = type1 S *("/" S type1 S)
+
+type1 = type2 [S (rangeop / annotator) S type2]
+     / "#" "6" ["." uint] "(" S type S ")" ; note no space!
+     / "#" DIGIT ["." uint]                ; major/ai
+     / "#"                                 ; any
+     / "{" S group S "}"
+     / "[" S group S "]"
+     / "&" S "(" S group S ")"
+     / "&" S groupname [genericarg]
+
+type2 = value
+      / typename [genericarg]
+      / "(" type ")"
+
+rangeop = "..." / ".."
+
+annotator = "." id
+
+group = grpchoice S *("//" S grpchoice S)
+
+grpchoice = *grpent
+
+grpent = [occur S] [memberkey S] type optcom
+       / [occur S] groupname [genericarg] optcom ; preempted by above
+       / [occur S] "(" S group S ")" optcom
+
+memberkey = type1 S "=>"
+          / bareword S ":"
+          / value S ":"
+
+bareword = id
+
+optcom = S ["," S]
+
+occur = [uint] "*" [uint]
+      / "+"
+      / "?"
+
+uint = ["0x" / "0b"] "0"
+     / ["0x" / "0b"] DIGIT1 *DIGIT
+
+value = number
+      / text
+      / bytes
+
+int = ["-"] uint
+
+; This is a float if it has fraction or exponent; int otherwise
+number = int ["." fraction] ["e" exponent ]
+fraction = 1*DIGIT
+exponent = int
+
+text = %x22 *SCHAR %x22
+SCHAR = %x20-21 / %x23-7E / SESC
+SESC = "\" %x20-7E
+
+bytes = [bsqual] %x27 *BCHAR %x27
+BCHAR = %x20-26 / %x28-7E / SESC / CRLF
+bsqual = %x68 ; "h"
+       / %x62.36.34 ; "b64"
+
+id = EALPHA *(*("-" / ".") (EALPHA / DIGIT))
+ALPHA = %x41-5A / %x61-7A
+EALPHA = %x41-5A / %x61-7A / "@" / "_" / "$"
+DIGIT = %x30-39
+DIGIT1 = %x31-39
+S = *WS
+WS = SP / NL
+SP = %x20
+NL = COMMENT / CRLF
+COMMENT = ";" *(SP / VCHAR) CRLF
+VCHAR = %x21-7E
+CRLF = %x0A / %x0D.0A
+
