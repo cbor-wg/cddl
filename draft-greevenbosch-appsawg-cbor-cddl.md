@@ -1,7 +1,7 @@
 ---
 stand_alone: true
 ipr: trust200902
-docname: draft-greevenbosch-appsawg-cbor-cddl-09
+docname: draft-greevenbosch-appsawg-cbor-cddl-latest
 cat: info
 pi:
   toc: 'yes'
