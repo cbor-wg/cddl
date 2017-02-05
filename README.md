@@ -2,7 +2,7 @@
 
 This is the working area for the Individual internet-draft, "CBOR data definition language (CDDL): a notational convention to express CBOR data structures".
 
-* [Editor's copy](https://cbor-wg.github.io/cddl/)
+* [Editor's copy](https://cbor-wg.github.io/cddl/)   [![Build Status](https://travis-ci.org/cbor-wg/cddl.svg?branch=master)](https://travis-ci.org/cbor-wg/cddl)
 * [Individual Draft] (https://tools.ietf.org/html/draft-greevenbosch-appsawg-cbor-cddl)
 * [Compare Individual Draft and Editor's copy] (https://tools.ietf.org/rfcdiff?url1=https://tools.ietf.org/id/draft-greevenbosch-appsawg-cbor-cddl.txt&url2=https://cbor-wg.github.io/cddl/draft-greevenbosch-appsawg-cbor-cddl.txt)
 
