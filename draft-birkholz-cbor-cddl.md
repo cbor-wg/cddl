@@ -1,7 +1,7 @@
 ---
 stand_alone: true
 ipr: trust200902
-docname: draft-greevenbosch-appsawg-cbor-cddl-latest
+docname: draft-birkholz-cbor-cddl-latest
 cat: info
 pi:
   toc: 'yes'
@@ -14,13 +14,8 @@ title: >
 abbrev: CDDL
 area: Applications
 wg: ''
-date: 2016-09-21
+date: 2017-02-08
 author:
-- ins: C. Vigano
-  name: Christoph Vigano
-  org: Universität Bremen
-  abbrev: Universität Bremen
-  email: christoph.vigano@uni-bremen.de
 - ins: H. Birkholz
   name: Henk Birkholz
   org: Fraunhofer SIT
@@ -30,6 +25,21 @@ author:
   code: '64295'
   city: Darmstadt
   country: Germany
+- ins: C. Vigano
+  name: Christoph Vigano
+  org: Universität Bremen
+  abbrev: Universität Bremen
+  email: christoph.vigano@uni-bremen.de
+- ins: C. Bormann
+  name: Carsten Bormann
+  org: Universitaet Bremen TZI
+  street:
+  - Bibliothekstr. 1
+  city: Bremen
+  code: D-28359
+  country: Germany
+  phone: +49-421-218-63921
+  email: cabo@tzi.org
 normative:
   RFC2119:
   RFC3629:
