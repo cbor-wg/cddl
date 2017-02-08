@@ -2,16 +2,18 @@
 
 
 
-Network Working Group                                          C. Vigano
-Internet-Draft                                       Universitaet Bremen
-Intended status: Informational                               H. Birkholz
-Expires: March 25, 2017                                   Fraunhofer SIT
-                                                      September 21, 2016
+Network Working Group                                        H. Birkholz
+Internet-Draft                                            Fraunhofer SIT
+Intended status: Informational                                 C. Vigano
+Expires: August 12, 2017                             Universitaet Bremen
+                                                              C. Bormann
+                                                 Universitaet Bremen TZI
+                                                       February 08, 2017
 
 
 CBOR data definition language (CDDL): a notational convention to express
                           CBOR data structures
-              draft-greevenbosch-appsawg-cbor-cddl-latest
+                    draft-birkholz-cbor-cddl-latest
 
 Abstract
 
@@ -35,11 +37,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 25, 2017.
+   This Internet-Draft will expire on August 12, 2017.
 
 Copyright Notice
 
-   Copyright (c) 2016 IETF Trust and the persons identified as the
+   Copyright (c) 2017 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -48,16 +50,15 @@ Copyright Notice
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
-   include Simplified BSD License text as described in Section 4.e of
 
 
 
-
-Vigano & Birkholz        Expires March 25, 2017                 [Page 1]
+Birkholz, et al.         Expires August 12, 2017                [Page 1]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
+   include Simplified BSD License text as described in Section 4.e of
    the Trust Legal Provisions and are provided without warranty as
    described in the Simplified BSD License.
 
@@ -105,15 +106,15 @@ Table of Contents
      5.3.  For data analysis tools . . . . . . . . . . . . . . . . .  37
    6.  Security considerations . . . . . . . . . . . . . . . . . . .  38
    7.  IANA considerations . . . . . . . . . . . . . . . . . . . . .  38
-   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  38
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                 [Page 2]
+Birkholz, et al.         Expires August 12, 2017                [Page 2]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
+   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  38
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  38
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .  38
      9.2.  Informative References  . . . . . . . . . . . . . . . . .  39
@@ -164,10 +165,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-
-Vigano & Birkholz        Expires March 25, 2017                 [Page 3]
+Birkholz, et al.         Expires August 12, 2017                [Page 3]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
    This document has the following structure:
@@ -221,9 +221,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                 [Page 4]
+Birkholz, et al.         Expires August 12, 2017                [Page 4]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
       example of a record, as is the pair of exponent (first) and
@@ -277,9 +277,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                 [Page 5]
+Birkholz, et al.         Expires August 12, 2017                [Page 5]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
    In an array context, the sequence of elements in the group is
@@ -333,9 +333,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                 [Page 6]
+Birkholz, et al.         Expires August 12, 2017                [Page 6]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
    Groups can be used to factor out common parts of structs, e.g.,
@@ -389,9 +389,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                 [Page 7]
+Birkholz, et al.         Expires August 12, 2017                [Page 7]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
    only one big protocol data unit that has all definitions ad hoc where
@@ -445,9 +445,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                 [Page 8]
+Birkholz, et al.         Expires August 12, 2017                [Page 8]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
    Choices of values can be used to express enumerations:
@@ -501,9 +501,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                 [Page 9]
+Birkholz, et al.         Expires August 12, 2017                [Page 9]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
 2.2.2.2.  Turning a group into a choice
@@ -557,9 +557,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 10]
+Birkholz, et al.         Expires August 12, 2017               [Page 10]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
    This is motivated by the usual top-down approach for defining data
@@ -613,9 +613,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 11]
+Birkholz, et al.         Expires August 12, 2017               [Page 11]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
       separate identifiers or numbers that follow each other); it is
@@ -669,9 +669,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 12]
+Birkholz, et al.         Expires August 12, 2017               [Page 12]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
    "open" in the spec and the fact that it is then interchanged with
@@ -725,9 +725,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 13]
+Birkholz, et al.         Expires August 12, 2017               [Page 13]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
    "float"  One of float16, float32, or float64.
@@ -781,9 +781,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 14]
+Birkholz, et al.         Expires August 12, 2017               [Page 14]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
 3.5.1.  Structs
@@ -837,9 +837,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 15]
+Birkholz, et al.         Expires August 12, 2017               [Page 15]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
    text string syntax can also be used in the member key position,
@@ -893,9 +893,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 16]
+Birkholz, et al.         Expires August 12, 2017               [Page 16]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
    If the addition of more entries not specified by the current
@@ -949,9 +949,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 17]
+Birkholz, et al.         Expires August 12, 2017               [Page 17]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
 3.6.  Tags
@@ -1005,9 +1005,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 18]
+Birkholz, et al.         Expires August 12, 2017               [Page 18]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
    (FIXME: In the CDDL tool, the target must be a byte string for now.)
@@ -1061,9 +1061,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 19]
+Birkholz, et al.         Expires August 12, 2017               [Page 19]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
    The CDDL tool generates the following ten example instances for
@@ -1117,9 +1117,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 20]
+Birkholz, et al.         Expires August 12, 2017               [Page 20]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
 3.7.5.  Annotations .within and .and
@@ -1173,9 +1173,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 21]
+Birkholz, et al.         Expires August 12, 2017               [Page 21]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
    value from being sent over the wire.  This annotation is only
@@ -1229,9 +1229,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 22]
+Birkholz, et al.         Expires August 12, 2017               [Page 22]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
                      PersonalData = {
@@ -1285,9 +1285,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 23]
+Birkholz, et al.         Expires August 12, 2017               [Page 23]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
    t = {group2}
@@ -1341,9 +1341,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 24]
+Birkholz, et al.         Expires August 12, 2017               [Page 24]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
            +----------+----+---------------------------+------+
@@ -1397,9 +1397,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 25]
+Birkholz, et al.         Expires August 12, 2017               [Page 25]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
     UpdateMsg = [* {
@@ -1453,9 +1453,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 26]
+Birkholz, et al.         Expires August 12, 2017               [Page 26]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
      [{"move_no": 3985, "player_info":
@@ -1509,9 +1509,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 27]
+Birkholz, et al.         Expires August 12, 2017               [Page 27]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
             19 0148                     # unsigned(328)
@@ -1565,9 +1565,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 28]
+Birkholz, et al.         Expires August 12, 2017               [Page 28]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
          6b                             # text(11)
@@ -1621,9 +1621,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 29]
+Birkholz, et al.         Expires August 12, 2017               [Page 29]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
          19 08b2                        # unsigned(2226)
@@ -1677,9 +1677,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 30]
+Birkholz, et al.         Expires August 12, 2017               [Page 30]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
     fruitlist = [* Fruit]
@@ -1733,9 +1733,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 31]
+Birkholz, et al.         Expires August 12, 2017               [Page 31]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
                  reputation-object = {
@@ -1789,9 +1789,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 32]
+Birkholz, et al.         Expires August 12, 2017               [Page 32]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
                         reputation-object = {
@@ -1845,9 +1845,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 33]
+Birkholz, et al.         Expires August 12, 2017               [Page 33]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
                 {
@@ -1901,9 +1901,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 34]
+Birkholz, et al.         Expires August 12, 2017               [Page 34]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
 4.4.  Examples from JSON Content Rules
@@ -1957,9 +1957,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 35]
+Birkholz, et al.         Expires August 12, 2017               [Page 35]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
                              root = { image }
@@ -2013,9 +2013,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 36]
+Birkholz, et al.         Expires August 12, 2017               [Page 36]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
 5.  Making Use of CDDL
@@ -2069,9 +2069,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 37]
+Birkholz, et al.         Expires August 12, 2017               [Page 37]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
    Since CBOR is designed with constrained devices in mind, a likely use
@@ -2125,9 +2125,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 38]
+Birkholz, et al.         Expires August 12, 2017               [Page 38]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
    [RFC3629]  Yergeau, F., "UTF-8, a transformation format of ISO
@@ -2181,9 +2181,9 @@ Appendix A.  Cemetery
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 39]
+Birkholz, et al.         Expires August 12, 2017               [Page 39]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
 A.1.  Resolved Issues
@@ -2237,9 +2237,9 @@ Appendix C.  Change Log
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 40]
+Birkholz, et al.         Expires August 12, 2017               [Page 40]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
    o  Added examples
@@ -2293,9 +2293,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 41]
+Birkholz, et al.         Expires August 12, 2017               [Page 41]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
    Changes from version 05 to version 05:
@@ -2349,9 +2349,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 42]
+Birkholz, et al.         Expires August 12, 2017               [Page 42]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
 Appendix D.  ABNF grammar
@@ -2405,9 +2405,9 @@ Appendix D.  ABNF grammar
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 43]
+Birkholz, et al.         Expires August 12, 2017               [Page 43]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
    bareword = id
@@ -2461,9 +2461,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 44]
+Birkholz, et al.         Expires August 12, 2017               [Page 44]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
 Appendix E.  Standard Prelude
@@ -2517,9 +2517,9 @@ Appendix E.  Standard Prelude
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 45]
+Birkholz, et al.         Expires August 12, 2017               [Page 45]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
                   any = #
@@ -2573,9 +2573,9 @@ Internet-Draft                    CDDL                    September 2016
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 46]
+Birkholz, et al.         Expires August 12, 2017               [Page 46]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
    Note that the prelude is deemed to be fixed.  This means, for
@@ -2629,9 +2629,9 @@ Appendix G.  Extended Diagnostic Notation
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 47]
+Birkholz, et al.         Expires August 12, 2017               [Page 47]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
    This section discusses a few extensions to the diagnostic notation
@@ -2685,9 +2685,9 @@ G.3.  Concatenated Strings
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 48]
+Birkholz, et al.         Expires August 12, 2017               [Page 48]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
    characters that may be better represented in an encoded way.  The
@@ -2741,9 +2741,9 @@ G.5.  Comments
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 49]
+Birkholz, et al.         Expires August 12, 2017               [Page 49]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
    In extended diagnostic notation, comments can be included, delimited
@@ -2797,9 +2797,9 @@ Editorial Comments
 
 
 
-Vigano & Birkholz        Expires March 25, 2017                [Page 50]
+Birkholz, et al.         Expires August 12, 2017               [Page 50]
 
-Internet-Draft                    CDDL                    September 2016
+Internet-Draft                    CDDL                     February 2017
 
 
 [_abnftodo] TO DO: This doesn't allow non-ASCII characters in the text
@@ -2812,12 +2812,6 @@ Internet-Draft                    CDDL                    September 2016
 
 Authors' Addresses
 
-   Christoph Vigano
-   Universitaet Bremen
-
-   Email: christoph.vigano@uni-bremen.de
-
-
    Henk Birkholz
    Fraunhofer SIT
    Rheinstrasse 75
@@ -2827,6 +2821,20 @@ Authors' Addresses
    Email: henk.birkholz@sit.fraunhofer.de
 
 
+   Christoph Vigano
+   Universitaet Bremen
+
+   Email: christoph.vigano@uni-bremen.de
+
+
+   Carsten Bormann
+   Universitaet Bremen TZI
+   Bibliothekstr. 1
+   Bremen  D-28359
+   Germany
+
+   Phone: +49-421-218-63921
+   Email: cabo@tzi.org
 
 
 
@@ -2845,12 +2853,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-
-
-Vigano & Birkholz        Expires March 25, 2017                [Page 51]
+Birkholz, et al.         Expires August 12, 2017               [Page 51]
