@@ -308,10 +308,9 @@ address {
 <link href="#rfc.section.3.8" rel="Chapter" title="3.8 Socket/Plug"/>
 <link href="#rfc.section.3.9" rel="Chapter" title="3.9 Operator Precedence"/>
 <link href="#rfc.section.4" rel="Chapter" title="4 Examples"/>
-<link href="#rfc.section.4.1" rel="Chapter" title="4.1 Moves in a computer game"/>
-<link href="#rfc.section.4.2" rel="Chapter" title="4.2 Fruit"/>
-<link href="#rfc.section.4.3" rel="Chapter" title="4.3 RFC 7071"/>
-<link href="#rfc.section.4.4" rel="Chapter" title="4.4 Examples from JSON Content Rules"/>
+<link href="#rfc.section.4.1" rel="Chapter" title="4.1 Fruit"/>
+<link href="#rfc.section.4.2" rel="Chapter" title="4.2 RFC 7071"/>
+<link href="#rfc.section.4.3" rel="Chapter" title="4.3 Examples from JSON Content Rules"/>
 <link href="#rfc.section.5" rel="Chapter" title="5 Making Use of CDDL"/>
 <link href="#rfc.section.5.1" rel="Chapter" title="5.1 As a guide to a human user"/>
 <link href="#rfc.section.5.2" rel="Chapter" title="5.2 For automated checking of CBOR data structure"/>
@@ -343,8 +342,8 @@ address {
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Birkholz, H., Vigano, C., and C. Bormann" />
-  <meta name="dct.identifier" content="urn:ietf:id:draft-birkholz-cbor-cddl-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2017-2-08" />
+  <meta name="dct.identifier" content="urn:ietf:id:draft-greevenbosch-appsawg-cbor-cddl-latest" />
+  <meta name="dct.issued" scheme="ISO8601" content="2017-3-13" />
   <meta name="dct.abstract" content="This document proposes a notational convention to express CBOR data structures (RFC 7049).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR." />
   <meta name="description" content="This document proposes a notational convention to express CBOR data structures (RFC 7049).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR." />
 
@@ -368,7 +367,7 @@ address {
   <td class="right">C. Vigano</td>
 </tr>
 <tr>
-  <td class="left">Expires: August 12, 2017</td>
+  <td class="left">Expires: September 14, 2017</td>
   <td class="right">Universit&#228;t Bremen</td>
 </tr>
 <tr>
@@ -381,7 +380,7 @@ address {
 </tr>
 <tr>
   <td class="left"></td>
-  <td class="right">February 08, 2017</td>
+  <td class="right">March 13, 2017</td>
 </tr>
 
     	
@@ -389,7 +388,7 @@ address {
   </table>
 
   <p class="title">CBOR data definition language (CDDL): a notational convention to express CBOR data structures<br />
-  <span class="filename">draft-birkholz-cbor-cddl-latest</span></p>
+  <span class="filename">draft-greevenbosch-appsawg-cbor-cddl-latest</span></p>
   
   <h1 id="rfc.abstract">
   <a href="#rfc.abstract">Abstract</a>
@@ -401,7 +400,7 @@ address {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on August 12, 2017.</p>
+<p>This Internet-Draft will expire on September 14, 2017.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -444,10 +443,9 @@ address {
 </ul><li>3.8.   <a href="#rfc.section.3.8">Socket/Plug</a></li>
 <li>3.9.   <a href="#rfc.section.3.9">Operator Precedence</a></li>
 </ul><li>4.   <a href="#rfc.section.4">Examples</a></li>
-<ul><li>4.1.   <a href="#rfc.section.4.1">Moves in a computer game</a></li>
-<li>4.2.   <a href="#rfc.section.4.2">Fruit</a></li>
-<li>4.3.   <a href="#rfc.section.4.3">RFC 7071</a></li>
-<li>4.4.   <a href="#rfc.section.4.4">Examples from JSON Content Rules</a></li>
+<ul><li>4.1.   <a href="#rfc.section.4.1">Fruit</a></li>
+<li>4.2.   <a href="#rfc.section.4.2">RFC 7071</a></li>
+<li>4.3.   <a href="#rfc.section.4.3">Examples from JSON Content Rules</a></li>
 </ul><li>5.   <a href="#rfc.section.5">Making Use of CDDL</a></li>
 <ul><li>5.1.   <a href="#rfc.section.5.1">As a guide to a human user</a></li>
 <li>5.2.   <a href="#rfc.section.5.2">For automated checking of CBOR data structure</a></li>
@@ -654,7 +652,7 @@ delivery //= (
 lat: float, long: float, drone-type: tstr
 )
 </pre>
-<p id="rfc.section.2.2.2.p.5">It is not a mistake if a name is first used with a &#8220;/=&#8221; or &#8220;//=&#8221; (there is no need to &#8220;create it&#8221; with &#8220;=&#8221;).</p>
+<p id="rfc.section.2.2.2.p.5">It is not an error if a name is first used with a &#8220;/=&#8221; or &#8220;//=&#8221; (there is no need to &#8220;create it&#8221; with &#8220;=&#8221;).</p>
 <h1 id="rfc.section.2.2.2.1"><a href="#rfc.section.2.2.2.1">2.2.2.1.</a> <a href="#ranges" id="ranges">Ranges</a></h1>
 <p id="rfc.section.2.2.2.1.p.1">Instead of naming all the values that make up a choice, CDDL allows building a <em>range</em> out of two values that are in an ordering relationship.  A range can be inclusive of both ends given (denoted by joining two values by &#8220;..&#8221;), or include the first and exclude the second (denoted by instead using &#8220;&#8230;&#8221;).</p>
 <pre>
@@ -695,6 +693,7 @@ solid = tstr
 <h1 id="rfc.section.2.2.4"><a href="#rfc.section.2.2.4">2.2.4.</a> <a href="#root-type" id="root-type">Root type</a></h1>
 <p id="rfc.section.2.2.4.p.1">There is no special syntax to identify the root of a CDDL data structure definition: that role is simply taken by the first rule defined in the file.</p>
 <p id="rfc.section.2.2.4.p.2">This is motivated by the usual top-down approach for defining data structures, decomposing a big data structure unit into smaller parts; however, except for the root type, there is no need to strictly follow this sequence.</p>
+<p id="rfc.section.2.2.4.p.3">(Note that there is no way to use a group as a root &#8211; it must be a type.  Using a group as the root might be employed as a way to specify a CBOR sequence in a future version of this specification; this would act as if that group is used in an array and the data items in that fictional array form the members of the CBOR sequence.)</p>
 <h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#syntax" id="syntax">Syntax</a></h1>
 <p id="rfc.section.3.p.1">In this section, the overall syntax of CDDL is shown, alongside some examples just illustrating syntax.  (The definition will not attempt to be overly formal; refer to <a href="#abnf">Appendix D</a> for the details.)</p>
 <h1 id="rfc.section.3.1"><a href="#rfc.section.3.1">3.1.</a> <a href="#general-conventions" id="general-conventions">General conventions</a></h1>
@@ -707,7 +706,8 @@ solid = tstr
   <li>Comments are started by a &#8216;;&#8217; (semicolon) character and finish at the end of a line (LF or CRLF).</li>
   <li>outside strings, whitespace (spaces, newlines, and comments) is used to separate syntactic elements for readability (and to separate identifiers or numbers that follow each other); it is otherwise completely optional.</li>
   <li>Hexadecimal numbers are preceded by &#8216;0x&#8217; (without quotes, lower case x), and are case insensitive.  Similarly, binary numbers are preceded by &#8216;0b&#8217;. </li>
-  <li>Text strings are enclosed by double quotation &#8216;&#8221;&#8217; characters.  They follow the conventions for strings as defined in section 7 of <a href="#RFC7159">[RFC7159]</a>.  Byte strings are enclosed by single quotation &#8220;&#8217;&#8221; characters and may be prefixed by &#8220;h&#8221; or &#8220;b64&#8221;.  If unprefixed, the string is interpreted as with a text string, except that single quotes must be escaped and that the UTF-8 bytes resulting are marked as a byte string (major type 2).  If prefixed as &#8220;h&#8221; or &#8220;b64&#8221;, the string is interpreted as a sequence of hex digits or a base64(url) string, respectively (as with the diagnostic notation in section 6 of <a href="#RFC7049">[RFC7049]</a>; cf. <a href="#textbin">Appendix G.2</a>); any white space present within the string (including comments) is ignored in the prefixed case.  <a id="_strings" class="info">[_strings]<span class="info">TO DO: This still needs to be fully realized in the ABNF and in the CDDL tool.</span></a></li>
+  <li>Text strings are enclosed by double quotation &#8216;&#8221;&#8217; characters.  They follow the conventions for strings as defined in section 7 of <a href="#RFC7159">[RFC7159]</a>.  (ABNF users may want to note that there is no support in CDDL for the concept of case insensitivity in text strings; if necessary, regular expressions can be used (<a href="#regexp">Section 3.7.3</a>).)</li>
+  <li>Byte strings are enclosed by single quotation &#8220;&#8217;&#8221; characters and may be prefixed by &#8220;h&#8221; or &#8220;b64&#8221;.  If unprefixed, the string is interpreted as with a text string, except that single quotes must be escaped and that the UTF-8 bytes resulting are marked as a byte string (major type 2).  If prefixed as &#8220;h&#8221; or &#8220;b64&#8221;, the string is interpreted as a sequence of hex digits or a base64(url) string, respectively (as with the diagnostic notation in section 6 of <a href="#RFC7049">[RFC7049]</a>; cf. <a href="#textbin">Appendix G.2</a>); any white space present within the string (including comments) is ignored in the prefixed case.  <a id="_strings" class="info">[_strings]<span class="info">TO DO: This still needs to be fully realized in the ABNF and in the CDDL tool.</span></a></li>
 </ul>
 <p/>
 
@@ -721,7 +721,7 @@ person = { g }
 
 g = (
   "name": tstr,
-  age: int,
+  age: int,  ; "age" is a bareword
 )
 </pre>
 <h1 id="rfc.section.3.2"><a href="#rfc.section.3.2">3.2.</a> <a href="#occurrence" id="occurrence">Occurrence</a></h1>
@@ -809,7 +809,7 @@ GpsCoordinates = {
   latitude       : uint,            ; multiplied by 10^7
 }
 </pre>
-<p id="rfc.section.3.5.1.p.5">When encoding, the Geography structure is encoded using a CBOR array with two entries, whereas the GpsCoordinates are encoded as a CBOR map with two key-value pairs.</p>
+<p id="rfc.section.3.5.1.p.5">When encoding, the Geography structure is encoded using a CBOR array with two entries (the keys for the group entries are ignored), whereas the GpsCoordinates are encoded as a CBOR map with two key-value pairs.</p>
 <p id="rfc.section.3.5.1.p.6">Types used in a structure can be defined in separate rules or just in place (potentially placed inside parentheses, such as for choices).  E.g.:</p>
 <pre>
 located-samples = {
@@ -887,8 +887,8 @@ y = float
 <p id="rfc.section.3.5.2.p.3">If the specification does not need to restrict one of x or y (i.e., the application is free to choose per entry), it can be replaced by the predefined name <samp>any</samp>.</p>
 <p id="rfc.section.3.5.2.p.4">As another example, the following could be used as a conversion table converting from an integer or float to a string:</p>
 <pre>
-tostring = {* x =&gt; tstr}
-x = int / float
+tostring = {* mynumber =&gt; tstr}
+mynumber = int / float
 </pre>
 <h1 id="rfc.section.3.6"><a href="#rfc.section.3.6">3.6.</a> <a href="#tagsec" id="tagsec">Tags</a></h1>
 <p id="rfc.section.3.6.p.1">A type can make use of a CBOR tag (major type 6) by using the representation type notation, giving #6.nnn(type) where nnn is an unsigned integer giving the tag number and <samp>type</samp> is the type of the data item being tagged.</p>
@@ -919,18 +919,17 @@ ip6 = bstr .size 16
 label = bstr .size (1..63)
 </pre>
 <p class="figure">Figure 6: Annotation for size in bytes</p>
-<p id="rfc.section.3.7.1.p.2">(FIXME: In the CDDL tool, the target must be a byte string for now.)</p>
-<p id="rfc.section.3.7.1.p.3">When applied to an unsigned integer, the <samp>.size</samp> annotation restricts the range of that integer by giving a maximum number of bytes that should be needed in a computer representation of that unsigned integer.  In other words, <samp>uint .size N</samp> is equivalent to <samp>0...BYTES_N</samp>, where BYTES_N == 256**N.</p>
+<p id="rfc.section.3.7.1.p.2">When applied to an unsigned integer, the <samp>.size</samp> annotation restricts the range of that integer by giving a maximum number of bytes that should be needed in a computer representation of that unsigned integer.  In other words, <samp>uint .size N</samp> is equivalent to <samp>0...BYTES_N</samp>, where BYTES_N == 256**N.</p>
 <div id="rfc.figure.7"/>
 <div id="annotate-int-size"/>
 <pre>
 audio_sample = uint .size 3 ; 24-bit, equivalent to 0..16777215
 </pre>
 <p class="figure">Figure 7: Annotation for integer size in bytes</p>
-<p id="rfc.section.3.7.1.p.4">Note that, as with value restrictions in CDDL, this annotation is not a representation constraint; a number that fits into fewer bytes can still be represented in that form, and an inefficient implementation could use a longer form (unless that is restricted by some format constraints outside of CDDL, such as the rules in Section 3.9 of <a href="#RFC7049">[RFC7049]</a>).</p>
+<p id="rfc.section.3.7.1.p.3">Note that, as with value restrictions in CDDL, this annotation is not a representation constraint; a number that fits into fewer bytes can still be represented in that form, and an inefficient implementation could use a longer form (unless that is restricted by some format constraints outside of CDDL, such as the rules in Section 3.9 of <a href="#RFC7049">[RFC7049]</a>).</p>
 <h1 id="rfc.section.3.7.2"><a href="#rfc.section.3.7.2">3.7.2.</a> <a href="#annotation-bits" id="annotation-bits">Annotation .bits</a></h1>
 <p id="rfc.section.3.7.2.p.1">A <samp>.bits</samp> annotation on a byte string indicates that, in the target, only the bits numbered by a number in the control type are allowed to be set.  (Bits are counted the usual way, bit number <samp>n</samp> being set in <samp>str</samp> meaning that <samp>(str[n &gt;&gt; 3] &amp; (1 &lt;&lt; (n &amp; 7))) != 0</samp>.) <a id="_bitsendian" class="info">[_bitsendian]<span class="info">How useful would it be to have another variant that counts bits like in RFC box notation?  (Or at least per-byte? 32-bit words don&#8217;t always perfectly mesh with byte strings.)</span></a></p>
-<p id="rfc.section.3.7.2.p.2">Similarly, a <samp>.bits</samp> annotation on an unsigned integer <samp>i</samp> indicates that for all unsigned integers <samp>n</samp> where <samp>(i &amp; (1 &lt;&lt; n)) != 0</samp>, <samp>n</samp> is in the control type.</p>
+<p id="rfc.section.3.7.2.p.2">Similarly, a <samp>.bits</samp> annotation on an unsigned integer <samp>i</samp> indicates that for all unsigned integers <samp>n</samp> where <samp>(i &amp; (1 &lt;&lt; n)) != 0</samp>, <samp>n</samp> must be in the control type.</p>
 <div id="rfc.figure.8"/>
 <div id="annotate-bits"/>
 <pre>
@@ -957,7 +956,7 @@ h'906d' h'01fc' h'8145' h'01b7' h'013d' h'409f' h'018e' h'c05f'
 h'01fa' h'01fe'
 </pre>
 <p id="rfc.section.3.7.2.p.4">These examples do not illustrate that the above CDDL specification does not explicitly specify a size of two bytes: A valid all clear instance of flag bytes could be <samp>h''</samp> or <samp>h'00'</samp> or even <samp>h'000000'</samp> as well.</p>
-<h1 id="rfc.section.3.7.3"><a href="#rfc.section.3.7.3">3.7.3.</a> <a href="#annotation-regexp" id="annotation-regexp">Annotation .regexp</a></h1>
+<h1 id="rfc.section.3.7.3"><a href="#rfc.section.3.7.3">3.7.3.</a> <a href="#regexp" id="regexp">Annotation .regexp</a></h1>
 <p id="rfc.section.3.7.3.p.1">A <samp>.regexp</samp> annotation indicates that the text string given as a target needs to match the PCRE regular expression given as a value in the control type, where that regular expression is anchored on both sides.  (If anchoring is not desired for a side, <samp>.*</samp> needs to be inserted there.)</p>
 <div id="rfc.figure.9"/>
 <div id="annotate-regexp"/>
@@ -1046,7 +1045,7 @@ sack-permitted: true
 )
 </pre>
 <p id="rfc.section.3.8.p.3">Names that start with a single &#8220;$&#8221; are &#8220;type sockets&#8221;, names with a double &#8220;$$&#8221; are &#8220;group sockets&#8221;.  It is not an error if there is no definition for a socket at all; this then means there is no way to satisfy the rule (i.e., the choice is empty).</p>
-<p id="rfc.section.3.8.p.4">All definitions (plugs) for socket names must be augments, i.e., they must be using &#8220;/=&#8221; and &#8220;//=&#8221;, respectively.</p>
+<p id="rfc.section.3.8.p.4">All definitions (plugs) for socket names must be augmentations, i.e., they must be using &#8220;/=&#8221; and &#8220;//=&#8221;, respectively.</p>
 <p id="rfc.section.3.8.p.5">To pick up the example illustrated in <a href="#xmp-personaldata">Figure 5</a>, the socket/plug mechanism could be used as shown in <a href="#xmp-personaldata-sp">Figure 10</a>:</p>
 <div id="rfc.figure.10"/>
 <div id="xmp-personaldata-sp"/>
@@ -1225,233 +1224,9 @@ a = 1 b = 2 c = 3
 </table>
 <h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a> <a href="#examples" id="examples">Examples</a></h1>
 <p id="rfc.section.4.p.1">This section contains various examples of structures defined using CDDL.</p>
-<h1 id="rfc.section.4.1"><a href="#rfc.section.4.1">4.1.</a> <a href="#moves-in-a-computer-game" id="moves-in-a-computer-game">Moves in a computer game</a></h1>
-<p id="rfc.section.4.1.p.1">A multiplayer computer game uses CBOR to exchange moves between the players.  To ensure a good gaming experience, the move information needs to be exchanged quickly and frequently.  Therefore, the game uses CBOR to send its information in a compact format. <a href="#ComputerGameDef">Figure 11</a> shows definition of the CBOR information exchange format.</p>
+<h1 id="rfc.section.4.1"><a href="#rfc.section.4.1">4.1.</a> <a href="#fruit" id="fruit">Fruit</a></h1>
+<p><a href="#exCBORstruct">Figure 11</a> contains an example for a CBOR structure that contains information about fruit.</p>
 <div id="rfc.figure.11"/>
-<div id="ComputerGameDef"/>
-<pre>
-UpdateMsg = [* {
-  move_no        : uint,                  ; increases for each move
-  player_info    : PlayerInfo,            ; general information
-  moves          : Moves,                ; moves in this message
-}]
-
-PlayerInfo = {
-  alias          : tstr,
-  player_id      : uint,
-  experience     : uint,                  ; beginner: 0; expert: 3
-  gold           : uint,
-  supplies       : Supplies,
-  avg_strength   : float16,
-}
-
-Supplies = {
-  wood  =&gt; uint
-  iron  =&gt; uint
-  grain  =&gt; uint
-}
-
-wood = 0
-iron = 1
-grain = 2
-
-Moves = [* Move]
-
-Move = (
-  unit_id        : uint,
-  unit_strength  : uint,               ; between 0 and 100
-  2*2 source_pos : uint,               ; (x,y)
-  2*2 target_pos : uint,               ; (x,y)
-)
-</pre>
-<p class="figure">Figure 11: CDDL definition of an information exchange format for a computer game</p>
-<p id="rfc.section.4.1.p.2">The CDDL tool generates this as a possible instance:</p>
-<pre>
-[{"move_no": 3985, "player_info":
-  {"alias": "timbrologist", "player_id": 699, "experience": 2699,
-   "gold": 328, "supplies": {0: 1768, 1: 3087, 2: 1401},
-   "avg_strength": 0.9712613869888417},
-  "moves": [[1702, 458, 38, 399, 327, 304],
-            [3145, 4454, 1175, 3441, 74, 1542],
-            [4099, 4062, 2808, 8, 3174, 3048],
-            [367, 3649, 756, 3644, 3725, 2769]]},
- {"move_no": 199, "player_info":
-  {"alias": "cipo", "player_id": 4309, "experience": 4094,
-   "gold": 4114, "supplies": {0: 873, 1: 4706, 2: 1733},
-   "avg_strength": 0.37808379403466696},
-  "moves": [[1977, 3129, 3890, 4000, 1555, 377],
-            [2646, 286, 3363, 4381, 3815, 1039]]},
- {"move_no": 2226, "player_info":
-  {"alias": "Stacey", "player_id": 1055, "experience": 207,
-   "gold": 285, "supplies": {0: 3325, 1: 1515, 2: 3304},
-   "avg_strength": 0.8590028130444863},
-  "moves": [[869, 4126, 2382, 3155, 1523, 2621]]}]
-</pre>
-<p id="rfc.section.4.1.p.3">Notice that the supplies have been encoded as a map with integer keys.  In this example, using string keys would also have been suitable; the example just illustrates the possibility to use other datatypes for keys, leading to more efficient encoding.</p>
-<p id="rfc.section.4.1.p.4">The tool-generated binary CBOR for the instance about cannot express yet that the floating point values are 16-bit:</p>
-<div id="rfc.figure.12"/>
-<div id="ComputerGameInst"/>
-<pre>
-83                                   # array(3)
-   a3                                # map(3)
-      67                             # text(7)
-         6d6f76655f6e6f              # "move_no"
-      19 0f91                        # unsigned(3985)
-      6b                             # text(11)
-         706c617965725f696e666f      # "player_info"
-      a6                             # map(6)
-         65                          # text(5)
-            616c696173               # "alias"
-         6c                          # text(12)
-            74696d62726f6c6f67697374 # "timbrologist"
-         69                          # text(9)
-            706c617965725f6964       # "player_id"
-         19 02bb                     # unsigned(699)
-         6a                          # text(10)
-            657870657269656e6365     # "experience"
-         19 0a8b                     # unsigned(2699)
-         64                          # text(4)
-            676f6c64                 # "gold"
-         19 0148                     # unsigned(328)
-         68                          # text(8)
-            737570706c696573         # "supplies"
-         a3                          # map(3)
-            00                       # unsigned(0)
-            19 06e8                  # unsigned(1768)
-            01                       # unsigned(1)
-            19 0c0f                  # unsigned(3087)
-            02                       # unsigned(2)
-            19 0579                  # unsigned(1401)
-         6c                          # text(12)
-            6176675f737472656e677468 # "avg_strength"
-         fb 3fef1492c29f8275         # primitive(4606923564386321013)
-      65                             # text(5)
-         6d6f766573                  # "moves"
-      84                             # array(4)
-         86                          # array(6)
-            19 06a6                  # unsigned(1702)
-            19 01ca                  # unsigned(458)
-            18 26                    # unsigned(38)
-            19 018f                  # unsigned(399)
-            19 0147                  # unsigned(327)
-            19 0130                  # unsigned(304)
-         86                          # array(6)
-            19 0c49                  # unsigned(3145)
-            19 1166                  # unsigned(4454)
-            19 0497                  # unsigned(1175)
-            19 0d71                  # unsigned(3441)
-            18 4a                    # unsigned(74)
-            19 0606                  # unsigned(1542)
-         86                          # array(6)
-            19 1003                  # unsigned(4099)
-            19 0fde                  # unsigned(4062)
-            19 0af8                  # unsigned(2808)
-            08                       # unsigned(8)
-            19 0c66                  # unsigned(3174)
-            19 0be8                  # unsigned(3048)
-         86                          # array(6)
-            19 016f                  # unsigned(367)
-            19 0e41                  # unsigned(3649)
-            19 02f4                  # unsigned(756)
-            19 0e3c                  # unsigned(3644)
-            19 0e8d                  # unsigned(3725)
-            19 0ad1                  # unsigned(2769)
-   a3                                # map(3)
-      67                             # text(7)
-         6d6f76655f6e6f              # "move_no"
-      18 c7                          # unsigned(199)
-      6b                             # text(11)
-         706c617965725f696e666f      # "player_info"
-      a6                             # map(6)
-         65                          # text(5)
-            616c696173               # "alias"
-         64                          # text(4)
-            6369706f                 # "cipo"
-         69                          # text(9)
-            706c617965725f6964       # "player_id"
-         19 10d5                     # unsigned(4309)
-         6a                          # text(10)
-            657870657269656e6365     # "experience"
-         19 0ffe                     # unsigned(4094)
-         64                          # text(4)
-            676f6c64                 # "gold"
-         19 1012                     # unsigned(4114)
-         68                          # text(8)
-            737570706c696573         # "supplies"
-         a3                          # map(3)
-            00                       # unsigned(0)
-            19 0369                  # unsigned(873)
-            01                       # unsigned(1)
-            19 1262                  # unsigned(4706)
-            02                       # unsigned(2)
-            19 06c5                  # unsigned(1733)
-         6c                          # text(12)
-            6176675f737472656e677468 # "avg_strength"
-         fb 3fd832865ea1b216         # primitive(4600482572053623318)
-      65                             # text(5)
-         6d6f766573                  # "moves"
-      82                             # array(2)
-         86                          # array(6)
-            19 07b9                  # unsigned(1977)
-            19 0c39                  # unsigned(3129)
-            19 0f32                  # unsigned(3890)
-            19 0fa0                  # unsigned(4000)
-            19 0613                  # unsigned(1555)
-            19 0179                  # unsigned(377)
-         86                          # array(6)
-            19 0a56                  # unsigned(2646)
-            19 011e                  # unsigned(286)
-            19 0d23                  # unsigned(3363)
-            19 111d                  # unsigned(4381)
-            19 0ee7                  # unsigned(3815)
-            19 040f                  # unsigned(1039)
-   a3                                # map(3)
-      67                             # text(7)
-         6d6f76655f6e6f              # "move_no"
-      19 08b2                        # unsigned(2226)
-      6b                             # text(11)
-         706c617965725f696e666f      # "player_info"
-      a6                             # map(6)
-         65                          # text(5)
-            616c696173               # "alias"
-         66                          # text(6)
-            537461636579             # "Stacey"
-         69                          # text(9)
-            706c617965725f6964       # "player_id"
-         19 041f                     # unsigned(1055)
-         6a                          # text(10)
-            657870657269656e6365     # "experience"
-         18 cf                       # unsigned(207)
-         64                          # text(4)
-            676f6c64                 # "gold"
-         19 011d                     # unsigned(285)
-         68                          # text(8)
-            737570706c696573         # "supplies"
-         a3                          # map(3)
-            00                       # unsigned(0)
-            19 0cfd                  # unsigned(3325)
-            01                       # unsigned(1)
-            19 05eb                  # unsigned(1515)
-            02                       # unsigned(2)
-            19 0ce8                  # unsigned(3304)
-         6c                          # text(12)
-            6176675f737472656e677468 # "avg_strength"
-         fb 3feb7cf377a65699         # primitive(4605912429042751129)
-      65                             # text(5)
-         6d6f766573                  # "moves"
-      81                             # array(1)
-         86                          # array(6)
-            19 0365                  # unsigned(869)
-            19 101e                  # unsigned(4126)
-            19 094e                  # unsigned(2382)
-            19 0c53                  # unsigned(3155)
-            19 05f3                  # unsigned(1523)
-            19 0a3d                  # unsigned(2621)
-</pre>
-<p class="figure">Figure 12: CBOR instance for game example</p>
-<h1 id="rfc.section.4.2"><a href="#rfc.section.4.2">4.2.</a> <a href="#fruit" id="fruit">Fruit</a></h1>
-<p><a href="#exCBORstruct">Figure 13</a> contains an example for a CBOR structure that contains information about fruit.</p>
-<div id="rfc.figure.13"/>
 <div id="exCBORstruct"/>
 <pre>
 fruitlist = [* Fruit]
@@ -1478,8 +1253,8 @@ color = &amp;(
   blue: 4,  magenta: 5,  cyan: 6,  white: 7,
 )
 </pre>
-<p class="figure">Figure 13: Example CBOR structure</p>
-<h1 id="rfc.section.4.3"><a href="#rfc.section.4.3">4.3.</a> <a href="#example-7071" id="example-7071">RFC 7071</a></h1>
+<p class="figure">Figure 11: Example CBOR structure</p>
+<h1 id="rfc.section.4.2"><a href="#rfc.section.4.2">4.2.</a> <a href="#example-7071" id="example-7071">RFC 7071</a></h1>
 <p><a href="#RFC7071">[RFC7071]</a> defines the Reputon structure for JSON using somewhat formalized English text. Here is a (somewhat verbose) equivalent definition using the same terms, but notated in CDDL:</p>
 <pre>
 reputation-object = {
@@ -1521,7 +1296,7 @@ gen-value = ( generated: uint )
 expire-value = ( expires: uint )
 ext-value = ( text =&gt; any )
 </pre>
-<p id="rfc.section.4.3.p.2">An equivalent, more compact form of this example would be:</p>
+<p id="rfc.section.4.2.p.2">An equivalent, more compact form of this example would be:</p>
 <pre>
 reputation-object = {
   application: text
@@ -1541,8 +1316,8 @@ reputon = {
   * text =&gt; any
 }
 </pre>
-<p id="rfc.section.4.3.p.3">Note how this rather clearly delineates the structure somewhat shrouded by so many words in section 6.2.2. of <a href="#RFC7071">[RFC7071]</a>.  Also, this definition makes it clear that several ext-values are allowed (by definition with different member names); RFC 7071 could be read to forbid the repetition of ext-value (&#8220;A specific reputon-element MUST NOT appear more than once&#8221; is ambiguous.)</p>
-<p id="rfc.section.4.3.p.4">The CDDL tool (which hasn&#8217;t quite been trained for polite conversation) says:</p>
+<p id="rfc.section.4.2.p.3">Note how this rather clearly delineates the structure somewhat shrouded by so many words in section 6.2.2. of <a href="#RFC7071">[RFC7071]</a>.  Also, this definition makes it clear that several ext-values are allowed (by definition with different member names); RFC 7071 could be read to forbid the repetition of ext-value (&#8220;A specific reputon-element MUST NOT appear more than once&#8221; is ambiguous.)</p>
+<p id="rfc.section.4.2.p.4">The CDDL tool (which hasn&#8217;t quite been trained for polite conversation) says:</p>
 <pre>
 {
   "application": "tridentiferous",
@@ -1592,10 +1367,10 @@ reputon = {
   ]
 }
 </pre>
-<h1 id="rfc.section.4.4"><a href="#rfc.section.4.4">4.4.</a> <a href="#examples-from-json-content-rules" id="examples-from-json-content-rules">Examples from JSON Content Rules</a></h1>
-<p id="rfc.section.4.4.p.1">Although <a href="#I-D.newton-json-content-rules">JSON Content Rules</a> <cite title="NONE">[I-D.newton-json-content-rules]</cite> seems to address a more general problem than CDDL, it is still a worthwhile resource to explore for examples (beyond all the inspiration the format itself has had for CDDL).</p>
-<p id="rfc.section.4.4.p.2">Figure 2 of the JCR I-D looks very similar, if slightly less noisy, in CDDL:</p>
-<div id="rfc.figure.14"/>
+<h1 id="rfc.section.4.3"><a href="#rfc.section.4.3">4.3.</a> <a href="#examples-from-json-content-rules" id="examples-from-json-content-rules">Examples from JSON Content Rules</a></h1>
+<p id="rfc.section.4.3.p.1">Although <a href="#I-D.newton-json-content-rules">JSON Content Rules</a> <cite title="NONE">[I-D.newton-json-content-rules]</cite> seems to address a more general problem than CDDL, it is still a worthwhile resource to explore for examples (beyond all the inspiration the format itself has had for CDDL).</p>
+<p id="rfc.section.4.3.p.2">Figure 2 of the JCR I-D looks very similar, if slightly less noisy, in CDDL:</p>
+<div id="rfc.figure.12"/>
 <div id="jcrfig2"/>
 <pre>
 root = [2*2 {
@@ -1609,9 +1384,9 @@ root = [2*2 {
   Country: text
 }]
 </pre>
-<p class="figure">Figure 14: JCR, Figure 2, in CDDL</p>
-<p id="rfc.section.4.4.p.3">Apart from the lack of a need to quote the member names, text strings are called <samp>text</samp> or <samp>tstr</samp> in CDDL (<samp>string</samp> would be ambiguous as CBOR also provides byte strings).</p>
-<p id="rfc.section.4.4.p.4">The CDDL tool creates the below example instance for this:</p>
+<p class="figure">Figure 12: JCR, Figure 2, in CDDL</p>
+<p id="rfc.section.4.3.p.3">Apart from the lack of a need to quote the member names, text strings are called <samp>text</samp> or <samp>tstr</samp> in CDDL (<samp>string</samp> would be ambiguous as CBOR also provides byte strings).</p>
+<p id="rfc.section.4.3.p.4">The CDDL tool creates the below example instance for this:</p>
 <pre>
 [{"precision": "pyrosphere", "Latitude": 0.5399712314350172,
   "Longitude": 0.5157523963028087, "Address": "resow",
@@ -1622,7 +1397,7 @@ root = [2*2 {
   "City": "decipherability", "State": "autometry", "Zip": "pout",
   "Country": "wimple"}]
 </pre>
-<p id="rfc.section.4.4.p.5">Figure 4 of the JCR I-D in CDDL:</p>
+<p id="rfc.section.4.3.p.5">Figure 4 of the JCR I-D in CDDL:</p>
 <pre>
 root = { image }
 
@@ -1647,7 +1422,7 @@ thumbnail = (
   }
 )
 </pre>
-<p id="rfc.section.4.4.p.6">This shows how the group concept can be used to keep related elements (here: width, height) together, and to emulate the JCR style of specification.  (It also shows using a tag from the prelude, <samp>uri</samp> &#8211; this could be done differently.)  The more compact form of Figure 5 of the JCR I-D could be emulated like this:</p>
+<p id="rfc.section.4.3.p.6">This shows how the group concept can be used to keep related elements (here: width, height) together, and to emulate the JCR style of specification.  (It also shows using a tag from the prelude, <samp>uri</samp> &#8211; this could be done differently.)  The more compact form of Figure 5 of the JCR I-D could be emulated like this:</p>
 <pre>
 root = {
   Image: {
@@ -1662,7 +1437,7 @@ size = (
   Height: 0..1024,
 )
 </pre>
-<p id="rfc.section.4.4.p.7">The CDDL tool creates the below example instance for this:</p>
+<p id="rfc.section.4.3.p.7">The CDDL tool creates the below example instance for this:</p>
 <pre>
 {"Image": {"Width": 566, "Height": 516, "Title": "leisterer",
   "Thumbnail": {"Width": 1111, "Height": 176, "Url": 32("scrog")},
@@ -1696,7 +1471,7 @@ size = (
 <h1 id="rfc.section.8"><a href="#rfc.section.8">8.</a> <a href="#acknowledgements" id="acknowledgements">Acknowledgements</a></h1>
 <p id="rfc.section.8.p.1">CDDL was originally conceived by Bert Greevenbosch, who also wrote the original five versions of this document.</p>
 <p id="rfc.section.8.p.2">Inspiration was taken from the C and Pascal languages, MPEG&#8217;s conventions for describing structures in the ISO base media file format, Relax-NG and its compact syntax <a href="#RELAXNG">[RELAXNG]</a>, and in particular from Andrew Lee Newton&#8217;s <a href="#I-D.newton-json-content-rules">&#8220;JSON Content Rules&#8221;</a> <cite title="NONE">[I-D.newton-json-content-rules]</cite>.</p>
-<p id="rfc.section.8.p.3">Useful feedback came from Carsten Bormann, Joe Hildebrand, Sean Leonard and Jim Schaad.</p>
+<p id="rfc.section.8.p.3">Useful feedback came from Joe Hildebrand, Sean Leonard and Jim Schaad.</p>
 <p id="rfc.section.8.p.4">The CDDL tool was written by Carsten Bormann, building on previous work by Troy Heninger and Tom Lord.</p>
 <h1 id="rfc.references"><a href="#rfc.references">9.</a> References</h1>
 <h1 id="rfc.references.1"><a href="#rfc.references.1">9.1.</a> Normative References</h1>
@@ -1764,7 +1539,7 @@ size = (
   </tbody>
 </table>
 <h1 id="rfc.appendix.A"><a href="#rfc.appendix.A">Appendix A.</a> <a href="#cemetery" id="cemetery">Cemetery</a></h1>
-<p id="rfc.section.A.p.1">The following ideas are buried for now:</p>
+<p id="rfc.section.A.p.1">The following ideas have been buried in the discussions leading up to the present specification:</p>
 <p/>
 
 <ul>
@@ -1873,9 +1648,17 @@ message&lt;t, v&gt; = {type: t, value: v}
   <li>Define a value notation for byte strings as well.</li>
   <li>Removed discussion section that was no longer relevant; move &#8220;Resolved Issues&#8221; to appendix.</li>
 </ul>
+<p id="rfc.section.C.p.19">Changes from 09 to 10:</p>
+<p/>
+
+<ul>
+  <li>Remove a long but not very elucidating example.  (Maybe we&#8217;ll add back some shorter examples later.)</li>
+  <li>A few clarifications.</li>
+  <li>Updated author list.</li>
+</ul>
 <h1 id="rfc.appendix.D"><a href="#rfc.appendix.D">Appendix D.</a> <a href="#abnf" id="abnf">ABNF grammar</a></h1>
 <p id="rfc.section.D.p.1">The following is a formal definition of the CDDL syntax in Augmented Backus-Naur Form (ABNF, <a href="#RFC5234">[RFC5234]</a>).  <a id="_abnftodo" class="info">[_abnftodo]<span class="info">TO DO: This doesn&#8217;t allow non-ASCII characters in the text or byte strings yet (and the prefixed byte strings are more liberally specified than they actually are); representation indicators are missing as well.</span></a></p>
-<div id="rfc.figure.15"/>
+<div id="rfc.figure.13"/>
 <div id="fig-abnf"/>
 <pre>
 cddl = S 1*rule
@@ -1966,10 +1749,10 @@ VCHAR = %x21-7E
 CRLF = %x0A / %x0D.0A
 
 </pre>
-<p class="figure">Figure 15: CDDL ABNF</p>
+<p class="figure">Figure 13: CDDL ABNF</p>
 <h1 id="rfc.appendix.E"><a href="#rfc.appendix.E">Appendix E.</a> <a href="#prelude" id="prelude">Standard Prelude</a></h1>
 <p id="rfc.section.E.p.1">The following prelude is automatically added to each CDDL file <a id="tdate" class="info">[tdate]<span class="info">The prelude as included here does not yet have a .regexp annotation on tdate, but we probably do want to have one.</span></a>.  (Note that technically, it is a postlude, as it does not disturb the selection of the first rule as the root of the definition.)</p>
-<div id="rfc.figure.16"/>
+<div id="rfc.figure.14"/>
 <div id="fig-prelude"/>
 <pre>
 any = #
@@ -2019,12 +1802,12 @@ null = nil
 undefined = #7.23
 
 </pre>
-<p class="figure">Figure 16: CDDL Prelude</p>
+<p class="figure">Figure 14: CDDL Prelude</p>
 <p id="rfc.section.E.p.2">Note that the prelude is deemed to be fixed.  This means, for instance, that additional tags beyond <a href="#RFC7049">[RFC7049]</a>, as registered, need to be defined in each CDDL file that is using them.</p>
 <p id="rfc.section.E.p.3">A common stumbling point is that the prelude does not define a type <samp>string</samp>.  CBOR has byte strings (<samp>bytes</samp> in the prelude) and text strings (<samp>text</samp>), so a type that is simply called <samp>string</samp> would be ambiguous.</p>
 <h1 id="rfc.appendix.F"><a href="#rfc.appendix.F">Appendix F.</a> <a href="#tool" id="tool">The CDDL tool</a></h1>
 <p id="rfc.section.F.p.1">A rough CDDL tool is available.  For CDDL specifications that do not use recursion, it can check the syntax, generate one or more instances (expressed in CBOR diagnostic notation or in pretty-printed JSON), and validate an existing instance against the specification:</p>
-<div id="rfc.figure.17"/>
+<div id="rfc.figure.15"/>
 <div id="tool-usage"/>
 <pre>
 Usage:
@@ -2033,14 +1816,14 @@ cddl spec.cddl json-generate [n]
 cddl spec.cddl validate instance.cbor
 cddl spec.cddl validate instance.json
 </pre>
-<p class="figure">Figure 17: CDDL tool usage</p>
+<p class="figure">Figure 15: CDDL tool usage</p>
 <p id="rfc.section.F.p.2">Install on a system with a modern Ruby via:</p>
-<div id="rfc.figure.18"/>
+<div id="rfc.figure.16"/>
 <div id="tool-install"/>
 <pre>
 gem install cddl
 </pre>
-<p class="figure">Figure 18</p>
+<p class="figure">Figure 16</p>
 <p id="rfc.section.F.p.3">The accompanying CBOR diagnostic tools (which are automatically installed by the above) are described in <a href="https://github.com/cabo/cbor-diag">https://github.com/cabo/cbor-diag</a>; they can be used to convert between binary CBOR, a pretty-printed form of that, CBOR diagnostic notation, JSON, and YAML.</p>
 <h1 id="rfc.appendix.G"><a href="#rfc.appendix.G">Appendix G.</a> <a href="#extended-diagnostic-notation" id="extended-diagnostic-notation">Extended Diagnostic Notation</a></h1>
 <p id="rfc.section.G.p.1">Section 6 of <a href="#RFC7049">[RFC7049]</a> defines a &#8220;diagnostic notation&#8221; in order to be able to converse about CBOR data items without having to resort to binary data.  Diagnostic notation is based on JSON, with extensions for representing CBOR constructs such as binary data and tags.</p>

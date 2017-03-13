@@ -5,15 +5,15 @@
 Network Working Group                                        H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Informational                                 C. Vigano
-Expires: August 12, 2017                             Universitaet Bremen
+Expires: September 14, 2017                          Universitaet Bremen
                                                               C. Bormann
                                                  Universitaet Bremen TZI
-                                                       February 08, 2017
+                                                          March 13, 2017
 
 
 CBOR data definition language (CDDL): a notational convention to express
                           CBOR data structures
-                    draft-birkholz-cbor-cddl-latest
+              draft-greevenbosch-appsawg-cbor-cddl-latest
 
 Abstract
 
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 12, 2017.
+   This Internet-Draft will expire on September 14, 2017.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Birkholz, et al.         Expires August 12, 2017                [Page 1]
+Birkholz, et al.       Expires September 14, 2017               [Page 1]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
    include Simplified BSD License text as described in Section 4.e of
@@ -81,58 +81,57 @@ Table of Contents
      3.2.  Occurrence  . . . . . . . . . . . . . . . . . . . . . . .  12
      3.3.  Predefined names for types  . . . . . . . . . . . . . . .  13
      3.4.  Arrays  . . . . . . . . . . . . . . . . . . . . . . . . .  14
-     3.5.  Maps  . . . . . . . . . . . . . . . . . . . . . . . . . .  14
+     3.5.  Maps  . . . . . . . . . . . . . . . . . . . . . . . . . .  15
        3.5.1.  Structs . . . . . . . . . . . . . . . . . . . . . . .  15
        3.5.2.  Tables  . . . . . . . . . . . . . . . . . . . . . . .  17
      3.6.  Tags  . . . . . . . . . . . . . . . . . . . . . . . . . .  18
      3.7.  Annotations . . . . . . . . . . . . . . . . . . . . . . .  18
-       3.7.1.  Annotation .size  . . . . . . . . . . . . . . . . . .  18
+       3.7.1.  Annotation .size  . . . . . . . . . . . . . . . . . .  19
        3.7.2.  Annotation .bits  . . . . . . . . . . . . . . . . . .  19
        3.7.3.  Annotation .regexp  . . . . . . . . . . . . . . . . .  20
-       3.7.4.  Annotations .cbor and .cborseq  . . . . . . . . . . .  20
+       3.7.4.  Annotations .cbor and .cborseq  . . . . . . . . . . .  21
        3.7.5.  Annotations .within and .and  . . . . . . . . . . . .  21
        3.7.6.  Annotations .lt, .le, .gt, .ge, .eq, .ne, and
-               .default  . . . . . . . . . . . . . . . . . . . . . .  21
+               .default  . . . . . . . . . . . . . . . . . . . . . .  22
      3.8.  Socket/Plug . . . . . . . . . . . . . . . . . . . . . . .  22
-     3.9.  Operator Precedence . . . . . . . . . . . . . . . . . . .  23
-   4.  Examples  . . . . . . . . . . . . . . . . . . . . . . . . . .  25
-     4.1.  Moves in a computer game  . . . . . . . . . . . . . . . .  25
-     4.2.  Fruit . . . . . . . . . . . . . . . . . . . . . . . . . .  30
-     4.3.  RFC 7071  . . . . . . . . . . . . . . . . . . . . . . . .  31
-     4.4.  Examples from JSON Content Rules  . . . . . . . . . . . .  35
-   5.  Making Use of CDDL  . . . . . . . . . . . . . . . . . . . . .  37
-     5.1.  As a guide to a human user  . . . . . . . . . . . . . . .  37
-     5.2.  For automated checking of CBOR data structure . . . . . .  37
-     5.3.  For data analysis tools . . . . . . . . . . . . . . . . .  37
-   6.  Security considerations . . . . . . . . . . . . . . . . . . .  38
-   7.  IANA considerations . . . . . . . . . . . . . . . . . . . . .  38
+     3.9.  Operator Precedence . . . . . . . . . . . . . . . . . . .  24
+   4.  Examples  . . . . . . . . . . . . . . . . . . . . . . . . . .  26
+     4.1.  Fruit . . . . . . . . . . . . . . . . . . . . . . . . . .  26
+     4.2.  RFC 7071  . . . . . . . . . . . . . . . . . . . . . . . .  27
+     4.3.  Examples from JSON Content Rules  . . . . . . . . . . . .  31
+   5.  Making Use of CDDL  . . . . . . . . . . . . . . . . . . . . .  33
+     5.1.  As a guide to a human user  . . . . . . . . . . . . . . .  33
+     5.2.  For automated checking of CBOR data structure . . . . . .  33
+     5.3.  For data analysis tools . . . . . . . . . . . . . . . . .  33
+   6.  Security considerations . . . . . . . . . . . . . . . . . . .  34
+   7.  IANA considerations . . . . . . . . . . . . . . . . . . . . .  34
+   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  34
 
 
 
-Birkholz, et al.         Expires August 12, 2017                [Page 2]
+Birkholz, et al.       Expires September 14, 2017               [Page 2]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
-   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  38
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  38
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  38
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  39
-   Appendix A.  Cemetery . . . . . . . . . . . . . . . . . . . . . .  39
-     A.1.  Resolved Issues . . . . . . . . . . . . . . . . . . . . .  40
-   Appendix B.  Nursery  . . . . . . . . . . . . . . . . . . . . . .  40
-     B.1.  Generics  . . . . . . . . . . . . . . . . . . . . . . . .  40
-   Appendix C.  Change Log . . . . . . . . . . . . . . . . . . . . .  40
-   Appendix D.  ABNF grammar . . . . . . . . . . . . . . . . . . . .  43
-   Appendix E.  Standard Prelude . . . . . . . . . . . . . . . . . .  45
-   Appendix F.  The CDDL tool  . . . . . . . . . . . . . . . . . . .  47
-   Appendix G.  Extended Diagnostic Notation . . . . . . . . . . . .  47
-     G.1.  White space in binary strings . . . . . . . . . . . . . .  48
-     G.2.  Text in binary strings  . . . . . . . . . . . . . . . . .  48
-     G.3.  Concatenated Strings  . . . . . . . . . . . . . . . . . .  48
-     G.4.  Hexadecimal, octal, and binary numbers  . . . . . . . . .  49
-     G.5.  Comments  . . . . . . . . . . . . . . . . . . . . . . . .  49
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  51
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  34
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  34
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  35
+   Appendix A.  Cemetery . . . . . . . . . . . . . . . . . . . . . .  35
+     A.1.  Resolved Issues . . . . . . . . . . . . . . . . . . . . .  36
+   Appendix B.  Nursery  . . . . . . . . . . . . . . . . . . . . . .  36
+     B.1.  Generics  . . . . . . . . . . . . . . . . . . . . . . . .  36
+   Appendix C.  Change Log . . . . . . . . . . . . . . . . . . . . .  36
+   Appendix D.  ABNF grammar . . . . . . . . . . . . . . . . . . . .  39
+   Appendix E.  Standard Prelude . . . . . . . . . . . . . . . . . .  41
+   Appendix F.  The CDDL tool  . . . . . . . . . . . . . . . . . . .  43
+   Appendix G.  Extended Diagnostic Notation . . . . . . . . . . . .  43
+     G.1.  White space in binary strings . . . . . . . . . . . . . .  44
+     G.2.  Text in binary strings  . . . . . . . . . . . . . . . . .  44
+     G.3.  Concatenated Strings  . . . . . . . . . . . . . . . . . .  44
+     G.4.  Hexadecimal, octal, and binary numbers  . . . . . . . . .  45
+     G.5.  Comments  . . . . . . . . . . . . . . . . . . . . . . . .  45
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  47
 
 1.  Introduction
 
@@ -165,9 +164,10 @@ Internet-Draft                    CDDL                     February 2017
 
 
 
-Birkholz, et al.         Expires August 12, 2017                [Page 3]
+
+Birkholz, et al.       Expires September 14, 2017               [Page 3]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
    This document has the following structure:
@@ -221,9 +221,9 @@ Internet-Draft                    CDDL                     February 2017
 
 
 
-Birkholz, et al.         Expires August 12, 2017                [Page 4]
+Birkholz, et al.       Expires September 14, 2017               [Page 4]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
       example of a record, as is the pair of exponent (first) and
@@ -277,9 +277,9 @@ Internet-Draft                    CDDL                     February 2017
 
 
 
-Birkholz, et al.         Expires August 12, 2017                [Page 5]
+Birkholz, et al.       Expires September 14, 2017               [Page 5]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
    In an array context, the sequence of elements in the group is
@@ -333,9 +333,9 @@ Internet-Draft                    CDDL                     February 2017
 
 
 
-Birkholz, et al.         Expires August 12, 2017                [Page 6]
+Birkholz, et al.       Expires September 14, 2017               [Page 6]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
    Groups can be used to factor out common parts of structs, e.g.,
@@ -389,9 +389,9 @@ Internet-Draft                    CDDL                     February 2017
 
 
 
-Birkholz, et al.         Expires August 12, 2017                [Page 7]
+Birkholz, et al.       Expires September 14, 2017               [Page 7]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
    only one big protocol data unit that has all definitions ad hoc where
@@ -445,9 +445,9 @@ Internet-Draft                    CDDL                     February 2017
 
 
 
-Birkholz, et al.         Expires August 12, 2017                [Page 8]
+Birkholz, et al.       Expires September 14, 2017               [Page 8]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
    Choices of values can be used to express enumerations:
@@ -479,7 +479,7 @@ Internet-Draft                    CDDL                     February 2017
                  lat: float, long: float, drone-type: tstr
                  )
 
-   It is not a mistake if a name is first used with a "/=" or "//="
+   It is not an error if a name is first used with a "/=" or "//="
    (there is no need to "create it" with "=").
 
 2.2.2.1.  Ranges
@@ -501,9 +501,9 @@ Internet-Draft                    CDDL                     February 2017
 
 
 
-Birkholz, et al.         Expires August 12, 2017                [Page 9]
+Birkholz, et al.       Expires September 14, 2017               [Page 9]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
 2.2.2.2.  Turning a group into a choice
@@ -557,15 +557,21 @@ Internet-Draft                    CDDL                     February 2017
 
 
 
-Birkholz, et al.         Expires August 12, 2017               [Page 10]
+Birkholz, et al.       Expires September 14, 2017              [Page 10]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
    This is motivated by the usual top-down approach for defining data
    structures, decomposing a big data structure unit into smaller parts;
    however, except for the root type, there is no need to strictly
    follow this sequence.
+
+   (Note that there is no way to use a group as a root - it must be a
+   type.  Using a group as the root might be employed as a way to
+   specify a CBOR sequence in a future version of this specification;
+   this would act as if that group is used in an array and the data
+   items in that fictional array form the members of the CBOR sequence.)
 
 3.  Syntax
 
@@ -604,20 +610,19 @@ Internet-Draft                    CDDL                     February 2017
       *  Rule names (types or groups) do not appear in the actual CBOR
          encoding, but names used as "barewords" in member keys do.
 
+
+
+
+Birkholz, et al.       Expires September 14, 2017              [Page 11]
+
+Internet-Draft                    CDDL                        March 2017
+
+
    o  Comments are started by a ';' (semicolon) character and finish at
       the end of a line (LF or CRLF).
 
    o  outside strings, whitespace (spaces, newlines, and comments) is
       used to separate syntactic elements for readability (and to
-
-
-
-
-Birkholz, et al.         Expires August 12, 2017               [Page 11]
-
-Internet-Draft                    CDDL                     February 2017
-
-
       separate identifiers or numbers that follow each other); it is
       otherwise completely optional.
 
@@ -627,28 +632,32 @@ Internet-Draft                    CDDL                     February 2017
 
    o  Text strings are enclosed by double quotation '"' characters.
       They follow the conventions for strings as defined in section 7 of
-      [RFC7159].  Byte strings are enclosed by single quotation "'"
-      characters and may be prefixed by "h" or "b64".  If unprefixed,
-      the string is interpreted as with a text string, except that
-      single quotes must be escaped and that the UTF-8 bytes resulting
-      are marked as a byte string (major type 2).  If prefixed as "h" or
-      "b64", the string is interpreted as a sequence of hex digits or a
-      base64(url) string, respectively (as with the diagnostic notation
-      in section 6 of [RFC7049]; cf. Appendix G.2); any white space
-      present within the string (including comments) is ignored in the
-      prefixed case.  [_strings]
+      [RFC7159].  (ABNF users may want to note that there is no support
+      in CDDL for the concept of case insensitivity in text strings; if
+      necessary, regular expressions can be used (Section 3.7.3).)
+
+   o  Byte strings are enclosed by single quotation "'" characters and
+      may be prefixed by "h" or "b64".  If unprefixed, the string is
+      interpreted as with a text string, except that single quotes must
+      be escaped and that the UTF-8 bytes resulting are marked as a byte
+      string (major type 2).  If prefixed as "h" or "b64", the string is
+      interpreted as a sequence of hex digits or a base64(url) string,
+      respectively (as with the diagnostic notation in section 6 of
+      [RFC7049]; cf. Appendix G.2); any white space present within the
+      string (including comments) is ignored in the prefixed case.
+      [_strings]
 
    o  CDDL uses UTF-8 [RFC3629] for its encoding.
 
    Example:
 
-                            ; This is a comment
-                            person = { g }
+                    ; This is a comment
+                    person = { g }
 
-                            g = (
-                              "name": tstr,
-                              age: int,
-                            )
+                    g = (
+                      "name": tstr,
+                      age: int,  ; "age" is a bareword
+                    )
 
 3.2.  Occurrence
 
@@ -658,6 +667,13 @@ Internet-Draft                    CDDL                     February 2017
    are optional unsigned integers and n is the lower limit (default 0)
    and m is the upper limit (default no limit) of occurrences.
 
+
+
+Birkholz, et al.       Expires September 14, 2017              [Page 12]
+
+Internet-Draft                    CDDL                        March 2017
+
+
    If no occurrence indicator is specified, the group entry is to occur
    exactly once (as if 1*1 were specified).
 
@@ -665,15 +681,6 @@ Internet-Draft                    CDDL                     February 2017
    possibly be defined, does not make any prescription as to whether
    arrays or maps use the definite length or indefinite length encoding.
    I.e., there is no correlation between leaving the size of an array
-
-
-
-
-Birkholz, et al.         Expires August 12, 2017               [Page 12]
-
-Internet-Draft                    CDDL                     February 2017
-
-
    "open" in the spec and the fact that it is then interchanged with
    definite or indefinite length.
 
@@ -716,19 +723,18 @@ Internet-Draft                    CDDL                     February 2017
    "float16"  IEEE 754 half-precision float (major type 7, additional
       information 25).
 
+
+
+Birkholz, et al.       Expires September 14, 2017              [Page 13]
+
+Internet-Draft                    CDDL                        March 2017
+
+
    "float32"  IEEE 754 single-precision float (major type 7, additional
       information 26).
 
    "float64"  IEEE 754 double-precision float (major type 7, additional
       information 27).
-
-
-
-
-Birkholz, et al.         Expires August 12, 2017               [Page 13]
-
-Internet-Draft                    CDDL                     February 2017
-
 
    "float"  One of float16, float32, or float64.
 
@@ -769,6 +775,17 @@ Internet-Draft                    CDDL                     February 2017
       ["penintime", 1513, "endocarditis", 4084, "impermeator", 1669,
        "coextension", 865]
 
+
+
+
+
+
+
+Birkholz, et al.       Expires September 14, 2017              [Page 14]
+
+Internet-Draft                    CDDL                        March 2017
+
+
 3.5.  Maps
 
    The syntax for specifying maps merits special attention, as well as a
@@ -776,15 +793,6 @@ Internet-Draft                    CDDL                     February 2017
    focal point of many specifications employing CDDL.  While the syntax
    does not strictly distinguish struct and table usage of maps, it
    caters specifically to each of them.
-
-
-
-
-
-Birkholz, et al.         Expires August 12, 2017               [Page 14]
-
-Internet-Draft                    CDDL                     February 2017
-
 
 3.5.1.  Structs
 
@@ -811,8 +819,9 @@ Internet-Draft                    CDDL                     February 2017
          }
 
    When encoding, the Geography structure is encoded using a CBOR array
-   with two entries, whereas the GpsCoordinates are encoded as a CBOR
-   map with two key-value pairs.
+   with two entries (the keys for the group entries are ignored),
+   whereas the GpsCoordinates are encoded as a CBOR map with two key-
+   value pairs.
 
    Types used in a structure can be defined in separate rules or just in
    place (potentially placed inside parentheses, such as for choices).
@@ -822,6 +831,15 @@ Internet-Draft                    CDDL                     February 2017
                              sample-point: int,
                              samples: [+ float],
                            }
+
+
+
+
+
+
+Birkholz, et al.       Expires September 14, 2017              [Page 15]
+
+Internet-Draft                    CDDL                        March 2017
 
 
    where "located-samples" is the datatype to be used when referring to
@@ -834,14 +852,6 @@ Internet-Draft                    CDDL                     February 2017
 
    If a text string key does not match the syntax for an identifier (or
    if the specifier just happens to prefer using double quotes), the
-
-
-
-Birkholz, et al.         Expires August 12, 2017               [Page 15]
-
-Internet-Draft                    CDDL                     February 2017
-
-
    text string syntax can also be used in the member key position,
    followed by a colon.  The above example could therefore have been
    written with quoted strings in the member key positions.
@@ -881,6 +891,13 @@ Internet-Draft                    CDDL                     February 2017
                             ? familyName: tstr,
                           )
 
+
+
+Birkholz, et al.       Expires September 14, 2017              [Page 16]
+
+Internet-Draft                    CDDL                        March 2017
+
+
    Note that the group definition for NameComponents does not generate
    another map; instead, all four keys are directly in the struct built
    by PersonalData.
@@ -888,15 +905,6 @@ Internet-Draft                    CDDL                     February 2017
    In this example, all key/value pairs are optional from the
    perspective of CDDL.  With no occurrence indicator, an entry is
    mandatory.
-
-
-
-
-
-Birkholz, et al.         Expires August 12, 2017               [Page 16]
-
-Internet-Draft                    CDDL                     February 2017
-
 
    If the addition of more entries not specified by the current
    specification is desired, one can add this possibility explicitly:
@@ -937,6 +945,15 @@ Internet-Draft                    CDDL                     February 2017
    Here, the key in each key/value pair has datatype x (defined as int),
    and the value has datatype y (defined as float).
 
+
+
+
+
+Birkholz, et al.       Expires September 14, 2017              [Page 17]
+
+Internet-Draft                    CDDL                        March 2017
+
+
    If the specification does not need to restrict one of x or y (i.e.,
    the application is free to choose per entry), it can be replaced by
    the predefined name "any".
@@ -944,15 +961,8 @@ Internet-Draft                    CDDL                     February 2017
    As another example, the following could be used as a conversion table
    converting from an integer or float to a string:
 
-                         tostring = {* x => tstr}
-                         x = int / float
-
-
-
-Birkholz, et al.         Expires August 12, 2017               [Page 17]
-
-Internet-Draft                    CDDL                     February 2017
-
+                      tostring = {* mynumber => tstr}
+                      mynumber = int / float
 
 3.6.  Tags
 
@@ -990,6 +1000,16 @@ Internet-Draft                    CDDL                     February 2017
    does not currently support combining multiple annotations on a single
    target.
 
+
+
+
+
+
+Birkholz, et al.       Expires September 14, 2017              [Page 18]
+
+Internet-Draft                    CDDL                        March 2017
+
+
 3.7.1.  Annotation .size
 
    A ".size" annotation controls the size of the target in bytes by the
@@ -1001,16 +1021,6 @@ Internet-Draft                    CDDL                     February 2017
                    label = bstr .size (1..63)
 
                   Figure 6: Annotation for size in bytes
-
-
-
-
-Birkholz, et al.         Expires August 12, 2017               [Page 18]
-
-Internet-Draft                    CDDL                     February 2017
-
-
-   (FIXME: In the CDDL tool, the target must be a byte string for now.)
 
    When applied to an unsigned integer, the ".size" annotation restricts
    the range of that integer by giving a maximum number of bytes that
@@ -1039,7 +1049,22 @@ Internet-Draft                    CDDL                     February 2017
 
    Similarly, a ".bits" annotation on an unsigned integer "i" indicates
    that for all unsigned integers "n" where "(i & (1 << n)) != 0", "n"
-   is in the control type.
+   must be in the control type.
+
+
+
+
+
+
+
+
+
+
+
+Birkholz, et al.       Expires September 14, 2017              [Page 19]
+
+Internet-Draft                    CDDL                        March 2017
+
 
                       tcpflagbytes = bstr .bits flags
                       flags = &(
@@ -1058,13 +1083,6 @@ Internet-Draft                    CDDL                     February 2017
                       rwx = &(r: 2, w: 1, x: 0)
 
                Figure 8: Annotation for what bits can be set
-
-
-
-Birkholz, et al.         Expires August 12, 2017               [Page 19]
-
-Internet-Draft                    CDDL                     February 2017
-
 
    The CDDL tool generates the following ten example instances for
    "tcpflagbytes":
@@ -1093,6 +1111,17 @@ Internet-Draft                    CDDL                     February 2017
 
                        "N1@CH57HF.4Znqe0.dYJRN.igjf"
 
+
+
+
+
+
+
+Birkholz, et al.       Expires September 14, 2017              [Page 20]
+
+Internet-Draft                    CDDL                        March 2017
+
+
 3.7.4.  Annotations .cbor and .cborseq
 
    A ".cbor" annotation on a byte string indicates that the byte string
@@ -1115,13 +1144,6 @@ Internet-Draft                    CDDL                     February 2017
    and 0xff and decoding the wrapped byte string as a CBOR encoded data
    item.)
 
-
-
-Birkholz, et al.         Expires August 12, 2017               [Page 20]
-
-Internet-Draft                    CDDL                     February 2017
-
-
 3.7.5.  Annotations .within and .and
 
    A ".and" annotation on a type indicates that the data item matches
@@ -1141,6 +1163,20 @@ Internet-Draft                    CDDL                     February 2017
    the intention of the ".within" form is that the right hand side gives
    guidance to the types allowed on the left hand side, which typically
    is a socket (Section 3.8):
+
+
+
+
+
+
+
+
+
+
+Birkholz, et al.       Expires September 14, 2017              [Page 21]
+
+Internet-Draft                    CDDL                        March 2017
+
 
    message = $message .within message-structure
    message-structure = [message_type, *message_option]
@@ -1170,14 +1206,6 @@ Internet-Draft                    CDDL                     February 2017
    expresses an additional intent: the value specified by the right-
    hand-side type is intended as a default value for the left hand side
    type given, and the implied .ne annotation is there to prevent this
-
-
-
-Birkholz, et al.         Expires August 12, 2017               [Page 21]
-
-Internet-Draft                    CDDL                     February 2017
-
-
    value from being sent over the wire.  This annotation is only
    meaningful when the annotated type is used in an optional context;
    otherwise there would be no way to express the default value.
@@ -1197,6 +1225,15 @@ Internet-Draft                    CDDL                     February 2017
    Per convention, CDDL extension points are marked with a leading
    dollar sign (types) or two leading dollar signs (groups).  Tools
    honor that convention by not raising an error if such a type or group
+
+
+
+
+Birkholz, et al.       Expires September 14, 2017              [Page 22]
+
+Internet-Draft                    CDDL                        March 2017
+
+
    is not defined at all; the symbol is then taken to be an empty type
    choice (group choice), i.e., no choice is available.
 
@@ -1219,8 +1256,8 @@ Internet-Draft                    CDDL                     February 2017
    definition for a socket at all; this then means there is no way to
    satisfy the rule (i.e., the choice is empty).
 
-   All definitions (plugs) for socket names must be augments, i.e., they
-   must be using "/=" and "//=", respectively.
+   All definitions (plugs) for socket names must be augmentations, i.e.,
+   they must be using "/=" and "//=", respectively.
 
    To pick up the example illustrated in Figure 5, the socket/plug
    mechanism could be used as shown in Figure 10:
@@ -1229,9 +1266,28 @@ Internet-Draft                    CDDL                     February 2017
 
 
 
-Birkholz, et al.         Expires August 12, 2017               [Page 22]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Birkholz, et al.       Expires September 14, 2017              [Page 23]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
                      PersonalData = {
@@ -1285,9 +1341,9 @@ Internet-Draft                    CDDL                     February 2017
 
 
 
-Birkholz, et al.         Expires August 12, 2017               [Page 23]
+Birkholz, et al.       Expires September 14, 2017              [Page 24]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
    t = {group2}
@@ -1341,9 +1397,9 @@ Internet-Draft                    CDDL                     February 2017
 
 
 
-Birkholz, et al.         Expires August 12, 2017               [Page 24]
+Birkholz, et al.       Expires September 14, 2017              [Page 25]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
            +----------+----+---------------------------+------+
@@ -1374,312 +1430,32 @@ Internet-Draft                    CDDL                     February 2017
    This section contains various examples of structures defined using
    CDDL.
 
-4.1.  Moves in a computer game
+4.1.  Fruit
 
-   A multiplayer computer game uses CBOR to exchange moves between the
-   players.  To ensure a good gaming experience, the move information
-   needs to be exchanged quickly and frequently.  Therefore, the game
-   uses CBOR to send its information in a compact format.  Figure 11
-   shows definition of the CBOR information exchange format.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Birkholz, et al.         Expires August 12, 2017               [Page 25]
-
-Internet-Draft                    CDDL                     February 2017
-
-
-    UpdateMsg = [* {
-      move_no        : uint,                  ; increases for each move
-      player_info    : PlayerInfo,            ; general information
-      moves          : Moves,                ; moves in this message
-    }]
-
-    PlayerInfo = {
-      alias          : tstr,
-      player_id      : uint,
-      experience     : uint,                  ; beginner: 0; expert: 3
-      gold           : uint,
-      supplies       : Supplies,
-      avg_strength   : float16,
-    }
-
-    Supplies = {
-      wood  => uint
-      iron  => uint
-      grain  => uint
-    }
-
-    wood = 0
-    iron = 1
-    grain = 2
-
-    Moves = [* Move]
-
-    Move = (
-      unit_id        : uint,
-      unit_strength  : uint,               ; between 0 and 100
-      2*2 source_pos : uint,               ; (x,y)
-      2*2 target_pos : uint,               ; (x,y)
-    )
-
-    Figure 11: CDDL definition of an information exchange format for a
-                               computer game
-
-   The CDDL tool generates this as a possible instance:
-
-
-
-
-
-
-
-
-
-
-
-
-
-Birkholz, et al.         Expires August 12, 2017               [Page 26]
-
-Internet-Draft                    CDDL                     February 2017
-
-
-     [{"move_no": 3985, "player_info":
-       {"alias": "timbrologist", "player_id": 699, "experience": 2699,
-        "gold": 328, "supplies": {0: 1768, 1: 3087, 2: 1401},
-        "avg_strength": 0.9712613869888417},
-       "moves": [[1702, 458, 38, 399, 327, 304],
-                 [3145, 4454, 1175, 3441, 74, 1542],
-                 [4099, 4062, 2808, 8, 3174, 3048],
-                 [367, 3649, 756, 3644, 3725, 2769]]},
-      {"move_no": 199, "player_info":
-       {"alias": "cipo", "player_id": 4309, "experience": 4094,
-        "gold": 4114, "supplies": {0: 873, 1: 4706, 2: 1733},
-        "avg_strength": 0.37808379403466696},
-       "moves": [[1977, 3129, 3890, 4000, 1555, 377],
-                 [2646, 286, 3363, 4381, 3815, 1039]]},
-      {"move_no": 2226, "player_info":
-       {"alias": "Stacey", "player_id": 1055, "experience": 207,
-        "gold": 285, "supplies": {0: 3325, 1: 1515, 2: 3304},
-        "avg_strength": 0.8590028130444863},
-       "moves": [[869, 4126, 2382, 3155, 1523, 2621]]}]
-
-   Notice that the supplies have been encoded as a map with integer
-   keys.  In this example, using string keys would also have been
-   suitable; the example just illustrates the possibility to use other
-   datatypes for keys, leading to more efficient encoding.
-
-   The tool-generated binary CBOR for the instance about cannot express
-   yet that the floating point values are 16-bit:
-
-   83                                   # array(3)
-      a3                                # map(3)
-         67                             # text(7)
-            6d6f76655f6e6f              # "move_no"
-         19 0f91                        # unsigned(3985)
-         6b                             # text(11)
-            706c617965725f696e666f      # "player_info"
-         a6                             # map(6)
-            65                          # text(5)
-               616c696173               # "alias"
-            6c                          # text(12)
-               74696d62726f6c6f67697374 # "timbrologist"
-            69                          # text(9)
-               706c617965725f6964       # "player_id"
-            19 02bb                     # unsigned(699)
-            6a                          # text(10)
-               657870657269656e6365     # "experience"
-            19 0a8b                     # unsigned(2699)
-            64                          # text(4)
-               676f6c64                 # "gold"
-
-
-
-Birkholz, et al.         Expires August 12, 2017               [Page 27]
-
-Internet-Draft                    CDDL                     February 2017
-
-
-            19 0148                     # unsigned(328)
-            68                          # text(8)
-               737570706c696573         # "supplies"
-            a3                          # map(3)
-               00                       # unsigned(0)
-               19 06e8                  # unsigned(1768)
-               01                       # unsigned(1)
-               19 0c0f                  # unsigned(3087)
-               02                       # unsigned(2)
-               19 0579                  # unsigned(1401)
-            6c                          # text(12)
-               6176675f737472656e677468 # "avg_strength"
-            fb 3fef1492c29f8275         # primitive(4606923564386321013)
-         65                             # text(5)
-            6d6f766573                  # "moves"
-         84                             # array(4)
-            86                          # array(6)
-               19 06a6                  # unsigned(1702)
-               19 01ca                  # unsigned(458)
-               18 26                    # unsigned(38)
-               19 018f                  # unsigned(399)
-               19 0147                  # unsigned(327)
-               19 0130                  # unsigned(304)
-            86                          # array(6)
-               19 0c49                  # unsigned(3145)
-               19 1166                  # unsigned(4454)
-               19 0497                  # unsigned(1175)
-               19 0d71                  # unsigned(3441)
-               18 4a                    # unsigned(74)
-               19 0606                  # unsigned(1542)
-            86                          # array(6)
-               19 1003                  # unsigned(4099)
-               19 0fde                  # unsigned(4062)
-               19 0af8                  # unsigned(2808)
-               08                       # unsigned(8)
-               19 0c66                  # unsigned(3174)
-               19 0be8                  # unsigned(3048)
-            86                          # array(6)
-               19 016f                  # unsigned(367)
-               19 0e41                  # unsigned(3649)
-               19 02f4                  # unsigned(756)
-               19 0e3c                  # unsigned(3644)
-               19 0e8d                  # unsigned(3725)
-               19 0ad1                  # unsigned(2769)
-      a3                                # map(3)
-         67                             # text(7)
-            6d6f76655f6e6f              # "move_no"
-         18 c7                          # unsigned(199)
-
-
-
-Birkholz, et al.         Expires August 12, 2017               [Page 28]
-
-Internet-Draft                    CDDL                     February 2017
-
-
-         6b                             # text(11)
-            706c617965725f696e666f      # "player_info"
-         a6                             # map(6)
-            65                          # text(5)
-               616c696173               # "alias"
-            64                          # text(4)
-               6369706f                 # "cipo"
-            69                          # text(9)
-               706c617965725f6964       # "player_id"
-            19 10d5                     # unsigned(4309)
-            6a                          # text(10)
-               657870657269656e6365     # "experience"
-            19 0ffe                     # unsigned(4094)
-            64                          # text(4)
-               676f6c64                 # "gold"
-            19 1012                     # unsigned(4114)
-            68                          # text(8)
-               737570706c696573         # "supplies"
-            a3                          # map(3)
-               00                       # unsigned(0)
-               19 0369                  # unsigned(873)
-               01                       # unsigned(1)
-               19 1262                  # unsigned(4706)
-               02                       # unsigned(2)
-               19 06c5                  # unsigned(1733)
-            6c                          # text(12)
-               6176675f737472656e677468 # "avg_strength"
-            fb 3fd832865ea1b216         # primitive(4600482572053623318)
-         65                             # text(5)
-            6d6f766573                  # "moves"
-         82                             # array(2)
-            86                          # array(6)
-               19 07b9                  # unsigned(1977)
-               19 0c39                  # unsigned(3129)
-               19 0f32                  # unsigned(3890)
-               19 0fa0                  # unsigned(4000)
-               19 0613                  # unsigned(1555)
-               19 0179                  # unsigned(377)
-            86                          # array(6)
-               19 0a56                  # unsigned(2646)
-               19 011e                  # unsigned(286)
-               19 0d23                  # unsigned(3363)
-               19 111d                  # unsigned(4381)
-               19 0ee7                  # unsigned(3815)
-               19 040f                  # unsigned(1039)
-      a3                                # map(3)
-         67                             # text(7)
-            6d6f76655f6e6f              # "move_no"
-
-
-
-Birkholz, et al.         Expires August 12, 2017               [Page 29]
-
-Internet-Draft                    CDDL                     February 2017
-
-
-         19 08b2                        # unsigned(2226)
-         6b                             # text(11)
-            706c617965725f696e666f      # "player_info"
-         a6                             # map(6)
-            65                          # text(5)
-               616c696173               # "alias"
-            66                          # text(6)
-               537461636579             # "Stacey"
-            69                          # text(9)
-               706c617965725f6964       # "player_id"
-            19 041f                     # unsigned(1055)
-            6a                          # text(10)
-               657870657269656e6365     # "experience"
-            18 cf                       # unsigned(207)
-            64                          # text(4)
-               676f6c64                 # "gold"
-            19 011d                     # unsigned(285)
-            68                          # text(8)
-               737570706c696573         # "supplies"
-            a3                          # map(3)
-               00                       # unsigned(0)
-               19 0cfd                  # unsigned(3325)
-               01                       # unsigned(1)
-               19 05eb                  # unsigned(1515)
-               02                       # unsigned(2)
-               19 0ce8                  # unsigned(3304)
-            6c                          # text(12)
-               6176675f737472656e677468 # "avg_strength"
-            fb 3feb7cf377a65699         # primitive(4605912429042751129)
-         65                             # text(5)
-            6d6f766573                  # "moves"
-         81                             # array(1)
-            86                          # array(6)
-               19 0365                  # unsigned(869)
-               19 101e                  # unsigned(4126)
-               19 094e                  # unsigned(2382)
-               19 0c53                  # unsigned(3155)
-               19 05f3                  # unsigned(1523)
-               19 0a3d                  # unsigned(2621)
-
-                 Figure 12: CBOR instance for game example
-
-4.2.  Fruit
-
-   Figure 13 contains an example for a CBOR structure that contains
+   Figure 11 contains an example for a CBOR structure that contains
    information about fruit.
 
 
 
 
 
-Birkholz, et al.         Expires August 12, 2017               [Page 30]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Birkholz, et al.       Expires September 14, 2017              [Page 26]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
     fruitlist = [* Fruit]
@@ -1706,9 +1482,9 @@ Internet-Draft                    CDDL                     February 2017
       blue: 4,  magenta: 5,  cyan: 6,  white: 7,
     )
 
-                     Figure 13: Example CBOR structure
+                     Figure 11: Example CBOR structure
 
-4.3.  RFC 7071
+4.2.  RFC 7071
 
    [RFC7071] defines the Reputon structure for JSON using somewhat
    formalized English text.  Here is a (somewhat verbose) equivalent
@@ -1733,9 +1509,9 @@ Internet-Draft                    CDDL                     February 2017
 
 
 
-Birkholz, et al.         Expires August 12, 2017               [Page 31]
+Birkholz, et al.       Expires September 14, 2017              [Page 27]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
                  reputation-object = {
@@ -1789,9 +1565,9 @@ Internet-Draft                    CDDL                     February 2017
 
 
 
-Birkholz, et al.         Expires August 12, 2017               [Page 32]
+Birkholz, et al.       Expires September 14, 2017              [Page 28]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
                         reputation-object = {
@@ -1845,9 +1621,9 @@ Internet-Draft                    CDDL                     February 2017
 
 
 
-Birkholz, et al.         Expires August 12, 2017               [Page 33]
+Birkholz, et al.       Expires September 14, 2017              [Page 29]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
                 {
@@ -1901,12 +1677,12 @@ Internet-Draft                    CDDL                     February 2017
 
 
 
-Birkholz, et al.         Expires August 12, 2017               [Page 34]
+Birkholz, et al.       Expires September 14, 2017              [Page 30]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
-4.4.  Examples from JSON Content Rules
+4.3.  Examples from JSON Content Rules
 
    Although JSON Content Rules [I-D.newton-json-content-rules] seems to
    address a more general problem than CDDL, it is still a worthwhile
@@ -1927,7 +1703,7 @@ Internet-Draft                    CDDL                     February 2017
                               Country: text
                             }]
 
-                     Figure 14: JCR, Figure 2, in CDDL
+                     Figure 12: JCR, Figure 2, in CDDL
 
    Apart from the lack of a need to quote the member names, text strings
    are called "text" or "tstr" in CDDL ("string" would be ambiguous as
@@ -1957,9 +1733,9 @@ Internet-Draft                    CDDL                     February 2017
 
 
 
-Birkholz, et al.         Expires August 12, 2017               [Page 35]
+Birkholz, et al.       Expires September 14, 2017              [Page 31]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
                              root = { image }
@@ -2013,9 +1789,9 @@ Internet-Draft                    CDDL                     February 2017
 
 
 
-Birkholz, et al.         Expires August 12, 2017               [Page 36]
+Birkholz, et al.       Expires September 14, 2017              [Page 32]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
 5.  Making Use of CDDL
@@ -2069,9 +1845,9 @@ Internet-Draft                    CDDL                     February 2017
 
 
 
-Birkholz, et al.         Expires August 12, 2017               [Page 37]
+Birkholz, et al.       Expires September 14, 2017              [Page 33]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
    Since CBOR is designed with constrained devices in mind, a likely use
@@ -2106,8 +1882,8 @@ Internet-Draft                    CDDL                     February 2017
    from Andrew Lee Newton's "JSON Content Rules"
    [I-D.newton-json-content-rules].
 
-   Useful feedback came from Carsten Bormann, Joe Hildebrand, Sean
-   Leonard and Jim Schaad.
+   Useful feedback came from Joe Hildebrand, Sean Leonard and Jim
+   Schaad.
 
    The CDDL tool was written by Carsten Bormann, building on previous
    work by Troy Heninger and Tom Lord.
@@ -2125,9 +1901,9 @@ Internet-Draft                    CDDL                     February 2017
 
 
 
-Birkholz, et al.         Expires August 12, 2017               [Page 38]
+Birkholz, et al.       Expires September 14, 2017              [Page 34]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
    [RFC3629]  Yergeau, F., "UTF-8, a transformation format of ISO
@@ -2167,7 +1943,8 @@ Internet-Draft                    CDDL                     February 2017
 
 Appendix A.  Cemetery
 
-   The following ideas are buried for now:
+   The following ideas have been buried in the discussions leading up to
+   the present specification:
 
    o  <...> as syntax for enumerations.  We view values to be just
       another type (a very specific type with just one member), so that
@@ -2180,10 +1957,9 @@ Appendix A.  Cemetery
 
 
 
-
-Birkholz, et al.         Expires August 12, 2017               [Page 39]
+Birkholz, et al.       Expires September 14, 2017              [Page 35]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
 A.1.  Resolved Issues
@@ -2237,9 +2013,9 @@ Appendix C.  Change Log
 
 
 
-Birkholz, et al.         Expires August 12, 2017               [Page 40]
+Birkholz, et al.       Expires September 14, 2017              [Page 36]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
    o  Added examples
@@ -2293,9 +2069,9 @@ Internet-Draft                    CDDL                     February 2017
 
 
 
-Birkholz, et al.         Expires August 12, 2017               [Page 41]
+Birkholz, et al.       Expires September 14, 2017              [Page 37]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
    Changes from version 05 to version 05:
@@ -2349,10 +2125,19 @@ Internet-Draft                    CDDL                     February 2017
 
 
 
-Birkholz, et al.         Expires August 12, 2017               [Page 42]
+Birkholz, et al.       Expires September 14, 2017              [Page 38]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
+
+   Changes from 09 to 10:
+
+   o  Remove a long but not very elucidating example.  (Maybe we'll add
+      back some shorter examples later.)
+
+   o  A few clarifications.
+
+   o  Updated author list.
 
 Appendix D.  ABNF grammar
 
@@ -2394,6 +2179,13 @@ Appendix D.  ABNF grammar
 
    grpchoice = *grpent
 
+
+
+Birkholz, et al.       Expires September 14, 2017              [Page 39]
+
+Internet-Draft                    CDDL                        March 2017
+
+
    grpent = [occur S] [memberkey S] type optcom
           / [occur S] groupname [genericarg] optcom ; preempted by above
           / [occur S] "(" S group S ")" optcom
@@ -2401,14 +2193,6 @@ Appendix D.  ABNF grammar
    memberkey = type1 S "=>"
              / bareword S ":"
              / value S ":"
-
-
-
-
-Birkholz, et al.         Expires August 12, 2017               [Page 43]
-
-Internet-Draft                    CDDL                     February 2017
-
 
    bareword = id
 
@@ -2450,21 +2234,20 @@ Internet-Draft                    CDDL                     February 2017
    WS = SP / NL
    SP = %x20
    NL = COMMENT / CRLF
+
+
+
+Birkholz, et al.       Expires September 14, 2017              [Page 40]
+
+Internet-Draft                    CDDL                        March 2017
+
+
    COMMENT = ";" *(SP / VCHAR) CRLF
    VCHAR = %x21-7E
    CRLF = %x0A / %x0D.0A
 
 
-                           Figure 15: CDDL ABNF
-
-
-
-
-
-Birkholz, et al.         Expires August 12, 2017               [Page 44]
-
-Internet-Draft                    CDDL                     February 2017
-
+                           Figure 13: CDDL ABNF
 
 Appendix E.  Standard Prelude
 
@@ -2510,16 +2293,9 @@ Appendix E.  Standard Prelude
 
 
 
-
-
-
-
-
-
-
-Birkholz, et al.         Expires August 12, 2017               [Page 45]
+Birkholz, et al.       Expires September 14, 2017              [Page 41]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
                   any = #
@@ -2569,13 +2345,13 @@ Internet-Draft                    CDDL                     February 2017
                   undefined = #7.23
 
 
-                          Figure 16: CDDL Prelude
+                          Figure 14: CDDL Prelude
 
 
 
-Birkholz, et al.         Expires August 12, 2017               [Page 46]
+Birkholz, et al.       Expires September 14, 2017              [Page 42]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
    Note that the prelude is deemed to be fixed.  This means, for
@@ -2600,13 +2376,13 @@ Appendix F.  The CDDL tool
                    cddl spec.cddl validate instance.cbor
                    cddl spec.cddl validate instance.json
 
-                        Figure 17: CDDL tool usage
+                        Figure 15: CDDL tool usage
 
    Install on a system with a modern Ruby via:
 
                              gem install cddl
 
-                                 Figure 18
+                                 Figure 16
 
    The accompanying CBOR diagnostic tools (which are automatically
    installed by the above) are described in https://github.com/cabo/
@@ -2629,9 +2405,9 @@ Appendix G.  Extended Diagnostic Notation
 
 
 
-Birkholz, et al.         Expires August 12, 2017               [Page 47]
+Birkholz, et al.       Expires September 14, 2017              [Page 43]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
    This section discusses a few extensions to the diagnostic notation
@@ -2685,9 +2461,9 @@ G.3.  Concatenated Strings
 
 
 
-Birkholz, et al.         Expires August 12, 2017               [Page 48]
+Birkholz, et al.       Expires September 14, 2017              [Page 44]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
    characters that may be better represented in an encoded way.  The
@@ -2741,9 +2517,9 @@ G.5.  Comments
 
 
 
-Birkholz, et al.         Expires August 12, 2017               [Page 49]
+Birkholz, et al.       Expires September 14, 2017              [Page 45]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
    In extended diagnostic notation, comments can be included, delimited
@@ -2797,9 +2573,9 @@ Editorial Comments
 
 
 
-Birkholz, et al.         Expires August 12, 2017               [Page 50]
+Birkholz, et al.       Expires September 14, 2017              [Page 46]
 
-Internet-Draft                    CDDL                     February 2017
+Internet-Draft                    CDDL                        March 2017
 
 
 [_abnftodo] TO DO: This doesn't allow non-ASCII characters in the text
@@ -2853,4 +2629,4 @@ Authors' Addresses
 
 
 
-Birkholz, et al.         Expires August 12, 2017               [Page 51]
+Birkholz, et al.       Expires September 14, 2017              [Page 47]
