@@ -1,7 +1,7 @@
 ---
 stand_alone: true
 ipr: trust200902
-docname: draft-birkholz-cbor-cddl-latest
+docname: draft-greevenbosch-appsawg-cbor-cddl-latest
 cat: info
 pi:
   toc: 'yes'
@@ -14,7 +14,7 @@ title: >
 abbrev: CDDL
 area: Applications
 wg: ''
-date: 2017-02-08
+date: 2017-03-13
 author:
 - ins: H. Birkholz
   name: Henk Birkholz
