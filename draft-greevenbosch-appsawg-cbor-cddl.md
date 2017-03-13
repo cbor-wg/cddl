@@ -391,7 +391,7 @@ lat: float, long: float, drone-type: tstr
 ~~~~
 {:cddl}
 
-It is not a mistake if a name is first used with a "/=" or "//="
+It is not an error if a name is first used with a "/=" or "//="
 (there is no need to "create it" with "=").
 
 #### Ranges
@@ -479,7 +479,12 @@ structures, decomposing a big data structure unit into smaller parts;
 however, except for the root type, there is no need to strictly follow
 this sequence.
 
-
+(Note that there is no way to use a group as a root -- it must be a
+type.
+Using a group as the root might be employed as a way to specify a CBOR
+sequence in a future version of this specification; this would act as
+if that group is used in an array and the data items in that fictional
+array form the members of the CBOR sequence.)
 
 # Syntax {#syntax}
 
@@ -526,7 +531,11 @@ The basic syntax is inspired by ABNF {{RFC5234}}, with
 
 *   Text strings are enclosed by double quotation '"' characters.
 They follow the conventions for strings as defined in section 7 of {{RFC7159}}.
-Byte strings are enclosed by single quotation "'" characters and may
+(ABNF users may want to note that there is no support in CDDL for the
+concept of case insensitivity in text strings; if necessary, regular
+expressions can be used ({{regexp}}).)
+
+*    Byte strings are enclosed by single quotation "'" characters and may
 be prefixed by "h" or "b64".  If unprefixed, the string is interpreted
 as with a text string, except that single quotes must be escaped and
 that the UTF-8 bytes resulting are marked as a byte string (major type
@@ -537,7 +546,9 @@ diagnostic notation in section 6 of {{RFC7049}}; cf. {{textbin}}); any white spa
 present within the string (including comments) is ignored in the prefixed case.
 [^_strings]
 
+
 [^_strings]: TO DO: This still needs to be fully realized in the ABNF and in the CDDL tool.
+
 
 *   CDDL uses UTF-8 {{RFC3629}} for its encoding.
 
@@ -549,7 +560,7 @@ person = { g }
 
 g = (
   "name": tstr,
-  age: int,
+  age: int,  ; "age" is a bareword
 )
 ~~~~
 {:cddl}
@@ -708,7 +719,7 @@ GpsCoordinates = {
 {:cddl}
 
 When encoding, the Geography structure is encoded using a CBOR array
-with two entries,
+with two entries (the keys for the group entries are ignored),
 whereas the GpsCoordinates are encoded as a CBOR map with two
 key-value pairs.
 
@@ -841,8 +852,8 @@ the following could be used as a conversion table converting from an integer
 or float to a string:
 
 ~~~~ CDDL
-tostring = {* x => tstr}
-x = int / float
+tostring = {* mynumber => tstr}
+mynumber = int / float
 ~~~~
 {:cddl}
 
@@ -906,8 +917,6 @@ label = bstr .size (1..63)
 ~~~~
 {:cddl #annotate-size title="Annotation for size in bytes"}
 
-(FIXME: In the CDDL tool, the target must be a byte string for now.)
-
 When applied to an unsigned integer, the `.size` annotation restricts
 the range of that integer by giving a maximum number of bytes that
 should be needed in a computer representation of that unsigned integer.
@@ -934,8 +943,8 @@ allowed to be set.  (Bits are counted the usual way, bit number `n`
 being set in `str` meaning that `(str[n >> 3] & (1 << (n & 7))) != 0`.)[^_bitsendian]
 
 Similarly, a `.bits` annotation on an unsigned integer `i` indicates
-that for all unsigned integers `n` where `(i & (1 << n)) != 0`, `n` is
-in the control type.
+that for all unsigned integers `n` where `(i & (1 << n)) != 0`, `n`
+must be in the control type.
 
 ~~~~ CDDL
 tcpflagbytes = bstr .bits flags
@@ -973,7 +982,7 @@ as well.
         counts bits like in RFC box notation?  (Or at least per-byte?
         32-bit words don't always perfectly mesh with byte strings.)
 
-### Annotation .regexp
+### Annotation .regexp {#regexp}
 
 A `.regexp` annotation indicates that the text string given as a
 target needs to match the PCRE regular expression given as a value in the
@@ -1115,7 +1124,7 @@ double "$$" are "group sockets".  It is not an error if there is no
 definition for a socket at all; this then means there is no way to
 satisfy the rule (i.e., the choice is empty).
 
-All definitions (plugs) for socket names must be augments, i.e., they
+All definitions (plugs) for socket names must be augmentations, i.e., they
 must be using "/=" and "//=", respectively.
 
 To pick up the example illustrated in {{xmp-personaldata}}, the
@@ -1245,246 +1254,6 @@ for unary prefix operators and 2 for binary infix operators.)
 # Examples {#examples}
 
 This section contains various examples of structures defined using CDDL.
-
-## Moves in a computer game
-
-A multiplayer computer game uses CBOR to exchange moves between the players.
-To ensure a good gaming experience,
-the move information needs to be exchanged quickly and frequently.
-Therefore,
-the game uses CBOR to send its information in a compact format. {{ComputerGameDef}} shows definition of the CBOR information exchange format.
-
-~~~~ CDDL
-UpdateMsg = [* {
-  move_no        : uint,                  ; increases for each move
-  player_info    : PlayerInfo,            ; general information
-  moves          : Moves,                ; moves in this message
-}]
-
-PlayerInfo = {
-  alias          : tstr,
-  player_id      : uint,
-  experience     : uint,                  ; beginner: 0; expert: 3
-  gold           : uint,
-  supplies       : Supplies,
-  avg_strength   : float16,
-}
-
-Supplies = {
-  wood  => uint
-  iron  => uint
-  grain  => uint
-}
-
-wood = 0
-iron = 1
-grain = 2
-
-Moves = [* Move]
-
-Move = (
-  unit_id        : uint,
-  unit_strength  : uint,               ; between 0 and 100
-  2*2 source_pos : uint,               ; (x,y)
-  2*2 target_pos : uint,               ; (x,y)
-)
-~~~~
-{:cddl #ComputerGameDef title='CDDL definition of an information exchange format for a computer game' artwork-align="center"}
-
-The CDDL tool generates this as a possible instance:
-
-~~~~ CBORdiag
-[{"move_no": 3985, "player_info":
-  {"alias": "timbrologist", "player_id": 699, "experience": 2699,
-   "gold": 328, "supplies": {0: 1768, 1: 3087, 2: 1401},
-   "avg_strength": 0.9712613869888417},
-  "moves": [[1702, 458, 38, 399, 327, 304],
-            [3145, 4454, 1175, 3441, 74, 1542],
-            [4099, 4062, 2808, 8, 3174, 3048],
-            [367, 3649, 756, 3644, 3725, 2769]]},
- {"move_no": 199, "player_info":
-  {"alias": "cipo", "player_id": 4309, "experience": 4094,
-   "gold": 4114, "supplies": {0: 873, 1: 4706, 2: 1733},
-   "avg_strength": 0.37808379403466696},
-  "moves": [[1977, 3129, 3890, 4000, 1555, 377],
-            [2646, 286, 3363, 4381, 3815, 1039]]},
- {"move_no": 2226, "player_info":
-  {"alias": "Stacey", "player_id": 1055, "experience": 207,
-   "gold": 285, "supplies": {0: 3325, 1: 1515, 2: 3304},
-   "avg_strength": 0.8590028130444863},
-  "moves": [[869, 4126, 2382, 3155, 1523, 2621]]}]
-~~~~
-{:cddl}
-
-Notice that the supplies have been encoded as a map with integer keys.
-In this example, using string keys would also have been suitable; the
-example just illustrates the possibility to use other datatypes for
-keys, leading to more efficient encoding.
-
-The tool-generated binary CBOR for the instance about cannot express yet
-that the floating point values are 16-bit:
-
-~~~~ CBORpretty
-83                                   # array(3)
-   a3                                # map(3)
-      67                             # text(7)
-         6d6f76655f6e6f              # "move_no"
-      19 0f91                        # unsigned(3985)
-      6b                             # text(11)
-         706c617965725f696e666f      # "player_info"
-      a6                             # map(6)
-         65                          # text(5)
-            616c696173               # "alias"
-         6c                          # text(12)
-            74696d62726f6c6f67697374 # "timbrologist"
-         69                          # text(9)
-            706c617965725f6964       # "player_id"
-         19 02bb                     # unsigned(699)
-         6a                          # text(10)
-            657870657269656e6365     # "experience"
-         19 0a8b                     # unsigned(2699)
-         64                          # text(4)
-            676f6c64                 # "gold"
-         19 0148                     # unsigned(328)
-         68                          # text(8)
-            737570706c696573         # "supplies"
-         a3                          # map(3)
-            00                       # unsigned(0)
-            19 06e8                  # unsigned(1768)
-            01                       # unsigned(1)
-            19 0c0f                  # unsigned(3087)
-            02                       # unsigned(2)
-            19 0579                  # unsigned(1401)
-         6c                          # text(12)
-            6176675f737472656e677468 # "avg_strength"
-         fb 3fef1492c29f8275         # primitive(4606923564386321013)
-      65                             # text(5)
-         6d6f766573                  # "moves"
-      84                             # array(4)
-         86                          # array(6)
-            19 06a6                  # unsigned(1702)
-            19 01ca                  # unsigned(458)
-            18 26                    # unsigned(38)
-            19 018f                  # unsigned(399)
-            19 0147                  # unsigned(327)
-            19 0130                  # unsigned(304)
-         86                          # array(6)
-            19 0c49                  # unsigned(3145)
-            19 1166                  # unsigned(4454)
-            19 0497                  # unsigned(1175)
-            19 0d71                  # unsigned(3441)
-            18 4a                    # unsigned(74)
-            19 0606                  # unsigned(1542)
-         86                          # array(6)
-            19 1003                  # unsigned(4099)
-            19 0fde                  # unsigned(4062)
-            19 0af8                  # unsigned(2808)
-            08                       # unsigned(8)
-            19 0c66                  # unsigned(3174)
-            19 0be8                  # unsigned(3048)
-         86                          # array(6)
-            19 016f                  # unsigned(367)
-            19 0e41                  # unsigned(3649)
-            19 02f4                  # unsigned(756)
-            19 0e3c                  # unsigned(3644)
-            19 0e8d                  # unsigned(3725)
-            19 0ad1                  # unsigned(2769)
-   a3                                # map(3)
-      67                             # text(7)
-         6d6f76655f6e6f              # "move_no"
-      18 c7                          # unsigned(199)
-      6b                             # text(11)
-         706c617965725f696e666f      # "player_info"
-      a6                             # map(6)
-         65                          # text(5)
-            616c696173               # "alias"
-         64                          # text(4)
-            6369706f                 # "cipo"
-         69                          # text(9)
-            706c617965725f6964       # "player_id"
-         19 10d5                     # unsigned(4309)
-         6a                          # text(10)
-            657870657269656e6365     # "experience"
-         19 0ffe                     # unsigned(4094)
-         64                          # text(4)
-            676f6c64                 # "gold"
-         19 1012                     # unsigned(4114)
-         68                          # text(8)
-            737570706c696573         # "supplies"
-         a3                          # map(3)
-            00                       # unsigned(0)
-            19 0369                  # unsigned(873)
-            01                       # unsigned(1)
-            19 1262                  # unsigned(4706)
-            02                       # unsigned(2)
-            19 06c5                  # unsigned(1733)
-         6c                          # text(12)
-            6176675f737472656e677468 # "avg_strength"
-         fb 3fd832865ea1b216         # primitive(4600482572053623318)
-      65                             # text(5)
-         6d6f766573                  # "moves"
-      82                             # array(2)
-         86                          # array(6)
-            19 07b9                  # unsigned(1977)
-            19 0c39                  # unsigned(3129)
-            19 0f32                  # unsigned(3890)
-            19 0fa0                  # unsigned(4000)
-            19 0613                  # unsigned(1555)
-            19 0179                  # unsigned(377)
-         86                          # array(6)
-            19 0a56                  # unsigned(2646)
-            19 011e                  # unsigned(286)
-            19 0d23                  # unsigned(3363)
-            19 111d                  # unsigned(4381)
-            19 0ee7                  # unsigned(3815)
-            19 040f                  # unsigned(1039)
-   a3                                # map(3)
-      67                             # text(7)
-         6d6f76655f6e6f              # "move_no"
-      19 08b2                        # unsigned(2226)
-      6b                             # text(11)
-         706c617965725f696e666f      # "player_info"
-      a6                             # map(6)
-         65                          # text(5)
-            616c696173               # "alias"
-         66                          # text(6)
-            537461636579             # "Stacey"
-         69                          # text(9)
-            706c617965725f6964       # "player_id"
-         19 041f                     # unsigned(1055)
-         6a                          # text(10)
-            657870657269656e6365     # "experience"
-         18 cf                       # unsigned(207)
-         64                          # text(4)
-            676f6c64                 # "gold"
-         19 011d                     # unsigned(285)
-         68                          # text(8)
-            737570706c696573         # "supplies"
-         a3                          # map(3)
-            00                       # unsigned(0)
-            19 0cfd                  # unsigned(3325)
-            01                       # unsigned(1)
-            19 05eb                  # unsigned(1515)
-            02                       # unsigned(2)
-            19 0ce8                  # unsigned(3304)
-         6c                          # text(12)
-            6176675f737472656e677468 # "avg_strength"
-         fb 3feb7cf377a65699         # primitive(4605912429042751129)
-      65                             # text(5)
-         6d6f766573                  # "moves"
-      81                             # array(1)
-         86                          # array(6)
-            19 0365                  # unsigned(869)
-            19 101e                  # unsigned(4126)
-            19 094e                  # unsigned(2382)
-            19 0c53                  # unsigned(3155)
-            19 05f3                  # unsigned(1523)
-            19 0a3d                  # unsigned(2621)
-~~~~
-{:cddl}
-{: #ComputerGameInst title='CBOR instance for game example' artwork-align="center"}
-
-
 
 ## Fruit
 
@@ -1812,7 +1581,8 @@ An interesting use would thus be automated analysis of sensor data.
 
 # Cemetery
 
-The following ideas are buried for now:
+The following ideas have been buried in the discussions leading up to
+the present specification:
 
 * <...> as syntax for enumerations. We view values to be just another
 type (a very specific type with just one member), so that an
@@ -1969,6 +1739,13 @@ Changes from 08 to 09:
 * Removed discussion section that was no longer relevant; move
   "Resolved Issues" to appendix.
 
+Changes from 09 to 10:
+
+* Remove a long but not very elucidating example.  (Maybe we'll add
+  back some shorter examples later.)
+* A few clarifications.
+* Updated author list.
+
 --- middle
 
 # Security considerations
@@ -2000,7 +1777,7 @@ conventions for describing structures in the ISO base media file
 format, Relax-NG and its compact syntax {{RELAXNG}}, and in particular
 from Andrew Lee Newton's ["JSON Content Rules"](#I-D.newton-json-content-rules).
 
-Useful feedback came from Carsten Bormann, Joe Hildebrand, Sean Leonard and
+Useful feedback came from Joe Hildebrand, Sean Leonard and
 Jim Schaad.
 
 The CDDL tool was written by Carsten Bormann, building on previous
