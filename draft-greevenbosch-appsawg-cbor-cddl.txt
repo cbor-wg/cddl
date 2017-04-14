@@ -126,11 +126,12 @@ Internet-Draft                    CDDL                        March 2017
    Appendix E.  Standard Prelude . . . . . . . . . . . . . . . . . .  41
    Appendix F.  The CDDL tool  . . . . . . . . . . . . . . . . . . .  43
    Appendix G.  Extended Diagnostic Notation . . . . . . . . . . . .  43
-     G.1.  White space in binary strings . . . . . . . . . . . . . .  44
-     G.2.  Text in binary strings  . . . . . . . . . . . . . . . . .  44
-     G.3.  Concatenated Strings  . . . . . . . . . . . . . . . . . .  44
-     G.4.  Hexadecimal, octal, and binary numbers  . . . . . . . . .  45
-     G.5.  Comments  . . . . . . . . . . . . . . . . . . . . . . . .  45
+     G.1.  White space in byte string notation . . . . . . . . . . .  44
+     G.2.  Text in byte string notation  . . . . . . . . . . . . . .  44
+     G.3.  Embedded CBOR and CBOR sequences in byte strings  . . . .  44
+     G.4.  Concatenated Strings  . . . . . . . . . . . . . . . . . .  45
+     G.5.  Hexadecimal, octal, and binary numbers  . . . . . . . . .  45
+     G.6.  Comments  . . . . . . . . . . . . . . . . . . . . . . . .  46
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  47
 
 1.  Introduction
@@ -161,7 +162,6 @@ Internet-Draft                    CDDL                        March 2017
 
    (G7)  Extraction of specific elements from CBOR data for further
          processing.
-
 
 
 
@@ -1935,7 +1935,7 @@ Internet-Draft                    CDDL                        March 2017
    [I-D.newton-json-content-rules]
               Newton, A. and P. Cordell, "A Language for Rules
               Describing JSON Content", draft-newton-json-content-
-              rules-07 (work in progress), September 2016.
+              rules-08 (work in progress), March 2017.
 
    [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
               Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006,
@@ -2414,11 +2414,11 @@ Internet-Draft                    CDDL                        March 2017
    that have turned out to be useful since RFC 7049 was written.  We
    refer to the result as extended diagnostic notation (EDN).
 
-G.1.  White space in binary strings
+G.1.  White space in byte string notation
 
    Examples often benefit from some white space (spaces, line breaks) in
-   binary strings.  In extended diagnostic notation, white space is
-   ignored in prefixed binary strings; for instance, the following are
+   byte strings.  In extended diagnostic notation, white space is
+   ignored in prefixed byte strings; for instance, the following are
    equivalent:
 
      h'48656c6c6f20776f726c64'
@@ -2426,12 +2426,12 @@ G.1.  White space in binary strings
      h'4 86 56c 6c6f
        20776 f726c64'
 
-G.2.  Text in binary strings
+G.2.  Text in byte string notation
 
    Diagnostic notation notates Byte strings in one of the [RFC4648] base
    encodings,, enclosed in single quotes, prefixed by >h< for base16,
    >b32< for base32, >h32< for base32hex, >b64< for base64 or base64url.
-   Quite often, binary strings carry bytes that are meaningfully
+   Quite often, byte strings carry bytes that are meaningfully
    interpreted as UTF-8 text.  Extended Diagnostic Notation allows the
    use of single quotes without a prefix to express byte strings with
    UTF-8 text; for instance, the following are equivalent:
@@ -2440,23 +2440,23 @@ G.2.  Text in binary strings
    h'68656c6c6f20776f726c64'
 
    The escaping rules of JSON strings are applied equivalently for text-
-   based binary strings, e.g., \ stands for a single backslash and '
+   based byte strings, e.g., \ stands for a single backslash and '
    stands for a single quote.  White space is included literally, i.e.,
-   the previous section does not apply to text-based binary strings.
+   the previous section does not apply to text-based byte strings.
 
-G.3.  Concatenated Strings
+G.3.  Embedded CBOR and CBOR sequences in byte strings
 
-   While the ability to include white space enables line-breaking of
-   encoded binary strings, a mechanism is needed to be able to include
-   text strings as well as binary strings in direct UTF-8 representation
-   into line-based documents (such as RFCs and source code).
+   Where a byte string is to carry an embedded CBOR-encoded item, or
+   more generally a sequence of zero or more such items, the diagnostic
+   notation for these zero or more CBOR data items, separated by
+   commata, can be enclosed in << and >> to notate the byte string
+   resulting from encoding the data items and concatenating the result.
+   For instance, each pair of columns in the following are equivalent:
 
-   We extend the diagnostic notation by allowing multiple text strings
-   or multiple byte strings to be notated separated by white space,
-   these are then concatenated into a single text or byte string,
-   respectively.  Text strings and binary strings do not mix within such
-   a concatenation, except that binary string notation can be used
-   inside a sequence of concatenated text string notation to encode
+   <<1>>              h'01'
+   <<1, 2>>           h'0102'
+   <<"foo", null>>    h'63666F6FF6'
+   <<>>               h''
 
 
 
@@ -2466,8 +2466,21 @@ Birkholz, et al.       Expires September 14, 2017              [Page 44]
 Internet-Draft                    CDDL                        March 2017
 
 
-   characters that may be better represented in an encoded way.  The
-   following four values are equivalent:
+G.4.  Concatenated Strings
+
+   While the ability to include white space enables line-breaking of
+   encoded byte strings, a mechanism is needed to be able to include
+   text strings as well as byte strings in direct UTF-8 representation
+   into line-based documents (such as RFCs and source code).
+
+   We extend the diagnostic notation by allowing multiple text strings
+   or multiple byte strings to be notated separated by white space,
+   these are then concatenated into a single text or byte string,
+   respectively.  Text strings and byte strings do not mix within such a
+   concatenation, except that byte string notation can be used inside a
+   sequence of concatenated text string notation to encode characters
+   that may be better represented in an encoded way.  The following four
+   values are equivalent:
 
    "Hello world"
    "Hello " "world"
@@ -2487,7 +2500,7 @@ Internet-Draft                    CDDL                        March 2017
    from the C language, requires some attention - a single comma makes a
    big difference here.)
 
-G.4.  Hexadecimal, octal, and binary numbers
+G.5.  Hexadecimal, octal, and binary numbers
 
    In addition to JSON's decimal numbers, EDN provides hexadecimal,
    octal and binary numbers in the usual C-language notation (octal with
@@ -2502,19 +2515,6 @@ G.4.  Hexadecimal, octal, and binary numbers
 
    As are:
 
-   1.5
-   0x1.8p0
-   0x18p-4
-
-G.5.  Comments
-
-   Longer pieces of diagnostic notation may benefit from comments.  JSON
-   famously does not provide for comments, and basic RFC 7049 diagnostic
-   notation inherits this property.
-
-
-
-
 
 
 Birkholz, et al.       Expires September 14, 2017              [Page 45]
@@ -2522,12 +2522,22 @@ Birkholz, et al.       Expires September 14, 2017              [Page 45]
 Internet-Draft                    CDDL                        March 2017
 
 
+   1.5
+   0x1.8p0
+   0x18p-4
+
+G.6.  Comments
+
+   Longer pieces of diagnostic notation may benefit from comments.  JSON
+   famously does not provide for comments, and basic RFC 7049 diagnostic
+   notation inherits this property.
+
    In extended diagnostic notation, comments can be included, delimited
    by slashes ("/").  Any text within and including a pair of slashes is
    considered a comment.
 
    Comments are considered white space.  Hence, they are allowed in
-   prefixed binary strings; for instance, the following are equivalent:
+   prefixed byte strings; for instance, the following are equivalent:
 
    h'68656c6c6f20776f726c64'
    h'68 65 6c /doubled l!/ 6c 6f /hello/
@@ -2561,6 +2571,13 @@ Editorial Comments
 [_strings] TO DO: This still needs to be fully realized in the ABNF and
            in the CDDL tool.
 
+
+
+Birkholz, et al.       Expires September 14, 2017              [Page 46]
+
+Internet-Draft                    CDDL                        March 2017
+
+
 [_bitsendian] How useful would it be to have another variant that counts
               bits like in RFC box notation?  (Or at least per-byte?
               32-bit words don't always perfectly mesh with byte
@@ -2570,13 +2587,6 @@ Editorial Comments
          solution would be to simply disallow unparenthesized usage of
          occurrence indicators in front of type choices unless a member
          key is also present like in group2 above.
-
-
-
-Birkholz, et al.       Expires September 14, 2017              [Page 46]
-
-Internet-Draft                    CDDL                        March 2017
-
 
 [_abnftodo] TO DO: This doesn't allow non-ASCII characters in the text
             or byte strings yet (and the prefixed byte strings are more
@@ -2611,16 +2621,6 @@ Authors' Addresses
 
    Phone: +49-421-218-63921
    Email: cabo@tzi.org
-
-
-
-
-
-
-
-
-
-
 
 
 

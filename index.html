@@ -330,11 +330,12 @@ address {
 <link href="#rfc.appendix.E" rel="Chapter" title="E Standard Prelude"/>
 <link href="#rfc.appendix.F" rel="Chapter" title="F The CDDL tool"/>
 <link href="#rfc.appendix.G" rel="Chapter" title="G Extended Diagnostic Notation"/>
-<link href="#rfc.appendix.G.1" rel="Chapter" title="G.1 White space in binary strings"/>
-<link href="#rfc.appendix.G.2" rel="Chapter" title="G.2 Text in binary strings"/>
-<link href="#rfc.appendix.G.3" rel="Chapter" title="G.3 Concatenated Strings"/>
-<link href="#rfc.appendix.G.4" rel="Chapter" title="G.4 Hexadecimal, octal, and binary numbers"/>
-<link href="#rfc.appendix.G.5" rel="Chapter" title="G.5 Comments"/>
+<link href="#rfc.appendix.G.1" rel="Chapter" title="G.1 White space in byte string notation"/>
+<link href="#rfc.appendix.G.2" rel="Chapter" title="G.2 Text in byte string notation"/>
+<link href="#rfc.appendix.G.3" rel="Chapter" title="G.3 Embedded CBOR and CBOR sequences in byte strings"/>
+<link href="#rfc.appendix.G.4" rel="Chapter" title="G.4 Concatenated Strings"/>
+<link href="#rfc.appendix.G.5" rel="Chapter" title="G.5 Hexadecimal, octal, and binary numbers"/>
+<link href="#rfc.appendix.G.6" rel="Chapter" title="G.6 Comments"/>
 <link href="#rfc.authors" rel="Chapter"/>
 
 
@@ -465,11 +466,12 @@ address {
 <li>Appendix E.   <a href="#rfc.appendix.E">Standard Prelude</a></li>
 <li>Appendix F.   <a href="#rfc.appendix.F">The CDDL tool</a></li>
 <li>Appendix G.   <a href="#rfc.appendix.G">Extended Diagnostic Notation</a></li>
-<ul><li>G.1.   <a href="#rfc.appendix.G.1">White space in binary strings</a></li>
-<li>G.2.   <a href="#rfc.appendix.G.2">Text in binary strings</a></li>
-<li>G.3.   <a href="#rfc.appendix.G.3">Concatenated Strings</a></li>
-<li>G.4.   <a href="#rfc.appendix.G.4">Hexadecimal, octal, and binary numbers</a></li>
-<li>G.5.   <a href="#rfc.appendix.G.5">Comments</a></li>
+<ul><li>G.1.   <a href="#rfc.appendix.G.1">White space in byte string notation</a></li>
+<li>G.2.   <a href="#rfc.appendix.G.2">Text in byte string notation</a></li>
+<li>G.3.   <a href="#rfc.appendix.G.3">Embedded CBOR and CBOR sequences in byte strings</a></li>
+<li>G.4.   <a href="#rfc.appendix.G.4">Concatenated Strings</a></li>
+<li>G.5.   <a href="#rfc.appendix.G.5">Hexadecimal, octal, and binary numbers</a></li>
+<li>G.6.   <a href="#rfc.appendix.G.6">Comments</a></li>
 </ul><li><a href="#rfc.authors">Authors' Addresses</a></li>
 
 
@@ -1528,7 +1530,7 @@ size = (
       <td class="reference">
         <b id="I-D.newton-json-content-rules">[I-D.newton-json-content-rules]</b>
       </td>
-      <td class="top"><a>Newton, A.</a> and <a>P. Cordell</a>, "<a href="http://tools.ietf.org/html/draft-newton-json-content-rules-07">A Language for Rules Describing JSON Content</a>", Internet-Draft draft-newton-json-content-rules-07, September 2016.</td>
+      <td class="top"><a>Newton, A.</a> and <a>P. Cordell</a>, "<a href="http://tools.ietf.org/html/draft-newton-json-content-rules-08">A Language for Rules Describing JSON Content</a>", Internet-Draft draft-newton-json-content-rules-08, March 2017.</td>
     </tr>
     <tr>
       <td class="reference">
@@ -1829,31 +1831,39 @@ gem install cddl
 <p id="rfc.section.G.p.1">Section 6 of <a href="#RFC7049">[RFC7049]</a> defines a &#8220;diagnostic notation&#8221; in order to be able to converse about CBOR data items without having to resort to binary data.  Diagnostic notation is based on JSON, with extensions for representing CBOR constructs such as binary data and tags.</p>
 <p id="rfc.section.G.p.2">(Standardizing this together with the actual interchange format does not serve to create another interchange format, but enables the use of a shared diagnostic notation in tools for and documents about CBOR.)</p>
 <p id="rfc.section.G.p.3">This section discusses a few extensions to the diagnostic notation that have turned out to be useful since RFC 7049 was written.  We refer to the result as extended diagnostic notation (EDN).</p>
-<h1 id="rfc.appendix.G.1"><a href="#rfc.appendix.G.1">G.1.</a> <a href="#white-space-in-binary-strings" id="white-space-in-binary-strings">White space in binary strings</a></h1>
-<p id="rfc.section.G.1.p.1">Examples often benefit from some white space (spaces, line breaks) in binary strings.  In extended diagnostic notation, white space is ignored in prefixed binary strings; for instance, the following are equivalent:</p>
+<h1 id="rfc.appendix.G.1"><a href="#rfc.appendix.G.1">G.1.</a> <a href="#white-space-in-byte-string-notation" id="white-space-in-byte-string-notation">White space in byte string notation</a></h1>
+<p id="rfc.section.G.1.p.1">Examples often benefit from some white space (spaces, line breaks) in byte strings.  In extended diagnostic notation, white space is ignored in prefixed byte strings; for instance, the following are equivalent:</p>
 <pre>
   h'48656c6c6f20776f726c64'
   h'48 65 6c 6c 6f 20 77 6f 72 6c 64'
   h'4 86 56c 6c6f
     20776 f726c64'
 </pre>
-<h1 id="rfc.appendix.G.2"><a href="#rfc.appendix.G.2">G.2.</a> <a href="#textbin" id="textbin">Text in binary strings</a></h1>
-<p id="rfc.section.G.2.p.1">Diagnostic notation notates Byte strings in one of the <a href="#RFC4648">[RFC4648]</a> base encodings,, enclosed in single quotes, prefixed by &gt;h&lt; for base16, &gt;b32&lt; for base32, &gt;h32&lt; for base32hex, &gt;b64&lt; for base64 or base64url.  Quite often, binary strings carry bytes that are meaningfully interpreted as UTF-8 text.  Extended Diagnostic Notation allows the use of single quotes without a prefix to express byte strings with UTF-8 text; for instance, the following are equivalent:</p>
+<h1 id="rfc.appendix.G.2"><a href="#rfc.appendix.G.2">G.2.</a> <a href="#textbin" id="textbin">Text in byte string notation</a></h1>
+<p id="rfc.section.G.2.p.1">Diagnostic notation notates Byte strings in one of the <a href="#RFC4648">[RFC4648]</a> base encodings,, enclosed in single quotes, prefixed by &gt;h&lt; for base16, &gt;b32&lt; for base32, &gt;h32&lt; for base32hex, &gt;b64&lt; for base64 or base64url.  Quite often, byte strings carry bytes that are meaningfully interpreted as UTF-8 text.  Extended Diagnostic Notation allows the use of single quotes without a prefix to express byte strings with UTF-8 text; for instance, the following are equivalent:</p>
 <pre>
 'hello world'
 h'68656c6c6f20776f726c64'
 </pre>
-<p id="rfc.section.G.2.p.2">The escaping rules of JSON strings are applied equivalently for text-based binary strings, e.g., \ stands for a single backslash and ' stands for a single quote.  White space is included literally, i.e., the previous section does not apply to text-based binary strings.</p>
-<h1 id="rfc.appendix.G.3"><a href="#rfc.appendix.G.3">G.3.</a> <a href="#concatenated-strings" id="concatenated-strings">Concatenated Strings</a></h1>
-<p id="rfc.section.G.3.p.1">While the ability to include white space enables line-breaking of encoded binary strings, a mechanism is needed to be able to include text strings as well as binary strings in direct UTF-8 representation into line-based documents (such as RFCs and source code).</p>
-<p id="rfc.section.G.3.p.2">We extend the diagnostic notation by allowing multiple text strings or multiple byte strings to be notated separated by white space, these are then concatenated into a single text or byte string, respectively.  Text strings and binary strings do not mix within such a concatenation, except that binary string notation can be used inside a sequence of concatenated text string notation to encode characters that may be better represented in an encoded way.  The following four values are equivalent:</p>
+<p id="rfc.section.G.2.p.2">The escaping rules of JSON strings are applied equivalently for text-based byte strings, e.g., \ stands for a single backslash and ' stands for a single quote.  White space is included literally, i.e., the previous section does not apply to text-based byte strings.</p>
+<h1 id="rfc.appendix.G.3"><a href="#rfc.appendix.G.3">G.3.</a> <a href="#embedded-cbor-and-cbor-sequences-in-byte-strings" id="embedded-cbor-and-cbor-sequences-in-byte-strings">Embedded CBOR and CBOR sequences in byte strings</a></h1>
+<p id="rfc.section.G.3.p.1">Where a byte string is to carry an embedded CBOR-encoded item, or more generally a sequence of zero or more such items, the diagnostic notation for these zero or more CBOR data items, separated by commata, can be enclosed in &#171;&#160;and&#160;&#187; to notate the byte string resulting from encoding the data items and concatenating the result.  For instance, each pair of columns in the following are equivalent:</p>
+<pre>
+&lt;&lt;1&gt;&gt;              h'01'
+&lt;&lt;1, 2&gt;&gt;           h'0102'
+&lt;&lt;"foo", null&gt;&gt;    h'63666F6FF6'
+&lt;&lt;&gt;&gt;               h''
+</pre>
+<h1 id="rfc.appendix.G.4"><a href="#rfc.appendix.G.4">G.4.</a> <a href="#concatenated-strings" id="concatenated-strings">Concatenated Strings</a></h1>
+<p id="rfc.section.G.4.p.1">While the ability to include white space enables line-breaking of encoded byte strings, a mechanism is needed to be able to include text strings as well as byte strings in direct UTF-8 representation into line-based documents (such as RFCs and source code).</p>
+<p id="rfc.section.G.4.p.2">We extend the diagnostic notation by allowing multiple text strings or multiple byte strings to be notated separated by white space, these are then concatenated into a single text or byte string, respectively.  Text strings and byte strings do not mix within such a concatenation, except that byte string notation can be used inside a sequence of concatenated text string notation to encode characters that may be better represented in an encoded way.  The following four values are equivalent:</p>
 <pre>
 "Hello world"
 "Hello " "world"
 "Hello" h'20' "world"
 "" h'48656c6c6f20776f726c64' ""
 </pre>
-<p id="rfc.section.G.3.p.3">Similarly, the following byte string values are equivalent</p>
+<p id="rfc.section.G.4.p.3">Similarly, the following byte string values are equivalent</p>
 <pre>
 'Hello world'
 'Hello ' 'world'
@@ -1862,39 +1872,39 @@ h'68656c6c6f20776f726c64'
 '' h'48656c6c6f20776f726c64' '' b64''
 h'4 86 56c 6c6f' h' 20776 f726c64'
 </pre>
-<p id="rfc.section.G.3.p.4">(Note that the approach of separating by whitespace, while familiar from the C language, requires some attention &#8211; a single comma makes a big difference here.)</p>
-<h1 id="rfc.appendix.G.4"><a href="#rfc.appendix.G.4">G.4.</a> <a href="#hexadecimal-octal-and-binary-numbers" id="hexadecimal-octal-and-binary-numbers">Hexadecimal, octal, and binary numbers</a></h1>
-<p id="rfc.section.G.4.p.1">In addition to JSON&#8217;s decimal numbers, EDN provides hexadecimal, octal and binary numbers in the usual C-language notation (octal with 0o prefix present only).</p>
-<p id="rfc.section.G.4.p.2">The following are equivalent:</p>
+<p id="rfc.section.G.4.p.4">(Note that the approach of separating by whitespace, while familiar from the C language, requires some attention &#8211; a single comma makes a big difference here.)</p>
+<h1 id="rfc.appendix.G.5"><a href="#rfc.appendix.G.5">G.5.</a> <a href="#hexadecimal-octal-and-binary-numbers" id="hexadecimal-octal-and-binary-numbers">Hexadecimal, octal, and binary numbers</a></h1>
+<p id="rfc.section.G.5.p.1">In addition to JSON&#8217;s decimal numbers, EDN provides hexadecimal, octal and binary numbers in the usual C-language notation (octal with 0o prefix present only).</p>
+<p id="rfc.section.G.5.p.2">The following are equivalent:</p>
 <pre>
 4711
 0x1267
 0o11147
 0b1001001100111
 </pre>
-<p id="rfc.section.G.4.p.3">As are:</p>
+<p id="rfc.section.G.5.p.3">As are:</p>
 <pre>
 1.5
 0x1.8p0
 0x18p-4
 </pre>
-<h1 id="rfc.appendix.G.5"><a href="#rfc.appendix.G.5">G.5.</a> <a href="#comments" id="comments">Comments</a></h1>
-<p id="rfc.section.G.5.p.1">Longer pieces of diagnostic notation may benefit from comments.  JSON famously does not provide for comments, and basic RFC 7049 diagnostic notation inherits this property.</p>
-<p id="rfc.section.G.5.p.2">In extended diagnostic notation, comments can be included, delimited by slashes (&#8220;/&#8221;).  Any text within and including a pair of slashes is considered a comment.</p>
-<p id="rfc.section.G.5.p.3">Comments are considered white space.  Hence, they are allowed in prefixed binary strings; for instance, the following are equivalent:</p>
+<h1 id="rfc.appendix.G.6"><a href="#rfc.appendix.G.6">G.6.</a> <a href="#comments" id="comments">Comments</a></h1>
+<p id="rfc.section.G.6.p.1">Longer pieces of diagnostic notation may benefit from comments.  JSON famously does not provide for comments, and basic RFC 7049 diagnostic notation inherits this property.</p>
+<p id="rfc.section.G.6.p.2">In extended diagnostic notation, comments can be included, delimited by slashes (&#8220;/&#8221;).  Any text within and including a pair of slashes is considered a comment.</p>
+<p id="rfc.section.G.6.p.3">Comments are considered white space.  Hence, they are allowed in prefixed byte strings; for instance, the following are equivalent:</p>
 <pre>
 h'68656c6c6f20776f726c64'
 h'68 65 6c /doubled l!/ 6c 6f /hello/
   20 /space/
   77 6f 72 6c 64' /world/
 </pre>
-<p id="rfc.section.G.5.p.4">This can be used to annotate a CBOR structure as in:</p>
+<p id="rfc.section.G.6.p.4">This can be used to annotate a CBOR structure as in:</p>
 <pre>
 /grasp-message/ [/M_DISCOVERY/ 1, /session-id/ 10584416,
                  /objective/ [/objective-name/ "opsonize",
                               /D, N, S/ 7, /loop-count/ 105]]
 </pre>
-<p id="rfc.section.G.5.p.5">(There are currently no end-of-line comments.  If we want to add them, &#8220;//&#8221; sounds like a reasonable delimiter given that we already use slashes for comments, but we also could go e.g. for &#8220;#&#8221;.)</p>
+<p id="rfc.section.G.6.p.5">(There are currently no end-of-line comments.  If we want to add them, &#8220;//&#8221; sounds like a reasonable delimiter given that we already use slashes for comments, but we also could go e.g. for &#8220;#&#8221;.)</p>
 <h1 id="rfc.authors">
   <a href="#rfc.authors">Authors' Addresses</a>
 </h1>
