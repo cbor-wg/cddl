@@ -1869,11 +1869,11 @@ This section discusses a few extensions to the diagnostic notation
 that have turned out to be useful since RFC 7049 was written.
 We refer to the result as extended diagnostic notation (EDN).
 
-## White space in binary strings
+## White space in byte string notation
 
 Examples often benefit from some white space (spaces, line breaks) in
-binary strings.  In extended diagnostic notation, white space is
-ignored in prefixed binary strings; for instance, the following are
+byte strings.  In extended diagnostic notation, white space is
+ignored in prefixed byte strings; for instance, the following are
 equivalent:
 
       h'48656c6c6f20776f726c64'
@@ -1881,12 +1881,12 @@ equivalent:
       h'4 86 56c 6c6f
         20776 f726c64'
 
-## Text in binary strings {#textbin}
+## Text in byte string notation {#textbin}
 
 Diagnostic notation notates Byte strings in one of the {{?RFC4648}}
 base encodings,, enclosed in single quotes, prefixed by >h< for
 base16, >b32< for base32, >h32< for base32hex, >b64< for base64 or
-base64url.  Quite often, binary strings carry bytes that are
+base64url.  Quite often, byte strings carry bytes that are
 meaningfully interpreted as UTF-8 text.  Extended Diagnostic Notation
 allows the use of single quotes without a prefix to express byte
 strings with UTF-8 text; for instance, the following are equivalent:
@@ -1895,22 +1895,36 @@ strings with UTF-8 text; for instance, the following are equivalent:
     h'68656c6c6f20776f726c64'
 
 The escaping rules of JSON strings are applied equivalently for
-text-based binary strings, e.g., \\ stands for a single backslash and
+text-based byte strings, e.g., \\ stands for a single backslash and
 \' stands for a single quote.  White space is included literally,
-i.e., the previous section does not apply to text-based binary strings.
+i.e., the previous section does not apply to text-based byte strings.
+
+## Embedded CBOR and CBOR sequences in byte strings
+
+Where a byte string is to carry an embedded CBOR-encoded item, or more
+generally a sequence of zero or more such items, the diagnostic
+notation for these zero or more CBOR data items, separated by commata,
+can be enclosed in << and >> to notate the byte string resulting from
+encoding the data items and concatenating the result.  For
+instance, each pair of columns in the following are equivalent:
+
+    <<1>>              h'01'
+    <<1, 2>>           h'0102'
+    <<"foo", null>>    h'63666F6FF6'
+    <<>>               h''
 
 ## Concatenated Strings
 
 While the ability to include white space enables line-breaking of
-encoded binary strings, a mechanism is needed to be able to include
-text strings as well as binary strings in direct UTF-8 representation
+encoded byte strings, a mechanism is needed to be able to include
+text strings as well as byte strings in direct UTF-8 representation
 into line-based documents (such as RFCs and source code).
 
 We extend the diagnostic notation by allowing multiple text strings or
 multiple byte strings to be notated separated by white space, these
 are then concatenated into a single text or byte string, respectively.
-Text strings and binary strings do not mix within such a
-concatenation, except that binary string notation can be used inside a
+Text strings and byte strings do not mix within such a
+concatenation, except that byte string notation can be used inside a
 sequence of concatenated text string notation to encode characters
 that may be better represented in an encoded way.  The following four
 values are equivalent:
@@ -1963,7 +1977,7 @@ by slashes ("/").  Any text within and including a pair of slashes is
 considered a comment.
 
 Comments are considered white space.  Hence, they are allowed in
-prefixed binary strings; for instance, the following are equivalent:
+prefixed byte strings; for instance, the following are equivalent:
 
     h'68656c6c6f20776f726c64'
     h'68 65 6c /doubled l!/ 6c 6f /hello/
