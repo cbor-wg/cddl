@@ -328,6 +328,7 @@ address {
 <link href="#rfc.appendix.C" rel="Chapter" title="C Change Log"/>
 <link href="#rfc.appendix.D" rel="Chapter" title="D ABNF grammar"/>
 <link href="#rfc.appendix.E" rel="Chapter" title="E Standard Prelude"/>
+<link href="#rfc.appendix.E.1" rel="Chapter" title="E.1 Use with JSON"/>
 <link href="#rfc.appendix.F" rel="Chapter" title="F The CDDL tool"/>
 <link href="#rfc.appendix.G" rel="Chapter" title="G Extended Diagnostic Notation"/>
 <link href="#rfc.appendix.G.1" rel="Chapter" title="G.1 White space in byte string notation"/>
@@ -464,7 +465,8 @@ address {
 </ul><li>Appendix C.   <a href="#rfc.appendix.C">Change Log</a></li>
 <li>Appendix D.   <a href="#rfc.appendix.D">ABNF grammar</a></li>
 <li>Appendix E.   <a href="#rfc.appendix.E">Standard Prelude</a></li>
-<li>Appendix F.   <a href="#rfc.appendix.F">The CDDL tool</a></li>
+<ul><li>E.1.   <a href="#rfc.appendix.E.1">Use with JSON</a></li>
+</ul><li>Appendix F.   <a href="#rfc.appendix.F">The CDDL tool</a></li>
 <li>Appendix G.   <a href="#rfc.appendix.G">Extended Diagnostic Notation</a></li>
 <ul><li>G.1.   <a href="#rfc.appendix.G.1">White space in byte string notation</a></li>
 <li>G.2.   <a href="#rfc.appendix.G.2">Text in byte string notation</a></li>
@@ -1509,6 +1511,12 @@ size = (
       </td>
       <td class="top"><a>Bray, T.</a>, "<a href="http://tools.ietf.org/html/rfc7159">The JavaScript Object Notation (JSON) Data Interchange Format</a>", RFC 7159, DOI 10.17487/RFC7159, March 2014.</td>
     </tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC7493">[RFC7493]</b>
+      </td>
+      <td class="top"><a>Bray, T.</a>, "<a href="http://tools.ietf.org/html/rfc7493">The I-JSON Message Format</a>", RFC 7493, DOI 10.17487/RFC7493, March 2015.</td>
+    </tr>
   </tbody>
 </table>
 <h1 id="rfc.references.2"><a href="#rfc.references.2">9.2.</a> Informative References</h1>
@@ -1807,9 +1815,66 @@ undefined = #7.23
 <p class="figure">Figure 14: CDDL Prelude</p>
 <p id="rfc.section.E.p.2">Note that the prelude is deemed to be fixed.  This means, for instance, that additional tags beyond <a href="#RFC7049">[RFC7049]</a>, as registered, need to be defined in each CDDL file that is using them.</p>
 <p id="rfc.section.E.p.3">A common stumbling point is that the prelude does not define a type <samp>string</samp>.  CBOR has byte strings (<samp>bytes</samp> in the prelude) and text strings (<samp>text</samp>), so a type that is simply called <samp>string</samp> would be ambiguous.</p>
-<h1 id="rfc.appendix.F"><a href="#rfc.appendix.F">Appendix F.</a> <a href="#tool" id="tool">The CDDL tool</a></h1>
-<p id="rfc.section.F.p.1">A rough CDDL tool is available.  For CDDL specifications that do not use recursion, it can check the syntax, generate one or more instances (expressed in CBOR diagnostic notation or in pretty-printed JSON), and validate an existing instance against the specification:</p>
+<h1 id="rfc.appendix.E.1"><a href="#rfc.appendix.E.1">E.1.</a> <a href="#use-with-json" id="use-with-json">Use with JSON</a></h1>
+<p id="rfc.section.E.1.p.1">The JSON generic data model (implicit in <a href="#RFC7159">[RFC7159]</a>) is a subset of the generic data model of CBOR.  So one can use CDDL with JSON by limiting oneself to what can be represented in JSON.  Roughly speaking, this means leaving out byte strings, tags, and simple values other than <samp>false</samp>, <samp>true</samp>, and <samp>null</samp>, leading to the following limited prelude:</p>
 <div id="rfc.figure.15"/>
+<div id="fig-json-prelude"/>
+<pre>
+any = #
+
+uint = #0
+nint = #1
+int = uint / nint
+
+tstr = #3
+text = tstr
+
+number = int / float
+
+float16 = #7.25
+float32 = #7.26
+float64 = #7.27
+float16-32 = float16 / float32
+float32-64 = float32 / float64
+float = float16-32 / float64
+
+false = #7.20
+true = #7.21
+bool = false / true
+nil = #7.22
+null = nil
+
+</pre>
+<p class="figure">Figure 15: JSON compatible subset of CDDL Prelude</p>
+<p id="rfc.section.E.1.p.2">(The major types given here do not have a direct meaning in JSON, but they can be interpreted as CBOR major types translated through Section 4 of <a href="#RFC7049">[RFC7049]</a>.)</p>
+<p id="rfc.section.E.1.p.3">There are a few fine points in using CDDL with JSON.  First, JSON does not distinguish between integers and floating point numbers; there is only one kind of number (which may happen to be integral).  In this context, specifying a type as <samp>uint</samp>, <samp>nint</samp> or <samp>int</samp> then becomes a predicate that the number be integral.  As an example, this means that the following JSON numbers are all matching <samp>uint</samp>:</p>
+<pre>
+10 10.0 1e1 1.0e1 100e-1
+</pre>
+<p id="rfc.section.E.1.p.4">(The fact that these are all integers may be surprising to users accustomed to the long tradition in programming languages of using decimal points or exponents in a number to indicate a floating point literal.)</p>
+<p id="rfc.section.E.1.p.5">Fundamentally, the number system of JSON itself is based on decimal numbers and decimal fractions and does not have limits to its precision or range.  In practice, JSON numbers are often parsed into a number type that is called float64 here, causing a number of limitations to the generic data model <a href="#RFC7493">[RFC7493]</a>.  In particular, this means that integers can only be expressed with interoperable exactness when they lie in the range [-(2<strong>53)+1, (2</strong>53)-1] &#8211; a smaller range than that covered by CDDL <samp>int</samp>.</p>
+<p id="rfc.section.E.1.p.6">JSON applications that want to stay compatible with I-JSON therefore may want to define integer types with more limited ranges, such as in <a href="#fig-json-types">Figure 16</a>.  Note that the types given here are not part of the prelude; they need to be copied into the CDDL specification if needed.</p>
+<div id="rfc.figure.16"/>
+<div id="fig-json-types"/>
+<pre>
+ij-uint = 0..9007199254740991
+ij-nint = -9007199254740991..-1
+ij-int = -9007199254740991..9007199254740991
+</pre>
+<p class="figure">Figure 16: I-JSON types for CDDL (not part of prelude)</p>
+<p id="rfc.section.E.1.p.7">JSON applications that do not need to stay compatible with I-JSON and that actually may need to go beyond the 64-bit unsigned and negative integers supported by <samp>int</samp> (= <samp>uint</samp>/<samp>nint</samp>) may want to use the following additional types from the standard prelude, which are expressed in terms of tags but can straightforwardly be mapped into JSON (but not I-JSON) numbers:</p>
+<pre>
+biguint = #6.2(bstr)
+bignint = #6.3(bstr)
+bigint = biguint / bignint
+integer = int / bigint
+unsigned = uint / biguint
+</pre>
+<p id="rfc.section.E.1.p.8">CDDL at this point does not have a way to express the unlimited floating point precision that is theoretically possible with JSON; at the time of writing, this is rarely used in protocols in practice.</p>
+<p id="rfc.section.E.1.p.9">Note that a data model described in CDDL is always restricted by what can be expressed in the serialization; e.g., floating point values such as NaN (not a number) and the infinities cannot be represented in JSON even if they are allowed in the CDDL generic data model.</p>
+<h1 id="rfc.appendix.F"><a href="#rfc.appendix.F">Appendix F.</a> <a href="#tool" id="tool">The CDDL tool</a></h1>
+<p id="rfc.section.F.p.1">A rough CDDL tool is available.  For CDDL specifications, it can check the syntax, generate one or more instances (expressed in CBOR diagnostic notation or in pretty-printed JSON), and validate an existing instance against the specification:</p>
+<div id="rfc.figure.17"/>
 <div id="tool-usage"/>
 <pre>
 Usage:
@@ -1818,14 +1883,14 @@ cddl spec.cddl json-generate [n]
 cddl spec.cddl validate instance.cbor
 cddl spec.cddl validate instance.json
 </pre>
-<p class="figure">Figure 15: CDDL tool usage</p>
+<p class="figure">Figure 17: CDDL tool usage</p>
 <p id="rfc.section.F.p.2">Install on a system with a modern Ruby via:</p>
-<div id="rfc.figure.16"/>
+<div id="rfc.figure.18"/>
 <div id="tool-install"/>
 <pre>
 gem install cddl
 </pre>
-<p class="figure">Figure 16</p>
+<p class="figure">Figure 18</p>
 <p id="rfc.section.F.p.3">The accompanying CBOR diagnostic tools (which are automatically installed by the above) are described in <a href="https://github.com/cabo/cbor-diag">https://github.com/cabo/cbor-diag</a>; they can be used to convert between binary CBOR, a pretty-printed form of that, CBOR diagnostic notation, JSON, and YAML.</p>
 <h1 id="rfc.appendix.G"><a href="#rfc.appendix.G">Appendix G.</a> <a href="#extended-diagnostic-notation" id="extended-diagnostic-notation">Extended Diagnostic Notation</a></h1>
 <p id="rfc.section.G.p.1">Section 6 of <a href="#RFC7049">[RFC7049]</a> defines a &#8220;diagnostic notation&#8221; in order to be able to converse about CBOR data items without having to resort to binary data.  Diagnostic notation is based on JSON, with extensions for representing CBOR constructs such as binary data and tags.</p>

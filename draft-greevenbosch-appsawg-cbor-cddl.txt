@@ -124,15 +124,16 @@ Internet-Draft                    CDDL                        March 2017
    Appendix C.  Change Log . . . . . . . . . . . . . . . . . . . . .  36
    Appendix D.  ABNF grammar . . . . . . . . . . . . . . . . . . . .  39
    Appendix E.  Standard Prelude . . . . . . . . . . . . . . . . . .  41
-   Appendix F.  The CDDL tool  . . . . . . . . . . . . . . . . . . .  43
-   Appendix G.  Extended Diagnostic Notation . . . . . . . . . . . .  43
-     G.1.  White space in byte string notation . . . . . . . . . . .  44
-     G.2.  Text in byte string notation  . . . . . . . . . . . . . .  44
-     G.3.  Embedded CBOR and CBOR sequences in byte strings  . . . .  44
-     G.4.  Concatenated Strings  . . . . . . . . . . . . . . . . . .  45
-     G.5.  Hexadecimal, octal, and binary numbers  . . . . . . . . .  45
-     G.6.  Comments  . . . . . . . . . . . . . . . . . . . . . . . .  46
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  47
+     E.1.  Use with JSON . . . . . . . . . . . . . . . . . . . . . .  43
+   Appendix F.  The CDDL tool  . . . . . . . . . . . . . . . . . . .  45
+   Appendix G.  Extended Diagnostic Notation . . . . . . . . . . . .  45
+     G.1.  White space in byte string notation . . . . . . . . . . .  46
+     G.2.  Text in byte string notation  . . . . . . . . . . . . . .  46
+     G.3.  Embedded CBOR and CBOR sequences in byte strings  . . . .  46
+     G.4.  Concatenated Strings  . . . . . . . . . . . . . . . . . .  47
+     G.5.  Hexadecimal, octal, and binary numbers  . . . . . . . . .  47
+     G.6.  Comments  . . . . . . . . . . . . . . . . . . . . . . . .  48
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  49
 
 1.  Introduction
 
@@ -160,8 +161,7 @@ Internet-Draft                    CDDL                        March 2017
 
    (G6)  Automatic checking of data format compliance.
 
-   (G7)  Extraction of specific elements from CBOR data for further
-         processing.
+
 
 
 
@@ -169,6 +169,9 @@ Birkholz, et al.       Expires September 14, 2017               [Page 3]
 
 Internet-Draft                    CDDL                        March 2017
 
+
+   (G7)  Extraction of specific elements from CBOR data for further
+         processing.
 
    This document has the following structure:
 
@@ -215,9 +218,6 @@ Internet-Draft                    CDDL                        March 2017
 
    o  A _record_, an array the elements of which have different,
       positionally defined semantics, as detailed in the data structure
-      definition.  A 2D point, specified as an array of an x coordinate
-      (which comes first) and a y coordinate (coming second) is an
-
 
 
 
@@ -226,6 +226,8 @@ Birkholz, et al.       Expires September 14, 2017               [Page 4]
 Internet-Draft                    CDDL                        March 2017
 
 
+      definition.  A 2D point, specified as an array of an x coordinate
+      (which comes first) and a y coordinate (coming second) is an
       example of a record, as is the pair of exponent (first) and
       mantissa (second) in a CBOR decimal fraction.
 
@@ -272,8 +274,6 @@ Internet-Draft                    CDDL                        March 2017
    In an array context, only the value of the entry is represented; the
    name is annotation only (and can be left off if not needed).  In a
    map context, the names become the map keys ("member keys").
-
-
 
 
 
@@ -1923,6 +1923,10 @@ Internet-Draft                    CDDL                        March 2017
               Interchange Format", RFC 7159, DOI 10.17487/RFC7159, March
               2014, <http://www.rfc-editor.org/info/rfc7159>.
 
+   [RFC7493]  Bray, T., Ed., "The I-JSON Message Format", RFC 7493,
+              DOI 10.17487/RFC7493, March 2015,
+              <http://www.rfc-editor.org/info/rfc7493>.
+
 9.2.  Informative References
 
    [RELAXNG]  OASIS, "RELAX-NG Compact Syntax", November 2002,
@@ -1949,10 +1953,6 @@ Appendix A.  Cemetery
    o  <...> as syntax for enumerations.  We view values to be just
       another type (a very specific type with just one member), so that
       an enumeration can be denoted as a choice using "/" as the
-      delimiter of choices.  Because of this, no evidence is present
-      that a separate syntax for enumerations is needed.
-
-
 
 
 
@@ -1961,6 +1961,9 @@ Birkholz, et al.       Expires September 14, 2017              [Page 35]
 
 Internet-Draft                    CDDL                        March 2017
 
+
+      delimiter of choices.  Because of this, no evidence is present
+      that a separate syntax for enumerations is needed.
 
 A.1.  Resolved Issues
 
@@ -2008,15 +2011,14 @@ Appendix C.  Change Log
 
    o  Updated the tag mechanism
 
-   o  Extended the map structure
-
-
 
 
 Birkholz, et al.       Expires September 14, 2017              [Page 36]
 
 Internet-Draft                    CDDL                        March 2017
 
+
+   o  Extended the map structure
 
    o  Added examples
 
@@ -2064,8 +2066,6 @@ Internet-Draft                    CDDL                        March 2017
 
    o  Fixed typos
 
-   o  Restructured syntax and semantics
-
 
 
 
@@ -2073,6 +2073,8 @@ Birkholz, et al.       Expires September 14, 2017              [Page 37]
 
 Internet-Draft                    CDDL                        March 2017
 
+
+   o  Restructured syntax and semantics
 
    Changes from version 05 to version 05:
 
@@ -2120,8 +2122,6 @@ Internet-Draft                    CDDL                        March 2017
 
    o  Define a value notation for byte strings as well.
 
-   o  Removed discussion section that was no longer relevant; move
-      "Resolved Issues" to appendix.
 
 
 
@@ -2129,6 +2129,9 @@ Birkholz, et al.       Expires September 14, 2017              [Page 38]
 
 Internet-Draft                    CDDL                        March 2017
 
+
+   o  Removed discussion section that was no longer relevant; move
+      "Resolved Issues" to appendix.
 
    Changes from 09 to 10:
 
@@ -2175,9 +2178,6 @@ Appendix D.  ABNF grammar
 
    annotator = "." id
 
-   group = grpchoice S *("//" S grpchoice S)
-
-   grpchoice = *grpent
 
 
 
@@ -2185,6 +2185,10 @@ Birkholz, et al.       Expires September 14, 2017              [Page 39]
 
 Internet-Draft                    CDDL                        March 2017
 
+
+   group = grpchoice S *("//" S grpchoice S)
+
+   grpchoice = *grpent
 
    grpent = [occur S] [memberkey S] type optcom
           / [occur S] groupname [genericarg] optcom ; preempted by above
@@ -2230,10 +2234,6 @@ Internet-Draft                    CDDL                        March 2017
    EALPHA = %x41-5A / %x61-7A / "@" / "_" / "$"
    DIGIT = %x30-39
    DIGIT1 = %x31-39
-   S = *WS
-   WS = SP / NL
-   SP = %x20
-   NL = COMMENT / CRLF
 
 
 
@@ -2242,6 +2242,10 @@ Birkholz, et al.       Expires September 14, 2017              [Page 40]
 Internet-Draft                    CDDL                        March 2017
 
 
+   S = *WS
+   WS = SP / NL
+   SP = %x20
+   NL = COMMENT / CRLF
    COMMENT = ";" *(SP / VCHAR) CRLF
    VCHAR = %x21-7E
    CRLF = %x0A / %x0D.0A
@@ -2255,10 +2259,6 @@ Appendix E.  Standard Prelude
    [tdate].  (Note that technically, it is a postlude, as it does not
    disturb the selection of the first rule as the root of the
    definition.)
-
-
-
-
 
 
 
@@ -2363,12 +2363,124 @@ Internet-Draft                    CDDL                        March 2017
    strings ("text"), so a type that is simply called "string" would be
    ambiguous.
 
+E.1.  Use with JSON
+
+   The JSON generic data model (implicit in [RFC7159]) is a subset of
+   the generic data model of CBOR.  So one can use CDDL with JSON by
+   limiting oneself to what can be represented in JSON.  Roughly
+   speaking, this means leaving out byte strings, tags, and simple
+   values other than "false", "true", and "null", leading to the
+   following limited prelude:
+
+                      any = #
+
+                      uint = #0
+                      nint = #1
+                      int = uint / nint
+
+                      tstr = #3
+                      text = tstr
+
+                      number = int / float
+
+                      float16 = #7.25
+                      float32 = #7.26
+                      float64 = #7.27
+                      float16-32 = float16 / float32
+                      float32-64 = float32 / float64
+                      float = float16-32 / float64
+
+                      false = #7.20
+                      true = #7.21
+                      bool = false / true
+                      nil = #7.22
+                      null = nil
+
+
+             Figure 15: JSON compatible subset of CDDL Prelude
+
+   (The major types given here do not have a direct meaning in JSON, but
+   they can be interpreted as CBOR major types translated through
+   Section 4 of [RFC7049].)
+
+
+
+Birkholz, et al.       Expires September 14, 2017              [Page 43]
+
+Internet-Draft                    CDDL                        March 2017
+
+
+   There are a few fine points in using CDDL with JSON.  First, JSON
+   does not distinguish between integers and floating point numbers;
+   there is only one kind of number (which may happen to be integral).
+   In this context, specifying a type as "uint", "nint" or "int" then
+   becomes a predicate that the number be integral.  As an example, this
+   means that the following JSON numbers are all matching "uint":
+
+   10 10.0 1e1 1.0e1 100e-1
+
+   (The fact that these are all integers may be surprising to users
+   accustomed to the long tradition in programming languages of using
+   decimal points or exponents in a number to indicate a floating point
+   literal.)
+
+   Fundamentally, the number system of JSON itself is based on decimal
+   numbers and decimal fractions and does not have limits to its
+   precision or range.  In practice, JSON numbers are often parsed into
+   a number type that is called float64 here, causing a number of
+   limitations to the generic data model [RFC7493].  In particular, this
+   means that integers can only be expressed with interoperable
+   exactness when they lie in the range [-(2*53)+1, (2*53)-1] - a
+   smaller range than that covered by CDDL "int".
+
+   JSON applications that want to stay compatible with I-JSON therefore
+   may want to define integer types with more limited ranges, such as in
+   Figure 16.  Note that the types given here are not part of the
+   prelude; they need to be copied into the CDDL specification if
+   needed.
+
+               ij-uint = 0..9007199254740991
+               ij-nint = -9007199254740991..-1
+               ij-int = -9007199254740991..9007199254740991
+
+          Figure 16: I-JSON types for CDDL (not part of prelude)
+
+   JSON applications that do not need to stay compatible with I-JSON and
+   that actually may need to go beyond the 64-bit unsigned and negative
+   integers supported by "int" (= "uint"/"nint") may want to use the
+   following additional types from the standard prelude, which are
+   expressed in terms of tags but can straightforwardly be mapped into
+   JSON (but not I-JSON) numbers:
+
+   biguint = #6.2(bstr)
+   bignint = #6.3(bstr)
+   bigint = biguint / bignint
+   integer = int / bigint
+   unsigned = uint / biguint
+
+
+
+
+Birkholz, et al.       Expires September 14, 2017              [Page 44]
+
+Internet-Draft                    CDDL                        March 2017
+
+
+   CDDL at this point does not have a way to express the unlimited
+   floating point precision that is theoretically possible with JSON; at
+   the time of writing, this is rarely used in protocols in practice.
+
+   Note that a data model described in CDDL is always restricted by what
+   can be expressed in the serialization; e.g., floating point values
+   such as NaN (not a number) and the infinities cannot be represented
+   in JSON even if they are allowed in the CDDL generic data model.
+
 Appendix F.  The CDDL tool
 
-   A rough CDDL tool is available.  For CDDL specifications that do not
-   use recursion, it can check the syntax, generate one or more
-   instances (expressed in CBOR diagnostic notation or in pretty-printed
-   JSON), and validate an existing instance against the specification:
+   A rough CDDL tool is available.  For CDDL specifications, it can
+   check the syntax, generate one or more instances (expressed in CBOR
+   diagnostic notation or in pretty-printed JSON), and validate an
+   existing instance against the specification:
 
                    Usage:
                    cddl spec.cddl generate [n]
@@ -2376,13 +2488,13 @@ Appendix F.  The CDDL tool
                    cddl spec.cddl validate instance.cbor
                    cddl spec.cddl validate instance.json
 
-                        Figure 15: CDDL tool usage
+                        Figure 17: CDDL tool usage
 
    Install on a system with a modern Ruby via:
 
                              gem install cddl
 
-                                 Figure 16
+                                 Figure 18
 
    The accompanying CBOR diagnostic tools (which are automatically
    installed by the above) are described in https://github.com/cabo/
@@ -2405,7 +2517,7 @@ Appendix G.  Extended Diagnostic Notation
 
 
 
-Birkholz, et al.       Expires September 14, 2017              [Page 43]
+Birkholz, et al.       Expires September 14, 2017              [Page 45]
 
 Internet-Draft                    CDDL                        March 2017
 
@@ -2461,7 +2573,7 @@ G.3.  Embedded CBOR and CBOR sequences in byte strings
 
 
 
-Birkholz, et al.       Expires September 14, 2017              [Page 44]
+Birkholz, et al.       Expires September 14, 2017              [Page 46]
 
 Internet-Draft                    CDDL                        March 2017
 
@@ -2517,7 +2629,7 @@ G.5.  Hexadecimal, octal, and binary numbers
 
 
 
-Birkholz, et al.       Expires September 14, 2017              [Page 45]
+Birkholz, et al.       Expires September 14, 2017              [Page 47]
 
 Internet-Draft                    CDDL                        March 2017
 
@@ -2573,7 +2685,7 @@ Editorial Comments
 
 
 
-Birkholz, et al.       Expires September 14, 2017              [Page 46]
+Birkholz, et al.       Expires September 14, 2017              [Page 48]
 
 Internet-Draft                    CDDL                        March 2017
 
@@ -2629,4 +2741,4 @@ Authors' Addresses
 
 
 
-Birkholz, et al.       Expires September 14, 2017              [Page 47]
+Birkholz, et al.       Expires September 14, 2017              [Page 49]
