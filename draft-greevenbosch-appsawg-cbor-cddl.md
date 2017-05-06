@@ -41,11 +41,12 @@ author:
   phone: +49-421-218-63921
   email: cabo@tzi.org
 normative:
-  RFC2119:
-  RFC3629:
-  RFC5234:
-  RFC7049:
-  RFC7159:
+  RFC2119: bcp14
+  RFC3629: utf8
+  RFC5234: abnf
+  RFC7049: cbor
+  RFC7159: json
+  RFC7493: i-json
 informative:
   RELAXNG:
     title: RELAX-NG Compact Syntax
@@ -1824,10 +1825,89 @@ ambiguous.
 [^tdate]: The prelude as included here does not yet have a .regexp
         annotation on tdate, but we probably do want to have one.
 
+## Use with JSON
+
+The JSON generic data model (implicit in {{-json}}) is a subset of the
+generic data model of CBOR.  So one can use CDDL with JSON by limiting
+oneself to what can be represented in JSON.  Roughly speaking, this
+means leaving out byte strings, tags, and simple values other than
+`false`, `true`, and `null`, leading to the following limited prelude:
+
+~~~~ CDDL
+{::include cddl-json.prelude}
+~~~~
+{:cddl #fig-json-prelude title="JSON compatible subset of CDDL Prelude"}
+
+(The major types given here do not have a direct meaning in JSON, but
+they can be interpreted as CBOR major types translated through Section
+4 of {{-cbor}}.)
+
+There are a few fine points in using CDDL with JSON.  First, JSON does
+not distinguish between integers and floating point numbers; there is
+only one kind of number (which may happen to be integral).  In this
+context, specifying a type as `uint`, `nint` or `int` then becomes a
+predicate that the number be integral.  As an example, this means that
+the following JSON numbers are all matching `uint`:
+
+~~~
+10 10.0 1e1 1.0e1 100e-1
+~~~
+
+(The fact that these are all integers may be surprising to users
+accustomed to the long tradition in programming languages of using
+decimal points or exponents in a number to indicate a floating point
+literal.)
+
+Fundamentally, the number system of JSON itself is based on decimal
+numbers and decimal fractions and does not have limits to its
+precision or range.  In practice, JSON numbers are often parsed into a
+number type that is called float64 here, causing a number of
+limitations to the generic data model {{-i-json}}.  In particular,
+this means that integers can only be expressed with interoperable
+exactness when they lie in the range [-(2**53)+1, (2**53)-1] -- a
+smaller range than that covered by CDDL `int`.
+
+JSON applications that want to stay compatible with I-JSON therefore
+may want to define integer types with more limited ranges, such as in
+{{fig-json-types}}.  Note that the types given here are not part of
+the prelude; they need to be copied into the CDDL specification if
+needed.
+
+~~~~ CDDL
+ij-uint = 0..9007199254740991
+ij-nint = -9007199254740991..-1
+ij-int = -9007199254740991..9007199254740991
+~~~~
+{:cddl #fig-json-types title="I-JSON types for CDDL (not part of prelude)"}
+
+JSON applications that do not need to stay compatible with I-JSON and
+that actually may need to go beyond the 64-bit unsigned and negative
+integers supported by `int` (= `uint`/`nint`) may want to use the
+following additional types from the standard prelude, which are
+expressed in terms of tags but can straightforwardly be mapped into
+JSON (but not I-JSON) numbers:
+
+~~~ CDDL
+biguint = #6.2(bstr)
+bignint = #6.3(bstr)
+bigint = biguint / bignint
+integer = int / bigint
+unsigned = uint / biguint
+~~~
+
+CDDL at this point does not have a way to express the unlimited
+floating point precision that is theoretically possible with JSON;
+at the time of writing, this is rarely used in protocols in practice.
+
+Note that a data model described in CDDL is always restricted by what
+can be expressed in the serialization; e.g., floating point values
+such as NaN (not a number) and the infinities cannot be represented in
+JSON even if they are allowed in the CDDL generic data model.
+
 # The CDDL tool {#tool}
 
-A rough CDDL tool is available.  For CDDL specifications that do not
-use recursion, it can check the syntax, generate one or more instances
+A rough CDDL tool is available.  For CDDL specifications, it can check
+the syntax, generate one or more instances
 (expressed in CBOR diagnostic notation or in pretty-printed JSON), and
 validate an existing instance against the specification:
 
