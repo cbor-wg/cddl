@@ -1,0 +1,24 @@
+any = #
+
+uint = #0
+nint = #1
+int = uint / nint
+
+tstr = #3
+text = tstr
+
+number = int / float
+
+float16 = #7.25
+float32 = #7.26
+float64 = #7.27
+float16-32 = float16 / float32
+float32-64 = float32 / float64
+float = float16-32 / float64
+
+false = #7.20
+true = #7.21
+bool = false / true
+nil = #7.22
+null = nil
+
