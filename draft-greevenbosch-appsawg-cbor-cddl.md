@@ -699,7 +699,7 @@ The "struct" usage of maps is similar to the way JSON objects are used
 in many JSON applications.
 
 A map is defined in the same way as defining an array (see {{arrays}}), except
-for using curly braces "{}" instead of square brackets "[]".
+for using curly braces "{}" instead of square brackets "\[]".
 
 An occurrence indicator as specified in {{occurrence}} is permitted for each
 group entry.
@@ -1864,7 +1864,7 @@ precision or range.  In practice, JSON numbers are often parsed into a
 number type that is called float64 here, causing a number of
 limitations to the generic data model {{-i-json}}.  In particular,
 this means that integers can only be expressed with interoperable
-exactness when they lie in the range [-(2**53)+1, (2**53)-1] -- a
+exactness when they lie in the range \[-(2\*\*53)+1, (2\*\*53)-1] -- a
 smaller range than that covered by CDDL `int`.
 
 JSON applications that want to stay compatible with I-JSON therefore
@@ -1925,7 +1925,7 @@ Install on a system with a modern Ruby via:
 ~~~~ shell
 gem install cddl
 ~~~~
-{:cddl #tool-install title"CDDL tool installation"}
+{:cddl #tool-install title="CDDL tool installation"}
 
 
 The accompanying CBOR diagnostic tools (which are automatically
