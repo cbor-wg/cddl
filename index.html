@@ -1852,7 +1852,7 @@ null = nil
 10 10.0 1e1 1.0e1 100e-1
 </pre>
 <p id="rfc.section.E.1.p.4">(The fact that these are all integers may be surprising to users accustomed to the long tradition in programming languages of using decimal points or exponents in a number to indicate a floating point literal.)</p>
-<p id="rfc.section.E.1.p.5">Fundamentally, the number system of JSON itself is based on decimal numbers and decimal fractions and does not have limits to its precision or range.  In practice, JSON numbers are often parsed into a number type that is called float64 here, causing a number of limitations to the generic data model <a href="#RFC7493">[RFC7493]</a>.  In particular, this means that integers can only be expressed with interoperable exactness when they lie in the range [-(2<strong>53)+1, (2</strong>53)-1] &#8211; a smaller range than that covered by CDDL <samp>int</samp>.</p>
+<p id="rfc.section.E.1.p.5">Fundamentally, the number system of JSON itself is based on decimal numbers and decimal fractions and does not have limits to its precision or range.  In practice, JSON numbers are often parsed into a number type that is called float64 here, causing a number of limitations to the generic data model <a href="#RFC7493">[RFC7493]</a>.  In particular, this means that integers can only be expressed with interoperable exactness when they lie in the range [-(2**53)+1, (2**53)-1] &#8211; a smaller range than that covered by CDDL <samp>int</samp>.</p>
 <p id="rfc.section.E.1.p.6">JSON applications that want to stay compatible with I-JSON therefore may want to define integer types with more limited ranges, such as in <a href="#fig-json-types">Figure 16</a>.  Note that the types given here are not part of the prelude; they need to be copied into the CDDL specification if needed.</p>
 <div id="rfc.figure.16"/>
 <div id="fig-json-types"/>
@@ -1890,7 +1890,7 @@ cddl spec.cddl validate instance.json
 <pre>
 gem install cddl
 </pre>
-<p class="figure">Figure 18</p>
+<p class="figure">Figure 18: CDDL tool installation</p>
 <p id="rfc.section.F.p.3">The accompanying CBOR diagnostic tools (which are automatically installed by the above) are described in <a href="https://github.com/cabo/cbor-diag">https://github.com/cabo/cbor-diag</a>; they can be used to convert between binary CBOR, a pretty-printed form of that, CBOR diagnostic notation, JSON, and YAML.</p>
 <h1 id="rfc.appendix.G"><a href="#rfc.appendix.G">Appendix G.</a> <a href="#extended-diagnostic-notation" id="extended-diagnostic-notation">Extended Diagnostic Notation</a></h1>
 <p id="rfc.section.G.p.1">Section 6 of <a href="#RFC7049">[RFC7049]</a> defines a &#8220;diagnostic notation&#8221; in order to be able to converse about CBOR data items without having to resort to binary data.  Diagnostic notation is based on JSON, with extensions for representing CBOR constructs such as binary data and tags.</p>

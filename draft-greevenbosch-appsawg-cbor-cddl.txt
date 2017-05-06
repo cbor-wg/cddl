@@ -2430,7 +2430,7 @@ Internet-Draft                    CDDL                        March 2017
    a number type that is called float64 here, causing a number of
    limitations to the generic data model [RFC7493].  In particular, this
    means that integers can only be expressed with interoperable
-   exactness when they lie in the range [-(2*53)+1, (2*53)-1] - a
+   exactness when they lie in the range [-(2**53)+1, (2**53)-1] - a
    smaller range than that covered by CDDL "int".
 
    JSON applications that want to stay compatible with I-JSON therefore
@@ -2494,7 +2494,7 @@ Appendix F.  The CDDL tool
 
                              gem install cddl
 
-                                 Figure 18
+                     Figure 18: CDDL tool installation
 
    The accompanying CBOR diagnostic tools (which are automatically
    installed by the above) are described in https://github.com/cabo/
