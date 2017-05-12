@@ -50,7 +50,9 @@ occur = [uint] "*" [uint]
       / "?"
 
 uint = ["0x" / "0b"] "0"
-     / ["0x" / "0b"] DIGIT1 *DIGIT
+     / DIGIT1 *DIGIT
+     / "0x" 1*HEXDIG
+     / "0b" 1*BINDIG
 
 value = number
       / text
@@ -77,6 +79,9 @@ ALPHA = %x41-5A / %x61-7A
 EALPHA = %x41-5A / %x61-7A / "@" / "_" / "$"
 DIGIT = %x30-39
 DIGIT1 = %x31-39
+HEXDIG = DIGIT / "A" / "B" / "C" / "D" / "E" / "F"
+BINDIG = %x30-31
+
 S = *WS
 WS = SP / NL
 SP = %x20
