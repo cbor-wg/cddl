@@ -1841,7 +1841,7 @@ Internet-Draft                    CDDL                          May 2017
          / "?"
 
    uint = ["0x" / "0b"] "0"
-        / ["0x" / "0b"] DIGIT1 *DIGIT
+        / DIGIT1 *DIGIT
 
 
 
@@ -1849,6 +1849,9 @@ Birkholz, et al.        Expires November 13, 2017              [Page 33]
 
 Internet-Draft                    CDDL                          May 2017
 
+
+        / "0x" 1*HEXDIG
+        / "0b" 1*BINDIG
 
    value = number
          / text
@@ -1875,6 +1878,9 @@ Internet-Draft                    CDDL                          May 2017
    EALPHA = %x41-5A / %x61-7A / "@" / "_" / "$"
    DIGIT = %x30-39
    DIGIT1 = %x31-39
+   HEXDIG = DIGIT / "A" / "B" / "C" / "D" / "E" / "F"
+   BINDIG = %x30-31
+
    S = *WS
    WS = SP / NL
    SP = %x20
@@ -1892,12 +1898,6 @@ Appendix E.  Standard Prelude
    [tdate].  (Note that technically, it is a postlude, as it does not
    disturb the selection of the first rule as the root of the
    definition.)
-
-
-
-
-
-
 
 
 
