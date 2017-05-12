@@ -1167,6 +1167,26 @@ $$personaldata-extensions //= (
 {:cddl #xmp-personaldata-sp title="Personal Data example: Using socket/plug extensibility"}
 
 
+## Generics
+
+Using angle brackets, the left hand side of a rule can add formal
+parameters after the name being defined, as in:
+
+~~~ CDDL
+messages = message<"reboot", "now"> / message<"sleep", 1..100>
+message<t, v> = {type: t, value: v}
+~~~
+{:cddl}
+
+When using a generic rule, the formal parameters are bound to the
+actual arguments supplied (also using angle brackets), within the
+scope of the generic rule (as if there were a rule of the form
+parameter = argument).
+
+(There are some limitations to nesting of generics in {{tool}} at this
+time.)
+
+
 ## Operator Precedence
 
 As with any language that has multiple syntactic features such as
@@ -1342,29 +1362,7 @@ precision (float16/float32/float64) when using CDDL for specifying
 JSON data structures.  (The current validator implementation {{tool}} does not
 handle this very well, either.)
 
-# Nursery
-
-This appendix describes advanced features that are still under review
-as they have not yet been heavily used in specifications.
-
-## Generics
-
-Using angle brackets, the left hand side of a rule can add formal
-parameters after the name being defined, as in:
-
-~~~ CDDL
-messages = message<"reboot", "now"> / message<"sleep", 1..100>
-message<t, v> = {type: t, value: v}
-~~~
-{:cddl}
-
-When using a generic rule, the formal parameters are bound to the
-actual arguments supplied (also using angle brackets), within the
-scope of the generic rule (as if there were a rule of the form
-parameter = argument).
-
-(There are some limitations to nesting of generics in {{tool}} at this
-time.)
+# (Not used.)
 
 # Change Log
 
