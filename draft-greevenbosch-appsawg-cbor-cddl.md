@@ -98,6 +98,11 @@ The CBOR notational convention has the following goals:
 
 * Extraction of specific elements from CBOR data for further processing.
 
+Not an explicit goal per se, but a convenient side effect of the JSON
+generic data model being a subset of the CBOR generic data model, is
+the fact that CDDL can also be used for describing JSON data
+structures (see {{sec-json}}).
+
 This document has the following structure:
 
 The syntax of CDDL is defined in {{syntax}}.
@@ -1557,7 +1562,7 @@ ambiguous.
 [^tdate]: The prelude as included here does not yet have a .regexp
         annotation on tdate, but we probably do want to have one.
 
-## Use with JSON
+## Use with JSON {#sec-json}
 
 The JSON generic data model (implicit in {{-json}}) is a subset of the
 generic data model of CBOR.  So one can use CDDL with JSON by limiting
@@ -1593,10 +1598,10 @@ literal.)
 Fundamentally, the number system of JSON itself is based on decimal
 numbers and decimal fractions and does not have limits to its
 precision or range.  In practice, JSON numbers are often parsed into a
-number type that is called float64 here, causing a number of
+number type that is called float64 here, creating a number of
 limitations to the generic data model {{-i-json}}.  In particular,
 this means that integers can only be expressed with interoperable
-exactness when they lie in the range \[-(2\*\*53)+1, (2\*\*53)-1] -- a
+exactness when they lie in the range \[-(2\*\*53)+1, (2\*\*53)-1] --- a
 smaller range than that covered by CDDL `int`.
 
 JSON applications that want to stay compatible with I-JSON therefore
