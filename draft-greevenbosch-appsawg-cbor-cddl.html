@@ -5,7 +5,7 @@
 <head profile="http://www.w3.org/2006/03/hcard http://dublincore.org/documents/2008/08/04/dc-html/">
   <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
 
-  <title>CBOR data definition language (CDDL): a notational convention to express CBOR data structures</title>
+  <title>Concise data definition language (CDDL): a notational convention to express CBOR data structures</title>
 
   
 <style type="text/css">/*<![CDATA[*/
@@ -276,70 +276,70 @@ address {
   /*]]>*/</style>
 
 
-  <link href="#rfc.toc" rel="Contents"/>
-<link href="#rfc.section.1" rel="Chapter" title="1 Introduction"/>
-<link href="#rfc.section.1.1" rel="Chapter" title="1.1 Requirements notation"/>
-<link href="#rfc.section.1.2" rel="Chapter" title="1.2 Terminology"/>
-<link href="#rfc.section.2" rel="Chapter" title="2 The Style of Data Structure Specification"/>
-<link href="#rfc.section.2.1" rel="Chapter" title="2.1 Groups and Composition in CDDL"/>
-<link href="#rfc.section.2.1.1" rel="Chapter" title="2.1.1 Usage"/>
-<link href="#rfc.section.2.1.2" rel="Chapter" title="2.1.2 Syntax"/>
-<link href="#rfc.section.2.2" rel="Chapter" title="2.2 Types"/>
-<link href="#rfc.section.2.2.1" rel="Chapter" title="2.2.1 Values"/>
-<link href="#rfc.section.2.2.2" rel="Chapter" title="2.2.2 Choices"/>
-<link href="#rfc.section.2.2.3" rel="Chapter" title="2.2.3 Representation Types"/>
-<link href="#rfc.section.2.2.4" rel="Chapter" title="2.2.4 Root type"/>
-<link href="#rfc.section.3" rel="Chapter" title="3 Syntax"/>
-<link href="#rfc.section.3.1" rel="Chapter" title="3.1 General conventions"/>
-<link href="#rfc.section.3.2" rel="Chapter" title="3.2 Occurrence"/>
-<link href="#rfc.section.3.3" rel="Chapter" title="3.3 Predefined names for types"/>
-<link href="#rfc.section.3.4" rel="Chapter" title="3.4 Arrays"/>
-<link href="#rfc.section.3.5" rel="Chapter" title="3.5 Maps"/>
-<link href="#rfc.section.3.5.1" rel="Chapter" title="3.5.1 Structs"/>
-<link href="#rfc.section.3.5.2" rel="Chapter" title="3.5.2 Tables"/>
-<link href="#rfc.section.3.6" rel="Chapter" title="3.6 Tags"/>
-<link href="#rfc.section.3.7" rel="Chapter" title="3.7 Annotations"/>
-<link href="#rfc.section.3.7.1" rel="Chapter" title="3.7.1 Annotation .size"/>
-<link href="#rfc.section.3.7.2" rel="Chapter" title="3.7.2 Annotation .bits"/>
-<link href="#rfc.section.3.7.3" rel="Chapter" title="3.7.3 Annotation .regexp"/>
-<link href="#rfc.section.3.7.4" rel="Chapter" title="3.7.4 Annotations .cbor and .cborseq"/>
-<link href="#rfc.section.3.7.5" rel="Chapter" title="3.7.5 Annotations .within and .and"/>
-<link href="#rfc.section.3.7.6" rel="Chapter" title="3.7.6 Annotations .lt, .le, .gt, .ge, .eq, .ne, and .default"/>
-<link href="#rfc.section.3.8" rel="Chapter" title="3.8 Socket/Plug"/>
-<link href="#rfc.section.3.9" rel="Chapter" title="3.9 Generics"/>
-<link href="#rfc.section.3.10" rel="Chapter" title="3.10 Operator Precedence"/>
-<link href="#rfc.section.4" rel="Chapter" title="4 Making Use of CDDL"/>
-<link href="#rfc.section.4.1" rel="Chapter" title="4.1 As a guide to a human user"/>
-<link href="#rfc.section.4.2" rel="Chapter" title="4.2 For automated checking of CBOR data structure"/>
-<link href="#rfc.section.4.3" rel="Chapter" title="4.3 For data analysis tools"/>
-<link href="#rfc.section.5" rel="Chapter" title="5 Security considerations"/>
-<link href="#rfc.section.6" rel="Chapter" title="6 IANA considerations"/>
-<link href="#rfc.section.7" rel="Chapter" title="7 Acknowledgements"/>
-<link href="#rfc.references" rel="Chapter" title="8 References"/>
-<link href="#rfc.references.1" rel="Chapter" title="8.1 Normative References"/>
-<link href="#rfc.references.2" rel="Chapter" title="8.2 Informative References"/>
-<link href="#rfc.appendix.A" rel="Chapter" title="A Cemetery"/>
-<link href="#rfc.appendix.A.1" rel="Chapter" title="A.1 Resolved Issues"/>
-<link href="#rfc.appendix.B" rel="Chapter" title="B (Not used.)"/>
-<link href="#rfc.appendix.C" rel="Chapter" title="C Change Log"/>
-<link href="#rfc.appendix.D" rel="Chapter" title="D ABNF grammar"/>
-<link href="#rfc.appendix.E" rel="Chapter" title="E Standard Prelude"/>
-<link href="#rfc.appendix.E.1" rel="Chapter" title="E.1 Use with JSON"/>
-<link href="#rfc.appendix.F" rel="Chapter" title="F The CDDL tool"/>
-<link href="#rfc.appendix.G" rel="Chapter" title="G Extended Diagnostic Notation"/>
-<link href="#rfc.appendix.G.1" rel="Chapter" title="G.1 White space in byte string notation"/>
-<link href="#rfc.appendix.G.2" rel="Chapter" title="G.2 Text in byte string notation"/>
-<link href="#rfc.appendix.G.3" rel="Chapter" title="G.3 Embedded CBOR and CBOR sequences in byte strings"/>
-<link href="#rfc.appendix.G.4" rel="Chapter" title="G.4 Concatenated Strings"/>
-<link href="#rfc.appendix.G.5" rel="Chapter" title="G.5 Hexadecimal, octal, and binary numbers"/>
-<link href="#rfc.appendix.G.6" rel="Chapter" title="G.6 Comments"/>
-<link href="#rfc.appendix.H" rel="Chapter" title="H Examples"/>
-<link href="#rfc.appendix.H.1" rel="Chapter" title="H.1 RFC 7071"/>
-<link href="#rfc.appendix.H.1.1" rel="Chapter" title="H.1.1 Examples from JSON Content Rules"/>
-<link href="#rfc.authors" rel="Chapter"/>
+  <link href="#rfc.toc" rel="Contents">
+<link href="#rfc.section.1" rel="Chapter" title="1 Introduction">
+<link href="#rfc.section.1.1" rel="Chapter" title="1.1 Requirements notation">
+<link href="#rfc.section.1.2" rel="Chapter" title="1.2 Terminology">
+<link href="#rfc.section.2" rel="Chapter" title="2 The Style of Data Structure Specification">
+<link href="#rfc.section.2.1" rel="Chapter" title="2.1 Groups and Composition in CDDL">
+<link href="#rfc.section.2.1.1" rel="Chapter" title="2.1.1 Usage">
+<link href="#rfc.section.2.1.2" rel="Chapter" title="2.1.2 Syntax">
+<link href="#rfc.section.2.2" rel="Chapter" title="2.2 Types">
+<link href="#rfc.section.2.2.1" rel="Chapter" title="2.2.1 Values">
+<link href="#rfc.section.2.2.2" rel="Chapter" title="2.2.2 Choices">
+<link href="#rfc.section.2.2.3" rel="Chapter" title="2.2.3 Representation Types">
+<link href="#rfc.section.2.2.4" rel="Chapter" title="2.2.4 Root type">
+<link href="#rfc.section.3" rel="Chapter" title="3 Syntax">
+<link href="#rfc.section.3.1" rel="Chapter" title="3.1 General conventions">
+<link href="#rfc.section.3.2" rel="Chapter" title="3.2 Occurrence">
+<link href="#rfc.section.3.3" rel="Chapter" title="3.3 Predefined names for types">
+<link href="#rfc.section.3.4" rel="Chapter" title="3.4 Arrays">
+<link href="#rfc.section.3.5" rel="Chapter" title="3.5 Maps">
+<link href="#rfc.section.3.5.1" rel="Chapter" title="3.5.1 Structs">
+<link href="#rfc.section.3.5.2" rel="Chapter" title="3.5.2 Tables">
+<link href="#rfc.section.3.6" rel="Chapter" title="3.6 Tags">
+<link href="#rfc.section.3.7" rel="Chapter" title="3.7 Annotations">
+<link href="#rfc.section.3.7.1" rel="Chapter" title="3.7.1 Annotation .size">
+<link href="#rfc.section.3.7.2" rel="Chapter" title="3.7.2 Annotation .bits">
+<link href="#rfc.section.3.7.3" rel="Chapter" title="3.7.3 Annotation .regexp">
+<link href="#rfc.section.3.7.4" rel="Chapter" title="3.7.4 Annotations .cbor and .cborseq">
+<link href="#rfc.section.3.7.5" rel="Chapter" title="3.7.5 Annotations .within and .and">
+<link href="#rfc.section.3.7.6" rel="Chapter" title="3.7.6 Annotations .lt, .le, .gt, .ge, .eq, .ne, and .default">
+<link href="#rfc.section.3.8" rel="Chapter" title="3.8 Socket/Plug">
+<link href="#rfc.section.3.9" rel="Chapter" title="3.9 Generics">
+<link href="#rfc.section.3.10" rel="Chapter" title="3.10 Operator Precedence">
+<link href="#rfc.section.4" rel="Chapter" title="4 Making Use of CDDL">
+<link href="#rfc.section.4.1" rel="Chapter" title="4.1 As a guide to a human user">
+<link href="#rfc.section.4.2" rel="Chapter" title="4.2 For automated checking of CBOR data structure">
+<link href="#rfc.section.4.3" rel="Chapter" title="4.3 For data analysis tools">
+<link href="#rfc.section.5" rel="Chapter" title="5 Security considerations">
+<link href="#rfc.section.6" rel="Chapter" title="6 IANA considerations">
+<link href="#rfc.section.7" rel="Chapter" title="7 Acknowledgements">
+<link href="#rfc.references" rel="Chapter" title="8 References">
+<link href="#rfc.references.1" rel="Chapter" title="8.1 Normative References">
+<link href="#rfc.references.2" rel="Chapter" title="8.2 Informative References">
+<link href="#rfc.appendix.A" rel="Chapter" title="A Cemetery">
+<link href="#rfc.appendix.A.1" rel="Chapter" title="A.1 Resolved Issues">
+<link href="#rfc.appendix.B" rel="Chapter" title="B (Not used.)">
+<link href="#rfc.appendix.C" rel="Chapter" title="C Change Log">
+<link href="#rfc.appendix.D" rel="Chapter" title="D ABNF grammar">
+<link href="#rfc.appendix.E" rel="Chapter" title="E Standard Prelude">
+<link href="#rfc.appendix.E.1" rel="Chapter" title="E.1 Use with JSON">
+<link href="#rfc.appendix.F" rel="Chapter" title="F The CDDL tool">
+<link href="#rfc.appendix.G" rel="Chapter" title="G Extended Diagnostic Notation">
+<link href="#rfc.appendix.G.1" rel="Chapter" title="G.1 White space in byte string notation">
+<link href="#rfc.appendix.G.2" rel="Chapter" title="G.2 Text in byte string notation">
+<link href="#rfc.appendix.G.3" rel="Chapter" title="G.3 Embedded CBOR and CBOR sequences in byte strings">
+<link href="#rfc.appendix.G.4" rel="Chapter" title="G.4 Concatenated Strings">
+<link href="#rfc.appendix.G.5" rel="Chapter" title="G.5 Hexadecimal, octal, and binary numbers">
+<link href="#rfc.appendix.G.6" rel="Chapter" title="G.6 Comments">
+<link href="#rfc.appendix.H" rel="Chapter" title="H Examples">
+<link href="#rfc.appendix.H.1" rel="Chapter" title="H.1 RFC 7071">
+<link href="#rfc.appendix.H.1.1" rel="Chapter" title="H.1.1 Examples from JSON Content Rules">
+<link href="#rfc.authors" rel="Chapter">
 
 
-  <meta name="generator" content="xml2rfc version 2.5.2 - http://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.6.2 - http://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Birkholz, H., Vigano, C., and C. Bormann" />
@@ -356,55 +356,49 @@ address {
     <tbody>
     
     	<tr>
-  <td class="left">Network Working Group</td>
-  <td class="right">H. Birkholz</td>
+<td class="left">Network Working Group</td>
+<td class="right">H. Birkholz</td>
 </tr>
 <tr>
-  <td class="left">Internet-Draft</td>
-  <td class="right">Fraunhofer SIT</td>
+<td class="left">Internet-Draft</td>
+<td class="right">Fraunhofer SIT</td>
 </tr>
 <tr>
-  <td class="left">Intended status: Informational</td>
-  <td class="right">C. Vigano</td>
+<td class="left">Intended status: Informational</td>
+<td class="right">C. Vigano</td>
 </tr>
 <tr>
-  <td class="left">Expires: November 13, 2017</td>
-  <td class="right">Universit&#228;t Bremen</td>
+<td class="left">Expires: November 13, 2017</td>
+<td class="right">Universit&#228;t Bremen</td>
 </tr>
 <tr>
-  <td class="left"></td>
-  <td class="right">C. Bormann</td>
+<td class="left"></td>
+<td class="right">C. Bormann</td>
 </tr>
 <tr>
-  <td class="left"></td>
-  <td class="right">Universitaet Bremen TZI</td>
+<td class="left"></td>
+<td class="right">Universitaet Bremen TZI</td>
 </tr>
 <tr>
-  <td class="left"></td>
-  <td class="right">May 12, 2017</td>
+<td class="left"></td>
+<td class="right">May 12, 2017</td>
 </tr>
 
     	
     </tbody>
   </table>
 
-  <p class="title">CBOR data definition language (CDDL): a notational convention to express CBOR data structures<br />
+  <p class="title">Concise data definition language (CDDL): a notational convention to express CBOR data structures<br />
   <span class="filename">draft-greevenbosch-appsawg-cbor-cddl-latest</span></p>
   
-  <h1 id="rfc.abstract">
-  <a href="#rfc.abstract">Abstract</a>
-</h1>
+  <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
 <p>This document proposes a notational convention to express CBOR data structures (RFC 7049).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR.</p>
-<h1 id="rfc.status">
-  <a href="#rfc.status">Status of This Memo</a>
-</h1>
+<h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
 <p>This Internet-Draft will expire on November 13, 2017.</p>
-<h1 id="rfc.copyrightnotice">
-  <a href="#rfc.copyrightnotice">Copyright Notice</a>
-</h1>
+<h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2017 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
 
@@ -413,124 +407,195 @@ address {
   <h1 class="np" id="rfc.toc"><a href="#rfc.toc">Table of Contents</a></h1>
   <ul class="toc">
 
-  	<li>1.   <a href="#rfc.section.1">Introduction</a></li>
-<ul><li>1.1.   <a href="#rfc.section.1.1">Requirements notation</a></li>
-<li>1.2.   <a href="#rfc.section.1.2">Terminology</a></li>
-</ul><li>2.   <a href="#rfc.section.2">The Style of Data Structure Specification</a></li>
-<ul><li>2.1.   <a href="#rfc.section.2.1">Groups and Composition in CDDL</a></li>
-<ul><li>2.1.1.   <a href="#rfc.section.2.1.1">Usage</a></li>
-<li>2.1.2.   <a href="#rfc.section.2.1.2">Syntax</a></li>
-</ul><li>2.2.   <a href="#rfc.section.2.2">Types</a></li>
-<ul><li>2.2.1.   <a href="#rfc.section.2.2.1">Values</a></li>
-<li>2.2.2.   <a href="#rfc.section.2.2.2">Choices</a></li>
-<li>2.2.3.   <a href="#rfc.section.2.2.3">Representation Types</a></li>
-<li>2.2.4.   <a href="#rfc.section.2.2.4">Root type</a></li>
-</ul></ul><li>3.   <a href="#rfc.section.3">Syntax</a></li>
-<ul><li>3.1.   <a href="#rfc.section.3.1">General conventions</a></li>
-<li>3.2.   <a href="#rfc.section.3.2">Occurrence</a></li>
-<li>3.3.   <a href="#rfc.section.3.3">Predefined names for types</a></li>
-<li>3.4.   <a href="#rfc.section.3.4">Arrays</a></li>
-<li>3.5.   <a href="#rfc.section.3.5">Maps</a></li>
-<ul><li>3.5.1.   <a href="#rfc.section.3.5.1">Structs</a></li>
-<li>3.5.2.   <a href="#rfc.section.3.5.2">Tables</a></li>
-</ul><li>3.6.   <a href="#rfc.section.3.6">Tags</a></li>
-<li>3.7.   <a href="#rfc.section.3.7">Annotations</a></li>
-<ul><li>3.7.1.   <a href="#rfc.section.3.7.1">Annotation .size</a></li>
-<li>3.7.2.   <a href="#rfc.section.3.7.2">Annotation .bits</a></li>
-<li>3.7.3.   <a href="#rfc.section.3.7.3">Annotation .regexp</a></li>
-<li>3.7.4.   <a href="#rfc.section.3.7.4">Annotations .cbor and .cborseq</a></li>
-<li>3.7.5.   <a href="#rfc.section.3.7.5">Annotations .within and .and</a></li>
-<li>3.7.6.   <a href="#rfc.section.3.7.6">Annotations .lt, .le, .gt, .ge, .eq, .ne, and .default</a></li>
-</ul><li>3.8.   <a href="#rfc.section.3.8">Socket/Plug</a></li>
-<li>3.9.   <a href="#rfc.section.3.9">Generics</a></li>
-<li>3.10.   <a href="#rfc.section.3.10">Operator Precedence</a></li>
-</ul><li>4.   <a href="#rfc.section.4">Making Use of CDDL</a></li>
-<ul><li>4.1.   <a href="#rfc.section.4.1">As a guide to a human user</a></li>
-<li>4.2.   <a href="#rfc.section.4.2">For automated checking of CBOR data structure</a></li>
-<li>4.3.   <a href="#rfc.section.4.3">For data analysis tools</a></li>
-</ul><li>5.   <a href="#rfc.section.5">Security considerations</a></li>
-<li>6.   <a href="#rfc.section.6">IANA considerations</a></li>
-<li>7.   <a href="#rfc.section.7">Acknowledgements</a></li>
-<li>8.   <a href="#rfc.references">References</a></li>
-<ul><li>8.1.   <a href="#rfc.references.1">Normative References</a></li>
-<li>8.2.   <a href="#rfc.references.2">Informative References</a></li>
-</ul><li>Appendix A.   <a href="#rfc.appendix.A">Cemetery</a></li>
-<ul><li>A.1.   <a href="#rfc.appendix.A.1">Resolved Issues</a></li>
-</ul><li>Appendix B.   <a href="#rfc.appendix.B">(Not used.)</a></li>
-<li>Appendix C.   <a href="#rfc.appendix.C">Change Log</a></li>
-<li>Appendix D.   <a href="#rfc.appendix.D">ABNF grammar</a></li>
-<li>Appendix E.   <a href="#rfc.appendix.E">Standard Prelude</a></li>
-<ul><li>E.1.   <a href="#rfc.appendix.E.1">Use with JSON</a></li>
-</ul><li>Appendix F.   <a href="#rfc.appendix.F">The CDDL tool</a></li>
-<li>Appendix G.   <a href="#rfc.appendix.G">Extended Diagnostic Notation</a></li>
-<ul><li>G.1.   <a href="#rfc.appendix.G.1">White space in byte string notation</a></li>
-<li>G.2.   <a href="#rfc.appendix.G.2">Text in byte string notation</a></li>
-<li>G.3.   <a href="#rfc.appendix.G.3">Embedded CBOR and CBOR sequences in byte strings</a></li>
-<li>G.4.   <a href="#rfc.appendix.G.4">Concatenated Strings</a></li>
-<li>G.5.   <a href="#rfc.appendix.G.5">Hexadecimal, octal, and binary numbers</a></li>
-<li>G.6.   <a href="#rfc.appendix.G.6">Comments</a></li>
-</ul><li>Appendix H.   <a href="#rfc.appendix.H">Examples</a></li>
-<ul><li>H.1.   <a href="#rfc.appendix.H.1">RFC 7071</a></li>
-<ul><li>H.1.1.   <a href="#rfc.appendix.H.1.1">Examples from JSON Content Rules</a></li>
-</ul></ul><li><a href="#rfc.authors">Authors' Addresses</a></li>
+  	<li>1.   <a href="#rfc.section.1">Introduction</a>
+</li>
+<ul><li>1.1.   <a href="#rfc.section.1.1">Requirements notation</a>
+</li>
+<li>1.2.   <a href="#rfc.section.1.2">Terminology</a>
+</li>
+</ul><li>2.   <a href="#rfc.section.2">The Style of Data Structure Specification</a>
+</li>
+<ul><li>2.1.   <a href="#rfc.section.2.1">Groups and Composition in CDDL</a>
+</li>
+<ul><li>2.1.1.   <a href="#rfc.section.2.1.1">Usage</a>
+</li>
+<li>2.1.2.   <a href="#rfc.section.2.1.2">Syntax</a>
+</li>
+</ul><li>2.2.   <a href="#rfc.section.2.2">Types</a>
+</li>
+<ul><li>2.2.1.   <a href="#rfc.section.2.2.1">Values</a>
+</li>
+<li>2.2.2.   <a href="#rfc.section.2.2.2">Choices</a>
+</li>
+<li>2.2.3.   <a href="#rfc.section.2.2.3">Representation Types</a>
+</li>
+<li>2.2.4.   <a href="#rfc.section.2.2.4">Root type</a>
+</li>
+</ul></ul><li>3.   <a href="#rfc.section.3">Syntax</a>
+</li>
+<ul><li>3.1.   <a href="#rfc.section.3.1">General conventions</a>
+</li>
+<li>3.2.   <a href="#rfc.section.3.2">Occurrence</a>
+</li>
+<li>3.3.   <a href="#rfc.section.3.3">Predefined names for types</a>
+</li>
+<li>3.4.   <a href="#rfc.section.3.4">Arrays</a>
+</li>
+<li>3.5.   <a href="#rfc.section.3.5">Maps</a>
+</li>
+<ul><li>3.5.1.   <a href="#rfc.section.3.5.1">Structs</a>
+</li>
+<li>3.5.2.   <a href="#rfc.section.3.5.2">Tables</a>
+</li>
+</ul><li>3.6.   <a href="#rfc.section.3.6">Tags</a>
+</li>
+<li>3.7.   <a href="#rfc.section.3.7">Annotations</a>
+</li>
+<ul><li>3.7.1.   <a href="#rfc.section.3.7.1">Annotation .size</a>
+</li>
+<li>3.7.2.   <a href="#rfc.section.3.7.2">Annotation .bits</a>
+</li>
+<li>3.7.3.   <a href="#rfc.section.3.7.3">Annotation .regexp</a>
+</li>
+<li>3.7.4.   <a href="#rfc.section.3.7.4">Annotations .cbor and .cborseq</a>
+</li>
+<li>3.7.5.   <a href="#rfc.section.3.7.5">Annotations .within and .and</a>
+</li>
+<li>3.7.6.   <a href="#rfc.section.3.7.6">Annotations .lt, .le, .gt, .ge, .eq, .ne, and .default</a>
+</li>
+</ul><li>3.8.   <a href="#rfc.section.3.8">Socket/Plug</a>
+</li>
+<li>3.9.   <a href="#rfc.section.3.9">Generics</a>
+</li>
+<li>3.10.   <a href="#rfc.section.3.10">Operator Precedence</a>
+</li>
+</ul><li>4.   <a href="#rfc.section.4">Making Use of CDDL</a>
+</li>
+<ul><li>4.1.   <a href="#rfc.section.4.1">As a guide to a human user</a>
+</li>
+<li>4.2.   <a href="#rfc.section.4.2">For automated checking of CBOR data structure</a>
+</li>
+<li>4.3.   <a href="#rfc.section.4.3">For data analysis tools</a>
+</li>
+</ul><li>5.   <a href="#rfc.section.5">Security considerations</a>
+</li>
+<li>6.   <a href="#rfc.section.6">IANA considerations</a>
+</li>
+<li>7.   <a href="#rfc.section.7">Acknowledgements</a>
+</li>
+<li>8.   <a href="#rfc.references">References</a>
+</li>
+<ul><li>8.1.   <a href="#rfc.references.1">Normative References</a>
+</li>
+<li>8.2.   <a href="#rfc.references.2">Informative References</a>
+</li>
+</ul><li>Appendix A.   <a href="#rfc.appendix.A">Cemetery</a>
+</li>
+<ul><li>A.1.   <a href="#rfc.appendix.A.1">Resolved Issues</a>
+</li>
+</ul><li>Appendix B.   <a href="#rfc.appendix.B">(Not used.)</a>
+</li>
+<li>Appendix C.   <a href="#rfc.appendix.C">Change Log</a>
+</li>
+<li>Appendix D.   <a href="#rfc.appendix.D">ABNF grammar</a>
+</li>
+<li>Appendix E.   <a href="#rfc.appendix.E">Standard Prelude</a>
+</li>
+<ul><li>E.1.   <a href="#rfc.appendix.E.1">Use with JSON</a>
+</li>
+</ul><li>Appendix F.   <a href="#rfc.appendix.F">The CDDL tool</a>
+</li>
+<li>Appendix G.   <a href="#rfc.appendix.G">Extended Diagnostic Notation</a>
+</li>
+<ul><li>G.1.   <a href="#rfc.appendix.G.1">White space in byte string notation</a>
+</li>
+<li>G.2.   <a href="#rfc.appendix.G.2">Text in byte string notation</a>
+</li>
+<li>G.3.   <a href="#rfc.appendix.G.3">Embedded CBOR and CBOR sequences in byte strings</a>
+</li>
+<li>G.4.   <a href="#rfc.appendix.G.4">Concatenated Strings</a>
+</li>
+<li>G.5.   <a href="#rfc.appendix.G.5">Hexadecimal, octal, and binary numbers</a>
+</li>
+<li>G.6.   <a href="#rfc.appendix.G.6">Comments</a>
+</li>
+</ul><li>Appendix H.   <a href="#rfc.appendix.H">Examples</a>
+</li>
+<ul><li>H.1.   <a href="#rfc.appendix.H.1">RFC 7071</a>
+</li>
+<ul><li>H.1.1.   <a href="#rfc.appendix.H.1.1">Examples from JSON Content Rules</a>
+</li>
+</ul></ul><li><a href="#rfc.authors">Authors' Addresses</a>
+</li>
 
 
   </ul>
 
-  <h1 id="rfc.section.1"><a href="#rfc.section.1">1.</a> <a href="#introduction" id="introduction">Introduction</a></h1>
-<p id="rfc.section.1.p.1">In this document, a notational convention to express CBOR <a href="#RFC7049">[RFC7049]</a> data structures is defined.</p>
-<p id="rfc.section.1.p.2">The main goal for the convention is to provide a unified notation that can be used when defining protocols that use CBOR.  We term the convention &#8220;CBOR data definition language&#8221;, or CDDL.</p>
+  <h1 id="rfc.section.1">
+<a href="#rfc.section.1">1.</a> <a href="#introduction" id="introduction">Introduction</a>
+</h1>
+<p id="rfc.section.1.p.1">In this document, a notational convention to express CBOR <a href="#RFC7049" class="xref">[RFC7049]</a> data structures is defined.</p>
+<p id="rfc.section.1.p.2">The main goal for the convention is to provide a unified notation that can be used when defining protocols that use CBOR.  We term the convention &#8220;Concise data definition language&#8221;, or CDDL.</p>
 <p id="rfc.section.1.p.3">The CBOR notational convention has the following goals:</p>
-<p/>
+<p></p>
 
 <dl>
-  <dt>(G1)   </dt>
-  <dd>Provide an unambiguous description of the overall structure of a CBOR data structure.</dd>
-  <dt>(G2)   </dt>
-  <dd>Flexibility to express the freedoms of choice in the CBOR data format.</dd>
-  <dt>(G3)   </dt>
-  <dd>Possibility to restrict format choices where appropriate <a id="_format" class="info">[_format]<span class="info">So far, the ability to restrict format choices have not been needed beyond the floating point formats.  Those can be applied to ranges using the new .and annotation now.  It is not clear we want to add more format control before we have a use case.</span></a>.</dd>
-  <dt>(G4)   </dt>
-  <dd>Able to express common CBOR datatypes and structures.</dd>
-  <dt>(G5)   </dt>
-  <dd>Human and machine readable and processable.</dd>
-  <dt>(G6)   </dt>
-  <dd>Automatic checking of data format compliance.</dd>
-  <dt>(G7)   </dt>
-  <dd>Extraction of specific elements from CBOR data for further processing.</dd>
+<dt>(G1)   </dt>
+<dd>Provide an unambiguous description of the overall structure of a CBOR data structure.</dd>
+<dt>(G2)   </dt>
+<dd>Flexibility to express the freedoms of choice in the CBOR data format.</dd>
+<dt>(G3)   </dt>
+<dd>Possibility to restrict format choices where appropriate <a id="_format" class="info">[_format]<span class="info">So far, the ability to restrict format choices have not been needed beyond the floating point formats.  Those can be applied to ranges using the new .and annotation now.  It is not clear we want to add more format control before we have a use case.</span></a>.</dd>
+<dt>(G4)   </dt>
+<dd>Able to express common CBOR datatypes and structures.</dd>
+<dt>(G5)   </dt>
+<dd>Human and machine readable and processable.</dd>
+<dt>(G6)   </dt>
+<dd>Automatic checking of data format compliance.</dd>
+<dt>(G7)   </dt>
+<dd>Extraction of specific elements from CBOR data for further processing.</dd>
 </dl>
-<p id="rfc.section.1.p.5">This document has the following structure:</p>
-<p id="rfc.section.1.p.6">The syntax of CDDL is defined in <a href="#syntax">Section 3</a>.  Examples of CDDL and related CBOR data instances are defined in <a href="#examples">Appendix H</a>. <a href="#usage">Section 4</a> discusses usage of CDDL. Examples are provided early in the text to better illustrate concept definitions.  A formal definition of CDDL using ABNF grammar is provided in <a href="#abnf">Appendix D</a>.  Finally, a prelude of standard CDDL definitions available in every CBOR specification is listed in <a href="#prelude">Appendix E</a>.</p>
-<h1 id="rfc.section.1.1"><a href="#rfc.section.1.1">1.1.</a> <a href="#requirements-notation" id="requirements-notation">Requirements notation</a></h1>
-<p id="rfc.section.1.1.p.1">The key words &#8220;MUST&#8221;, &#8220;MUST NOT&#8221;, &#8220;REQUIRED&#8221;, &#8220;SHALL&#8221;, &#8220;SHALL NOT&#8221;, &#8220;SHOULD&#8221;, &#8220;SHOULD NOT&#8221;, &#8220;RECOMMENDED&#8221;, &#8220;NOT RECOMMENDED&#8221;, &#8220;MAY&#8221;, and &#8220;OPTIONAL&#8221; in this document are to be interpreted as described in RFC 2119, BCP 14 <a href="#RFC2119">[RFC2119]</a>.</p>
-<h1 id="rfc.section.1.2"><a href="#rfc.section.1.2">1.2.</a> <a href="#terminology" id="terminology">Terminology</a></h1>
+<p id="rfc.section.1.p.5">Not an explicit goal per se, but a convenient side effect of the JSON generic data model being a subset of the CBOR generic data model, is the fact that CDDL can also be used for describing JSON data structures (see <a href="#sec-json" class="xref">Appendix E.1</a>).</p>
+<p id="rfc.section.1.p.6">This document has the following structure:</p>
+<p id="rfc.section.1.p.7">The syntax of CDDL is defined in <a href="#syntax" class="xref">Section 3</a>.  Examples of CDDL and related CBOR data instances are defined in <a href="#examples" class="xref">Appendix H</a>. <a href="#usage" class="xref">Section 4</a> discusses usage of CDDL. Examples are provided early in the text to better illustrate concept definitions.  A formal definition of CDDL using ABNF grammar is provided in <a href="#abnf" class="xref">Appendix D</a>.  Finally, a prelude of standard CDDL definitions available in every CBOR specification is listed in <a href="#prelude" class="xref">Appendix E</a>.</p>
+<h1 id="rfc.section.1.1">
+<a href="#rfc.section.1.1">1.1.</a> <a href="#requirements-notation" id="requirements-notation">Requirements notation</a>
+</h1>
+<p id="rfc.section.1.1.p.1">The key words &#8220;MUST&#8221;, &#8220;MUST NOT&#8221;, &#8220;REQUIRED&#8221;, &#8220;SHALL&#8221;, &#8220;SHALL NOT&#8221;, &#8220;SHOULD&#8221;, &#8220;SHOULD NOT&#8221;, &#8220;RECOMMENDED&#8221;, &#8220;NOT RECOMMENDED&#8221;, &#8220;MAY&#8221;, and &#8220;OPTIONAL&#8221; in this document are to be interpreted as described in RFC 2119, BCP 14 <a href="#RFC2119" class="xref">[RFC2119]</a>.</p>
+<h1 id="rfc.section.1.2">
+<a href="#rfc.section.1.2">1.2.</a> <a href="#terminology" id="terminology">Terminology</a>
+</h1>
 <p id="rfc.section.1.2.p.1">New terms are introduced in <em>cursive</em>.  CDDL text in the running text is in <samp>typewriter</samp>.</p>
-<h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#the-style-of-data-structure-specification" id="the-style-of-data-structure-specification">The Style of Data Structure Specification</a></h1>
+<h1 id="rfc.section.2">
+<a href="#rfc.section.2">2.</a> <a href="#the-style-of-data-structure-specification" id="the-style-of-data-structure-specification">The Style of Data Structure Specification</a>
+</h1>
 <p id="rfc.section.2.p.1">CDDL focuses on styles of specification that are in use in the community employing the data model as pioneered by JSON and now refined in CBOR.</p>
 <p id="rfc.section.2.p.2">There are a number of more or less atomic elements of a CBOR data model, such as numbers, simple values (false, true, nil), text and byte strings; CDDL does not focus on specifying their structure.  CDDL of course also allows adding a CBOR tag to a data item.</p>
 <p id="rfc.section.2.p.3">The more important components of a data structure definition language are the data types used for composition: arrays and maps in CBOR (called arrays and objects in JSON).  While these are only two representation formats, they are used to specify four loosely distinguishable styles of composition:</p>
-<p/>
+<p></p>
 
 <ul>
-  <li>A <em>vector</em>, an array of elements that are mostly of the same semantics.  The set of signatures associated with a signed data item is a typical application of a vector. </li>
-  <li>A <em>record</em>, an array the elements of which have different, positionally defined semantics, as detailed in the data structure definition.  A 2D point, specified as an array of an x coordinate (which comes first) and a y coordinate (coming second) is an example of a record, as is the pair of exponent (first) and mantissa (second) in a CBOR decimal fraction. </li>
-  <li>A <em>table</em>, a map from a domain of map keys to a domain of map values, that are mostly of the same semantics.  A set of language tags, each mapped to a text string translated to that specific language, is an example of a table.  The key domain is usually not limited to a specific set by the specification, but open for the application, e.g., in a table mapping IP addresses to MAC addresses, the specification does not attempt to foresee all possible IP addresses. </li>
-  <li>A <em>struct</em>, a map from a domain of map keys as defined by the specification to a domain of map values the semantics of each of which is bound to a specific map key.  This is what many people have in mind when they think about JSON objects; CBOR adds the ability to use map keys that are not just text strings.  Structs can be used to solve similar problems as records; the use of explicit map keys facilitates optionality and extensibility. </li>
+<li>A <em>vector</em>, an array of elements that are mostly of the same semantics.  The set of signatures associated with a signed data item is a typical application of a vector. </li>
+<li>A <em>record</em>, an array the elements of which have different, positionally defined semantics, as detailed in the data structure definition.  A 2D point, specified as an array of an x coordinate (which comes first) and a y coordinate (coming second) is an example of a record, as is the pair of exponent (first) and mantissa (second) in a CBOR decimal fraction. </li>
+<li>A <em>table</em>, a map from a domain of map keys to a domain of map values, that are mostly of the same semantics.  A set of language tags, each mapped to a text string translated to that specific language, is an example of a table.  The key domain is usually not limited to a specific set by the specification, but open for the application, e.g., in a table mapping IP addresses to MAC addresses, the specification does not attempt to foresee all possible IP addresses. </li>
+<li>A <em>struct</em>, a map from a domain of map keys as defined by the specification to a domain of map values the semantics of each of which is bound to a specific map key.  This is what many people have in mind when they think about JSON objects; CBOR adds the ability to use map keys that are not just text strings.  Structs can be used to solve similar problems as records; the use of explicit map keys facilitates optionality and extensibility. </li>
 </ul>
 <p id="rfc.section.2.p.5">Two important concepts provide the foundation for CDDL:</p>
-<p/>
+<p></p>
 
 <ol>
-  <li>Instead of defining all four types of composition in CDDL separately, or even defining one kind for arrays (vectors and records) and one kind for maps (tables and structs), there is only one kind of composition in CDDL: the <em>group</em> (<a href="#group">Section 2.1</a>).</li>
-  <li>The other important concept is that of a <em>type</em>.  The entire CDDL specification defines a type (the one defined by its first <em>rule</em>), which formally is the set of CBOR instances that are acceptable for this specification.  CDDL predefines a number of basic types such as <samp>uint</samp> (unsigned integer) or <samp>tstr</samp> (text string), often making use of a simple formal notation for CBOR data items.  Each value that can be expressed as a CBOR data item also is a type in its own right, e.g. <samp>1</samp>.  A type can be built as a <em>choice</em> of other types, e.g., an <samp>int</samp> is either a <samp>uint</samp> or a <samp>nint</samp> (negative integer).  Finally, a type can be built as an array or a map from a group.</li>
+<li>Instead of defining all four types of composition in CDDL separately, or even defining one kind for arrays (vectors and records) and one kind for maps (tables and structs), there is only one kind of composition in CDDL: the <em>group</em> (<a href="#group" class="xref">Section 2.1</a>).</li>
+<li>The other important concept is that of a <em>type</em>.  The entire CDDL specification defines a type (the one defined by its first <em>rule</em>), which formally is the set of CBOR instances that are acceptable for this specification.  CDDL predefines a number of basic types such as <samp>uint</samp> (unsigned integer) or <samp>tstr</samp> (text string), often making use of a simple formal notation for CBOR data items.  Each value that can be expressed as a CBOR data item also is a type in its own right, e.g. <samp>1</samp>.  A type can be built as a <em>choice</em> of other types, e.g., an <samp>int</samp> is either a <samp>uint</samp> or a <samp>nint</samp> (negative integer).  Finally, a type can be built as an array or a map from a group.</li>
 </ol>
-<h1 id="rfc.section.2.1"><a href="#rfc.section.2.1">2.1.</a> <a href="#group" id="group">Groups and Composition in CDDL</a></h1>
+<h1 id="rfc.section.2.1">
+<a href="#rfc.section.2.1">2.1.</a> <a href="#group" id="group">Groups and Composition in CDDL</a>
+</h1>
 <p id="rfc.section.2.1.p.1">CDDL Groups are lists of name/value pairs (group <em>entries</em>).</p>
 <p id="rfc.section.2.1.p.2">In an array context, only the value of the entry is represented; the name is annotation only (and can be left off if not needed).  In a map context, the names become the map keys (&#8220;member keys&#8221;).</p>
 <p id="rfc.section.2.1.p.3">In an array context, the sequence of elements in the group is important, as it is the information that allows associating actual array elements with entries in the group.  In a map context, the sequence of entries in a group is not relevant (but there is still a need to write down group entries in a sequence).</p>
 <p id="rfc.section.2.1.p.4">A group can be placed in (round) parentheses, and given a name by using it in a rule:</p>
-<div id="rfc.figure.1"/>
-<div id="basic-group"/>
+<div id="rfc.figure.1"></div>
+<div id="basic-group"></div>
 <pre>
 pii = (
   age: int,
@@ -540,8 +605,8 @@ pii = (
 </pre>
 <p class="figure">Figure 1: A basic group</p>
 <p id="rfc.section.2.1.p.5">Or a group can just be used in the definition of something else:</p>
-<div id="rfc.figure.2"/>
-<div id="group-in-map"/>
+<div id="rfc.figure.2"></div>
+<div id="group-in-map"></div>
 <pre>
 person = {(
   age: int,
@@ -551,8 +616,8 @@ person = {(
 </pre>
 <p class="figure">Figure 2: Using a group in a map</p>
 <p id="rfc.section.2.1.p.6">which, given the above rule for pii, is identical to:</p>
-<div id="rfc.figure.3"/>
-<div id="group-by-name"/>
+<div id="rfc.figure.3"></div>
+<div id="group-by-name"></div>
 <pre>
 person = {
   pii
@@ -560,7 +625,7 @@ person = {
 </pre>
 <p class="figure">Figure 3: Using a group by name</p>
 <p id="rfc.section.2.1.p.7">Note that the (curly) braces signify the creation of a map; the groups themselves are neutral as to whether they will be used in a map or an array.</p>
-<p id="rfc.section.2.1.p.8">The parentheses for groups are optional when there is some other set of brackets present, so it would be slightly more natural to express <a href="#group-in-map">Figure 2</a> as:</p>
+<p id="rfc.section.2.1.p.8">The parentheses for groups are optional when there is some other set of brackets present, so it would be slightly more natural to express <a href="#group-in-map" class="xref">Figure 2</a> as:</p>
 <pre>
 person = {
   age: int,
@@ -583,8 +648,8 @@ dog = {
 }
 </pre>
 <p id="rfc.section.2.1.p.10">one can choose a name for the common subgroup and write:</p>
-<div id="rfc.figure.4"/>
-<div id="group_factorization"/>
+<div id="rfc.figure.4"></div>
+<div id="group_factorization"></div>
 <pre>
 person = {
   identity,
@@ -603,31 +668,43 @@ identity = (
 </pre>
 <p class="figure">Figure 4: Using a group for factorization</p>
 <p id="rfc.section.2.1.p.11">Note that the contents of the braces in the above definitions constitute (anonymous) groups, while <samp>identity</samp> is a named group.</p>
-<h1 id="rfc.section.2.1.1"><a href="#rfc.section.2.1.1">2.1.1.</a> <a href="#composition_usage" id="composition_usage">Usage</a></h1>
+<h1 id="rfc.section.2.1.1">
+<a href="#rfc.section.2.1.1">2.1.1.</a> <a href="#composition_usage" id="composition_usage">Usage</a>
+</h1>
 <p id="rfc.section.2.1.1.p.1">Groups are the instrument used in composing data structures with CDDL. It is a matter of style in defining those structures whether to define groups (anonymously) right in their contexts or whether to define them in a separate rule and to reference them with their respective name (possibly more than once).</p>
 <p id="rfc.section.2.1.1.p.2">With this, one is allowed to define all small parts of their data structures and compose bigger protocol units with those or to have only one big protocol data unit that has all definitions ad hoc where needed.</p>
-<h1 id="rfc.section.2.1.2"><a href="#rfc.section.2.1.2">2.1.2.</a> <a href="#composition_syntax" id="composition_syntax">Syntax</a></h1>
+<h1 id="rfc.section.2.1.2">
+<a href="#rfc.section.2.1.2">2.1.2.</a> <a href="#composition_syntax" id="composition_syntax">Syntax</a>
+</h1>
 <p id="rfc.section.2.1.2.p.1">The composition syntax intends to be concise and easy to read:</p>
-<p/>
+<p></p>
 
 <ul>
-  <li>The start of a group can be marked by &#8216;(&#8216;</li>
-  <li>The end of a group can be marked by &#8216;)&#8217;</li>
-  <li>Definitions of entries inside of a group are noted as follows: <em>keytype =&gt; valuetype,</em> (read &#8220;keytype maps to valuetype&#8221;).  The comma is actually optional (not just in the final entry), but it is considered good style to set it.  The double arrow can be replaced by a colon in the common case of directly using a text string as a key (see <a href="#structs">Section 3.5.1</a>).</li>
+<li>The start of a group can be marked by &#8216;(&#8216;</li>
+<li>The end of a group can be marked by &#8216;)&#8217;</li>
+<li>Definitions of entries inside of a group are noted as follows: <em>keytype =&gt; valuetype,</em> (read &#8220;keytype maps to valuetype&#8221;).  The comma is actually optional (not just in the final entry), but it is considered good style to set it.  The double arrow can be replaced by a colon in the common case of directly using a text string as a key (see <a href="#structs" class="xref">Section 3.5.1</a>).</li>
 </ul>
 <p id="rfc.section.2.1.2.p.3">An entry consists of a <em>keytype</em> and a <em>valuetype</em>:</p>
-<p/>
+<p></p>
 
 <ul>
-  <li><em>keytype</em> is either an atom used as the actual key or a type in general.  The latter case may be needed when using groups in a table context, where the actual keys are of lesser importance than the key types, e.g in contexts verifying incoming data.</li>
-  <li><em>valuetype</em> is a type, which could be derived from the major types defined in <a href="#RFC7049">[RFC7049]</a>, could be a convenience valuetype defined in this document (<a href="#prelude">Appendix E</a>) or the name of a type defined in the specification.</li>
+<li>
+<em>keytype</em> is either an atom used as the actual key or a type in general.  The latter case may be needed when using groups in a table context, where the actual keys are of lesser importance than the key types, e.g in contexts verifying incoming data.</li>
+<li>
+<em>valuetype</em> is a type, which could be derived from the major types defined in <a href="#RFC7049" class="xref">[RFC7049]</a>, could be a convenience valuetype defined in this document (<a href="#prelude" class="xref">Appendix E</a>) or the name of a type defined in the specification.</li>
 </ul>
-<p id="rfc.section.2.1.2.p.5">A group definition can also contain choices between groups, see <a href="#choices">Section 2.2.2</a>.</p>
-<h1 id="rfc.section.2.2"><a href="#rfc.section.2.2">2.2.</a> <a href="#types" id="types">Types</a></h1>
-<h1 id="rfc.section.2.2.1"><a href="#rfc.section.2.2.1">2.2.1.</a> <a href="#values" id="values">Values</a></h1>
+<p id="rfc.section.2.1.2.p.5">A group definition can also contain choices between groups, see <a href="#choices" class="xref">Section 2.2.2</a>.</p>
+<h1 id="rfc.section.2.2">
+<a href="#rfc.section.2.2">2.2.</a> <a href="#types" id="types">Types</a>
+</h1>
+<h1 id="rfc.section.2.2.1">
+<a href="#rfc.section.2.2.1">2.2.1.</a> <a href="#values" id="values">Values</a>
+</h1>
 <p id="rfc.section.2.2.1.p.1">Values such as numbers and strings can be used in place of a type.  (For instance, this is a very common thing to do for a keytype, common enough that CDDL provides additional convenience syntax for this.)</p>
-<h1 id="rfc.section.2.2.2"><a href="#rfc.section.2.2.2">2.2.2.</a> <a href="#choices" id="choices">Choices</a></h1>
-<p id="rfc.section.2.2.2.p.1">Many places that allow a type also allow a choice between types, delimited by a &#8220;/&#8221; (slash).  The entire choice construct can be put into parentheses if this is required to make the construction unambiguous (please see <a href="#abnf">Appendix D</a> for the details).</p>
+<h1 id="rfc.section.2.2.2">
+<a href="#rfc.section.2.2.2">2.2.2.</a> <a href="#choices" id="choices">Choices</a>
+</h1>
+<p id="rfc.section.2.2.2.p.1">Many places that allow a type also allow a choice between types, delimited by a &#8220;/&#8221; (slash).  The entire choice construct can be put into parentheses if this is required to make the construction unambiguous (please see <a href="#abnf" class="xref">Appendix D</a> for the details).</p>
 <p id="rfc.section.2.2.2.p.2">Choices of values can be used to express enumerations:</p>
 <pre>
 attire = "bow tie" / "necktie" / "Internet attire"
@@ -655,7 +732,9 @@ lat: float, long: float, drone-type: tstr
 )
 </pre>
 <p id="rfc.section.2.2.2.p.5">It is not an error if a name is first used with a &#8220;/=&#8221; or &#8220;//=&#8221; (there is no need to &#8220;create it&#8221; with &#8220;=&#8221;).</p>
-<h1 id="rfc.section.2.2.2.1"><a href="#rfc.section.2.2.2.1">2.2.2.1.</a> <a href="#ranges" id="ranges">Ranges</a></h1>
+<h1 id="rfc.section.2.2.2.1">
+<a href="#rfc.section.2.2.2.1">2.2.2.1.</a> <a href="#ranges" id="ranges">Ranges</a>
+</h1>
 <p id="rfc.section.2.2.2.1.p.1">Instead of naming all the values that make up a choice, CDDL allows building a <em>range</em> out of two values that are in an ordering relationship.  A range can be inclusive of both ends given (denoted by joining two values by &#8220;..&#8221;), or include the first and exclude the second (denoted by instead using &#8220;&#8230;&#8221;).</p>
 <pre>
 device-address = byte
@@ -665,7 +744,9 @@ first-non-byte = 256
 byte1 = 0...first-non-byte ; byte1 is equivalent to byte
 </pre>
 <p id="rfc.section.2.2.2.1.p.2">CDDL currently only allows ranges between numbers <a id="_range" class="info">[_range]<span class="info">TO DO: define this precisely.  This clearly includes integers and floats.  Strings &#8211; as in &#8220;a&#8221;..&#8221;z&#8221; &#8211; could be added if desired, but this would require adopting a definition of string ordering and possibly a successor function so &#8220;a&#8221;..&#8221;z&#8221; does not include &#8220;bb&#8221;.</span></a>.</p>
-<h1 id="rfc.section.2.2.2.2"><a href="#rfc.section.2.2.2.2">2.2.2.2.</a> <a href="#turning-a-group-into-a-choice" id="turning-a-group-into-a-choice">Turning a group into a choice</a></h1>
+<h1 id="rfc.section.2.2.2.2">
+<a href="#rfc.section.2.2.2.2">2.2.2.2.</a> <a href="#turning-a-group-into-a-choice" id="turning-a-group-into-a-choice">Turning a group into a choice</a>
+</h1>
 <p id="rfc.section.2.2.2.2.p.1">Some choices are built out of large numbers of values, often integers, each of which is best given a semantic name in the specification.  Instead of naming each of these integers and then accumulating these into a choice, CDDL allows building a choice from a group by prefixing it with a &#8220;&amp;&#8221; character:</p>
 <pre>
 terminal-color = &amp;basecolors
@@ -678,9 +759,11 @@ extended-color = &amp;(
   orange: 8,  pink: 9,  purple: 10,  brown: 11,
 )
 </pre>
-<p id="rfc.section.2.2.2.2.p.2">As with the use of groups in arrays (<a href="#arrays">Section 3.4</a>), the membernames have only documentary value (in particular, they might be used by a tool when displaying integers that are taken from that choice).</p>
-<h1 id="rfc.section.2.2.3"><a href="#rfc.section.2.2.3">2.2.3.</a> <a href="#representation-types" id="representation-types">Representation Types</a></h1>
-<p id="rfc.section.2.2.3.p.1">CDDL allows the specification of a data item type by referring to the CBOR representation (major and minor numbers).  How this is used should be evident from the prelude (<a href="#prelude">Appendix E</a>).</p>
+<p id="rfc.section.2.2.2.2.p.2">As with the use of groups in arrays (<a href="#arrays" class="xref">Section 3.4</a>), the membernames have only documentary value (in particular, they might be used by a tool when displaying integers that are taken from that choice).</p>
+<h1 id="rfc.section.2.2.3">
+<a href="#rfc.section.2.2.3">2.2.3.</a> <a href="#representation-types" id="representation-types">Representation Types</a>
+</h1>
+<p id="rfc.section.2.2.3.p.1">CDDL allows the specification of a data item type by referring to the CBOR representation (major and minor numbers).  How this is used should be evident from the prelude (<a href="#prelude" class="xref">Appendix E</a>).</p>
 <p id="rfc.section.2.2.3.p.2">It may be necessary to make use of representation types outside the prelude, e.g., a specification could start by making use of an existing tag in a more specific way, or define a new tag not defined in the prelude:</p>
 <pre>
 my_breakfast = #6.55799(breakfast)   ; cbor-any is too general!
@@ -692,30 +775,43 @@ milk = 0
 water = 1
 solid = tstr
 </pre>
-<h1 id="rfc.section.2.2.4"><a href="#rfc.section.2.2.4">2.2.4.</a> <a href="#root-type" id="root-type">Root type</a></h1>
+<h1 id="rfc.section.2.2.4">
+<a href="#rfc.section.2.2.4">2.2.4.</a> <a href="#root-type" id="root-type">Root type</a>
+</h1>
 <p id="rfc.section.2.2.4.p.1">There is no special syntax to identify the root of a CDDL data structure definition: that role is simply taken by the first rule defined in the file.</p>
 <p id="rfc.section.2.2.4.p.2">This is motivated by the usual top-down approach for defining data structures, decomposing a big data structure unit into smaller parts; however, except for the root type, there is no need to strictly follow this sequence.</p>
 <p id="rfc.section.2.2.4.p.3">(Note that there is no way to use a group as a root &#8211; it must be a type.  Using a group as the root might be employed as a way to specify a CBOR sequence in a future version of this specification; this would act as if that group is used in an array and the data items in that fictional array form the members of the CBOR sequence.)</p>
-<h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#syntax" id="syntax">Syntax</a></h1>
-<p id="rfc.section.3.p.1">In this section, the overall syntax of CDDL is shown, alongside some examples just illustrating syntax.  (The definition will not attempt to be overly formal; refer to <a href="#abnf">Appendix D</a> for the details.)</p>
-<h1 id="rfc.section.3.1"><a href="#rfc.section.3.1">3.1.</a> <a href="#general-conventions" id="general-conventions">General conventions</a></h1>
-<p id="rfc.section.3.1.p.1">The basic syntax is inspired by ABNF <a href="#RFC5234">[RFC5234]</a>, with</p>
-<p/>
+<h1 id="rfc.section.3">
+<a href="#rfc.section.3">3.</a> <a href="#syntax" id="syntax">Syntax</a>
+</h1>
+<p id="rfc.section.3.p.1">In this section, the overall syntax of CDDL is shown, alongside some examples just illustrating syntax.  (The definition will not attempt to be overly formal; refer to <a href="#abnf" class="xref">Appendix D</a> for the details.)</p>
+<h1 id="rfc.section.3.1">
+<a href="#rfc.section.3.1">3.1.</a> <a href="#general-conventions" id="general-conventions">General conventions</a>
+</h1>
+<p id="rfc.section.3.1.p.1">The basic syntax is inspired by ABNF <a href="#RFC5234" class="xref">[RFC5234]</a>, with</p>
+<p></p>
 
 <ul>
-  <li>rules, whether they define groups or types, are defined with a name, followed by an equals sign &#8220;=&#8221; and the actual definition according to the respective syntactic rules of that definition.</li>
-  <li>A name can consist of any of the characters from the set {&#8216;A&#8217;, &#8230;, &#8216;Z&#8217;, &#8216;a&#8217;, &#8230;, &#8216;z&#8217;, &#8216;0&#8217;, &#8230;, &#8216;9&#8217;, &#8216;_&#8217;, &#8216;-&#8216;, &#8216;@&#8217;, &#8216;.&#8217;, &#8216;$&#8217;}, starting with an alphabetic character (including &#8216;@&#8217;, &#8216;_&#8217;, &#8216;$&#8217;) and ending in one or a digit.  <ul><li>Names are case sensitive.</li><li>It is preferred style to start a name with a lower case letter.</li><li>The hyphen is preferred over the underscore (except in a &#8220;bareword&#8221; (<a href="#structs">Section 3.5.1</a>), where the semantics may actually require an underscore).</li><li>The period may be useful for larger specifications, to express some module structure (as in <samp>tcp.throughput</samp> vs. <samp>udp.throughput</samp>).</li><li>A number of names are predefined in the CDDL prelude, as listed in <a href="#prelude">Appendix E</a>.</li><li>Rule names (types or groups) do not appear in the actual CBOR encoding, but names used as &#8220;barewords&#8221; in member keys do.</li></ul></li>
-  <li>Comments are started by a &#8216;;&#8217; (semicolon) character and finish at the end of a line (LF or CRLF).</li>
-  <li>outside strings, whitespace (spaces, newlines, and comments) is used to separate syntactic elements for readability (and to separate identifiers or numbers that follow each other); it is otherwise completely optional.</li>
-  <li>Hexadecimal numbers are preceded by &#8216;0x&#8217; (without quotes, lower case x), and are case insensitive.  Similarly, binary numbers are preceded by &#8216;0b&#8217;. </li>
-  <li>Text strings are enclosed by double quotation &#8216;&#8221;&#8217; characters.  They follow the conventions for strings as defined in section 7 of <a href="#RFC7159">[RFC7159]</a>.  (ABNF users may want to note that there is no support in CDDL for the concept of case insensitivity in text strings; if necessary, regular expressions can be used (<a href="#regexp">Section 3.7.3</a>).)</li>
-  <li>Byte strings are enclosed by single quotation &#8220;&#8217;&#8221; characters and may be prefixed by &#8220;h&#8221; or &#8220;b64&#8221;.  If unprefixed, the string is interpreted as with a text string, except that single quotes must be escaped and that the UTF-8 bytes resulting are marked as a byte string (major type 2).  If prefixed as &#8220;h&#8221; or &#8220;b64&#8221;, the string is interpreted as a sequence of hex digits or a base64(url) string, respectively (as with the diagnostic notation in section 6 of <a href="#RFC7049">[RFC7049]</a>; cf. <a href="#textbin">Appendix G.2</a>); any white space present within the string (including comments) is ignored in the prefixed case.  <a id="_strings" class="info">[_strings]<span class="info">TO DO: This still needs to be fully realized in the ABNF and in the CDDL tool.</span></a></li>
+<li>rules, whether they define groups or types, are defined with a name, followed by an equals sign &#8220;=&#8221; and the actual definition according to the respective syntactic rules of that definition.</li>
+<li>A name can consist of any of the characters from the set {&#8216;A&#8217;, &#8230;, &#8216;Z&#8217;, &#8216;a&#8217;, &#8230;, &#8216;z&#8217;, &#8216;0&#8217;, &#8230;, &#8216;9&#8217;, &#8216;_&#8217;, &#8216;-&#8216;, &#8216;@&#8217;, &#8216;.&#8217;, &#8216;$&#8217;}, starting with an alphabetic character (including &#8216;@&#8217;, &#8216;_&#8217;, &#8216;$&#8217;) and ending in one or a digit.  <ul>
+<li>Names are case sensitive.</li>
+<li>It is preferred style to start a name with a lower case letter.</li>
+<li>The hyphen is preferred over the underscore (except in a &#8220;bareword&#8221; (<a href="#structs" class="xref">Section 3.5.1</a>), where the semantics may actually require an underscore).</li>
+<li>The period may be useful for larger specifications, to express some module structure (as in <samp>tcp.throughput</samp> vs. <samp>udp.throughput</samp>).</li>
+<li>A number of names are predefined in the CDDL prelude, as listed in <a href="#prelude" class="xref">Appendix E</a>.</li>
+<li>Rule names (types or groups) do not appear in the actual CBOR encoding, but names used as &#8220;barewords&#8221; in member keys do.</li>
 </ul>
-<p/>
+</li>
+<li>Comments are started by a &#8216;;&#8217; (semicolon) character and finish at the end of a line (LF or CRLF).</li>
+<li>outside strings, whitespace (spaces, newlines, and comments) is used to separate syntactic elements for readability (and to separate identifiers or numbers that follow each other); it is otherwise completely optional.</li>
+<li>Hexadecimal numbers are preceded by &#8216;0x&#8217; (without quotes, lower case x), and are case insensitive.  Similarly, binary numbers are preceded by &#8216;0b&#8217;. </li>
+<li>Text strings are enclosed by double quotation &#8216;&#8221;&#8217; characters.  They follow the conventions for strings as defined in section 7 of <a href="#RFC7159" class="xref">[RFC7159]</a>.  (ABNF users may want to note that there is no support in CDDL for the concept of case insensitivity in text strings; if necessary, regular expressions can be used (<a href="#regexp" class="xref">Section 3.7.3</a>).)</li>
+<li>Byte strings are enclosed by single quotation &#8220;&#8217;&#8221; characters and may be prefixed by &#8220;h&#8221; or &#8220;b64&#8221;.  If unprefixed, the string is interpreted as with a text string, except that single quotes must be escaped and that the UTF-8 bytes resulting are marked as a byte string (major type 2).  If prefixed as &#8220;h&#8221; or &#8220;b64&#8221;, the string is interpreted as a sequence of hex digits or a base64(url) string, respectively (as with the diagnostic notation in section 6 of <a href="#RFC7049" class="xref">[RFC7049]</a>; cf. <a href="#textbin" class="xref">Appendix G.2</a>); any white space present within the string (including comments) is ignored in the prefixed case.  <a id="_strings" class="info">[_strings]<span class="info">TO DO: This still needs to be fully realized in the ABNF and in the CDDL tool.</span></a>
+</li>
+</ul>
+<p></p>
 
-<ul>
-  <li>CDDL uses UTF-8 <a href="#RFC3629">[RFC3629]</a> for its encoding.</li>
-</ul>
+<ul><li>CDDL uses UTF-8 <a href="#RFC3629" class="xref">[RFC3629]</a> for its encoding.</li></ul>
 <p id="rfc.section.3.1.p.4">Example:</p>
 <pre>
 ; This is a comment
@@ -726,7 +822,9 @@ g = (
   age: int,  ; "age" is a bareword
 )
 </pre>
-<h1 id="rfc.section.3.2"><a href="#rfc.section.3.2">3.2.</a> <a href="#occurrence" id="occurrence">Occurrence</a></h1>
+<h1 id="rfc.section.3.2">
+<a href="#rfc.section.3.2">3.2.</a> <a href="#occurrence" id="occurrence">Occurrence</a>
+</h1>
 <p id="rfc.section.3.2.p.1">An optional <em>occurrence</em> indicator can be given in front of a group entry.  It is either one of the characters &#8216;?&#8217; (optional), &#8216;*&#8217; (zero or more), or &#8216;+&#8217; (one or more), or is of the form n*m, where n and m are optional unsigned integers and n is the lower limit (default 0) and m is the upper limit (default no limit) of occurrences.</p>
 <p id="rfc.section.3.2.p.2">If no occurrence indicator is specified, the group entry is to occur exactly once (as if 1*1 were specified).</p>
 <p id="rfc.section.3.2.p.3">Note that CDDL, outside any directives/annotations that could possibly be defined, does not make any prescription as to whether arrays or maps use the definite length or indefinite length encoding.  I.e., there is no correlation between leaving the size of an array &#8220;open&#8221; in the spec and the fact that it is then interchanged with definite or indefinite length.</p>
@@ -743,38 +841,42 @@ size = float ; in m2
   ? bedroom: size,
 </pre>
 <p id="rfc.section.3.2.p.6">(Occurrence indicators beyond one still are useful in maps for groups that allow a variety of keys.)</p>
-<h1 id="rfc.section.3.3"><a href="#rfc.section.3.3">3.3.</a> <a href="#predefined-names-for-types" id="predefined-names-for-types">Predefined names for types</a></h1>
-<p id="rfc.section.3.3.p.1">CDDL predefines a number of names.  This subsection summarizes these names, but please see <a href="#prelude">Appendix E</a> for the exact definitions.</p>
+<h1 id="rfc.section.3.3">
+<a href="#rfc.section.3.3">3.3.</a> <a href="#predefined-names-for-types" id="predefined-names-for-types">Predefined names for types</a>
+</h1>
+<p id="rfc.section.3.3.p.1">CDDL predefines a number of names.  This subsection summarizes these names, but please see <a href="#prelude" class="xref">Appendix E</a> for the exact definitions.</p>
 <p id="rfc.section.3.3.p.2">The following keywords for primitive datatypes are defined:</p>
-<p/>
+<p></p>
 
 <dl>
-  <dt>&#8220;bool&#8221;</dt>
-  <dd style="margin-left: 8">Boolean value (major type 7, additional information 20 or 21).</dd>
-  <dt>&#8220;uint&#8221;</dt>
-  <dd style="margin-left: 8">An unsigned integer (major type 0).</dd>
-  <dt>&#8220;nint&#8221;</dt>
-  <dd style="margin-left: 8">A negative integer (major type 1).</dd>
-  <dt>&#8220;int&#8221;</dt>
-  <dd style="margin-left: 8">An unsigned integer or a negative integer.</dd>
-  <dt>&#8220;float16&#8221;</dt>
-  <dd style="margin-left: 8">IEEE 754 half-precision float (major type 7, additional information 25).</dd>
-  <dt>&#8220;float32&#8221;</dt>
-  <dd style="margin-left: 8">IEEE 754 single-precision float (major type 7, additional information 26).</dd>
-  <dt>&#8220;float64&#8221;</dt>
-  <dd style="margin-left: 8">IEEE 754 double-precision float (major type 7, additional information 27).</dd>
-  <dt>&#8220;float&#8221;</dt>
-  <dd style="margin-left: 8">One of float16, float32, or float64.</dd>
-  <dt>&#8220;bstr&#8221; or &#8220;bytes&#8221;</dt>
-  <dd style="margin-left: 8">A byte string (major type 2).</dd>
-  <dt>&#8220;tstr&#8221; or &#8220;text&#8221;</dt>
-  <dd style="margin-left: 8">Text string (major type 3)</dd>
+<dt>&#8220;bool&#8221;</dt>
+<dd style="margin-left: 8">Boolean value (major type 7, additional information 20 or 21).</dd>
+<dt>&#8220;uint&#8221;</dt>
+<dd style="margin-left: 8">An unsigned integer (major type 0).</dd>
+<dt>&#8220;nint&#8221;</dt>
+<dd style="margin-left: 8">A negative integer (major type 1).</dd>
+<dt>&#8220;int&#8221;</dt>
+<dd style="margin-left: 8">An unsigned integer or a negative integer.</dd>
+<dt>&#8220;float16&#8221;</dt>
+<dd style="margin-left: 8">IEEE 754 half-precision float (major type 7, additional information 25).</dd>
+<dt>&#8220;float32&#8221;</dt>
+<dd style="margin-left: 8">IEEE 754 single-precision float (major type 7, additional information 26).</dd>
+<dt>&#8220;float64&#8221;</dt>
+<dd style="margin-left: 8">IEEE 754 double-precision float (major type 7, additional information 27).</dd>
+<dt>&#8220;float&#8221;</dt>
+<dd style="margin-left: 8">One of float16, float32, or float64.</dd>
+<dt>&#8220;bstr&#8221; or &#8220;bytes&#8221;</dt>
+<dd style="margin-left: 8">A byte string (major type 2).</dd>
+<dt>&#8220;tstr&#8221; or &#8220;text&#8221;</dt>
+<dd style="margin-left: 8">Text string (major type 3)</dd>
 </dl>
 <p id="rfc.section.3.3.p.4">(Note that there are no predefined names for arrays or maps; these are defined with the syntax given below.)</p>
 <p id="rfc.section.3.3.p.5">In addition, a number of types are defined in the prelude that are associated with CBOR tags, such as <samp>tdate</samp>, <samp>bigint</samp>, <samp>regexp</samp> etc.</p>
-<h1 id="rfc.section.3.4"><a href="#rfc.section.3.4">3.4.</a> <a href="#arrays" id="arrays">Arrays</a></h1>
+<h1 id="rfc.section.3.4">
+<a href="#rfc.section.3.4">3.4.</a> <a href="#arrays" id="arrays">Arrays</a>
+</h1>
 <p id="rfc.section.3.4.p.1">Array definitions surround a group with square brackets.</p>
-<p id="rfc.section.3.4.p.2">For each entry, an occurrence indicator as specified in <a href="#occurrence">Section 3.2</a> is permitted.</p>
+<p id="rfc.section.3.4.p.2">For each entry, an occurrence indicator as specified in <a href="#occurrence" class="xref">Section 3.2</a> is permitted.</p>
 <p id="rfc.section.3.4.p.3">For example:</p>
 <pre>
 unlimited-people = [* person]
@@ -793,12 +895,16 @@ person = (
 ["penintime", 1513, "endocarditis", 4084, "impermeator", 1669,
  "coextension", 865]
 </pre>
-<h1 id="rfc.section.3.5"><a href="#rfc.section.3.5">3.5.</a> <a href="#maps" id="maps">Maps</a></h1>
+<h1 id="rfc.section.3.5">
+<a href="#rfc.section.3.5">3.5.</a> <a href="#maps" id="maps">Maps</a>
+</h1>
 <p id="rfc.section.3.5.p.1">The syntax for specifying maps merits special attention, as well as a number of optimizations and conveniences, as it is likely to be the focal point of many specifications employing CDDL.  While the syntax does not strictly distinguish struct and table usage of maps, it caters specifically to each of them.</p>
-<h1 id="rfc.section.3.5.1"><a href="#rfc.section.3.5.1">3.5.1.</a> <a href="#structs" id="structs">Structs</a></h1>
+<h1 id="rfc.section.3.5.1">
+<a href="#rfc.section.3.5.1">3.5.1.</a> <a href="#structs" id="structs">Structs</a>
+</h1>
 <p id="rfc.section.3.5.1.p.1">The &#8220;struct&#8221; usage of maps is similar to the way JSON objects are used in many JSON applications.</p>
-<p id="rfc.section.3.5.1.p.2">A map is defined in the same way as defining an array (see <a href="#arrays">Section 3.4</a>), except for using curly braces &#8220;{}&#8221; instead of square brackets &#8220;[]&#8221;.</p>
-<p id="rfc.section.3.5.1.p.3">An occurrence indicator as specified in <a href="#occurrence">Section 3.2</a> is permitted for each group entry.</p>
+<p id="rfc.section.3.5.1.p.2">A map is defined in the same way as defining an array (see <a href="#arrays" class="xref">Section 3.4</a>), except for using curly braces &#8220;{}&#8221; instead of square brackets &#8220;[]&#8221;.</p>
+<p id="rfc.section.3.5.1.p.3">An occurrence indicator as specified in <a href="#occurrence" class="xref">Section 3.2</a> is permitted for each group entry.</p>
 <p id="rfc.section.3.5.1.p.4">The following is an example of a structure:</p>
 <pre>
 Geography = [
@@ -855,8 +961,8 @@ NameComponents = (
 <p id="rfc.section.3.5.1.p.12">Note that the group definition for NameComponents does not generate another map; instead, all four keys are directly in the struct built by PersonalData.</p>
 <p id="rfc.section.3.5.1.p.13">In this example, all key/value pairs are optional from the perspective of CDDL.  With no occurrence indicator, an entry is mandatory.</p>
 <p id="rfc.section.3.5.1.p.14">If the addition of more entries not specified by the current specification is desired, one can add this possibility explicitly:</p>
-<div id="rfc.figure.5"/>
-<div id="xmp-personaldata"/>
+<div id="rfc.figure.5"></div>
+<div id="xmp-personaldata"></div>
 <pre>
 PersonalData = {
   ? displayName: tstr,
@@ -871,14 +977,16 @@ NameComponents = (
 )
 </pre>
 <p class="figure">Figure 5: Personal Data: Example for extensibility</p>
-<p id="rfc.section.3.5.1.p.15">The cddl tool (<a href="#tool">Appendix F</a>) generated as one acceptable instance for this specification:</p>
+<p id="rfc.section.3.5.1.p.15">The cddl tool (<a href="#tool" class="xref">Appendix F</a>) generated as one acceptable instance for this specification:</p>
 <pre>
 {"familyName": "agust", "antiforeignism": "pretzel",
  "springbuck": "illuminatingly", "exuviae": "ephemeris",
  "kilometrage": "frogfish"}
 </pre>
-<p id="rfc.section.3.5.1.p.16">(See <a href="#socketplug">Section 3.8</a> for one way to explicitly identify an extension point.)</p>
-<h1 id="rfc.section.3.5.2"><a href="#rfc.section.3.5.2">3.5.2.</a> <a href="#tables" id="tables">Tables</a></h1>
+<p id="rfc.section.3.5.1.p.16">(See <a href="#socketplug" class="xref">Section 3.8</a> for one way to explicitly identify an extension point.)</p>
+<h1 id="rfc.section.3.5.2">
+<a href="#rfc.section.3.5.2">3.5.2.</a> <a href="#tables" id="tables">Tables</a>
+</h1>
 <p id="rfc.section.3.5.2.p.1">A table can be specified by defining a map with entries where the keytype is not single-valued, e.g.:</p>
 <pre>
 square-roots = {* x =&gt; y}
@@ -892,13 +1000,15 @@ y = float
 tostring = {* mynumber =&gt; tstr}
 mynumber = int / float
 </pre>
-<h1 id="rfc.section.3.6"><a href="#rfc.section.3.6">3.6.</a> <a href="#tagsec" id="tagsec">Tags</a></h1>
+<h1 id="rfc.section.3.6">
+<a href="#rfc.section.3.6">3.6.</a> <a href="#tagsec" id="tagsec">Tags</a>
+</h1>
 <p id="rfc.section.3.6.p.1">A type can make use of a CBOR tag (major type 6) by using the representation type notation, giving #6.nnn(type) where nnn is an unsigned integer giving the tag number and <samp>type</samp> is the type of the data item being tagged.</p>
-<p id="rfc.section.3.6.p.2">For example, the following line from the CDDL prelude (<a href="#prelude">Appendix E</a>) defines <samp>biguint</samp> as a type name for a positive bignum N:</p>
+<p id="rfc.section.3.6.p.2">For example, the following line from the CDDL prelude (<a href="#prelude" class="xref">Appendix E</a>) defines <samp>biguint</samp> as a type name for a positive bignum N:</p>
 <pre>
 biguint = #6.2(bstr)
 </pre>
-<p id="rfc.section.3.6.p.3">The tags defined by <a href="#RFC7049">[RFC7049]</a> are included in the prelude.  Additional tags since registered need to be added to a CDDL specification as needed; e.g., a binary UUID tag could be referenced as <samp>buuid</samp> in a specification after defining</p>
+<p id="rfc.section.3.6.p.3">The tags defined by <a href="#RFC7049" class="xref">[RFC7049]</a> are included in the prelude.  Additional tags since registered need to be added to a CDDL specification as needed; e.g., a binary UUID tag could be referenced as <samp>buuid</samp> in a specification after defining</p>
 <pre>
 buuid = #6.37(bstr)
 </pre>
@@ -906,14 +1016,18 @@ buuid = #6.37(bstr)
 <pre>
 my_uri = #6.32(tstr) / tstr
 </pre>
-<h1 id="rfc.section.3.7"><a href="#rfc.section.3.7">3.7.</a> <a href="#annotations" id="annotations">Annotations</a></h1>
+<h1 id="rfc.section.3.7">
+<a href="#rfc.section.3.7">3.7.</a> <a href="#annotations" id="annotations">Annotations</a>
+</h1>
 <p id="rfc.section.3.7.p.1">An <em>annotation</em> allows to annotate a <em>target</em> type with a <em>control</em> type via an <em>annotator</em>.</p>
 <p id="rfc.section.3.7.p.2">The syntax for an annotated type is <samp>target .annotator control</samp>, where annotators are special identifiers prefixed by a dot.  (Note that <em>target</em> or <em>control</em> might need to be parenthesized.)</p>
 <p id="rfc.section.3.7.p.3">Three annotators are defined at his point.  Note that the CDDL tool does not currently support combining multiple annotations on a single target.</p>
-<h1 id="rfc.section.3.7.1"><a href="#rfc.section.3.7.1">3.7.1.</a> <a href="#annotation-size" id="annotation-size">Annotation .size</a></h1>
+<h1 id="rfc.section.3.7.1">
+<a href="#rfc.section.3.7.1">3.7.1.</a> <a href="#annotation-size" id="annotation-size">Annotation .size</a>
+</h1>
 <p id="rfc.section.3.7.1.p.1">A <samp>.size</samp> annotation controls the size of the target in bytes by the control type.  Examples:</p>
-<div id="rfc.figure.6"/>
-<div id="annotate-size"/>
+<div id="rfc.figure.6"></div>
+<div id="annotate-size"></div>
 <pre>
 full-address = [[+ label], ip4, ip6]
 ip4 = bstr .size 4
@@ -922,18 +1036,20 @@ label = bstr .size (1..63)
 </pre>
 <p class="figure">Figure 6: Annotation for size in bytes</p>
 <p id="rfc.section.3.7.1.p.2">When applied to an unsigned integer, the <samp>.size</samp> annotation restricts the range of that integer by giving a maximum number of bytes that should be needed in a computer representation of that unsigned integer.  In other words, <samp>uint .size N</samp> is equivalent to <samp>0...BYTES_N</samp>, where BYTES_N == 256**N.</p>
-<div id="rfc.figure.7"/>
-<div id="annotate-int-size"/>
+<div id="rfc.figure.7"></div>
+<div id="annotate-int-size"></div>
 <pre>
 audio_sample = uint .size 3 ; 24-bit, equivalent to 0..16777215
 </pre>
 <p class="figure">Figure 7: Annotation for integer size in bytes</p>
-<p id="rfc.section.3.7.1.p.3">Note that, as with value restrictions in CDDL, this annotation is not a representation constraint; a number that fits into fewer bytes can still be represented in that form, and an inefficient implementation could use a longer form (unless that is restricted by some format constraints outside of CDDL, such as the rules in Section 3.9 of <a href="#RFC7049">[RFC7049]</a>).</p>
-<h1 id="rfc.section.3.7.2"><a href="#rfc.section.3.7.2">3.7.2.</a> <a href="#annotation-bits" id="annotation-bits">Annotation .bits</a></h1>
+<p id="rfc.section.3.7.1.p.3">Note that, as with value restrictions in CDDL, this annotation is not a representation constraint; a number that fits into fewer bytes can still be represented in that form, and an inefficient implementation could use a longer form (unless that is restricted by some format constraints outside of CDDL, such as the rules in Section 3.9 of <a href="#RFC7049" class="xref">[RFC7049]</a>).</p>
+<h1 id="rfc.section.3.7.2">
+<a href="#rfc.section.3.7.2">3.7.2.</a> <a href="#annotation-bits" id="annotation-bits">Annotation .bits</a>
+</h1>
 <p id="rfc.section.3.7.2.p.1">A <samp>.bits</samp> annotation on a byte string indicates that, in the target, only the bits numbered by a number in the control type are allowed to be set.  (Bits are counted the usual way, bit number <samp>n</samp> being set in <samp>str</samp> meaning that <samp>(str[n &gt;&gt; 3] &amp; (1 &lt;&lt; (n &amp; 7))) != 0</samp>.) <a id="_bitsendian" class="info">[_bitsendian]<span class="info">How useful would it be to have another variant that counts bits like in RFC box notation?  (Or at least per-byte? 32-bit words don&#8217;t always perfectly mesh with byte strings.)</span></a></p>
 <p id="rfc.section.3.7.2.p.2">Similarly, a <samp>.bits</samp> annotation on an unsigned integer <samp>i</samp> indicates that for all unsigned integers <samp>n</samp> where <samp>(i &amp; (1 &lt;&lt; n)) != 0</samp>, <samp>n</samp> must be in the control type.</p>
-<div id="rfc.figure.8"/>
-<div id="annotate-bits"/>
+<div id="rfc.figure.8"></div>
+<div id="annotate-bits"></div>
 <pre>
 tcpflagbytes = bstr .bits flags
 flags = &amp;(
@@ -958,10 +1074,12 @@ h'906d' h'01fc' h'8145' h'01b7' h'013d' h'409f' h'018e' h'c05f'
 h'01fa' h'01fe'
 </pre>
 <p id="rfc.section.3.7.2.p.4">These examples do not illustrate that the above CDDL specification does not explicitly specify a size of two bytes: A valid all clear instance of flag bytes could be <samp>h''</samp> or <samp>h'00'</samp> or even <samp>h'000000'</samp> as well.</p>
-<h1 id="rfc.section.3.7.3"><a href="#rfc.section.3.7.3">3.7.3.</a> <a href="#regexp" id="regexp">Annotation .regexp</a></h1>
+<h1 id="rfc.section.3.7.3">
+<a href="#rfc.section.3.7.3">3.7.3.</a> <a href="#regexp" id="regexp">Annotation .regexp</a>
+</h1>
 <p id="rfc.section.3.7.3.p.1">A <samp>.regexp</samp> annotation indicates that the text string given as a target needs to match the PCRE regular expression given as a value in the control type, where that regular expression is anchored on both sides.  (If anchoring is not desired for a side, <samp>.*</samp> needs to be inserted there.)</p>
-<div id="rfc.figure.9"/>
-<div id="annotate-regexp"/>
+<div id="rfc.figure.9"></div>
+<div id="annotate-regexp"></div>
 <pre>
 nai = tstr .regexp "\\w+@\\w+(\\.\\w+)+"
 </pre>
@@ -970,42 +1088,30 @@ nai = tstr .regexp "\\w+@\\w+(\\.\\w+)+"
 <pre>
 "N1@CH57HF.4Znqe0.dYJRN.igjf"
 </pre>
-<h1 id="rfc.section.3.7.4"><a href="#rfc.section.3.7.4">3.7.4.</a> <a href="#annotations-cbor-and-cborseq" id="annotations-cbor-and-cborseq">Annotations .cbor and .cborseq</a></h1>
+<h1 id="rfc.section.3.7.4">
+<a href="#rfc.section.3.7.4">3.7.4.</a> <a href="#annotations-cbor-and-cborseq" id="annotations-cbor-and-cborseq">Annotations .cbor and .cborseq</a>
+</h1>
 <p id="rfc.section.3.7.4.p.1">A <samp>.cbor</samp> annotation on a byte string indicates that the byte string carries a CBOR encoded data item.  Decoded, the data item matches the type given as the right-hand side argument (type1 in the following example).</p>
-<p/>
+<p></p>
 
-<ul class="empty">
-  <li>
-    <samp>bytes .cbor type1</samp>
-  </li>
-</ul>
+<ul class="empty"><li><samp>bytes .cbor type1</samp></li></ul>
 <p id="rfc.section.3.7.4.p.3">Similarly, a <samp>.cborseq</samp> annotation on a byte string indicates that the byte string carries a sequence of CBOR encoded data items.  When the data items are taken as an array, the array matches the type given as the right-hand side argument (type2 in the following example).</p>
-<p/>
+<p></p>
 
-<ul class="empty">
-  <li>
-    <samp>bytes .cborseq type2</samp>
-  </li>
-</ul>
+<ul class="empty"><li><samp>bytes .cborseq type2</samp></li></ul>
 <p id="rfc.section.3.7.4.p.5">(The conversion of the encoded sequence to an array can be effected for instance by wrapping the byte string between the two bytes 0x9f and 0xff and decoding the wrapped byte string as a CBOR encoded data item.)</p>
-<h1 id="rfc.section.3.7.5"><a href="#rfc.section.3.7.5">3.7.5.</a> <a href="#annotations-within-and-and" id="annotations-within-and-and">Annotations .within and .and</a></h1>
+<h1 id="rfc.section.3.7.5">
+<a href="#rfc.section.3.7.5">3.7.5.</a> <a href="#annotations-within-and-and" id="annotations-within-and-and">Annotations .within and .and</a>
+</h1>
 <p id="rfc.section.3.7.5.p.1">A <samp>.and</samp> annotation on a type indicates that the data item matches both that left hand side type and the type given as the right hand side.  (Formally, the resulting type is the intersection of the two types given.)</p>
-<p/>
+<p></p>
 
-<ul class="empty">
-  <li>
-    <samp>type1 .and type2</samp>
-  </li>
-</ul>
+<ul class="empty"><li><samp>type1 .and type2</samp></li></ul>
 <p id="rfc.section.3.7.5.p.3">A variant of the <samp>.and</samp> annotation is the <samp>.within</samp> annotation, which expresses an additional intent: the left hand side type is meant to be a subset of the right-hand-side type.</p>
-<p/>
+<p></p>
 
-<ul class="empty">
-  <li>
-    <samp>type1 .within type2</samp>
-  </li>
-</ul>
-<p id="rfc.section.3.7.5.p.5">While both forms have the identical formal semantics (intersection), the intention of the <samp>.within</samp> form is that the right hand side gives guidance to the types allowed on the left hand side, which typically is a socket (<a href="#socketplug">Section 3.8</a>):</p>
+<ul class="empty"><li><samp>type1 .within type2</samp></li></ul>
+<p id="rfc.section.3.7.5.p.5">While both forms have the identical formal semantics (intersection), the intention of the <samp>.within</samp> form is that the right hand side gives guidance to the types allowed on the left hand side, which typically is a socket (<a href="#socketplug" class="xref">Section 3.8</a>):</p>
 <pre>
 message = $message .within message-structure
 message-structure = [message_type, *message_option]
@@ -1016,7 +1122,9 @@ $message /= [3, dough: text, topping: [* text]]
 $message /= [4, noodles: text, sauce: text, parmesan: bool]
 </pre>
 <p id="rfc.section.3.7.5.p.6">For <samp>.within</samp>, a tool might flag an error if type1 allows data items that are not allowed by type2.  In contrast, for <samp>.and</samp>, there is no expectation that type1 already is a subset of type2.</p>
-<h1 id="rfc.section.3.7.6"><a href="#rfc.section.3.7.6">3.7.6.</a> <a href="#annotations-lt-le-gt-ge-eq-ne-and-default" id="annotations-lt-le-gt-ge-eq-ne-and-default">Annotations .lt, .le, .gt, .ge, .eq, .ne, and .default</a></h1>
+<h1 id="rfc.section.3.7.6">
+<a href="#rfc.section.3.7.6">3.7.6.</a> <a href="#annotations-lt-le-gt-ge-eq-ne-and-default" id="annotations-lt-le-gt-ge-eq-ne-and-default">Annotations .lt, .le, .gt, .ge, .eq, .ne, and .default</a>
+</h1>
 <p id="rfc.section.3.7.6.p.1">The annotations .lt, .le, .gt, .ge, .eq, .ne specify a constraint on the left hand side type to be a value less than, less than or equal, equal to, not equal to, greather than, or greater than or equal to a value given as a (single-valued) right hand side type.  In the present specification, the first four annotations (.lt, .le, .gt, .ge) are defined only for numeric types, as these have a natural ordering relationship.</p>
 <pre>
 speed = number .ge 0  ; unit: m/s
@@ -1028,7 +1136,9 @@ timer = {
   ? displayed-step: (number .gt 0) .default 1
 }
 </pre>
-<h1 id="rfc.section.3.8"><a href="#rfc.section.3.8">3.8.</a> <a href="#socketplug" id="socketplug">Socket/Plug</a></h1>
+<h1 id="rfc.section.3.8">
+<a href="#rfc.section.3.8">3.8.</a> <a href="#socketplug" id="socketplug">Socket/Plug</a>
+</h1>
 <p id="rfc.section.3.8.p.1">Both for type choices and group choices, a mechanism is defined that facilitates starting out with empty choices and assembling them later, potentially in separate files that are concatenated to build the full specification.</p>
 <p id="rfc.section.3.8.p.2">Per convention, CDDL extension points are marked with a leading dollar sign (types) or two leading dollar signs (groups).  Tools honor that convention by not raising an error if such a type or group is not defined at all; the symbol is then taken to be an empty type choice (group choice), i.e., no choice is available.</p>
 <pre>
@@ -1048,9 +1158,9 @@ sack-permitted: true
 </pre>
 <p id="rfc.section.3.8.p.3">Names that start with a single &#8220;$&#8221; are &#8220;type sockets&#8221;, names with a double &#8220;$$&#8221; are &#8220;group sockets&#8221;.  It is not an error if there is no definition for a socket at all; this then means there is no way to satisfy the rule (i.e., the choice is empty).</p>
 <p id="rfc.section.3.8.p.4">All definitions (plugs) for socket names must be augmentations, i.e., they must be using &#8220;/=&#8221; and &#8220;//=&#8221;, respectively.</p>
-<p id="rfc.section.3.8.p.5">To pick up the example illustrated in <a href="#xmp-personaldata">Figure 5</a>, the socket/plug mechanism could be used as shown in <a href="#xmp-personaldata-sp">Figure 10</a>:</p>
-<div id="rfc.figure.10"/>
-<div id="xmp-personaldata-sp"/>
+<p id="rfc.section.3.8.p.5">To pick up the example illustrated in <a href="#xmp-personaldata" class="xref">Figure 5</a>, the socket/plug mechanism could be used as shown in <a href="#xmp-personaldata-sp" class="xref">Figure 10</a>:</p>
+<div id="rfc.figure.10"></div>
+<div id="xmp-personaldata-sp"></div>
 <pre>
 PersonalData = {
   ? displayName: tstr,
@@ -1078,15 +1188,19 @@ $$personaldata-extensions //= (
 )
 </pre>
 <p class="figure">Figure 10: Personal Data example: Using socket/plug extensibility</p>
-<h1 id="rfc.section.3.9"><a href="#rfc.section.3.9">3.9.</a> <a href="#generics" id="generics">Generics</a></h1>
+<h1 id="rfc.section.3.9">
+<a href="#rfc.section.3.9">3.9.</a> <a href="#generics" id="generics">Generics</a>
+</h1>
 <p id="rfc.section.3.9.p.1">Using angle brackets, the left hand side of a rule can add formal parameters after the name being defined, as in:</p>
 <pre>
 messages = message&lt;"reboot", "now"&gt; / message&lt;"sleep", 1..100&gt;
 message&lt;t, v&gt; = {type: t, value: v}
 </pre>
 <p id="rfc.section.3.9.p.2">When using a generic rule, the formal parameters are bound to the actual arguments supplied (also using angle brackets), within the scope of the generic rule (as if there were a rule of the form parameter = argument).</p>
-<p id="rfc.section.3.9.p.3">(There are some limitations to nesting of generics in <a href="#tool">Appendix F</a> at this time.)</p>
-<h1 id="rfc.section.3.10"><a href="#rfc.section.3.10">3.10.</a> <a href="#operator-precedence" id="operator-precedence">Operator Precedence</a></h1>
+<p id="rfc.section.3.9.p.3">(There are some limitations to nesting of generics in <a href="#tool" class="xref">Appendix F</a> at this time.)</p>
+<h1 id="rfc.section.3.10">
+<a href="#rfc.section.3.10">3.10.</a> <a href="#operator-precedence" id="operator-precedence">Operator Precedence</a>
+</h1>
 <p id="rfc.section.3.10.p.1">As with any language that has multiple syntactic features such as prefix and infix operators, CDDL has operators that bind more tightly than others.  This is becoming more complicated than, say, in ABNF, as CDDL has both types and groups, with operators that are specific to these concepts.  Type operators (such as &#8220;/&#8221; for type choice) operate on types, while group operators (such as &#8220;//&#8221; for group choice) operate on groups.  Types can simply be used in groups, but groups need to be bracketed (as arrays or maps) to become types.  So, type operators naturally bind closer than group operators.</p>
 <p id="rfc.section.3.10.p.2">For instance, in</p>
 <pre>
@@ -1120,356 +1234,357 @@ t = [group4a]
 group4a = ((+ a) // (b / c))
 a = 1 b = 2 c = 3
 </pre>
-<p id="rfc.section.3.10.p.9">The operator precedences, in sequence of loose to tight binding, are defined in <a href="#abnf">Appendix D</a> and summarized in <a href="#prec">Table 1</a>.  (Arities given are 1 for unary prefix operators and 2 for binary infix operators.)</p>
-<div id="rfc.table.1"/>
-<div id="prec"/>
+<p id="rfc.section.3.10.p.9">The operator precedences, in sequence of loose to tight binding, are defined in <a href="#abnf" class="xref">Appendix D</a> and summarized in <a href="#prec" class="xref">Table 1</a>.  (Arities given are 1 for unary prefix operators and 2 for binary infix operators.)</p>
+<div id="rfc.table.1"></div>
+<div id="prec"></div>
 <table cellpadding="3" cellspacing="0" class="tt full center">
-  <caption>Summary of operator precedences</caption>
-  <thead>
-    <tr>
-      <th class="center">Operator</th>
-      <th class="right">Ar</th>
-      <th class="left">Operates on</th>
-      <th class="right">Prec</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="center">=</td>
-      <td class="right">2</td>
-      <td class="left">name = type, name = group</td>
-      <td class="right">1</td>
-    </tr>
-    <tr>
-      <td class="center">/=</td>
-      <td class="right">2</td>
-      <td class="left">name /= type</td>
-      <td class="right">1</td>
-    </tr>
-    <tr>
-      <td class="center">//=</td>
-      <td class="right">2</td>
-      <td class="left">name //= group</td>
-      <td class="right">1</td>
-    </tr>
-    <tr>
-      <td class="center">//</td>
-      <td class="right">2</td>
-      <td class="left">group // group</td>
-      <td class="right">2</td>
-    </tr>
-    <tr>
-      <td class="center">,</td>
-      <td class="right">2</td>
-      <td class="left">group, group</td>
-      <td class="right">3</td>
-    </tr>
-    <tr>
-      <td class="center">*</td>
-      <td class="right">1</td>
-      <td class="left">* group</td>
-      <td class="right">4</td>
-    </tr>
-    <tr>
-      <td class="center">N*M</td>
-      <td class="right">1</td>
-      <td class="left">N*M group</td>
-      <td class="right">4</td>
-    </tr>
-    <tr>
-      <td class="center">+</td>
-      <td class="right">1</td>
-      <td class="left">+ group</td>
-      <td class="right">4</td>
-    </tr>
-    <tr>
-      <td class="center">?</td>
-      <td class="right">1</td>
-      <td class="left">? group</td>
-      <td class="right">4</td>
-    </tr>
-    <tr>
-      <td class="center">=&gt;</td>
-      <td class="right">2</td>
-      <td class="left">type =&gt; type</td>
-      <td class="right">5</td>
-    </tr>
-    <tr>
-      <td class="center">:</td>
-      <td class="right">2</td>
-      <td class="left">name: type</td>
-      <td class="right">5</td>
-    </tr>
-    <tr>
-      <td class="center">/</td>
-      <td class="right">2</td>
-      <td class="left">type / type</td>
-      <td class="right">6</td>
-    </tr>
-    <tr>
-      <td class="center">&amp;</td>
-      <td class="right">1</td>
-      <td class="left">&amp;group</td>
-      <td class="right">6</td>
-    </tr>
-    <tr>
-      <td class="center">..</td>
-      <td class="right">2</td>
-      <td class="left">type..type</td>
-      <td class="right">7</td>
-    </tr>
-    <tr>
-      <td class="center">&#8230;</td>
-      <td class="right">2</td>
-      <td class="left">type&#8230;type</td>
-      <td class="right">7</td>
-    </tr>
-    <tr>
-      <td class="center">.anno</td>
-      <td class="right">2</td>
-      <td class="left">type .anno type</td>
-      <td class="right">7</td>
-    </tr>
-  </tbody>
+<caption>Summary of operator precedences</caption>
+<thead><tr>
+<th class="center">Operator</th>
+<th class="right">Ar</th>
+<th class="left">Operates on</th>
+<th class="right">Prec</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="center">=</td>
+<td class="right">2</td>
+<td class="left">name = type, name = group</td>
+<td class="right">1</td>
+</tr>
+<tr>
+<td class="center">/=</td>
+<td class="right">2</td>
+<td class="left">name /= type</td>
+<td class="right">1</td>
+</tr>
+<tr>
+<td class="center">//=</td>
+<td class="right">2</td>
+<td class="left">name //= group</td>
+<td class="right">1</td>
+</tr>
+<tr>
+<td class="center">//</td>
+<td class="right">2</td>
+<td class="left">group // group</td>
+<td class="right">2</td>
+</tr>
+<tr>
+<td class="center">,</td>
+<td class="right">2</td>
+<td class="left">group, group</td>
+<td class="right">3</td>
+</tr>
+<tr>
+<td class="center">*</td>
+<td class="right">1</td>
+<td class="left">* group</td>
+<td class="right">4</td>
+</tr>
+<tr>
+<td class="center">N*M</td>
+<td class="right">1</td>
+<td class="left">N*M group</td>
+<td class="right">4</td>
+</tr>
+<tr>
+<td class="center">+</td>
+<td class="right">1</td>
+<td class="left">+ group</td>
+<td class="right">4</td>
+</tr>
+<tr>
+<td class="center">?</td>
+<td class="right">1</td>
+<td class="left">? group</td>
+<td class="right">4</td>
+</tr>
+<tr>
+<td class="center">=&gt;</td>
+<td class="right">2</td>
+<td class="left">type =&gt; type</td>
+<td class="right">5</td>
+</tr>
+<tr>
+<td class="center">:</td>
+<td class="right">2</td>
+<td class="left">name: type</td>
+<td class="right">5</td>
+</tr>
+<tr>
+<td class="center">/</td>
+<td class="right">2</td>
+<td class="left">type / type</td>
+<td class="right">6</td>
+</tr>
+<tr>
+<td class="center">&amp;</td>
+<td class="right">1</td>
+<td class="left">&amp;group</td>
+<td class="right">6</td>
+</tr>
+<tr>
+<td class="center">..</td>
+<td class="right">2</td>
+<td class="left">type..type</td>
+<td class="right">7</td>
+</tr>
+<tr>
+<td class="center">&#8230;</td>
+<td class="right">2</td>
+<td class="left">type&#8230;type</td>
+<td class="right">7</td>
+</tr>
+<tr>
+<td class="center">.anno</td>
+<td class="right">2</td>
+<td class="left">type .anno type</td>
+<td class="right">7</td>
+</tr>
+</tbody>
 </table>
-<h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a> <a href="#usage" id="usage">Making Use of CDDL</a></h1>
+<h1 id="rfc.section.4">
+<a href="#rfc.section.4">4.</a> <a href="#usage" id="usage">Making Use of CDDL</a>
+</h1>
 <p id="rfc.section.4.p.1">In this section, we discuss several potential ways to employ CDDL.</p>
-<h1 id="rfc.section.4.1"><a href="#rfc.section.4.1">4.1.</a> <a href="#as-a-guide-to-a-human-user" id="as-a-guide-to-a-human-user">As a guide to a human user</a></h1>
+<h1 id="rfc.section.4.1">
+<a href="#rfc.section.4.1">4.1.</a> <a href="#as-a-guide-to-a-human-user" id="as-a-guide-to-a-human-user">As a guide to a human user</a>
+</h1>
 <p id="rfc.section.4.1.p.1">CDDL can be used to efficiently define the layout of CBOR data, such that a human implementer can easily see how data is supposed to be encoded.</p>
 <p id="rfc.section.4.1.p.2">Since CDDL maps parts of the CBOR data to human readable names, tools could be built that use CDDL to provide a human friendly representation of the CBOR data, and allow them to edit such data while remaining compliant to its CDDL definition.</p>
-<h1 id="rfc.section.4.2"><a href="#rfc.section.4.2">4.2.</a> <a href="#for-automated-checking-of-cbor-data-structure" id="for-automated-checking-of-cbor-data-structure">For automated checking of CBOR data structure</a></h1>
+<h1 id="rfc.section.4.2">
+<a href="#rfc.section.4.2">4.2.</a> <a href="#for-automated-checking-of-cbor-data-structure" id="for-automated-checking-of-cbor-data-structure">For automated checking of CBOR data structure</a>
+</h1>
 <p id="rfc.section.4.2.p.1">CDDL has been specified such that a machine can handle the CDDL definition and related CBOR data.  For example, a machine could use CDDL to check whether or not CBOR data is compliant to its definition.</p>
 <p id="rfc.section.4.2.p.2">The need for thoroughness of such compliance checking depends on the application.  For example, an application may decide not to check the data structure at all, and use the CDDL definition solely as a means to indicate the structure of the data to the programmer.</p>
 <p id="rfc.section.4.2.p.3">On the other end, the application may also implement a checking mechanism that goes as far as checking that all mandatory map pairs are available.</p>
 <p id="rfc.section.4.2.p.4">The matter in how far the data description must be enforced by an application is left to the designers and implementers of that application, keeping in mind related security considerations.</p>
 <p id="rfc.section.4.2.p.5">In no case the intention is that a CDDL tool would be &#8220;writing code&#8221; for an implementation.</p>
-<h1 id="rfc.section.4.3"><a href="#rfc.section.4.3">4.3.</a> <a href="#for-data-analysis-tools" id="for-data-analysis-tools">For data analysis tools</a></h1>
+<h1 id="rfc.section.4.3">
+<a href="#rfc.section.4.3">4.3.</a> <a href="#for-data-analysis-tools" id="for-data-analysis-tools">For data analysis tools</a>
+</h1>
 <p id="rfc.section.4.3.p.1">In the long run, it can be expected that more and more data will be stored using the CBOR data format.</p>
 <p id="rfc.section.4.3.p.2">Where there is data, there is data analysis and the need to process such data automatically.  CDDL can be used for such automated data processing, allowing tools to verify data, clean it, and extract particular parts of interest from it.</p>
 <p id="rfc.section.4.3.p.3">Since CBOR is designed with constrained devices in mind, a likely use of it would be small sensors.  An interesting use would thus be automated analysis of sensor data.</p>
-<h1 id="rfc.section.5"><a href="#rfc.section.5">5.</a> <a href="#security-considerations" id="security-considerations">Security considerations</a></h1>
+<h1 id="rfc.section.5">
+<a href="#rfc.section.5">5.</a> <a href="#security-considerations" id="security-considerations">Security considerations</a>
+</h1>
 <p id="rfc.section.5.p.1">This document presents a content rules language for expressing CBOR data structures.  As such, it does not bring any security issues on itself, although specification of protocols that use CBOR naturally need security analysis when defined.</p>
 <p id="rfc.section.5.p.2">Topics that could be considered in a security considerations section that uses CDDL to define CBOR structures include the following:</p>
-<p/>
+<p></p>
 
-<ul>
-  <li>Where could the language maybe cause confusion in a way that will enable security issues?</li>
-</ul>
-<h1 id="rfc.section.6"><a href="#rfc.section.6">6.</a> <a href="#iana-considerations" id="iana-considerations">IANA considerations</a></h1>
+<ul><li>Where could the language maybe cause confusion in a way that will enable security issues?</li></ul>
+<h1 id="rfc.section.6">
+<a href="#rfc.section.6">6.</a> <a href="#iana-considerations" id="iana-considerations">IANA considerations</a>
+</h1>
 <p id="rfc.section.6.p.1">This document does not require any IANA registrations.</p>
-<h1 id="rfc.section.7"><a href="#rfc.section.7">7.</a> <a href="#acknowledgements" id="acknowledgements">Acknowledgements</a></h1>
+<h1 id="rfc.section.7">
+<a href="#rfc.section.7">7.</a> <a href="#acknowledgements" id="acknowledgements">Acknowledgements</a>
+</h1>
 <p id="rfc.section.7.p.1">CDDL was originally conceived by Bert Greevenbosch, who also wrote the original five versions of this document.</p>
-<p id="rfc.section.7.p.2">Inspiration was taken from the C and Pascal languages, MPEG&#8217;s conventions for describing structures in the ISO base media file format, Relax-NG and its compact syntax <a href="#RELAXNG">[RELAXNG]</a>, and in particular from Andrew Lee Newton&#8217;s <a href="#I-D.newton-json-content-rules">&#8220;JSON Content Rules&#8221;</a> <cite title="NONE">[I-D.newton-json-content-rules]</cite>.</p>
+<p id="rfc.section.7.p.2">Inspiration was taken from the C and Pascal languages, MPEG&#8217;s conventions for describing structures in the ISO base media file format, Relax-NG and its compact syntax <a href="#RELAXNG" class="xref">[RELAXNG]</a>, and in particular from Andrew Lee Newton&#8217;s <a href="#I-D.newton-json-content-rules" class="xref">&#8220;JSON Content Rules&#8221;</a>.</p>
 <p id="rfc.section.7.p.3">Useful feedback came from Joe Hildebrand, Sean Leonard and Jim Schaad.</p>
 <p id="rfc.section.7.p.4">The CDDL tool was written by Carsten Bormann, building on previous work by Troy Heninger and Tom Lord.</p>
-<h1 id="rfc.references"><a href="#rfc.references">8.</a> References</h1>
-<h1 id="rfc.references.1"><a href="#rfc.references.1">8.1.</a> Normative References</h1>
-<table>
-  <tbody>
-    <tr>
-      <td class="reference">
-        <b id="RFC2119">[RFC2119]</b>
-      </td>
-      <td class="top"><a>Bradner, S.</a>, "<a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="RFC3629">[RFC3629]</b>
-      </td>
-      <td class="top"><a>Yergeau, F.</a>, "<a href="http://tools.ietf.org/html/rfc3629">UTF-8, a transformation format of ISO 10646</a>", STD 63, RFC 3629, DOI 10.17487/RFC3629, November 2003.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="RFC5234">[RFC5234]</b>
-      </td>
-      <td class="top"><a>Crocker, D.</a> and <a>P. Overell</a>, "<a href="http://tools.ietf.org/html/rfc5234">Augmented BNF for Syntax Specifications: ABNF</a>", STD 68, RFC 5234, DOI 10.17487/RFC5234, January 2008.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="RFC7049">[RFC7049]</b>
-      </td>
-      <td class="top"><a>Bormann, C.</a> and <a>P. Hoffman</a>, "<a href="http://tools.ietf.org/html/rfc7049">Concise Binary Object Representation (CBOR)</a>", RFC 7049, DOI 10.17487/RFC7049, October 2013.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="RFC7159">[RFC7159]</b>
-      </td>
-      <td class="top"><a>Bray, T.</a>, "<a href="http://tools.ietf.org/html/rfc7159">The JavaScript Object Notation (JSON) Data Interchange Format</a>", RFC 7159, DOI 10.17487/RFC7159, March 2014.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="RFC7493">[RFC7493]</b>
-      </td>
-      <td class="top"><a>Bray, T.</a>, "<a href="http://tools.ietf.org/html/rfc7493">The I-JSON Message Format</a>", RFC 7493, DOI 10.17487/RFC7493, March 2015.</td>
-    </tr>
-  </tbody>
-</table>
-<h1 id="rfc.references.2"><a href="#rfc.references.2">8.2.</a> Informative References</h1>
-<table>
-  <tbody>
-    <tr>
-      <td class="reference">
-        <b id="RELAXNG">[RELAXNG]</b>
-      </td>
-      <td class="top"><a>OASIS</a>, "<a href="http://relaxng.org/compact-20021121.html">RELAX-NG Compact Syntax</a>", November 2002.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="RFC7071">[RFC7071]</b>
-      </td>
-      <td class="top"><a>Borenstein, N.</a> and <a>M. Kucherawy</a>, "<a href="http://tools.ietf.org/html/rfc7071">A Media Type for Reputation Interchange</a>", RFC 7071, DOI 10.17487/RFC7071, November 2013.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="RFC8007">[RFC8007]</b>
-      </td>
-      <td class="top"><a>Murray, R.</a> and <a>B. Niven-Jenkins</a>, "<a href="http://tools.ietf.org/html/rfc8007">Content Delivery Network Interconnection (CDNI) Control Interface / Triggers</a>", RFC 8007, DOI 10.17487/RFC8007, December 2016.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="I-D.newton-json-content-rules">[I-D.newton-json-content-rules]</b>
-      </td>
-      <td class="top"><a>Newton, A.</a> and <a>P. Cordell</a>, "<a href="http://tools.ietf.org/html/draft-newton-json-content-rules-08">A Language for Rules Describing JSON Content</a>", Internet-Draft draft-newton-json-content-rules-08, March 2017.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="I-D.ietf-cose-msg">[I-D.ietf-cose-msg]</b>
-      </td>
-      <td class="top"><a>Schaad, J.</a>, "<a href="http://tools.ietf.org/html/draft-ietf-cose-msg-24">CBOR Object Signing and Encryption (COSE)</a>", Internet-Draft draft-ietf-cose-msg-24, November 2016.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="I-D.ietf-anima-grasp">[I-D.ietf-anima-grasp]</b>
-      </td>
-      <td class="top"><a>Bormann, C.</a>, <a>Carpenter, B.</a> and <a>B. Liu</a>, "<a href="http://tools.ietf.org/html/draft-ietf-anima-grasp-11">A Generic Autonomic Signaling Protocol (GRASP)</a>", Internet-Draft draft-ietf-anima-grasp-11, March 2017.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="I-D.ietf-core-senml">[I-D.ietf-core-senml]</b>
-      </td>
-      <td class="top"><a>Jennings, C.</a>, <a>Shelby, Z.</a>, <a>Arkko, J.</a>, <a>Keranen, A.</a> and <a>C. Bormann</a>, "<a href="http://tools.ietf.org/html/draft-ietf-core-senml-07">Media Types for Sensor Measurement Lists (SenML)</a>", Internet-Draft draft-ietf-core-senml-07, May 2017.</td>
-    </tr>
-    <tr>
-      <td class="reference">
-        <b id="RFC4648">[RFC4648]</b>
-      </td>
-      <td class="top"><a>Josefsson, S.</a>, "<a href="http://tools.ietf.org/html/rfc4648">The Base16, Base32, and Base64 Data Encodings</a>", RFC 4648, DOI 10.17487/RFC4648, October 2006.</td>
-    </tr>
-  </tbody>
-</table>
-<h1 id="rfc.appendix.A"><a href="#rfc.appendix.A">Appendix A.</a> <a href="#cemetery" id="cemetery">Cemetery</a></h1>
+<h1 id="rfc.references">
+<a href="#rfc.references">8.</a> References</h1>
+<h1 id="rfc.references.1">
+<a href="#rfc.references.1">8.1.</a> Normative References</h1>
+<table><tbody>
+<tr>
+<td class="reference"><b id="RFC2119">[RFC2119]</b></td>
+<td class="top">
+<a>Bradner, S.</a>, "<a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC3629">[RFC3629]</b></td>
+<td class="top">
+<a>Yergeau, F.</a>, "<a href="http://tools.ietf.org/html/rfc3629">UTF-8, a transformation format of ISO 10646</a>", STD 63, RFC 3629, DOI 10.17487/RFC3629, November 2003.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC5234">[RFC5234]</b></td>
+<td class="top">
+<a>Crocker, D.</a> and <a>P. Overell</a>, "<a href="http://tools.ietf.org/html/rfc5234">Augmented BNF for Syntax Specifications: ABNF</a>", STD 68, RFC 5234, DOI 10.17487/RFC5234, January 2008.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7049">[RFC7049]</b></td>
+<td class="top">
+<a>Bormann, C.</a> and <a>P. Hoffman</a>, "<a href="http://tools.ietf.org/html/rfc7049">Concise Binary Object Representation (CBOR)</a>", RFC 7049, DOI 10.17487/RFC7049, October 2013.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7159">[RFC7159]</b></td>
+<td class="top">
+<a>Bray, T.</a>, "<a href="http://tools.ietf.org/html/rfc7159">The JavaScript Object Notation (JSON) Data Interchange Format</a>", RFC 7159, DOI 10.17487/RFC7159, March 2014.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7493">[RFC7493]</b></td>
+<td class="top">
+<a>Bray, T.</a>, "<a href="http://tools.ietf.org/html/rfc7493">The I-JSON Message Format</a>", RFC 7493, DOI 10.17487/RFC7493, March 2015.</td>
+</tr>
+</tbody></table>
+<h1 id="rfc.references.2">
+<a href="#rfc.references.2">8.2.</a> Informative References</h1>
+<table><tbody>
+<tr>
+<td class="reference"><b id="I-D.ietf-anima-grasp">[I-D.ietf-anima-grasp]</b></td>
+<td class="top">
+<a>Bormann, C.</a>, <a>Carpenter, B.</a> and <a>B. Liu</a>, "<a href="http://tools.ietf.org/html/draft-ietf-anima-grasp-13">A Generic Autonomic Signaling Protocol (GRASP)</a>", Internet-Draft draft-ietf-anima-grasp-13, June 2017.</td>
+</tr>
+<tr>
+<td class="reference"><b id="I-D.ietf-core-senml">[I-D.ietf-core-senml]</b></td>
+<td class="top">
+<a>Jennings, C.</a>, <a>Shelby, Z.</a>, <a>Arkko, J.</a>, <a>Keranen, A.</a> and <a>C. Bormann</a>, "<a href="http://tools.ietf.org/html/draft-ietf-core-senml-08">Media Types for Sensor Measurement Lists (SenML)</a>", Internet-Draft draft-ietf-core-senml-08, May 2017.</td>
+</tr>
+<tr>
+<td class="reference"><b id="I-D.ietf-cose-msg">[I-D.ietf-cose-msg]</b></td>
+<td class="top">
+<a>Schaad, J.</a>, "<a href="http://tools.ietf.org/html/draft-ietf-cose-msg-24">CBOR Object Signing and Encryption (COSE)</a>", Internet-Draft draft-ietf-cose-msg-24, November 2016.</td>
+</tr>
+<tr>
+<td class="reference"><b id="I-D.newton-json-content-rules">[I-D.newton-json-content-rules]</b></td>
+<td class="top">
+<a>Newton, A.</a> and <a>P. Cordell</a>, "<a href="http://tools.ietf.org/html/draft-newton-json-content-rules-08">A Language for Rules Describing JSON Content</a>", Internet-Draft draft-newton-json-content-rules-08, March 2017.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RELAXNG">[RELAXNG]</b></td>
+<td class="top">
+<a>OASIS</a>, "<a href="http://relaxng.org/compact-20021121.html">RELAX-NG Compact Syntax</a>", November 2002.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC4648">[RFC4648]</b></td>
+<td class="top">
+<a>Josefsson, S.</a>, "<a href="http://tools.ietf.org/html/rfc4648">The Base16, Base32, and Base64 Data Encodings</a>", RFC 4648, DOI 10.17487/RFC4648, October 2006.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7071">[RFC7071]</b></td>
+<td class="top">
+<a>Borenstein, N.</a> and <a>M. Kucherawy</a>, "<a href="http://tools.ietf.org/html/rfc7071">A Media Type for Reputation Interchange</a>", RFC 7071, DOI 10.17487/RFC7071, November 2013.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8007">[RFC8007]</b></td>
+<td class="top">
+<a>Murray, R.</a> and <a>B. Niven-Jenkins</a>, "<a href="http://tools.ietf.org/html/rfc8007">Content Delivery Network Interconnection (CDNI) Control Interface / Triggers</a>", RFC 8007, DOI 10.17487/RFC8007, December 2016.</td>
+</tr>
+</tbody></table>
+<h1 id="rfc.appendix.A">
+<a href="#rfc.appendix.A">Appendix A.</a> <a href="#cemetery" id="cemetery">Cemetery</a>
+</h1>
 <p id="rfc.section.A.p.1">The following ideas have been buried in the discussions leading up to the present specification:</p>
-<p/>
+<p></p>
+
+<ul><li>&lt;&#8230;&gt; as syntax for enumerations. We view values to be just another type (a very specific type with just one member), so that an enumeration can be denoted as a choice using &#8220;/&#8221; as the delimiter of choices. Because of this, no evidence is present that a separate syntax for enumerations is needed.</li></ul>
+<h1 id="rfc.appendix.A.1">
+<a href="#rfc.appendix.A.1">A.1.</a> <a href="#resolved-issues" id="resolved-issues">Resolved Issues</a>
+</h1>
+<p></p>
 
 <ul>
-  <li>&lt;&#8230;&gt; as syntax for enumerations. We view values to be just another type (a very specific type with just one member), so that an enumeration can be denoted as a choice using &#8220;/&#8221; as the delimiter of choices. Because of this, no evidence is present that a separate syntax for enumerations is needed.</li>
+<li>The key/value pairs in maps have no fixed ordering.  One could imagine situations where fixing the ordering may be of use.  For example, a decoder could look for values related with integer keys 1, 3 and 7.  If the order were fixed and the decoder encounters the key 4 without having encountered key 3, it could conclude that key 3 is not available without doing more complicated bookkeeping.  Unfortunately, neither JSON nor CBOR support this, so no attempt was made to support this in CDDL either.</li>
+<li>CDDL distinguishes the various CBOR number types, but there is only one number type in JSON.  There is no effect in specifying a precision (float16/float32/float64) when using CDDL for specifying JSON data structures.  (The current validator implementation <a href="#tool" class="xref">Appendix F</a> does not handle this very well, either.)</li>
 </ul>
-<h1 id="rfc.appendix.A.1"><a href="#rfc.appendix.A.1">A.1.</a> <a href="#resolved-issues" id="resolved-issues">Resolved Issues</a></h1>
-<p/>
-
-<ul>
-  <li>The key/value pairs in maps have no fixed ordering.  One could imagine situations where fixing the ordering may be of use.  For example, a decoder could look for values related with integer keys 1, 3 and 7.  If the order were fixed and the decoder encounters the key 4 without having encountered key 3, it could conclude that key 3 is not available without doing more complicated bookkeeping.  Unfortunately, neither JSON nor CBOR support this, so no attempt was made to support this in CDDL either.</li>
-  <li>CDDL distinguishes the various CBOR number types, but there is only one number type in JSON.  There is no effect in specifying a precision (float16/float32/float64) when using CDDL for specifying JSON data structures.  (The current validator implementation <a href="#tool">Appendix F</a> does not handle this very well, either.)</li>
-</ul>
-<h1 id="rfc.appendix.B"><a href="#rfc.appendix.B">Appendix B.</a> <a href="#not-used" id="not-used">(Not used.)</a></h1>
-<h1 id="rfc.appendix.C"><a href="#rfc.appendix.C">Appendix C.</a> <a href="#change-log" id="change-log">Change Log</a></h1>
+<h1 id="rfc.appendix.B">
+<a href="#rfc.appendix.B">Appendix B.</a> <a href="#not-used" id="not-used">(Not used.)</a>
+</h1>
+<h1 id="rfc.appendix.C">
+<a href="#rfc.appendix.C">Appendix C.</a> <a href="#change-log" id="change-log">Change Log</a>
+</h1>
 <p id="rfc.section.C.p.1">Changes from version 00 to version 01:</p>
-<p/>
+<p></p>
 
 <ul>
-  <li>Removed constants</li>
-  <li>Updated the tag mechanism</li>
-  <li>Extended the map structure</li>
-  <li>Added examples</li>
+<li>Removed constants</li>
+<li>Updated the tag mechanism</li>
+<li>Extended the map structure</li>
+<li>Added examples</li>
 </ul>
 <p id="rfc.section.C.p.3">Changes from version 01 to version 02:</p>
-<p/>
+<p></p>
 
-<ul>
-  <li>Fixed example</li>
-</ul>
+<ul><li>Fixed example</li></ul>
 <p id="rfc.section.C.p.5">Changes from version 02 to version 03:</p>
-<p/>
+<p></p>
 
 <ul>
-  <li>Added information about characters used in names</li>
-  <li>Added text about an overall data structure and order of definition of fields</li>
-  <li>Added text about encoding of keys</li>
-  <li>Added table with keywords</li>
-  <li>Strings and integer writing conventions</li>
-  <li>Added ABNF</li>
+<li>Added information about characters used in names</li>
+<li>Added text about an overall data structure and order of definition of fields</li>
+<li>Added text about encoding of keys</li>
+<li>Added table with keywords</li>
+<li>Strings and integer writing conventions</li>
+<li>Added ABNF</li>
 </ul>
 <p id="rfc.section.C.p.7">Changes from version 03 to version 04:</p>
-<p/>
+<p></p>
 
 <ul>
-  <li>Removed optional fields for non-maps</li>
-  <li>Defined all key/value pairs in maps are considered optional from the CDDL perspective</li>
-  <li>Allow omission of type of keys for maps with only text string and integer keys</li>
-  <li>Changed order of definitions</li>
-  <li>Updated fruit and moves examples</li>
-  <li>Renamed the &#8220;Philosophy&#8221; section to &#8220;Using CDDL&#8221;, and added more text about CDDL usage</li>
-  <li>Several editorials</li>
+<li>Removed optional fields for non-maps</li>
+<li>Defined all key/value pairs in maps are considered optional from the CDDL perspective</li>
+<li>Allow omission of type of keys for maps with only text string and integer keys</li>
+<li>Changed order of definitions</li>
+<li>Updated fruit and moves examples</li>
+<li>Renamed the &#8220;Philosophy&#8221; section to &#8220;Using CDDL&#8221;, and added more text about CDDL usage</li>
+<li>Several editorials</li>
 </ul>
 <p id="rfc.section.C.p.9">Changes from version 04 to version 05:</p>
-<p/>
+<p></p>
 
 <ul>
-  <li>Added text about alternative datatypes and any datatype</li>
-  <li>Fixed typos</li>
-  <li>Restructured syntax and semantics</li>
+<li>Added text about alternative datatypes and any datatype</li>
+<li>Fixed typos</li>
+<li>Restructured syntax and semantics</li>
 </ul>
 <p id="rfc.section.C.p.11">Changes from version 05 to version 05:</p>
-<p/>
+<p></p>
 
 <ul>
-  <li>Fixed the ABNF for choices (no longer need to write a: (b/c))</li>
-  <li>Added group choices (//)</li>
-  <li>Added /= and //=</li>
-  <li>Added experimental socket/plug</li>
-  <li>Added aliases text, bytes, null to prelude</li>
-  <li>Documented generics</li>
-  <li>Fixed more typos</li>
+<li>Fixed the ABNF for choices (no longer need to write a: (b/c))</li>
+<li>Added group choices (//)</li>
+<li>Added /= and //=</li>
+<li>Added experimental socket/plug</li>
+<li>Added aliases text, bytes, null to prelude</li>
+<li>Documented generics</li>
+<li>Fixed more typos</li>
 </ul>
 <p id="rfc.section.C.p.13">Changes from 06 to 07:</p>
-<p/>
+<p></p>
 
 <ul>
-  <li>.cbor, .cborseq, .within, .and</li>
-  <li>Define .size on uint</li>
-  <li>Extended Diagnostic Notation</li>
-  <li>Precedence discussion and table</li>
-  <li>Remove some of the &#8220;issues&#8221; that can only be understood with historical context</li>
-  <li>Prefer <samp>text</samp> over <samp>tstr</samp> in some of the examples</li>
-  <li>Add <samp>unsigned</samp> to the prelude</li>
+<li>.cbor, .cborseq, .within, .and</li>
+<li>Define .size on uint</li>
+<li>Extended Diagnostic Notation</li>
+<li>Precedence discussion and table</li>
+<li>Remove some of the &#8220;issues&#8221; that can only be understood with historical context</li>
+<li>Prefer <samp>text</samp> over <samp>tstr</samp> in some of the examples</li>
+<li>Add <samp>unsigned</samp> to the prelude</li>
 </ul>
 <p id="rfc.section.C.p.15">Changes from 07 to 08:</p>
-<p/>
+<p></p>
 
 <ul>
-  <li>.lt, .le, .eq, .ne, .gt, .ge</li>
-  <li>.default</li>
+<li>.lt, .le, .eq, .ne, .gt, .ge</li>
+<li>.default</li>
 </ul>
 <p id="rfc.section.C.p.17">Changes from 08 to 09:</p>
-<p/>
+<p></p>
 
 <ul>
-  <li>Take annotations and socket/plug out of the nursery; they have been battle-proven enough.</li>
-  <li>Define a value notation for byte strings as well.</li>
-  <li>Removed discussion section that was no longer relevant; move &#8220;Resolved Issues&#8221; to appendix.</li>
+<li>Take annotations and socket/plug out of the nursery; they have been battle-proven enough.</li>
+<li>Define a value notation for byte strings as well.</li>
+<li>Removed discussion section that was no longer relevant; move &#8220;Resolved Issues&#8221; to appendix.</li>
 </ul>
 <p id="rfc.section.C.p.19">Changes from 09 to 10:</p>
-<p/>
+<p></p>
 
 <ul>
-  <li>Remove a long but not very elucidating example.  (Maybe we&#8217;ll add back some shorter examples later.)</li>
-  <li>A few clarifications.</li>
-  <li>Updated author list.</li>
+<li>Remove a long but not very elucidating example.  (Maybe we&#8217;ll add back some shorter examples later.)</li>
+<li>A few clarifications.</li>
+<li>Updated author list.</li>
 </ul>
-<h1 id="rfc.appendix.D"><a href="#rfc.appendix.D">Appendix D.</a> <a href="#abnf" id="abnf">ABNF grammar</a></h1>
-<p id="rfc.section.D.p.1">The following is a formal definition of the CDDL syntax in Augmented Backus-Naur Form (ABNF, <a href="#RFC5234">[RFC5234]</a>).  <a id="_abnftodo" class="info">[_abnftodo]<span class="info">TO DO: This doesn&#8217;t allow non-ASCII characters in the text or byte strings yet (and the prefixed byte strings are more liberally specified than they actually are); representation indicators are missing as well.</span></a></p>
-<div id="rfc.figure.11"/>
-<div id="fig-abnf"/>
+<h1 id="rfc.appendix.D">
+<a href="#rfc.appendix.D">Appendix D.</a> <a href="#abnf" id="abnf">ABNF grammar</a>
+</h1>
+<p id="rfc.section.D.p.1">The following is a formal definition of the CDDL syntax in Augmented Backus-Naur Form (ABNF, <a href="#RFC5234" class="xref">[RFC5234]</a>).  <a id="_abnftodo" class="info">[_abnftodo]<span class="info">TO DO: This doesn&#8217;t allow non-ASCII characters in the text or byte strings yet (and the prefixed byte strings are more liberally specified than they actually are); representation indicators are missing as well.</span></a></p>
+<div id="rfc.figure.11"></div>
+<div id="fig-abnf"></div>
 <pre>
 cddl = S 1*rule
 rule = typename [genericparm] S assign S type S
@@ -1565,10 +1680,12 @@ CRLF = %x0A / %x0D.0A
 
 </pre>
 <p class="figure">Figure 11: CDDL ABNF</p>
-<h1 id="rfc.appendix.E"><a href="#rfc.appendix.E">Appendix E.</a> <a href="#prelude" id="prelude">Standard Prelude</a></h1>
+<h1 id="rfc.appendix.E">
+<a href="#rfc.appendix.E">Appendix E.</a> <a href="#prelude" id="prelude">Standard Prelude</a>
+</h1>
 <p id="rfc.section.E.p.1">The following prelude is automatically added to each CDDL file <a id="tdate" class="info">[tdate]<span class="info">The prelude as included here does not yet have a .regexp annotation on tdate, but we probably do want to have one.</span></a>.  (Note that technically, it is a postlude, as it does not disturb the selection of the first rule as the root of the definition.)</p>
-<div id="rfc.figure.12"/>
-<div id="fig-prelude"/>
+<div id="rfc.figure.12"></div>
+<div id="fig-prelude"></div>
 <pre>
 any = #
 
@@ -1618,12 +1735,14 @@ undefined = #7.23
 
 </pre>
 <p class="figure">Figure 12: CDDL Prelude</p>
-<p id="rfc.section.E.p.2">Note that the prelude is deemed to be fixed.  This means, for instance, that additional tags beyond <a href="#RFC7049">[RFC7049]</a>, as registered, need to be defined in each CDDL file that is using them.</p>
+<p id="rfc.section.E.p.2">Note that the prelude is deemed to be fixed.  This means, for instance, that additional tags beyond <a href="#RFC7049" class="xref">[RFC7049]</a>, as registered, need to be defined in each CDDL file that is using them.</p>
 <p id="rfc.section.E.p.3">A common stumbling point is that the prelude does not define a type <samp>string</samp>.  CBOR has byte strings (<samp>bytes</samp> in the prelude) and text strings (<samp>text</samp>), so a type that is simply called <samp>string</samp> would be ambiguous.</p>
-<h1 id="rfc.appendix.E.1"><a href="#rfc.appendix.E.1">E.1.</a> <a href="#use-with-json" id="use-with-json">Use with JSON</a></h1>
-<p id="rfc.section.E.1.p.1">The JSON generic data model (implicit in <a href="#RFC7159">[RFC7159]</a>) is a subset of the generic data model of CBOR.  So one can use CDDL with JSON by limiting oneself to what can be represented in JSON.  Roughly speaking, this means leaving out byte strings, tags, and simple values other than <samp>false</samp>, <samp>true</samp>, and <samp>null</samp>, leading to the following limited prelude:</p>
-<div id="rfc.figure.13"/>
-<div id="fig-json-prelude"/>
+<h1 id="rfc.appendix.E.1">
+<a href="#rfc.appendix.E.1">E.1.</a> <a href="#sec-json" id="sec-json">Use with JSON</a>
+</h1>
+<p id="rfc.section.E.1.p.1">The JSON generic data model (implicit in <a href="#RFC7159" class="xref">[RFC7159]</a>) is a subset of the generic data model of CBOR.  So one can use CDDL with JSON by limiting oneself to what can be represented in JSON.  Roughly speaking, this means leaving out byte strings, tags, and simple values other than <samp>false</samp>, <samp>true</samp>, and <samp>null</samp>, leading to the following limited prelude:</p>
+<div id="rfc.figure.13"></div>
+<div id="fig-json-prelude"></div>
 <pre>
 any = #
 
@@ -1651,16 +1770,16 @@ null = nil
 
 </pre>
 <p class="figure">Figure 13: JSON compatible subset of CDDL Prelude</p>
-<p id="rfc.section.E.1.p.2">(The major types given here do not have a direct meaning in JSON, but they can be interpreted as CBOR major types translated through Section 4 of <a href="#RFC7049">[RFC7049]</a>.)</p>
+<p id="rfc.section.E.1.p.2">(The major types given here do not have a direct meaning in JSON, but they can be interpreted as CBOR major types translated through Section 4 of <a href="#RFC7049" class="xref">[RFC7049]</a>.)</p>
 <p id="rfc.section.E.1.p.3">There are a few fine points in using CDDL with JSON.  First, JSON does not distinguish between integers and floating point numbers; there is only one kind of number (which may happen to be integral).  In this context, specifying a type as <samp>uint</samp>, <samp>nint</samp> or <samp>int</samp> then becomes a predicate that the number be integral.  As an example, this means that the following JSON numbers are all matching <samp>uint</samp>:</p>
 <pre>
 10 10.0 1e1 1.0e1 100e-1
 </pre>
 <p id="rfc.section.E.1.p.4">(The fact that these are all integers may be surprising to users accustomed to the long tradition in programming languages of using decimal points or exponents in a number to indicate a floating point literal.)</p>
-<p id="rfc.section.E.1.p.5">Fundamentally, the number system of JSON itself is based on decimal numbers and decimal fractions and does not have limits to its precision or range.  In practice, JSON numbers are often parsed into a number type that is called float64 here, causing a number of limitations to the generic data model <a href="#RFC7493">[RFC7493]</a>.  In particular, this means that integers can only be expressed with interoperable exactness when they lie in the range [-(2**53)+1, (2**53)-1] &#8211; a smaller range than that covered by CDDL <samp>int</samp>.</p>
-<p id="rfc.section.E.1.p.6">JSON applications that want to stay compatible with I-JSON therefore may want to define integer types with more limited ranges, such as in <a href="#fig-json-types">Figure 14</a>.  Note that the types given here are not part of the prelude; they need to be copied into the CDDL specification if needed.</p>
-<div id="rfc.figure.14"/>
-<div id="fig-json-types"/>
+<p id="rfc.section.E.1.p.5">Fundamentally, the number system of JSON itself is based on decimal numbers and decimal fractions and does not have limits to its precision or range.  In practice, JSON numbers are often parsed into a number type that is called float64 here, creating a number of limitations to the generic data model <a href="#RFC7493" class="xref">[RFC7493]</a>.  In particular, this means that integers can only be expressed with interoperable exactness when they lie in the range [-(2**53)+1, (2**53)-1] &#8212; a smaller range than that covered by CDDL <samp>int</samp>.</p>
+<p id="rfc.section.E.1.p.6">JSON applications that want to stay compatible with I-JSON therefore may want to define integer types with more limited ranges, such as in <a href="#fig-json-types" class="xref">Figure 14</a>.  Note that the types given here are not part of the prelude; they need to be copied into the CDDL specification if needed.</p>
+<div id="rfc.figure.14"></div>
+<div id="fig-json-types"></div>
 <pre>
 ij-uint = 0..9007199254740991
 ij-nint = -9007199254740991..-1
@@ -1677,10 +1796,12 @@ unsigned = uint / biguint
 </pre>
 <p id="rfc.section.E.1.p.8">CDDL at this point does not have a way to express the unlimited floating point precision that is theoretically possible with JSON; at the time of writing, this is rarely used in protocols in practice.</p>
 <p id="rfc.section.E.1.p.9">Note that a data model described in CDDL is always restricted by what can be expressed in the serialization; e.g., floating point values such as NaN (not a number) and the infinities cannot be represented in JSON even if they are allowed in the CDDL generic data model.</p>
-<h1 id="rfc.appendix.F"><a href="#rfc.appendix.F">Appendix F.</a> <a href="#tool" id="tool">The CDDL tool</a></h1>
+<h1 id="rfc.appendix.F">
+<a href="#rfc.appendix.F">Appendix F.</a> <a href="#tool" id="tool">The CDDL tool</a>
+</h1>
 <p id="rfc.section.F.p.1">A rough CDDL tool is available.  For CDDL specifications, it can check the syntax, generate one or more instances (expressed in CBOR diagnostic notation or in pretty-printed JSON), and validate an existing instance against the specification:</p>
-<div id="rfc.figure.15"/>
-<div id="tool-usage"/>
+<div id="rfc.figure.15"></div>
+<div id="tool-usage"></div>
 <pre>
 Usage:
 cddl spec.cddl generate [n]
@@ -1690,18 +1811,22 @@ cddl spec.cddl validate instance.json
 </pre>
 <p class="figure">Figure 15: CDDL tool usage</p>
 <p id="rfc.section.F.p.2">Install on a system with a modern Ruby via:</p>
-<div id="rfc.figure.16"/>
-<div id="tool-install"/>
+<div id="rfc.figure.16"></div>
+<div id="tool-install"></div>
 <pre>
 gem install cddl
 </pre>
 <p class="figure">Figure 16: CDDL tool installation</p>
 <p id="rfc.section.F.p.3">The accompanying CBOR diagnostic tools (which are automatically installed by the above) are described in <a href="https://github.com/cabo/cbor-diag">https://github.com/cabo/cbor-diag</a>; they can be used to convert between binary CBOR, a pretty-printed form of that, CBOR diagnostic notation, JSON, and YAML.</p>
-<h1 id="rfc.appendix.G"><a href="#rfc.appendix.G">Appendix G.</a> <a href="#extended-diagnostic-notation" id="extended-diagnostic-notation">Extended Diagnostic Notation</a></h1>
-<p id="rfc.section.G.p.1">Section 6 of <a href="#RFC7049">[RFC7049]</a> defines a &#8220;diagnostic notation&#8221; in order to be able to converse about CBOR data items without having to resort to binary data.  Diagnostic notation is based on JSON, with extensions for representing CBOR constructs such as binary data and tags.</p>
+<h1 id="rfc.appendix.G">
+<a href="#rfc.appendix.G">Appendix G.</a> <a href="#extended-diagnostic-notation" id="extended-diagnostic-notation">Extended Diagnostic Notation</a>
+</h1>
+<p id="rfc.section.G.p.1">Section 6 of <a href="#RFC7049" class="xref">[RFC7049]</a> defines a &#8220;diagnostic notation&#8221; in order to be able to converse about CBOR data items without having to resort to binary data.  Diagnostic notation is based on JSON, with extensions for representing CBOR constructs such as binary data and tags.</p>
 <p id="rfc.section.G.p.2">(Standardizing this together with the actual interchange format does not serve to create another interchange format, but enables the use of a shared diagnostic notation in tools for and documents about CBOR.)</p>
 <p id="rfc.section.G.p.3">This section discusses a few extensions to the diagnostic notation that have turned out to be useful since RFC 7049 was written.  We refer to the result as extended diagnostic notation (EDN).</p>
-<h1 id="rfc.appendix.G.1"><a href="#rfc.appendix.G.1">G.1.</a> <a href="#white-space-in-byte-string-notation" id="white-space-in-byte-string-notation">White space in byte string notation</a></h1>
+<h1 id="rfc.appendix.G.1">
+<a href="#rfc.appendix.G.1">G.1.</a> <a href="#white-space-in-byte-string-notation" id="white-space-in-byte-string-notation">White space in byte string notation</a>
+</h1>
 <p id="rfc.section.G.1.p.1">Examples often benefit from some white space (spaces, line breaks) in byte strings.  In extended diagnostic notation, white space is ignored in prefixed byte strings; for instance, the following are equivalent:</p>
 <pre>
   h'48656c6c6f20776f726c64'
@@ -1709,14 +1834,18 @@ gem install cddl
   h'4 86 56c 6c6f
     20776 f726c64'
 </pre>
-<h1 id="rfc.appendix.G.2"><a href="#rfc.appendix.G.2">G.2.</a> <a href="#textbin" id="textbin">Text in byte string notation</a></h1>
-<p id="rfc.section.G.2.p.1">Diagnostic notation notates Byte strings in one of the <a href="#RFC4648">[RFC4648]</a> base encodings,, enclosed in single quotes, prefixed by &gt;h&lt; for base16, &gt;b32&lt; for base32, &gt;h32&lt; for base32hex, &gt;b64&lt; for base64 or base64url.  Quite often, byte strings carry bytes that are meaningfully interpreted as UTF-8 text.  Extended Diagnostic Notation allows the use of single quotes without a prefix to express byte strings with UTF-8 text; for instance, the following are equivalent:</p>
+<h1 id="rfc.appendix.G.2">
+<a href="#rfc.appendix.G.2">G.2.</a> <a href="#textbin" id="textbin">Text in byte string notation</a>
+</h1>
+<p id="rfc.section.G.2.p.1">Diagnostic notation notates Byte strings in one of the <a href="#RFC4648" class="xref">[RFC4648]</a> base encodings,, enclosed in single quotes, prefixed by &gt;h&lt; for base16, &gt;b32&lt; for base32, &gt;h32&lt; for base32hex, &gt;b64&lt; for base64 or base64url.  Quite often, byte strings carry bytes that are meaningfully interpreted as UTF-8 text.  Extended Diagnostic Notation allows the use of single quotes without a prefix to express byte strings with UTF-8 text; for instance, the following are equivalent:</p>
 <pre>
 'hello world'
 h'68656c6c6f20776f726c64'
 </pre>
 <p id="rfc.section.G.2.p.2">The escaping rules of JSON strings are applied equivalently for text-based byte strings, e.g., \ stands for a single backslash and ' stands for a single quote.  White space is included literally, i.e., the previous section does not apply to text-based byte strings.</p>
-<h1 id="rfc.appendix.G.3"><a href="#rfc.appendix.G.3">G.3.</a> <a href="#embedded-cbor-and-cbor-sequences-in-byte-strings" id="embedded-cbor-and-cbor-sequences-in-byte-strings">Embedded CBOR and CBOR sequences in byte strings</a></h1>
+<h1 id="rfc.appendix.G.3">
+<a href="#rfc.appendix.G.3">G.3.</a> <a href="#embedded-cbor-and-cbor-sequences-in-byte-strings" id="embedded-cbor-and-cbor-sequences-in-byte-strings">Embedded CBOR and CBOR sequences in byte strings</a>
+</h1>
 <p id="rfc.section.G.3.p.1">Where a byte string is to carry an embedded CBOR-encoded item, or more generally a sequence of zero or more such items, the diagnostic notation for these zero or more CBOR data items, separated by commata, can be enclosed in &#171;&#160;and&#160;&#187; to notate the byte string resulting from encoding the data items and concatenating the result.  For instance, each pair of columns in the following are equivalent:</p>
 <pre>
 &lt;&lt;1&gt;&gt;              h'01'
@@ -1724,7 +1853,9 @@ h'68656c6c6f20776f726c64'
 &lt;&lt;"foo", null&gt;&gt;    h'63666F6FF6'
 &lt;&lt;&gt;&gt;               h''
 </pre>
-<h1 id="rfc.appendix.G.4"><a href="#rfc.appendix.G.4">G.4.</a> <a href="#concatenated-strings" id="concatenated-strings">Concatenated Strings</a></h1>
+<h1 id="rfc.appendix.G.4">
+<a href="#rfc.appendix.G.4">G.4.</a> <a href="#concatenated-strings" id="concatenated-strings">Concatenated Strings</a>
+</h1>
 <p id="rfc.section.G.4.p.1">While the ability to include white space enables line-breaking of encoded byte strings, a mechanism is needed to be able to include text strings as well as byte strings in direct UTF-8 representation into line-based documents (such as RFCs and source code).</p>
 <p id="rfc.section.G.4.p.2">We extend the diagnostic notation by allowing multiple text strings or multiple byte strings to be notated separated by white space, these are then concatenated into a single text or byte string, respectively.  Text strings and byte strings do not mix within such a concatenation, except that byte string notation can be used inside a sequence of concatenated text string notation to encode characters that may be better represented in an encoded way.  The following four values are equivalent:</p>
 <pre>
@@ -1743,7 +1874,9 @@ h'68656c6c6f20776f726c64'
 h'4 86 56c 6c6f' h' 20776 f726c64'
 </pre>
 <p id="rfc.section.G.4.p.4">(Note that the approach of separating by whitespace, while familiar from the C language, requires some attention &#8211; a single comma makes a big difference here.)</p>
-<h1 id="rfc.appendix.G.5"><a href="#rfc.appendix.G.5">G.5.</a> <a href="#hexadecimal-octal-and-binary-numbers" id="hexadecimal-octal-and-binary-numbers">Hexadecimal, octal, and binary numbers</a></h1>
+<h1 id="rfc.appendix.G.5">
+<a href="#rfc.appendix.G.5">G.5.</a> <a href="#hexadecimal-octal-and-binary-numbers" id="hexadecimal-octal-and-binary-numbers">Hexadecimal, octal, and binary numbers</a>
+</h1>
 <p id="rfc.section.G.5.p.1">In addition to JSON&#8217;s decimal numbers, EDN provides hexadecimal, octal and binary numbers in the usual C-language notation (octal with 0o prefix present only).</p>
 <p id="rfc.section.G.5.p.2">The following are equivalent:</p>
 <pre>
@@ -1758,7 +1891,9 @@ h'4 86 56c 6c6f' h' 20776 f726c64'
 0x1.8p0
 0x18p-4
 </pre>
-<h1 id="rfc.appendix.G.6"><a href="#rfc.appendix.G.6">G.6.</a> <a href="#comments" id="comments">Comments</a></h1>
+<h1 id="rfc.appendix.G.6">
+<a href="#rfc.appendix.G.6">G.6.</a> <a href="#comments" id="comments">Comments</a>
+</h1>
 <p id="rfc.section.G.6.p.1">Longer pieces of diagnostic notation may benefit from comments.  JSON famously does not provide for comments, and basic RFC 7049 diagnostic notation inherits this property.</p>
 <p id="rfc.section.G.6.p.2">In extended diagnostic notation, comments can be included, delimited by slashes (&#8220;/&#8221;).  Any text within and including a pair of slashes is considered a comment.</p>
 <p id="rfc.section.G.6.p.3">Comments are considered white space.  Hence, they are allowed in prefixed byte strings; for instance, the following are equivalent:</p>
@@ -1775,13 +1910,17 @@ h'68 65 6c /doubled l!/ 6c 6f /hello/
                               /D, N, S/ 7, /loop-count/ 105]]
 </pre>
 <p id="rfc.section.G.6.p.5">(There are currently no end-of-line comments.  If we want to add them, &#8220;//&#8221; sounds like a reasonable delimiter given that we already use slashes for comments, but we also could go e.g. for &#8220;#&#8221;.)</p>
-<h1 id="rfc.appendix.H"><a href="#rfc.appendix.H">Appendix H.</a> <a href="#examples" id="examples">Examples</a></h1>
+<h1 id="rfc.appendix.H">
+<a href="#rfc.appendix.H">Appendix H.</a> <a href="#examples" id="examples">Examples</a>
+</h1>
 <p id="rfc.section.H.p.1">This section contains various examples of structures defined using CDDL.</p>
-<p id="rfc.section.H.p.2">The theme for the first example is taken from <a href="#RFC7071">[RFC7071]</a>, which defines certain JSON structures in English.  For a similar example, it may also be of interest to examine Appendix A of <a href="#RFC8007">[RFC8007]</a>, which contains a CDDL definition for a JSON structure defined in the main body of the RFC.</p>
-<p id="rfc.section.H.p.3">The second subsection in this appendix translates examples from <a href="#I-D.newton-json-content-rules">[I-D.newton-json-content-rules]</a> into CDDL.</p>
-<p id="rfc.section.H.p.4">These examples all happen to describe data that is interchanged in JSON.  Examples for CDDL definitions of data that is interchanged in CBOR can be found in <a href="#I-D.ietf-cose-msg">[I-D.ietf-cose-msg]</a>, <a href="#I-D.ietf-anima-grasp">[I-D.ietf-anima-grasp]</a>, or <a href="#I-D.ietf-core-senml">[I-D.ietf-core-senml]</a>.</p>
-<h1 id="rfc.appendix.H.1"><a href="#rfc.appendix.H.1">H.1.</a> <a href="#example-7071" id="example-7071">RFC 7071</a></h1>
-<p><a href="#RFC7071">[RFC7071]</a> defines the Reputon structure for JSON using somewhat formalized English text. Here is a (somewhat verbose) equivalent definition using the same terms, but notated in CDDL:</p>
+<p id="rfc.section.H.p.2">The theme for the first example is taken from <a href="#RFC7071" class="xref">[RFC7071]</a>, which defines certain JSON structures in English.  For a similar example, it may also be of interest to examine Appendix A of <a href="#RFC8007" class="xref">[RFC8007]</a>, which contains a CDDL definition for a JSON structure defined in the main body of the RFC.</p>
+<p id="rfc.section.H.p.3">The second subsection in this appendix translates examples from <a href="#I-D.newton-json-content-rules" class="xref">[I-D.newton-json-content-rules]</a> into CDDL.</p>
+<p id="rfc.section.H.p.4">These examples all happen to describe data that is interchanged in JSON.  Examples for CDDL definitions of data that is interchanged in CBOR can be found in <a href="#I-D.ietf-cose-msg" class="xref">[I-D.ietf-cose-msg]</a>, <a href="#I-D.ietf-anima-grasp" class="xref">[I-D.ietf-anima-grasp]</a>, or <a href="#I-D.ietf-core-senml" class="xref">[I-D.ietf-core-senml]</a>.</p>
+<h1 id="rfc.appendix.H.1">
+<a href="#rfc.appendix.H.1">H.1.</a> <a href="#example-7071" id="example-7071">RFC 7071</a>
+</h1>
+<p><a href="#RFC7071" class="xref">[RFC7071]</a> defines the Reputon structure for JSON using somewhat formalized English text. Here is a (somewhat verbose) equivalent definition using the same terms, but notated in CDDL:</p>
 <pre>
 reputation-object = {
   reputation-context,
@@ -1842,7 +1981,7 @@ reputon = {
   * text =&gt; any
 }
 </pre>
-<p id="rfc.section.H.1.p.3">Note how this rather clearly delineates the structure somewhat shrouded by so many words in section 6.2.2. of <a href="#RFC7071">[RFC7071]</a>.  Also, this definition makes it clear that several ext-values are allowed (by definition with different member names); RFC 7071 could be read to forbid the repetition of ext-value (&#8220;A specific reputon-element MUST NOT appear more than once&#8221; is ambiguous.)</p>
+<p id="rfc.section.H.1.p.3">Note how this rather clearly delineates the structure somewhat shrouded by so many words in section 6.2.2. of <a href="#RFC7071" class="xref">[RFC7071]</a>.  Also, this definition makes it clear that several ext-values are allowed (by definition with different member names); RFC 7071 could be read to forbid the repetition of ext-value (&#8220;A specific reputon-element MUST NOT appear more than once&#8221; is ambiguous.)</p>
 <p id="rfc.section.H.1.p.4">The CDDL tool (which hasn&#8217;t quite been trained for polite conversation) says:</p>
 <pre>
 {
@@ -1893,11 +2032,13 @@ reputon = {
   ]
 }
 </pre>
-<h1 id="rfc.appendix.H.1.1"><a href="#rfc.appendix.H.1.1">H.1.1.</a> <a href="#examples-from-json-content-rules" id="examples-from-json-content-rules">Examples from JSON Content Rules</a></h1>
-<p id="rfc.section.H.1.1.p.1">Although <a href="#I-D.newton-json-content-rules">JSON Content Rules</a> <cite title="NONE">[I-D.newton-json-content-rules]</cite> seems to address a more general problem than CDDL, it is still a worthwhile resource to explore for examples (beyond all the inspiration the format itself has had for CDDL).</p>
+<h1 id="rfc.appendix.H.1.1">
+<a href="#rfc.appendix.H.1.1">H.1.1.</a> <a href="#examples-from-json-content-rules" id="examples-from-json-content-rules">Examples from JSON Content Rules</a>
+</h1>
+<p id="rfc.section.H.1.1.p.1">Although <a href="#I-D.newton-json-content-rules" class="xref">JSON Content Rules</a> seems to address a more general problem than CDDL, it is still a worthwhile resource to explore for examples (beyond all the inspiration the format itself has had for CDDL).</p>
 <p id="rfc.section.H.1.1.p.2">Figure 2 of the JCR I-D looks very similar, if slightly less noisy, in CDDL:</p>
-<div id="rfc.figure.17"/>
-<div id="jcrfig2"/>
+<div id="rfc.figure.17"></div>
+<div id="jcrfig2"></div>
 <pre>
 root = [2*2 {
   precision: text,
@@ -1969,9 +2110,7 @@ size = (
   "Thumbnail": {"Width": 1111, "Height": 176, "Url": 32("scrog")},
   "IDs": []}}
 </pre>
-<h1 id="rfc.authors">
-  <a href="#rfc.authors">Authors' Addresses</a>
-</h1>
+<h1 id="rfc.authors"><a href="#rfc.authors">Authors' Addresses</a></h1>
 <div class="avoidbreak">
   <address class="vcard">
 	<span class="vcardline">

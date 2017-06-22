@@ -11,8 +11,8 @@ Expires: November 13, 2017                           Universitaet Bremen
                                                             May 12, 2017
 
 
-CBOR data definition language (CDDL): a notational convention to express
-                          CBOR data structures
+  Concise data definition language (CDDL): a notational convention to
+                      express CBOR data structures
               draft-greevenbosch-appsawg-cbor-cddl-latest
 
 Abstract
@@ -73,27 +73,27 @@ Table of Contents
        2.1.2.  Syntax  . . . . . . . . . . . . . . . . . . . . . . .   8
      2.2.  Types . . . . . . . . . . . . . . . . . . . . . . . . . .   8
        2.2.1.  Values  . . . . . . . . . . . . . . . . . . . . . . .   8
-       2.2.2.  Choices . . . . . . . . . . . . . . . . . . . . . . .   8
+       2.2.2.  Choices . . . . . . . . . . . . . . . . . . . . . . .   9
        2.2.3.  Representation Types  . . . . . . . . . . . . . . . .  10
-       2.2.4.  Root type . . . . . . . . . . . . . . . . . . . . . .  10
+       2.2.4.  Root type . . . . . . . . . . . . . . . . . . . . . .  11
    3.  Syntax  . . . . . . . . . . . . . . . . . . . . . . . . . . .  11
      3.1.  General conventions . . . . . . . . . . . . . . . . . . .  11
-     3.2.  Occurrence  . . . . . . . . . . . . . . . . . . . . . . .  12
-     3.3.  Predefined names for types  . . . . . . . . . . . . . . .  13
+     3.2.  Occurrence  . . . . . . . . . . . . . . . . . . . . . . .  13
+     3.3.  Predefined names for types  . . . . . . . . . . . . . . .  14
      3.4.  Arrays  . . . . . . . . . . . . . . . . . . . . . . . . .  14
      3.5.  Maps  . . . . . . . . . . . . . . . . . . . . . . . . . .  15
        3.5.1.  Structs . . . . . . . . . . . . . . . . . . . . . . .  15
-       3.5.2.  Tables  . . . . . . . . . . . . . . . . . . . . . . .  17
-     3.6.  Tags  . . . . . . . . . . . . . . . . . . . . . . . . . .  18
-     3.7.  Annotations . . . . . . . . . . . . . . . . . . . . . . .  18
+       3.5.2.  Tables  . . . . . . . . . . . . . . . . . . . . . . .  18
+     3.6.  Tags  . . . . . . . . . . . . . . . . . . . . . . . . . .  19
+     3.7.  Annotations . . . . . . . . . . . . . . . . . . . . . . .  19
        3.7.1.  Annotation .size  . . . . . . . . . . . . . . . . . .  19
-       3.7.2.  Annotation .bits  . . . . . . . . . . . . . . . . . .  19
-       3.7.3.  Annotation .regexp  . . . . . . . . . . . . . . . . .  20
+       3.7.2.  Annotation .bits  . . . . . . . . . . . . . . . . . .  20
+       3.7.3.  Annotation .regexp  . . . . . . . . . . . . . . . . .  21
        3.7.4.  Annotations .cbor and .cborseq  . . . . . . . . . . .  21
-       3.7.5.  Annotations .within and .and  . . . . . . . . . . . .  21
+       3.7.5.  Annotations .within and .and  . . . . . . . . . . . .  22
        3.7.6.  Annotations .lt, .le, .gt, .ge, .eq, .ne, and
                .default  . . . . . . . . . . . . . . . . . . . . . .  22
-     3.8.  Socket/Plug . . . . . . . . . . . . . . . . . . . . . . .  22
+     3.8.  Socket/Plug . . . . . . . . . . . . . . . . . . . . . . .  23
      3.9.  Generics  . . . . . . . . . . . . . . . . . . . . . . . .  24
      3.10. Operator Precedence . . . . . . . . . . . . . . . . . . .  24
    4.  Making Use of CDDL  . . . . . . . . . . . . . . . . . . . . .  26
@@ -141,7 +141,7 @@ Internet-Draft                    CDDL                          May 2017
 
    The main goal for the convention is to provide a unified notation
    that can be used when defining protocols that use CBOR.  We term the
-   convention "CBOR data definition language", or CDDL.
+   convention "Concise data definition language", or CDDL.
 
    The CBOR notational convention has the following goals:
 
@@ -169,6 +169,11 @@ Birkholz, et al.        Expires November 13, 2017               [Page 3]
 
 Internet-Draft                    CDDL                          May 2017
 
+
+   Not an explicit goal per se, but a convenient side effect of the JSON
+   generic data model being a subset of the CBOR generic data model, is
+   the fact that CDDL can also be used for describing JSON data
+   structures (see Appendix E.1).
 
    This document has the following structure:
 
@@ -213,11 +218,6 @@ Internet-Draft                    CDDL                          May 2017
       semantics.  The set of signatures associated with a signed data
       item is a typical application of a vector.
 
-   o  A _record_, an array the elements of which have different,
-      positionally defined semantics, as detailed in the data structure
-      definition.  A 2D point, specified as an array of an x coordinate
-      (which comes first) and a y coordinate (coming second) is an
-
 
 
 
@@ -226,6 +226,10 @@ Birkholz, et al.        Expires November 13, 2017               [Page 4]
 Internet-Draft                    CDDL                          May 2017
 
 
+   o  A _record_, an array the elements of which have different,
+      positionally defined semantics, as detailed in the data structure
+      definition.  A 2D point, specified as an array of an x coordinate
+      (which comes first) and a y coordinate (coming second) is an
       example of a record, as is the pair of exponent (first) and
       mantissa (second) in a CBOR decimal fraction.
 
@@ -269,10 +273,6 @@ Internet-Draft                    CDDL                          May 2017
 
    CDDL Groups are lists of name/value pairs (group _entries_).
 
-   In an array context, only the value of the entry is represented; the
-   name is annotation only (and can be left off if not needed).  In a
-   map context, the names become the map keys ("member keys").
-
 
 
 
@@ -281,6 +281,10 @@ Birkholz, et al.        Expires November 13, 2017               [Page 5]
 
 Internet-Draft                    CDDL                          May 2017
 
+
+   In an array context, only the value of the entry is represented; the
+   name is annotation only (and can be left off if not needed).  In a
+   map context, the names become the map keys ("member keys").
 
    In an array context, the sequence of elements in the group is
    important, as it is the information that allows associating actual
@@ -325,11 +329,7 @@ Internet-Draft                    CDDL                          May 2017
    of brackets present, so it would be slightly more natural to express
    Figure 2 as:
 
-                             person = {
-                               age: int,
-                               name: tstr,
-                               employer: tstr,
-                             }
+
 
 
 
@@ -337,6 +337,12 @@ Birkholz, et al.        Expires November 13, 2017               [Page 6]
 
 Internet-Draft                    CDDL                          May 2017
 
+
+                             person = {
+                               age: int,
+                               name: tstr,
+                               employer: tstr,
+                             }
 
    Groups can be used to factor out common parts of structs, e.g.,
    instead of writing:
@@ -380,12 +386,6 @@ Internet-Draft                    CDDL                          May 2017
    Groups are the instrument used in composing data structures with
    CDDL.  It is a matter of style in defining those structures whether
    to define groups (anonymously) right in their contexts or whether to
-   define them in a separate rule and to reference them with their
-   respective name (possibly more than once).
-
-   With this, one is allowed to define all small parts of their data
-   structures and compose bigger protocol units with those or to have
-
 
 
 
@@ -394,6 +394,11 @@ Birkholz, et al.        Expires November 13, 2017               [Page 7]
 Internet-Draft                    CDDL                          May 2017
 
 
+   define them in a separate rule and to reference them with their
+   respective name (possibly more than once).
+
+   With this, one is allowed to define all small parts of their data
+   structures and compose bigger protocol units with those or to have
    only one big protocol data unit that has all definitions ad hoc where
    needed.
 
@@ -436,12 +441,7 @@ Internet-Draft                    CDDL                          May 2017
    common enough that CDDL provides additional convenience syntax for
    this.)
 
-2.2.2.  Choices
 
-   Many places that allow a type also allow a choice between types,
-   delimited by a "/" (slash).  The entire choice construct can be put
-   into parentheses if this is required to make the construction
-   unambiguous (please see Appendix D for the details).
 
 
 
@@ -449,6 +449,13 @@ Birkholz, et al.        Expires November 13, 2017               [Page 8]
 
 Internet-Draft                    CDDL                          May 2017
 
+
+2.2.2.  Choices
+
+   Many places that allow a type also allow a choice between types,
+   delimited by a "/" (slash).  The entire choice construct can be put
+   into parentheses if this is required to make the construction
+   unambiguous (please see Appendix D for the details).
 
    Choices of values can be used to express enumerations:
 
@@ -490,13 +497,6 @@ Internet-Draft                    CDDL                          May 2017
    by joining two values by ".."), or include the first and exclude the
    second (denoted by instead using "...").
 
-         device-address = byte
-         max-byte = 255
-         byte = 0..max-byte ; inclusive range
-         first-non-byte = 256
-         byte1 = 0...first-non-byte ; byte1 is equivalent to byte
-
-   CDDL currently only allows ranges between numbers [_range].
 
 
 
@@ -505,6 +505,14 @@ Birkholz, et al.        Expires November 13, 2017               [Page 9]
 
 Internet-Draft                    CDDL                          May 2017
 
+
+         device-address = byte
+         max-byte = 255
+         byte = 0..max-byte ; inclusive range
+         first-non-byte = 256
+         byte1 = 0...first-non-byte ; byte1 is equivalent to byte
+
+   CDDL currently only allows ranges between numbers [_range].
 
 2.2.2.2.  Turning a group into a choice
 
@@ -539,6 +547,21 @@ Internet-Draft                    CDDL                          May 2017
    existing tag in a more specific way, or define a new tag not defined
    in the prelude:
 
+
+
+
+
+
+
+
+
+
+
+Birkholz, et al.        Expires November 13, 2017              [Page 10]
+
+Internet-Draft                    CDDL                          May 2017
+
+
       my_breakfast = #6.55799(breakfast)   ; cbor-any is too general!
       breakfast = cereal / porridge
       cereal = #6.998(tstr)
@@ -553,14 +576,6 @@ Internet-Draft                    CDDL                          May 2017
    There is no special syntax to identify the root of a CDDL data
    structure definition: that role is simply taken by the first rule
    defined in the file.
-
-
-
-
-Birkholz, et al.        Expires November 13, 2017              [Page 10]
-
-Internet-Draft                    CDDL                          May 2017
-
 
    This is motivated by the usual top-down approach for defining data
    structures, decomposing a big data structure unit into smaller parts;
@@ -596,6 +611,13 @@ Internet-Draft                    CDDL                          May 2017
 
       *  It is preferred style to start a name with a lower case letter.
 
+
+
+Birkholz, et al.        Expires November 13, 2017              [Page 11]
+
+Internet-Draft                    CDDL                          May 2017
+
+
       *  The hyphen is preferred over the underscore (except in a
          "bareword" (Section 3.5.1), where the semantics may actually
          require an underscore).
@@ -609,14 +631,6 @@ Internet-Draft                    CDDL                          May 2017
 
       *  Rule names (types or groups) do not appear in the actual CBOR
          encoding, but names used as "barewords" in member keys do.
-
-
-
-
-Birkholz, et al.        Expires November 13, 2017              [Page 11]
-
-Internet-Draft                    CDDL                          May 2017
-
 
    o  Comments are started by a ';' (semicolon) character and finish at
       the end of a line (LF or CRLF).
@@ -651,6 +665,15 @@ Internet-Draft                    CDDL                          May 2017
 
    Example:
 
+
+
+
+
+Birkholz, et al.        Expires November 13, 2017              [Page 12]
+
+Internet-Draft                    CDDL                          May 2017
+
+
                     ; This is a comment
                     person = { g }
 
@@ -666,13 +689,6 @@ Internet-Draft                    CDDL                          May 2017
    or more), or '+' (one or more), or is of the form n*m, where n and m
    are optional unsigned integers and n is the lower limit (default 0)
    and m is the upper limit (default no limit) of occurrences.
-
-
-
-Birkholz, et al.        Expires November 13, 2017              [Page 12]
-
-Internet-Draft                    CDDL                          May 2017
-
 
    If no occurrence indicator is specified, the group entry is to occur
    exactly once (as if 1*1 were specified).
@@ -704,6 +720,16 @@ Internet-Draft                    CDDL                          May 2017
    (Occurrence indicators beyond one still are useful in maps for groups
    that allow a variety of keys.)
 
+
+
+
+
+
+Birkholz, et al.        Expires November 13, 2017              [Page 13]
+
+Internet-Draft                    CDDL                          May 2017
+
+
 3.3.  Predefined names for types
 
    CDDL predefines a number of names.  This subsection summarizes these
@@ -722,13 +748,6 @@ Internet-Draft                    CDDL                          May 2017
 
    "float16"  IEEE 754 half-precision float (major type 7, additional
       information 25).
-
-
-
-Birkholz, et al.        Expires November 13, 2017              [Page 13]
-
-Internet-Draft                    CDDL                          May 2017
-
 
    "float32"  IEEE 754 single-precision float (major type 7, additional
       information 26).
@@ -757,6 +776,16 @@ Internet-Draft                    CDDL                          May 2017
 
    For example:
 
+
+
+
+
+
+Birkholz, et al.        Expires November 13, 2017              [Page 14]
+
+Internet-Draft                    CDDL                          May 2017
+
+
                      unlimited-people = [* person]
                      one-or-two-people = [1*2 person]
                      at-least-two-people = [2* person]
@@ -774,17 +803,6 @@ Internet-Draft                    CDDL                          May 2017
       ["aluminize", 212, "climograph", 4124]
       ["penintime", 1513, "endocarditis", 4084, "impermeator", 1669,
        "coextension", 865]
-
-
-
-
-
-
-
-Birkholz, et al.        Expires November 13, 2017              [Page 14]
-
-Internet-Draft                    CDDL                          May 2017
-
 
 3.5.  Maps
 
@@ -807,6 +825,22 @@ Internet-Draft                    CDDL                          May 2017
    each group entry.
 
    The following is an example of a structure:
+
+
+
+
+
+
+
+
+
+
+
+
+Birkholz, et al.        Expires November 13, 2017              [Page 15]
+
+Internet-Draft                    CDDL                          May 2017
+
 
          Geography = [
            city           : tstr,
@@ -833,15 +867,6 @@ Internet-Draft                    CDDL                          May 2017
                            }
 
 
-
-
-
-
-Birkholz, et al.        Expires November 13, 2017              [Page 15]
-
-Internet-Draft                    CDDL                          May 2017
-
-
    where "located-samples" is the datatype to be used when referring to
    the struct, and "sample-point" and "samples" are the keys to be used.
    This is actually a complete example: an identifier that is followed
@@ -864,6 +889,14 @@ Internet-Draft                    CDDL                          May 2017
                            "sample-point" => int,
                            "samples" => [+ float],
                          }
+
+
+
+
+Birkholz, et al.        Expires November 13, 2017              [Page 16]
+
+Internet-Draft                    CDDL                          May 2017
+
 
    A better way to demonstrate the double-arrow use may be:
 
@@ -891,13 +924,6 @@ Internet-Draft                    CDDL                          May 2017
                             ? familyName: tstr,
                           )
 
-
-
-Birkholz, et al.        Expires November 13, 2017              [Page 16]
-
-Internet-Draft                    CDDL                          May 2017
-
-
    Note that the group definition for NameComponents does not generate
    another map; instead, all four keys are directly in the struct built
    by PersonalData.
@@ -908,6 +934,25 @@ Internet-Draft                    CDDL                          May 2017
 
    If the addition of more entries not specified by the current
    specification is desired, one can add this possibility explicitly:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Birkholz, et al.        Expires November 13, 2017              [Page 17]
+
+Internet-Draft                    CDDL                          May 2017
+
 
                           PersonalData = {
                             ? displayName: tstr,
@@ -945,15 +990,6 @@ Internet-Draft                    CDDL                          May 2017
    Here, the key in each key/value pair has datatype x (defined as int),
    and the value has datatype y (defined as float).
 
-
-
-
-
-Birkholz, et al.        Expires November 13, 2017              [Page 17]
-
-Internet-Draft                    CDDL                          May 2017
-
-
    If the specification does not need to restrict one of x or y (i.e.,
    the application is free to choose per entry), it can be replaced by
    the predefined name "any".
@@ -963,6 +999,16 @@ Internet-Draft                    CDDL                          May 2017
 
                       tostring = {* mynumber => tstr}
                       mynumber = int / float
+
+
+
+
+
+
+Birkholz, et al.        Expires November 13, 2017              [Page 18]
+
+Internet-Draft                    CDDL                          May 2017
+
 
 3.6.  Tags
 
@@ -1000,16 +1046,6 @@ Internet-Draft                    CDDL                          May 2017
    does not currently support combining multiple annotations on a single
    target.
 
-
-
-
-
-
-Birkholz, et al.        Expires November 13, 2017              [Page 18]
-
-Internet-Draft                    CDDL                          May 2017
-
-
 3.7.1.  Annotation .size
 
    A ".size" annotation controls the size of the target in bytes by the
@@ -1021,6 +1057,14 @@ Internet-Draft                    CDDL                          May 2017
                    label = bstr .size (1..63)
 
                   Figure 6: Annotation for size in bytes
+
+
+
+
+Birkholz, et al.        Expires November 13, 2017              [Page 19]
+
+Internet-Draft                    CDDL                          May 2017
+
 
    When applied to an unsigned integer, the ".size" annotation restricts
    the range of that integer by giving a maximum number of bytes that
@@ -1051,21 +1095,6 @@ Internet-Draft                    CDDL                          May 2017
    that for all unsigned integers "n" where "(i & (1 << n)) != 0", "n"
    must be in the control type.
 
-
-
-
-
-
-
-
-
-
-
-Birkholz, et al.        Expires November 13, 2017              [Page 19]
-
-Internet-Draft                    CDDL                          May 2017
-
-
                       tcpflagbytes = bstr .bits flags
                       flags = &(
                         fin: 8,
@@ -1083,6 +1112,15 @@ Internet-Draft                    CDDL                          May 2017
                       rwx = &(r: 2, w: 1, x: 0)
 
                Figure 8: Annotation for what bits can be set
+
+
+
+
+
+Birkholz, et al.        Expires November 13, 2017              [Page 20]
+
+Internet-Draft                    CDDL                          May 2017
+
 
    The CDDL tool generates the following ten example instances for
    "tcpflagbytes":
@@ -1111,17 +1149,6 @@ Internet-Draft                    CDDL                          May 2017
 
                        "N1@CH57HF.4Znqe0.dYJRN.igjf"
 
-
-
-
-
-
-
-Birkholz, et al.        Expires November 13, 2017              [Page 20]
-
-Internet-Draft                    CDDL                          May 2017
-
-
 3.7.4.  Annotations .cbor and .cborseq
 
    A ".cbor" annotation on a byte string indicates that the byte string
@@ -1144,6 +1171,13 @@ Internet-Draft                    CDDL                          May 2017
    and 0xff and decoding the wrapped byte string as a CBOR encoded data
    item.)
 
+
+
+Birkholz, et al.        Expires November 13, 2017              [Page 21]
+
+Internet-Draft                    CDDL                          May 2017
+
+
 3.7.5.  Annotations .within and .and
 
    A ".and" annotation on a type indicates that the data item matches
@@ -1163,20 +1197,6 @@ Internet-Draft                    CDDL                          May 2017
    the intention of the ".within" form is that the right hand side gives
    guidance to the types allowed on the left hand side, which typically
    is a socket (Section 3.8):
-
-
-
-
-
-
-
-
-
-
-Birkholz, et al.        Expires November 13, 2017              [Page 21]
-
-Internet-Draft                    CDDL                          May 2017
-
 
    message = $message .within message-structure
    message-structure = [message_type, *message_option]
@@ -1206,6 +1226,14 @@ Internet-Draft                    CDDL                          May 2017
    expresses an additional intent: the value specified by the right-
    hand-side type is intended as a default value for the left hand side
    type given, and the implied .ne annotation is there to prevent this
+
+
+
+Birkholz, et al.        Expires November 13, 2017              [Page 22]
+
+Internet-Draft                    CDDL                          May 2017
+
+
    value from being sent over the wire.  This annotation is only
    meaningful when the annotated type is used in an optional context;
    otherwise there would be no way to express the default value.
@@ -1225,15 +1253,6 @@ Internet-Draft                    CDDL                          May 2017
    Per convention, CDDL extension points are marked with a leading
    dollar sign (types) or two leading dollar signs (groups).  Tools
    honor that convention by not raising an error if such a type or group
-
-
-
-
-Birkholz, et al.        Expires November 13, 2017              [Page 22]
-
-Internet-Draft                    CDDL                          May 2017
-
-
    is not defined at all; the symbol is then taken to be an empty type
    choice (group choice), i.e., no choice is available.
 
@@ -1261,25 +1280,6 @@ Internet-Draft                    CDDL                          May 2017
 
    To pick up the example illustrated in Figure 5, the socket/plug
    mechanism could be used as shown in Figure 10:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1572,8 +1572,32 @@ Internet-Draft                    CDDL                          May 2017
 
 8.2.  Informative References
 
+   [I-D.ietf-anima-grasp]
+              Bormann, C., Carpenter, B., and B. Liu, "A Generic
+              Autonomic Signaling Protocol (GRASP)", draft-ietf-anima-
+              grasp-13 (work in progress), June 2017.
+
+   [I-D.ietf-core-senml]
+              Jennings, C., Shelby, Z., Arkko, J., Keranen, A., and C.
+              Bormann, "Media Types for Sensor Measurement Lists
+              (SenML)", draft-ietf-core-senml-08 (work in progress), May
+              2017.
+
+   [I-D.ietf-cose-msg]
+              Schaad, J., "CBOR Object Signing and Encryption (COSE)",
+              draft-ietf-cose-msg-24 (work in progress), November 2016.
+
+   [I-D.newton-json-content-rules]
+              Newton, A. and P. Cordell, "A Language for Rules
+              Describing JSON Content", draft-newton-json-content-
+              rules-08 (work in progress), March 2017.
+
    [RELAXNG]  OASIS, "RELAX-NG Compact Syntax", November 2002,
               <http://relaxng.org/compact-20021121.html>.
+
+   [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
+              Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006,
+              <http://www.rfc-editor.org/info/rfc4648>.
 
    [RFC7071]  Borenstein, N. and M. Kucherawy, "A Media Type for
               Reputation Interchange", RFC 7071, DOI 10.17487/RFC7071,
@@ -1583,30 +1607,6 @@ Internet-Draft                    CDDL                          May 2017
               Interconnection (CDNI) Control Interface / Triggers",
               RFC 8007, DOI 10.17487/RFC8007, December 2016,
               <http://www.rfc-editor.org/info/rfc8007>.
-
-   [I-D.newton-json-content-rules]
-              Newton, A. and P. Cordell, "A Language for Rules
-              Describing JSON Content", draft-newton-json-content-
-              rules-08 (work in progress), March 2017.
-
-   [I-D.ietf-cose-msg]
-              Schaad, J., "CBOR Object Signing and Encryption (COSE)",
-              draft-ietf-cose-msg-24 (work in progress), November 2016.
-
-   [I-D.ietf-anima-grasp]
-              Bormann, C., Carpenter, B., and B. Liu, "A Generic
-              Autonomic Signaling Protocol (GRASP)", draft-ietf-anima-
-              grasp-11 (work in progress), March 2017.
-
-   [I-D.ietf-core-senml]
-              Jennings, C., Shelby, Z., Arkko, J., Keranen, A., and C.
-              Bormann, "Media Types for Sensor Measurement Lists
-              (SenML)", draft-ietf-core-senml-07 (work in progress), May
-              2017.
-
-   [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
-              Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006,
-              <http://www.rfc-editor.org/info/rfc4648>.
 
 Appendix A.  Cemetery
 
@@ -2035,10 +2035,10 @@ Internet-Draft                    CDDL                          May 2017
    Fundamentally, the number system of JSON itself is based on decimal
    numbers and decimal fractions and does not have limits to its
    precision or range.  In practice, JSON numbers are often parsed into
-   a number type that is called float64 here, causing a number of
+   a number type that is called float64 here, creating a number of
    limitations to the generic data model [RFC7493].  In particular, this
    means that integers can only be expressed with interoperable
-   exactness when they lie in the range [-(2**53)+1, (2**53)-1] - a
+   exactness when they lie in the range [-(2**53)+1, (2**53)-1] -- a
    smaller range than that covered by CDDL "int".
 
    JSON applications that want to stay compatible with I-JSON therefore
@@ -2106,9 +2106,8 @@ Appendix F.  The CDDL tool
 
    The accompanying CBOR diagnostic tools (which are automatically
    installed by the above) are described in https://github.com/cabo/
-   cbor-diag ; they can be used to convert between binary CBOR, a
-   pretty-printed form of that, CBOR diagnostic notation, JSON, and
-   YAML.
+   cbor-diag; they can be used to convert between binary CBOR, a pretty-
+   printed form of that, CBOR diagnostic notation, JSON, and YAML.
 
 Appendix G.  Extended Diagnostic Notation
 
@@ -2121,6 +2120,7 @@ Appendix G.  Extended Diagnostic Notation
    not serve to create another interchange format, but enables the use
    of a shared diagnostic notation in tools for and documents about
    CBOR.)
+
 
 
 
