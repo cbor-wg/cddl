@@ -9,7 +9,7 @@ pi:
   compact: 'yes'
   comments: 'yes'
 title: >
-  CBOR data definition language (CDDL):
+  Concise data definition language (CDDL):
   a notational convention to express CBOR data structures
 abbrev: CDDL
 area: Applications
@@ -79,7 +79,7 @@ a notational convention to express CBOR {{RFC7049}} data structures is defined.
 
 The main goal for the convention is to provide a unified notation that can
 be used when defining protocols that use CBOR.  We term the convention
-"CBOR data definition language", or CDDL.
+"Concise data definition language", or CDDL.
 
 The CBOR notational convention has the following goals:
 
