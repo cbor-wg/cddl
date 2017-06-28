@@ -5,10 +5,10 @@
 Network Working Group                                        H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Informational                                 C. Vigano
-Expires: November 13, 2017                           Universitaet Bremen
+Expires: December 30, 2017                           Universitaet Bremen
                                                               C. Bormann
                                                  Universitaet Bremen TZI
-                                                            May 12, 2017
+                                                           June 28, 2017
 
 
   Concise data definition language (CDDL): a notational convention to
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 13, 2017.
+   This Internet-Draft will expire on December 30, 2017.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Birkholz, et al.        Expires November 13, 2017               [Page 1]
+Birkholz, et al.        Expires December 30, 2017               [Page 1]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
    include Simplified BSD License text as described in Section 4.e of
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Birkholz, et al.        Expires November 13, 2017               [Page 2]
+Birkholz, et al.        Expires December 30, 2017               [Page 2]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
    Appendix A.  Cemetery . . . . . . . . . . . . . . . . . . . . . .  29
@@ -165,9 +165,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017               [Page 3]
+Birkholz, et al.        Expires December 30, 2017               [Page 3]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
    Not an explicit goal per se, but a convenient side effect of the JSON
@@ -221,9 +221,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017               [Page 4]
+Birkholz, et al.        Expires December 30, 2017               [Page 4]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
    o  A _record_, an array the elements of which have different,
@@ -277,9 +277,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017               [Page 5]
+Birkholz, et al.        Expires December 30, 2017               [Page 5]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
    In an array context, only the value of the entry is represented; the
@@ -333,9 +333,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017               [Page 6]
+Birkholz, et al.        Expires December 30, 2017               [Page 6]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
                              person = {
@@ -389,9 +389,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017               [Page 7]
+Birkholz, et al.        Expires December 30, 2017               [Page 7]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
    define them in a separate rule and to reference them with their
@@ -445,9 +445,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017               [Page 8]
+Birkholz, et al.        Expires December 30, 2017               [Page 8]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
 2.2.2.  Choices
@@ -501,9 +501,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017               [Page 9]
+Birkholz, et al.        Expires December 30, 2017               [Page 9]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
          device-address = byte
@@ -557,9 +557,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 10]
+Birkholz, et al.        Expires December 30, 2017              [Page 10]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
       my_breakfast = #6.55799(breakfast)   ; cbor-any is too general!
@@ -613,9 +613,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 11]
+Birkholz, et al.        Expires December 30, 2017              [Page 11]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
       *  The hyphen is preferred over the underscore (except in a
@@ -669,9 +669,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 12]
+Birkholz, et al.        Expires December 30, 2017              [Page 12]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
                     ; This is a comment
@@ -725,9 +725,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 13]
+Birkholz, et al.        Expires December 30, 2017              [Page 13]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
 3.3.  Predefined names for types
@@ -781,9 +781,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 14]
+Birkholz, et al.        Expires December 30, 2017              [Page 14]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
                      unlimited-people = [* person]
@@ -837,9 +837,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 15]
+Birkholz, et al.        Expires December 30, 2017              [Page 15]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
          Geography = [
@@ -893,9 +893,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 16]
+Birkholz, et al.        Expires December 30, 2017              [Page 16]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
    A better way to demonstrate the double-arrow use may be:
@@ -949,9 +949,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 17]
+Birkholz, et al.        Expires December 30, 2017              [Page 17]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
                           PersonalData = {
@@ -1005,9 +1005,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 18]
+Birkholz, et al.        Expires December 30, 2017              [Page 18]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
 3.6.  Tags
@@ -1061,9 +1061,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 19]
+Birkholz, et al.        Expires December 30, 2017              [Page 19]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
    When applied to an unsigned integer, the ".size" annotation restricts
@@ -1117,9 +1117,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 20]
+Birkholz, et al.        Expires December 30, 2017              [Page 20]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
    The CDDL tool generates the following ten example instances for
@@ -1173,9 +1173,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 21]
+Birkholz, et al.        Expires December 30, 2017              [Page 21]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
 3.7.5.  Annotations .within and .and
@@ -1229,9 +1229,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 22]
+Birkholz, et al.        Expires December 30, 2017              [Page 22]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
    value from being sent over the wire.  This annotation is only
@@ -1285,9 +1285,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 23]
+Birkholz, et al.        Expires December 30, 2017              [Page 23]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
                      PersonalData = {
@@ -1341,9 +1341,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 24]
+Birkholz, et al.        Expires December 30, 2017              [Page 24]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
    as CDDL has both types and groups, with operators that are specific
@@ -1397,9 +1397,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 25]
+Birkholz, et al.        Expires December 30, 2017              [Page 25]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
    The operator precedences, in sequence of loose to tight binding, are
@@ -1453,9 +1453,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 26]
+Birkholz, et al.        Expires December 30, 2017              [Page 26]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
    The need for thoroughness of such compliance checking depends on the
@@ -1509,9 +1509,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 27]
+Birkholz, et al.        Expires December 30, 2017              [Page 27]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
 7.  Acknowledgements
@@ -1565,9 +1565,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 28]
+Birkholz, et al.        Expires December 30, 2017              [Page 28]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
 8.2.  Informative References
@@ -1621,9 +1621,9 @@ Appendix A.  Cemetery
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 29]
+Birkholz, et al.        Expires December 30, 2017              [Page 29]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
 A.1.  Resolved Issues
@@ -1677,9 +1677,9 @@ Appendix C.  Change Log
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 30]
+Birkholz, et al.        Expires December 30, 2017              [Page 30]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
    o  Added ABNF
@@ -1733,9 +1733,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 31]
+Birkholz, et al.        Expires December 30, 2017              [Page 31]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
    o  Define .size on uint
@@ -1789,9 +1789,9 @@ Appendix D.  ABNF grammar
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 32]
+Birkholz, et al.        Expires December 30, 2017              [Page 32]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
    groupname = id
@@ -1845,9 +1845,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 33]
+Birkholz, et al.        Expires December 30, 2017              [Page 33]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
         / "0x" 1*HEXDIG
@@ -1865,11 +1865,11 @@ Internet-Draft                    CDDL                          May 2017
    exponent = int
 
    text = %x22 *SCHAR %x22
-   SCHAR = %x20-21 / %x23-7E / SESC
-   SESC = "\" %x20-7E
+   SCHAR = %x20-21 / %x23-5B / %x5D-10FFFD / SESC
+   SESC = "\" %x20-10FFFD
 
    bytes = [bsqual] %x27 *BCHAR %x27
-   BCHAR = %x20-26 / %x28-7E / SESC / CRLF
+   BCHAR = %x20-26 / %x28-5B / %x5D-10FFFD / SESC / CRLF
    bsqual = %x68 ; "h"
           / %x62.36.34 ; "b64"
 
@@ -1889,7 +1889,6 @@ Internet-Draft                    CDDL                          May 2017
    VCHAR = %x21-7E
    CRLF = %x0A / %x0D.0A
 
-
                            Figure 11: CDDL ABNF
 
 Appendix E.  Standard Prelude
@@ -1901,9 +1900,10 @@ Appendix E.  Standard Prelude
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 34]
+
+Birkholz, et al.        Expires December 30, 2017              [Page 34]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
                   any = #
@@ -1957,9 +1957,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 35]
+Birkholz, et al.        Expires December 30, 2017              [Page 35]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
    Note that the prelude is deemed to be fixed.  This means, for
@@ -2013,9 +2013,9 @@ E.1.  Use with JSON
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 36]
+Birkholz, et al.        Expires December 30, 2017              [Page 36]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
    There are a few fine points in using CDDL with JSON.  First, JSON
@@ -2069,9 +2069,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 37]
+Birkholz, et al.        Expires December 30, 2017              [Page 37]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
    CDDL at this point does not have a way to express the unlimited
@@ -2125,9 +2125,9 @@ Appendix G.  Extended Diagnostic Notation
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 38]
+Birkholz, et al.        Expires December 30, 2017              [Page 38]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
    This section discusses a few extensions to the diagnostic notation
@@ -2181,9 +2181,9 @@ G.3.  Embedded CBOR and CBOR sequences in byte strings
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 39]
+Birkholz, et al.        Expires December 30, 2017              [Page 39]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
 G.4.  Concatenated Strings
@@ -2237,9 +2237,9 @@ G.5.  Hexadecimal, octal, and binary numbers
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 40]
+Birkholz, et al.        Expires December 30, 2017              [Page 40]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
    1.5
@@ -2293,9 +2293,9 @@ Appendix H.  Examples
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 41]
+Birkholz, et al.        Expires December 30, 2017              [Page 41]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
    CBOR can be found in [I-D.ietf-cose-msg], [I-D.ietf-anima-grasp], or
@@ -2349,9 +2349,9 @@ H.1.  RFC 7071
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 42]
+Birkholz, et al.        Expires December 30, 2017              [Page 42]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
    An equivalent, more compact form of this example would be:
@@ -2405,9 +2405,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 43]
+Birkholz, et al.        Expires December 30, 2017              [Page 43]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
                 {
@@ -2461,9 +2461,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 44]
+Birkholz, et al.        Expires December 30, 2017              [Page 44]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
 H.1.1.  Examples from JSON Content Rules
@@ -2517,9 +2517,9 @@ H.1.1.  Examples from JSON Content Rules
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 45]
+Birkholz, et al.        Expires December 30, 2017              [Page 45]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
                              root = { image }
@@ -2573,9 +2573,9 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 46]
+Birkholz, et al.        Expires December 30, 2017              [Page 46]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
 Editorial Comments
@@ -2629,9 +2629,9 @@ Authors' Addresses
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 47]
+Birkholz, et al.        Expires December 30, 2017              [Page 47]
 
-Internet-Draft                    CDDL                          May 2017
+Internet-Draft                    CDDL                         June 2017
 
 
    Christoph Vigano
@@ -2685,4 +2685,4 @@ Internet-Draft                    CDDL                          May 2017
 
 
 
-Birkholz, et al.        Expires November 13, 2017              [Page 48]
+Birkholz, et al.        Expires December 30, 2017              [Page 48]
