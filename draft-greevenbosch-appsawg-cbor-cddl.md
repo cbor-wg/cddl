@@ -145,7 +145,7 @@ also allows adding a CBOR tag to a data item.
 [^_reptype]: We don't have a way yet to qualify the representation of a
       value, e.g., whether it is float16, float32 or float64.  TO DO:
       probably borrowing something from diagnostic notation (section 6.1 RFC
-      7049).
+      7049). -- or probably not.
 
 The more important components of a data structure definition language
 are the data types used for composition: arrays and maps in CBOR
@@ -1598,8 +1598,10 @@ The following is a formal definition of the CDDL syntax in Augmented Backus-Naur
 {:cddl #fig-abnf title="CDDL ABNF"}
 
 [^_abnftodo]: Potential improvements: the prefixed byte strings are
-        more liberally specified than they actually are;
-        representation indicators are not supported.
+        more liberally specified than they actually are.
+[^_abnfdontdo]:
+        representation indicators are not supported. -- and this will
+        stay so.
 
 # Standard Prelude {#prelude}
 
