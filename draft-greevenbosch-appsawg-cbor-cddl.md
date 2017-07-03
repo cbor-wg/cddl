@@ -115,7 +115,7 @@ CBOR specification is listed in {{prelude}}.
 
 [^_format]: So far, the ability to restrict format choices have not
     been needed beyond the floating point formats.  Those can be
-    applied to ranges using the new .and annotation now.  It is not
+    applied to ranges using the new .and control now.  It is not
     clear we want to add more format control before we have a use case.
 
 ## Requirements notation
@@ -901,23 +901,80 @@ my_uri = #6.32(tstr) / tstr
 ~~~~
 {:cddl}
 
+## Unwrapping
 
-## Annotations
+The group that is used to define a map or an array can often be reused
+in the definition of another map or array.  Similarly, a type defined
+as a tag carries an internal data item that one would like to refer
+to.
 
-An _annotation_ allows to annotate a _target_ type with a _control_
-type via an _annotator_.
+In these cases, it is expedient to simply use the name of a map,
+array, or tag type as a handle for the group or type defined inside it.
+The "unwrap" operator (written by preceding a name by a tilde
+character "~") can be used to strip the type defined for a name by one
+layer, exposing the underlying group (for maps and arrays) or type
+(for tags).
 
-The syntax for an annotated type is `target .annotator control`, where annotators are
-special identifiers prefixed by a dot.  (Note that _target_ or _control_
-might need to be parenthesized.)
+For example, an application might want to define a simple and a
+complex header.  Without unwrapping, this might be done as follows:
 
-Three annotators are defined at his point.  Note that the CDDL tool
-does not currently support combining multiple annotations on a single
-target.
+~~~~ CDDL
+basic-header-group = (
+  field1: int,
+  field2: text,
+)
 
-### Annotation .size
+basic-header = { basic-header-group }
 
-A `.size` annotation controls the size of the target in bytes by the
+advanced-header = {
+  basic-header-group,
+  field3: bytes,
+  field4: number, ; as in the tagged type "time"
+}
+~~~~
+
+Unwrapping simplifies this to:
+
+~~~~ CDDL
+basic-header = {
+  field1: int,
+  field2: text,
+}
+
+advanced-header = {
+  ~basic-header,
+  field3: bytes,
+  field4: ~time,
+}
+~~~~
+
+(Note that leaving out the first unwrap operator in the latter example
+would lead to nesting the basic-header in its own map inside the
+advanced-header, while, with the unwrapped basic-header, the
+definition of the group inside basic-header is essentially repeated
+inside advanced-header, leading to a single map.  This can be used for
+various applications often solved by inheritance in programming
+languages.  The effect of unwrapping can also be described as
+"threading in" the group or type inside the referenced type, which
+suggested the thread-like "~" character.)
+
+
+## Controls
+
+A _control_ allows to relate a _target_ type with a _controller_ type
+via a _control operator_.
+
+The syntax for a control type is `target .control-operation controller`,
+where control operators are special identifiers prefixed by a dot.
+(Note that _target_ or _controller_ might need to be parenthesized.)
+
+A number of control operators are defined at his point.  Note that
+the CDDL tool does not currently support combining multiple controls
+on a single target.
+
+### Control operator .size
+
+A `.size` control controls the size of the target in bytes by the
 control type.  Examples:
 
 ~~~~ CDDL
@@ -926,9 +983,9 @@ ip4 = bstr .size 4
 ip6 = bstr .size 16
 label = bstr .size (1..63)
 ~~~~
-{:cddl #annotate-size title="Annotation for size in bytes"}
+{:cddl #control-size title="Control for size in bytes"}
 
-When applied to an unsigned integer, the `.size` annotation restricts
+When applied to an unsigned integer, the `.size` control restricts
 the range of that integer by giving a maximum number of bytes that
 should be needed in a computer representation of that unsigned integer.
 In other words, `uint .size N` is equivalent to `0...BYTES_N`, where
@@ -937,23 +994,23 @@ BYTES_N == 256**N.
 ~~~~ CDDL
 audio_sample = uint .size 3 ; 24-bit, equivalent to 0..16777215
 ~~~~
-{:cddl #annotate-int-size title="Annotation for integer size in bytes"}
+{:cddl #control-int-size title="Control for integer size in bytes"}
 
-Note that, as with value restrictions in CDDL, this annotation is not
+Note that, as with value restrictions in CDDL, this control is not
 a representation constraint; a number that fits into fewer bytes can
 still be represented in that form, and an inefficient implementation
 could use a longer form (unless that is restricted by some format
 constraints outside of CDDL, such as the rules in Section 3.9 of
 {{RFC7049}}).
 
-### Annotation .bits
+### Control operator .bits
 
-A `.bits` annotation on a byte string indicates that, in the
+A `.bits` control on a byte string indicates that, in the
 target, only the bits numbered by a number in the control type are
 allowed to be set.  (Bits are counted the usual way, bit number `n`
 being set in `str` meaning that `(str[n >> 3] & (1 << (n & 7))) != 0`.)[^_bitsendian]
 
-Similarly, a `.bits` annotation on an unsigned integer `i` indicates
+Similarly, a `.bits` control on an unsigned integer `i` indicates
 that for all unsigned integers `n` where `(i & (1 << n)) != 0`, `n`
 must be in the control type.
 
@@ -974,7 +1031,7 @@ flags = &(
 rwxbits = uint .bits rwx
 rwx = &(r: 2, w: 1, x: 0)
 ~~~~
-{:cddl #annotate-bits title="Annotation for what bits can be set"}
+{:cddl #control-bits title="Control for what bits can be set"}
 
 The CDDL tool generates the following ten example instances for `tcpflagbytes`:
 
@@ -993,9 +1050,9 @@ as well.
         counts bits like in RFC box notation?  (Or at least per-byte?
         32-bit words don't always perfectly mesh with byte strings.)
 
-### Annotation .regexp {#regexp}
+### Control operator .regexp {#regexp}
 
-A `.regexp` annotation indicates that the text string given as a
+A `.regexp` control indicates that the text string given as a
 target needs to match the PCRE regular expression given as a value in the
 control type, where that regular expression is anchored on both sides.
 (If anchoring is not desired for a side, `.*` needs to be inserted there.)
@@ -1003,7 +1060,7 @@ control type, where that regular expression is anchored on both sides.
 ~~~~ CDDL
 nai = tstr .regexp "\\w+@\\w+(\\.\\w+)+"
 ~~~~
-{:cddl #annotate-regexp title="Annotation with a PCRE regexp"}
+{:cddl #control-regexp title="Control with a PCRE regexp"}
 
 The CDDL tool proposes:
 
@@ -1013,9 +1070,9 @@ The CDDL tool proposes:
 {:cddl}
 
 
-### Annotations .cbor and .cborseq
+### Control operators .cbor and .cborseq
 
-A `.cbor` annotation on a byte string indicates that
+A `.cbor` control on a byte string indicates that
 the byte string carries a CBOR encoded data item.  Decoded, the
 data item matches the type given as the right-hand side argument
 (type1 in the following example).
@@ -1024,7 +1081,7 @@ data item matches the type given as the right-hand side argument
 
 
 
-Similarly, a `.cborseq` annotation on a byte string indicates that
+Similarly, a `.cborseq` control on a byte string indicates that
 the byte string carries a sequence of CBOR encoded data items.
 When the data items are taken as an array, the array matches the type
 given as the right-hand side argument (type2 in the following example).
@@ -1036,16 +1093,16 @@ for instance by wrapping the byte string between the two bytes 0x9f
 and 0xff and decoding the wrapped byte string as a CBOR encoded data
 item.)
 
-### Annotations .within and .and
+### Control operators .within and .and
 
-A `.and` annotation on a type indicates that the data item matches
+A `.and` control on a type indicates that the data item matches
 both that left hand side type and the type given as the right hand side.
 (Formally, the resulting type is the intersection of the two types
 given.)
 
 > `type1 .and type2`
 
-A variant of the `.and` annotation is the `.within` annotation, which
+A variant of the `.and` control is the `.within` control, which
 expresses an additional intent: the left hand side type is meant to be
 a subset of the right-hand-side type.
 
@@ -1070,13 +1127,13 @@ For `.within`, a tool might flag an error if type1 allows data items
 that are not allowed by type2.  In contrast, for `.and`, there is no
 expectation that type1 already is a subset of type2.
 
-### Annotations .lt, .le, .gt, .ge, .eq, .ne, and .default
+### Control operators .lt, .le, .gt, .ge, .eq, .ne, and .default
 
-The annotations .lt, .le, .gt, .ge, .eq, .ne specify a constraint on
+The controls .lt, .le, .gt, .ge, .eq, .ne specify a constraint on
 the left hand side type to be a value less than, less than or equal,
 equal to, not equal to, greather than, or greater than or equal to a
 value given as a (single-valued) right hand side type.
-In the present specification, the first four annotations (.lt, .le,
+In the present specification, the first four controls (.lt, .le,
 .gt, .ge) are defined only for numeric types, as these have a natural
 ordering relationship.
 
@@ -1084,12 +1141,12 @@ ordering relationship.
 speed = number .ge 0  ; unit: m/s
 ~~~~
 
-A variant of the `.ne` annotation is the `.default` annotation, which
+A variant of the `.ne` control is the `.default` control, which
 expresses an additional intent: the value specified by the
 right-hand-side type is intended as a default value for the left hand
-side type given, and the implied .ne annotation is there to prevent
+side type given, and the implied .ne control is there to prevent
 this value from being sent over the wire.
-This annotation is only meaningful when the annotated type is used in
+This control is only meaningful when the controld type is used in
 an optional context; otherwise there would be no way to express the
 default value.
 
@@ -1484,6 +1541,12 @@ Changes from 09 to 10:
 * A few clarifications.
 * Updated author list.
 
+Changes from 10 to 11:
+
+* Define unwrapping operator ~
+* Change term for annotation into "control" (but leave "annotate" for
+  when it actually is meant in that sense)
+
 --- middle
 
 # Security considerations
@@ -1560,7 +1623,7 @@ strings (`text`), so a type that is simply called `string` would be
 ambiguous.
 
 [^tdate]: The prelude as included here does not yet have a .regexp
-        annotation on tdate, but we probably do want to have one.
+        control on tdate, but we probably do want to have one.
 
 ## Use with JSON {#sec-json}
 
@@ -2040,7 +2103,7 @@ size = (
 thumbnail = (
   Thumbnail: {
     size,
-    Url: uri
+    Url: ~uri
   }
 )
 ~~~~
@@ -2048,15 +2111,15 @@ thumbnail = (
 
 This shows how the group concept can be used to keep related elements
 (here: width, height) together, and to emulate the JCR style of
-specification.  (It also shows using a tag from the prelude, `uri` -- this
-could be done differently.)  The more compact form of Figure 5 of the
-JCR I-D could be emulated like this:
+specification.  (It also shows referencing a type by unwrapping a tag
+from the prelude, `uri` -- this could be done differently.)  The more
+compact form of Figure 5 of the JCR I-D could be emulated like this:
 
 ~~~~ CDDL
 root = {
   Image: {
     size, Title: text,
-    Thumbnail: { size, Url: uri },
+    Thumbnail: { size, Url: ~uri },
     IDs: [* int]
   }
 }

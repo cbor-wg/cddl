@@ -20,6 +20,7 @@ type1 = type2 [S (rangeop / annotator) S type2]
      / "[" S group S "]"
      / "&" S "(" S group S ")"
      / "&" S groupname [genericarg]
+     / "~" S groupname [genericarg]
 
 type2 = value
       / typename [genericarg]
