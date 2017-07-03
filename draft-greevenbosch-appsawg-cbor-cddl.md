@@ -732,7 +732,7 @@ GpsCoordinates = {
 When encoding, the Geography structure is encoded using a CBOR array
 with two entries (the keys for the group entries are ignored),
 whereas the GpsCoordinates are encoded as a CBOR map with two
-key-value pairs.
+key/value pairs.
 
 Types used in a structure can be defined in separate rules or just in
 place (potentially placed inside parentheses, such as for choices).
@@ -907,16 +907,16 @@ The group that is used to define a map or an array can often be reused
 in the definition of another map or array.  Similarly, a type defined
 as a tag carries an internal data item that one would like to refer
 to.
-
-In these cases, it is expedient to simply use the name of a map,
+In these cases, it is expedient to simply use the name of the map,
 array, or tag type as a handle for the group or type defined inside it.
+
 The "unwrap" operator (written by preceding a name by a tilde
 character "~") can be used to strip the type defined for a name by one
 layer, exposing the underlying group (for maps and arrays) or type
 (for tags).
 
-For example, an application might want to define a simple and a
-complex header.  Without unwrapping, this might be done as follows:
+For example, an application might want to define a basic and an
+advanced header.  Without unwrapping, this might be done as follows:
 
 ~~~~ CDDL
 basic-header-group = (
@@ -964,7 +964,7 @@ suggested the thread-like "~" character.)
 A _control_ allows to relate a _target_ type with a _controller_ type
 via a _control operator_.
 
-The syntax for a control type is `target .control-operation controller`,
+The syntax for a control type is `target .control-operator controller`,
 where control operators are special identifiers prefixed by a dot.
 (Note that _target_ or _controller_ might need to be parenthesized.)
 
@@ -1356,7 +1356,7 @@ and allow them to edit such data while remaining compliant to its CDDL definitio
 ## For automated checking of CBOR data structure
 
 CDDL has been specified such that a machine can handle the CDDL definition
-and related CBOR data.
+and related CBOR data (and, thus, also JSON data).
 For example,
 a machine could use CDDL to check whether or not CBOR data is compliant
 to its definition.
@@ -1369,7 +1369,7 @@ the data to the programmer.
 
 On the other end,
 the application may also implement a checking mechanism that goes as
-far as checking that all mandatory map pairs are available.
+far as checking that all mandatory map members are available.
 
 The matter in how far the data description must be enforced by an application
 is left to the designers and implementers of that application,
