@@ -1597,10 +1597,9 @@ The following is a formal definition of the CDDL syntax in Augmented Backus-Naur
 ~~~~
 {:cddl #fig-abnf title="CDDL ABNF"}
 
-[^_abnftodo]: TO DO: This doesn't allow non-ASCII characters in the
-        text or byte strings yet (and the prefixed byte strings are
-        more liberally specified than they actually are);
-        representation indicators are missing as well.
+[^_abnftodo]: Potential improvements: the prefixed byte strings are
+        more liberally specified than they actually are;
+        representation indicators are not supported.
 
 # Standard Prelude {#prelude}
 
