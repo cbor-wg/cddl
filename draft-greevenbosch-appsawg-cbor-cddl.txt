@@ -68,11 +68,11 @@ Table of Contents
      1.1.  Requirements notation . . . . . . . . . . . . . . . . . .   4
      1.2.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   4
    2.  The Style of Data Structure Specification . . . . . . . . . .   4
-     2.1.  Groups and Composition in CDDL  . . . . . . . . . . . . .   5
-       2.1.1.  Usage . . . . . . . . . . . . . . . . . . . . . . . .   7
+     2.1.  Groups and Composition in CDDL  . . . . . . . . . . . . .   6
+       2.1.1.  Usage . . . . . . . . . . . . . . . . . . . . . . . .   8
        2.1.2.  Syntax  . . . . . . . . . . . . . . . . . . . . . . .   8
      2.2.  Types . . . . . . . . . . . . . . . . . . . . . . . . . .   8
-       2.2.1.  Values  . . . . . . . . . . . . . . . . . . . . . . .   8
+       2.2.1.  Values  . . . . . . . . . . . . . . . . . . . . . . .   9
        2.2.2.  Choices . . . . . . . . . . . . . . . . . . . . . . .   9
        2.2.3.  Representation Types  . . . . . . . . . . . . . . . .  10
        2.2.4.  Root type . . . . . . . . . . . . . . . . . . . . . .  11
@@ -85,27 +85,27 @@ Table of Contents
        3.5.1.  Structs . . . . . . . . . . . . . . . . . . . . . . .  15
        3.5.2.  Tables  . . . . . . . . . . . . . . . . . . . . . . .  18
      3.6.  Tags  . . . . . . . . . . . . . . . . . . . . . . . . . .  19
-     3.7.  Annotations . . . . . . . . . . . . . . . . . . . . . . .  19
-       3.7.1.  Annotation .size  . . . . . . . . . . . . . . . . . .  19
-       3.7.2.  Annotation .bits  . . . . . . . . . . . . . . . . . .  20
-       3.7.3.  Annotation .regexp  . . . . . . . . . . . . . . . . .  21
-       3.7.4.  Annotations .cbor and .cborseq  . . . . . . . . . . .  21
-       3.7.5.  Annotations .within and .and  . . . . . . . . . . . .  22
-       3.7.6.  Annotations .lt, .le, .gt, .ge, .eq, .ne, and
-               .default  . . . . . . . . . . . . . . . . . . . . . .  22
-     3.8.  Socket/Plug . . . . . . . . . . . . . . . . . . . . . . .  23
-     3.9.  Generics  . . . . . . . . . . . . . . . . . . . . . . . .  24
-     3.10. Operator Precedence . . . . . . . . . . . . . . . . . . .  24
-   4.  Making Use of CDDL  . . . . . . . . . . . . . . . . . . . . .  26
-     4.1.  As a guide to a human user  . . . . . . . . . . . . . . .  26
-     4.2.  For automated checking of CBOR data structure . . . . . .  26
-     4.3.  For data analysis tools . . . . . . . . . . . . . . . . .  27
-   5.  Security considerations . . . . . . . . . . . . . . . . . . .  27
-   6.  IANA considerations . . . . . . . . . . . . . . . . . . . . .  27
-   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  28
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  28
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  28
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .  29
+     3.7.  Unwrapping  . . . . . . . . . . . . . . . . . . . . . . .  19
+     3.8.  Controls  . . . . . . . . . . . . . . . . . . . . . . . .  20
+       3.8.1.  Control operator .size  . . . . . . . . . . . . . . .  21
+       3.8.2.  Control operator .bits  . . . . . . . . . . . . . . .  21
+       3.8.3.  Control operator .regexp  . . . . . . . . . . . . . .  22
+       3.8.4.  Control operators .cbor and .cborseq  . . . . . . . .  23
+       3.8.5.  Control operators .within and .and  . . . . . . . . .  23
+       3.8.6.  Control operators .lt, .le, .gt, .ge, .eq, .ne, and
+               .default  . . . . . . . . . . . . . . . . . . . . . .  24
+     3.9.  Socket/Plug . . . . . . . . . . . . . . . . . . . . . . .  24
+     3.10. Generics  . . . . . . . . . . . . . . . . . . . . . . . .  26
+     3.11. Operator Precedence . . . . . . . . . . . . . . . . . . .  26
+   4.  Making Use of CDDL  . . . . . . . . . . . . . . . . . . . . .  28
+     4.1.  As a guide to a human user  . . . . . . . . . . . . . . .  28
+     4.2.  For automated checking of CBOR data structure . . . . . .  28
+     4.3.  For data analysis tools . . . . . . . . . . . . . . . . .  29
+   5.  Security considerations . . . . . . . . . . . . . . . . . . .  29
+   6.  IANA considerations . . . . . . . . . . . . . . . . . . . . .  29
+   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  30
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  30
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  30
 
 
 
@@ -114,25 +114,26 @@ Birkholz, et al.        Expires December 30, 2017               [Page 2]
 Internet-Draft                    CDDL                         June 2017
 
 
-   Appendix A.  Cemetery . . . . . . . . . . . . . . . . . . . . . .  29
-     A.1.  Resolved Issues . . . . . . . . . . . . . . . . . . . . .  30
-   Appendix B.  (Not used.)  . . . . . . . . . . . . . . . . . . . .  30
-   Appendix C.  Change Log . . . . . . . . . . . . . . . . . . . . .  30
-   Appendix D.  ABNF grammar . . . . . . . . . . . . . . . . . . . .  32
-   Appendix E.  Standard Prelude . . . . . . . . . . . . . . . . . .  34
-     E.1.  Use with JSON . . . . . . . . . . . . . . . . . . . . . .  36
-   Appendix F.  The CDDL tool  . . . . . . . . . . . . . . . . . . .  38
-   Appendix G.  Extended Diagnostic Notation . . . . . . . . . . . .  38
-     G.1.  White space in byte string notation . . . . . . . . . . .  39
-     G.2.  Text in byte string notation  . . . . . . . . . . . . . .  39
-     G.3.  Embedded CBOR and CBOR sequences in byte strings  . . . .  39
-     G.4.  Concatenated Strings  . . . . . . . . . . . . . . . . . .  40
-     G.5.  Hexadecimal, octal, and binary numbers  . . . . . . . . .  40
-     G.6.  Comments  . . . . . . . . . . . . . . . . . . . . . . . .  41
-   Appendix H.  Examples . . . . . . . . . . . . . . . . . . . . . .  41
-     H.1.  RFC 7071  . . . . . . . . . . . . . . . . . . . . . . . .  42
-       H.1.1.  Examples from JSON Content Rules  . . . . . . . . . .  45
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  47
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .  31
+   Appendix A.  Cemetery . . . . . . . . . . . . . . . . . . . . . .  31
+     A.1.  Resolved Issues . . . . . . . . . . . . . . . . . . . . .  32
+   Appendix B.  (Not used.)  . . . . . . . . . . . . . . . . . . . .  32
+   Appendix C.  Change Log . . . . . . . . . . . . . . . . . . . . .  32
+   Appendix D.  ABNF grammar . . . . . . . . . . . . . . . . . . . .  35
+   Appendix E.  Standard Prelude . . . . . . . . . . . . . . . . . .  37
+     E.1.  Use with JSON . . . . . . . . . . . . . . . . . . . . . .  39
+   Appendix F.  The CDDL tool  . . . . . . . . . . . . . . . . . . .  41
+   Appendix G.  Extended Diagnostic Notation . . . . . . . . . . . .  41
+     G.1.  White space in byte string notation . . . . . . . . . . .  42
+     G.2.  Text in byte string notation  . . . . . . . . . . . . . .  42
+     G.3.  Embedded CBOR and CBOR sequences in byte strings  . . . .  42
+     G.4.  Concatenated Strings  . . . . . . . . . . . . . . . . . .  43
+     G.5.  Hexadecimal, octal, and binary numbers  . . . . . . . . .  43
+     G.6.  Comments  . . . . . . . . . . . . . . . . . . . . . . . .  44
+   Appendix H.  Examples . . . . . . . . . . . . . . . . . . . . . .  44
+     H.1.  RFC 7071  . . . . . . . . . . . . . . . . . . . . . . . .  45
+       H.1.1.  Examples from JSON Content Rules  . . . . . . . . . .  48
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  50
 
 1.  Introduction
 
@@ -160,8 +161,7 @@ Internet-Draft                    CDDL                         June 2017
 
    (G6)  Automatic checking of data format compliance.
 
-   (G7)  Extraction of specific elements from CBOR data for further
-         processing.
+
 
 
 
@@ -169,6 +169,9 @@ Birkholz, et al.        Expires December 30, 2017               [Page 3]
 
 Internet-Draft                    CDDL                         June 2017
 
+
+   (G7)  Extraction of specific elements from CBOR data for further
+         processing.
 
    Not an explicit goal per se, but a convenient side effect of the JSON
    generic data model being a subset of the CBOR generic data model, is
@@ -214,9 +217,6 @@ Internet-Draft                    CDDL                         June 2017
    representation formats, they are used to specify four loosely
    distinguishable styles of composition:
 
-   o  A _vector_, an array of elements that are mostly of the same
-      semantics.  The set of signatures associated with a signed data
-      item is a typical application of a vector.
 
 
 
@@ -225,6 +225,10 @@ Birkholz, et al.        Expires December 30, 2017               [Page 4]
 
 Internet-Draft                    CDDL                         June 2017
 
+
+   o  A _vector_, an array of elements that are mostly of the same
+      semantics.  The set of signatures associated with a signed data
+      item is a typical application of a vector.
 
    o  A _record_, an array the elements of which have different,
       positionally defined semantics, as detailed in the data structure
@@ -269,10 +273,6 @@ Internet-Draft                    CDDL                         June 2017
        or a "nint" (negative integer).  Finally, a type can be built as
        an array or a map from a group.
 
-2.1.  Groups and Composition in CDDL
-
-   CDDL Groups are lists of name/value pairs (group _entries_).
-
 
 
 
@@ -281,6 +281,10 @@ Birkholz, et al.        Expires December 30, 2017               [Page 5]
 
 Internet-Draft                    CDDL                         June 2017
 
+
+2.1.  Groups and Composition in CDDL
+
+   CDDL Groups are lists of name/value pairs (group _entries_).
 
    In an array context, only the value of the entry is represented; the
    name is annotation only (and can be left off if not needed).  In a
@@ -325,10 +329,6 @@ Internet-Draft                    CDDL                         June 2017
    groups themselves are neutral as to whether they will be used in a
    map or an array.
 
-   The parentheses for groups are optional when there is some other set
-   of brackets present, so it would be slightly more natural to express
-   Figure 2 as:
-
 
 
 
@@ -337,6 +337,10 @@ Birkholz, et al.        Expires December 30, 2017               [Page 6]
 
 Internet-Draft                    CDDL                         June 2017
 
+
+   The parentheses for groups are optional when there is some other set
+   of brackets present, so it would be slightly more natural to express
+   Figure 2 as:
 
                              person = {
                                age: int,
@@ -381,11 +385,7 @@ Internet-Draft                    CDDL                         June 2017
    Note that the contents of the braces in the above definitions
    constitute (anonymous) groups, while "identity" is a named group.
 
-2.1.1.  Usage
 
-   Groups are the instrument used in composing data structures with
-   CDDL.  It is a matter of style in defining those structures whether
-   to define groups (anonymously) right in their contexts or whether to
 
 
 
@@ -394,6 +394,11 @@ Birkholz, et al.        Expires December 30, 2017               [Page 7]
 Internet-Draft                    CDDL                         June 2017
 
 
+2.1.1.  Usage
+
+   Groups are the instrument used in composing data structures with
+   CDDL.  It is a matter of style in defining those structures whether
+   to define groups (anonymously) right in their contexts or whether to
    define them in a separate rule and to reference them with their
    respective name (possibly more than once).
 
@@ -434,12 +439,7 @@ Internet-Draft                    CDDL                         June 2017
 
 2.2.  Types
 
-2.2.1.  Values
 
-   Values such as numbers and strings can be used in place of a type.
-   (For instance, this is a very common thing to do for a keytype,
-   common enough that CDDL provides additional convenience syntax for
-   this.)
 
 
 
@@ -449,6 +449,13 @@ Birkholz, et al.        Expires December 30, 2017               [Page 8]
 
 Internet-Draft                    CDDL                         June 2017
 
+
+2.2.1.  Values
+
+   Values such as numbers and strings can be used in place of a type.
+   (For instance, this is a very common thing to do for a keytype,
+   common enough that CDDL provides additional convenience syntax for
+   this.)
 
 2.2.2.  Choices
 
@@ -489,13 +496,6 @@ Internet-Draft                    CDDL                         June 2017
    It is not an error if a name is first used with a "/=" or "//="
    (there is no need to "create it" with "=").
 
-2.2.2.1.  Ranges
-
-   Instead of naming all the values that make up a choice, CDDL allows
-   building a _range_ out of two values that are in an ordering
-   relationship.  A range can be inclusive of both ends given (denoted
-   by joining two values by ".."), or include the first and exclude the
-   second (denoted by instead using "...").
 
 
 
@@ -505,6 +505,14 @@ Birkholz, et al.        Expires December 30, 2017               [Page 9]
 
 Internet-Draft                    CDDL                         June 2017
 
+
+2.2.2.1.  Ranges
+
+   Instead of naming all the values that make up a choice, CDDL allows
+   building a _range_ out of two values that are in an ordering
+   relationship.  A range can be inclusive of both ends given (denoted
+   by joining two values by ".."), or include the first and exclude the
+   second (denoted by instead using "...").
 
          device-address = byte
          max-byte = 255
@@ -546,14 +554,6 @@ Internet-Draft                    CDDL                         June 2017
    prelude, e.g., a specification could start by making use of an
    existing tag in a more specific way, or define a new tag not defined
    in the prelude:
-
-
-
-
-
-
-
-
 
 
 
@@ -648,7 +648,7 @@ Internet-Draft                    CDDL                         June 2017
       They follow the conventions for strings as defined in section 7 of
       [RFC7159].  (ABNF users may want to note that there is no support
       in CDDL for the concept of case insensitivity in text strings; if
-      necessary, regular expressions can be used (Section 3.7.3).)
+      necessary, regular expressions can be used (Section 3.8.3).)
 
    o  Byte strings are enclosed by single quotation "'" characters and
       may be prefixed by "h" or "b64".  If unprefixed, the string is
@@ -975,7 +975,7 @@ Internet-Draft                    CDDL                         June 2017
           "springbuck": "illuminatingly", "exuviae": "ephemeris",
           "kilometrage": "frogfish"}
 
-   (See Section 3.8 for one way to explicitly identify an extension
+   (See Section 3.9 for one way to explicitly identify an extension
    point.)
 
 3.5.2.  Tables
@@ -1033,30 +1033,30 @@ Internet-Draft                    CDDL                         June 2017
 
                         my_uri = #6.32(tstr) / tstr
 
-3.7.  Annotations
+3.7.  Unwrapping
 
-   An _annotation_ allows to annotate a _target_ type with a _control_
-   type via an _annotator_.
+   The group that is used to define a map or an array can often be
+   reused in the definition of another map or array.  Similarly, a type
+   defined as a tag carries an internal data item that one would like to
+   refer to.
 
-   The syntax for an annotated type is "target .annotator control",
-   where annotators are special identifiers prefixed by a dot.  (Note
-   that _target_ or _control_ might need to be parenthesized.)
+   In these cases, it is expedient to simply use the name of a map,
+   array, or tag type as a handle for the group or type defined inside
+   it.  The "unwrap" operator (written by preceding a name by a tilde
+   character "~") can be used to strip the type defined for a name by
+   one layer, exposing the underlying group (for maps and arrays) or
+   type (for tags).
 
-   Three annotators are defined at his point.  Note that the CDDL tool
-   does not currently support combining multiple annotations on a single
-   target.
+   For example, an application might want to define a simple and a
+   complex header.  Without unwrapping, this might be done as follows:
 
-3.7.1.  Annotation .size
 
-   A ".size" annotation controls the size of the target in bytes by the
-   control type.  Examples:
 
-                   full-address = [[+ label], ip4, ip6]
-                   ip4 = bstr .size 4
-                   ip6 = bstr .size 16
-                   label = bstr .size (1..63)
 
-                  Figure 6: Annotation for size in bytes
+
+
+
+
 
 
 
@@ -1066,7 +1066,79 @@ Birkholz, et al.        Expires December 30, 2017              [Page 19]
 Internet-Draft                    CDDL                         June 2017
 
 
-   When applied to an unsigned integer, the ".size" annotation restricts
+   basic-header-group = (
+     field1: int,
+     field2: text,
+   )
+
+   basic-header = { basic-header-group }
+
+   advanced-header = {
+     basic-header-group,
+     field3: bytes,
+     field4: number, ; as in the tagged type "time"
+   }
+
+   Unwrapping simplifies this to:
+
+   basic-header = {
+     field1: int,
+     field2: text,
+   }
+
+   advanced-header = {
+     ~basic-header,
+     field3: bytes,
+     field4: ~time,
+   }
+
+   (Note that leaving out the first unwrap operator in the latter
+   example would lead to nesting the basic-header in its own map inside
+   the advanced-header, while, with the unwrapped basic-header, the
+   definition of the group inside basic-header is essentially repeated
+   inside advanced-header, leading to a single map.  This can be used
+   for various applications often solved by inheritance in programming
+   languages.  The effect of unwrapping can also be described as
+   "threading in" the group or type inside the referenced type, which
+   suggested the thread-like "~" character.)
+
+3.8.  Controls
+
+   A _control_ allows to relate a _target_ type with a _controller_ type
+   via a _control operator_.
+
+   The syntax for a control type is "target .control-operation
+   controller", where control operators are special identifiers prefixed
+   by a dot.  (Note that _target_ or _controller_ might need to be
+   parenthesized.)
+
+
+
+
+
+
+Birkholz, et al.        Expires December 30, 2017              [Page 20]
+
+Internet-Draft                    CDDL                         June 2017
+
+
+   A number of control operators are defined at his point.  Note that
+   the CDDL tool does not currently support combining multiple controls
+   on a single target.
+
+3.8.1.  Control operator .size
+
+   A ".size" control controls the size of the target in bytes by the
+   control type.  Examples:
+
+                   full-address = [[+ label], ip4, ip6]
+                   ip4 = bstr .size 4
+                   ip6 = bstr .size 16
+                   label = bstr .size (1..63)
+
+                    Figure 6: Control for size in bytes
+
+   When applied to an unsigned integer, the ".size" control restricts
    the range of that integer by giving a maximum number of bytes that
    should be needed in a computer representation of that unsigned
    integer.  In other words, "uint .size N" is equivalent to
@@ -1074,26 +1146,37 @@ Internet-Draft                    CDDL                         June 2017
 
       audio_sample = uint .size 3 ; 24-bit, equivalent to 0..16777215
 
-              Figure 7: Annotation for integer size in bytes
+                Figure 7: Control for integer size in bytes
 
-   Note that, as with value restrictions in CDDL, this annotation is not
-   a representation constraint; a number that fits into fewer bytes can
+   Note that, as with value restrictions in CDDL, this control is not a
+   representation constraint; a number that fits into fewer bytes can
    still be represented in that form, and an inefficient implementation
    could use a longer form (unless that is restricted by some format
    constraints outside of CDDL, such as the rules in Section 3.9 of
    [RFC7049]).
 
-3.7.2.  Annotation .bits
+3.8.2.  Control operator .bits
 
-   A ".bits" annotation on a byte string indicates that, in the target,
+   A ".bits" control on a byte string indicates that, in the target,
    only the bits numbered by a number in the control type are allowed to
    be set.  (Bits are counted the usual way, bit number "n" being set in
    "str" meaning that "(str[n >> 3] & (1 << (n & 7))) != 0".)
    [_bitsendian]
 
-   Similarly, a ".bits" annotation on an unsigned integer "i" indicates
+   Similarly, a ".bits" control on an unsigned integer "i" indicates
    that for all unsigned integers "n" where "(i & (1 << n)) != 0", "n"
    must be in the control type.
+
+
+
+
+
+
+
+Birkholz, et al.        Expires December 30, 2017              [Page 21]
+
+Internet-Draft                    CDDL                         June 2017
+
 
                       tcpflagbytes = bstr .bits flags
                       flags = &(
@@ -1111,16 +1194,7 @@ Internet-Draft                    CDDL                         June 2017
                       rwxbits = uint .bits rwx
                       rwx = &(r: 2, w: 1, x: 0)
 
-               Figure 8: Annotation for what bits can be set
-
-
-
-
-
-Birkholz, et al.        Expires December 30, 2017              [Page 20]
-
-Internet-Draft                    CDDL                         June 2017
-
+                Figure 8: Control for what bits can be set
 
    The CDDL tool generates the following ten example instances for
    "tcpflagbytes":
@@ -1133,36 +1207,46 @@ Internet-Draft                    CDDL                         June 2017
    instance of flag bytes could be "h''" or "h'00'" or even "h'000000'"
    as well.
 
-3.7.3.  Annotation .regexp
+3.8.3.  Control operator .regexp
 
-   A ".regexp" annotation indicates that the text string given as a
-   target needs to match the PCRE regular expression given as a value in
-   the control type, where that regular expression is anchored on both
+   A ".regexp" control indicates that the text string given as a target
+   needs to match the PCRE regular expression given as a value in the
+   control type, where that regular expression is anchored on both
    sides.  (If anchoring is not desired for a side, ".*" needs to be
    inserted there.)
 
                  nai = tstr .regexp "\\w+@\\w+(\\.\\w+)+"
 
-                  Figure 9: Annotation with a PCRE regexp
+                   Figure 9: Control with a PCRE regexp
 
    The CDDL tool proposes:
 
                        "N1@CH57HF.4Znqe0.dYJRN.igjf"
 
-3.7.4.  Annotations .cbor and .cborseq
 
-   A ".cbor" annotation on a byte string indicates that the byte string
+
+
+
+
+
+Birkholz, et al.        Expires December 30, 2017              [Page 22]
+
+Internet-Draft                    CDDL                         June 2017
+
+
+3.8.4.  Control operators .cbor and .cborseq
+
+   A ".cbor" control on a byte string indicates that the byte string
    carries a CBOR encoded data item.  Decoded, the data item matches the
    type given as the right-hand side argument (type1 in the following
    example).
 
       "bytes .cbor type1"
 
-   Similarly, a ".cborseq" annotation on a byte string indicates that
-   the byte string carries a sequence of CBOR encoded data items.  When
-   the data items are taken as an array, the array matches the type
-   given as the right-hand side argument (type2 in the following
-   example).
+   Similarly, a ".cborseq" control on a byte string indicates that the
+   byte string carries a sequence of CBOR encoded data items.  When the
+   data items are taken as an array, the array matches the type given as
+   the right-hand side argument (type2 in the following example).
 
       "bytes .cborseq type2"
 
@@ -1171,23 +1255,16 @@ Internet-Draft                    CDDL                         June 2017
    and 0xff and decoding the wrapped byte string as a CBOR encoded data
    item.)
 
+3.8.5.  Control operators .within and .and
 
-
-Birkholz, et al.        Expires December 30, 2017              [Page 21]
-
-Internet-Draft                    CDDL                         June 2017
-
-
-3.7.5.  Annotations .within and .and
-
-   A ".and" annotation on a type indicates that the data item matches
-   both that left hand side type and the type given as the right hand
-   side.  (Formally, the resulting type is the intersection of the two
-   types given.)
+   A ".and" control on a type indicates that the data item matches both
+   that left hand side type and the type given as the right hand side.
+   (Formally, the resulting type is the intersection of the two types
+   given.)
 
       "type1 .and type2"
 
-   A variant of the ".and" annotation is the ".within" annotation, which
+   A variant of the ".and" control is the ".within" control, which
    expresses an additional intent: the left hand side type is meant to
    be a subset of the right-hand-side type.
 
@@ -1196,7 +1273,7 @@ Internet-Draft                    CDDL                         June 2017
    While both forms have the identical formal semantics (intersection),
    the intention of the ".within" form is that the right hand side gives
    guidance to the types allowed on the left hand side, which typically
-   is a socket (Section 3.8):
+   is a socket (Section 3.9):
 
    message = $message .within message-structure
    message-structure = [message_type, *message_option]
@@ -1206,44 +1283,43 @@ Internet-Draft                    CDDL                         June 2017
    $message /= [3, dough: text, topping: [* text]]
    $message /= [4, noodles: text, sauce: text, parmesan: bool]
 
-   For ".within", a tool might flag an error if type1 allows data items
-   that are not allowed by type2.  In contrast, for ".and", there is no
-   expectation that type1 already is a subset of type2.
-
-3.7.6.  Annotations .lt, .le, .gt, .ge, .eq, .ne, and .default
-
-   The annotations .lt, .le, .gt, .ge, .eq, .ne specify a constraint on
-   the left hand side type to be a value less than, less than or equal,
-   equal to, not equal to, greather than, or greater than or equal to a
-   value given as a (single-valued) right hand side type.  In the
-   present specification, the first four annotations (.lt, .le, .gt,
-   .ge) are defined only for numeric types, as these have a natural
-   ordering relationship.
-
-   speed = number .ge 0  ; unit: m/s
-
-   A variant of the ".ne" annotation is the ".default" annotation, which
-   expresses an additional intent: the value specified by the right-
-   hand-side type is intended as a default value for the left hand side
-   type given, and the implied .ne annotation is there to prevent this
 
 
-
-Birkholz, et al.        Expires December 30, 2017              [Page 22]
+Birkholz, et al.        Expires December 30, 2017              [Page 23]
 
 Internet-Draft                    CDDL                         June 2017
 
 
-   value from being sent over the wire.  This annotation is only
-   meaningful when the annotated type is used in an optional context;
-   otherwise there would be no way to express the default value.
+   For ".within", a tool might flag an error if type1 allows data items
+   that are not allowed by type2.  In contrast, for ".and", there is no
+   expectation that type1 already is a subset of type2.
+
+3.8.6.  Control operators .lt, .le, .gt, .ge, .eq, .ne, and .default
+
+   The controls .lt, .le, .gt, .ge, .eq, .ne specify a constraint on the
+   left hand side type to be a value less than, less than or equal,
+   equal to, not equal to, greather than, or greater than or equal to a
+   value given as a (single-valued) right hand side type.  In the
+   present specification, the first four controls (.lt, .le, .gt, .ge)
+   are defined only for numeric types, as these have a natural ordering
+   relationship.
+
+   speed = number .ge 0  ; unit: m/s
+
+   A variant of the ".ne" control is the ".default" control, which
+   expresses an additional intent: the value specified by the right-
+   hand-side type is intended as a default value for the left hand side
+   type given, and the implied .ne control is there to prevent this
+   value from being sent over the wire.  This control is only meaningful
+   when the controld type is used in an optional context; otherwise
+   there would be no way to express the default value.
 
    timer = {
      time: uint,
      ? displayed-step: (number .gt 0) .default 1
    }
 
-3.8.  Socket/Plug
+3.9.  Socket/Plug
 
    Both for type choices and group choices, a mechanism is defined that
    facilitates starting out with empty choices and assembling them
@@ -1255,6 +1331,20 @@ Internet-Draft                    CDDL                         June 2017
    honor that convention by not raising an error if such a type or group
    is not defined at all; the symbol is then taken to be an empty type
    choice (group choice), i.e., no choice is available.
+
+
+
+
+
+
+
+
+
+
+Birkholz, et al.        Expires December 30, 2017              [Page 24]
+
+Internet-Draft                    CDDL                         June 2017
+
 
             tcp-header = {seq: uint, ack: uint, * $$tcp-option}
 
@@ -1285,7 +1375,29 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 23]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Birkholz, et al.        Expires December 30, 2017              [Page 25]
 
 Internet-Draft                    CDDL                         June 2017
 
@@ -1317,7 +1429,7 @@ Internet-Draft                    CDDL                         June 2017
 
      Figure 10: Personal Data example: Using socket/plug extensibility
 
-3.9.  Generics
+3.10.  Generics
 
    Using angle brackets, the left hand side of a rule can add formal
    parameters after the name being defined, as in:
@@ -1333,7 +1445,7 @@ Internet-Draft                    CDDL                         June 2017
    (There are some limitations to nesting of generics in Appendix F at
    this time.)
 
-3.10.  Operator Precedence
+3.11.  Operator Precedence
 
    As with any language that has multiple syntactic features such as
    prefix and infix operators, CDDL has operators that bind more tightly
@@ -1341,7 +1453,7 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 24]
+Birkholz, et al.        Expires December 30, 2017              [Page 26]
 
 Internet-Draft                    CDDL                         June 2017
 
@@ -1397,7 +1509,7 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 25]
+Birkholz, et al.        Expires December 30, 2017              [Page 27]
 
 Internet-Draft                    CDDL                         June 2017
 
@@ -1453,7 +1565,7 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 26]
+Birkholz, et al.        Expires December 30, 2017              [Page 28]
 
 Internet-Draft                    CDDL                         June 2017
 
@@ -1509,7 +1621,7 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 27]
+Birkholz, et al.        Expires December 30, 2017              [Page 29]
 
 Internet-Draft                    CDDL                         June 2017
 
@@ -1565,7 +1677,7 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 28]
+Birkholz, et al.        Expires December 30, 2017              [Page 30]
 
 Internet-Draft                    CDDL                         June 2017
 
@@ -1575,13 +1687,13 @@ Internet-Draft                    CDDL                         June 2017
    [I-D.ietf-anima-grasp]
               Bormann, C., Carpenter, B., and B. Liu, "A Generic
               Autonomic Signaling Protocol (GRASP)", draft-ietf-anima-
-              grasp-13 (work in progress), June 2017.
+              grasp-14 (work in progress), July 2017.
 
    [I-D.ietf-core-senml]
               Jennings, C., Shelby, Z., Arkko, J., Keranen, A., and C.
               Bormann, "Media Types for Sensor Measurement Lists
-              (SenML)", draft-ietf-core-senml-08 (work in progress), May
-              2017.
+              (SenML)", draft-ietf-core-senml-09 (work in progress),
+              June 2017.
 
    [I-D.ietf-cose-msg]
               Schaad, J., "CBOR Object Signing and Encryption (COSE)",
@@ -1621,7 +1733,7 @@ Appendix A.  Cemetery
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 29]
+Birkholz, et al.        Expires December 30, 2017              [Page 31]
 
 Internet-Draft                    CDDL                         June 2017
 
@@ -1677,7 +1789,7 @@ Appendix C.  Change Log
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 30]
+Birkholz, et al.        Expires December 30, 2017              [Page 32]
 
 Internet-Draft                    CDDL                         June 2017
 
@@ -1733,7 +1845,7 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 31]
+Birkholz, et al.        Expires December 30, 2017              [Page 33]
 
 Internet-Draft                    CDDL                         June 2017
 
@@ -1776,6 +1888,24 @@ Internet-Draft                    CDDL                         June 2017
 
    o  Updated author list.
 
+   Changes from 10 to 11:
+
+   o  Define unwrapping operator ~
+
+   o  Change term for annotation into "control" (but leave "annotate"
+      for when it actually is meant in that sense)
+
+
+
+
+
+
+
+Birkholz, et al.        Expires December 30, 2017              [Page 34]
+
+Internet-Draft                    CDDL                         June 2017
+
+
 Appendix D.  ABNF grammar
 
    The following is a formal definition of the CDDL syntax in Augmented
@@ -1786,14 +1916,6 @@ Appendix D.  ABNF grammar
         / groupname [genericparm] S assign S grpent S
 
    typename = id
-
-
-
-Birkholz, et al.        Expires December 30, 2017              [Page 32]
-
-Internet-Draft                    CDDL                         June 2017
-
-
    groupname = id
 
    assign = "=" / "/=" / "//="
@@ -1811,6 +1933,7 @@ Internet-Draft                    CDDL                         June 2017
         / "[" S group S "]"
         / "&" S "(" S group S ")"
         / "&" S groupname [genericarg]
+        / "~" S groupname [genericarg]
 
    type2 = value
          / typename [genericarg]
@@ -1832,6 +1955,13 @@ Internet-Draft                    CDDL                         June 2017
              / bareword S ":"
              / value S ":"
 
+
+
+Birkholz, et al.        Expires December 30, 2017              [Page 35]
+
+Internet-Draft                    CDDL                         June 2017
+
+
    bareword = id
 
    optcom = S ["," S]
@@ -1842,14 +1972,6 @@ Internet-Draft                    CDDL                         June 2017
 
    uint = ["0x" / "0b"] "0"
         / DIGIT1 *DIGIT
-
-
-
-Birkholz, et al.        Expires December 30, 2017              [Page 33]
-
-Internet-Draft                    CDDL                         June 2017
-
-
         / "0x" 1*HEXDIG
         / "0b" 1*BINDIG
 
@@ -1889,6 +2011,13 @@ Internet-Draft                    CDDL                         June 2017
    VCHAR = %x21-7E
    CRLF = %x0A / %x0D.0A
 
+
+
+Birkholz, et al.        Expires December 30, 2017              [Page 36]
+
+Internet-Draft                    CDDL                         June 2017
+
+
                            Figure 11: CDDL ABNF
 
 Appendix E.  Standard Prelude
@@ -1901,7 +2030,46 @@ Appendix E.  Standard Prelude
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 34]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Birkholz, et al.        Expires December 30, 2017              [Page 37]
 
 Internet-Draft                    CDDL                         June 2017
 
@@ -1957,7 +2125,7 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 35]
+Birkholz, et al.        Expires December 30, 2017              [Page 38]
 
 Internet-Draft                    CDDL                         June 2017
 
@@ -2013,7 +2181,7 @@ E.1.  Use with JSON
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 36]
+Birkholz, et al.        Expires December 30, 2017              [Page 39]
 
 Internet-Draft                    CDDL                         June 2017
 
@@ -2069,7 +2237,7 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 37]
+Birkholz, et al.        Expires December 30, 2017              [Page 40]
 
 Internet-Draft                    CDDL                         June 2017
 
@@ -2125,7 +2293,7 @@ Appendix G.  Extended Diagnostic Notation
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 38]
+Birkholz, et al.        Expires December 30, 2017              [Page 41]
 
 Internet-Draft                    CDDL                         June 2017
 
@@ -2181,7 +2349,7 @@ G.3.  Embedded CBOR and CBOR sequences in byte strings
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 39]
+Birkholz, et al.        Expires December 30, 2017              [Page 42]
 
 Internet-Draft                    CDDL                         June 2017
 
@@ -2237,7 +2405,7 @@ G.5.  Hexadecimal, octal, and binary numbers
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 40]
+Birkholz, et al.        Expires December 30, 2017              [Page 43]
 
 Internet-Draft                    CDDL                         June 2017
 
@@ -2293,7 +2461,7 @@ Appendix H.  Examples
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 41]
+Birkholz, et al.        Expires December 30, 2017              [Page 44]
 
 Internet-Draft                    CDDL                         June 2017
 
@@ -2349,7 +2517,7 @@ H.1.  RFC 7071
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 42]
+Birkholz, et al.        Expires December 30, 2017              [Page 45]
 
 Internet-Draft                    CDDL                         June 2017
 
@@ -2405,7 +2573,7 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 43]
+Birkholz, et al.        Expires December 30, 2017              [Page 46]
 
 Internet-Draft                    CDDL                         June 2017
 
@@ -2461,7 +2629,7 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 44]
+Birkholz, et al.        Expires December 30, 2017              [Page 47]
 
 Internet-Draft                    CDDL                         June 2017
 
@@ -2517,7 +2685,7 @@ H.1.1.  Examples from JSON Content Rules
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 45]
+Birkholz, et al.        Expires December 30, 2017              [Page 48]
 
 Internet-Draft                    CDDL                         June 2017
 
@@ -2541,20 +2709,20 @@ Internet-Draft                    CDDL                         June 2017
                              thumbnail = (
                                Thumbnail: {
                                  size,
-                                 Url: uri
+                                 Url: ~uri
                                }
                              )
 
    This shows how the group concept can be used to keep related elements
    (here: width, height) together, and to emulate the JCR style of
-   specification.  (It also shows using a tag from the prelude, "uri" -
-   this could be done differently.)  The more compact form of Figure 5
-   of the JCR I-D could be emulated like this:
+   specification.  (It also shows referencing a type by unwrapping a tag
+   from the prelude, "uri" - this could be done differently.)  The more
+   compact form of Figure 5 of the JCR I-D could be emulated like this:
 
                     root = {
                       Image: {
                         size, Title: text,
-                        Thumbnail: { size, Url: uri },
+                        Thumbnail: { size, Url: ~uri },
                         IDs: [* int]
                       }
                     }
@@ -2573,7 +2741,7 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 46]
+Birkholz, et al.        Expires December 30, 2017              [Page 49]
 
 Internet-Draft                    CDDL                         June 2017
 
@@ -2582,9 +2750,9 @@ Editorial Comments
 
 [_format] So far, the ability to restrict format choices have not been
           needed beyond the floating point formats.  Those can be
-          applied to ranges using the new .and annotation now.  It is
-          not clear we want to add more format control before we have a
-          use case.
+          applied to ranges using the new .and control now.  It is not
+          clear we want to add more format control before we have a use
+          case.
 
 [_range] TO DO: define this precisely.  This clearly includes integers
          and floats.  Strings - as in "a".."z" - could be added if
@@ -2610,8 +2778,8 @@ Editorial Comments
             liberally specified than they actually are); representation
             indicators are missing as well.
 
-[tdate] The prelude as included here does not yet have a .regexp
-        annotation on tdate, but we probably do want to have one.
+[tdate] The prelude as included here does not yet have a .regexp control
+        on tdate, but we probably do want to have one.
 
 Authors' Addresses
 
@@ -2629,7 +2797,7 @@ Authors' Addresses
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 47]
+Birkholz, et al.        Expires December 30, 2017              [Page 50]
 
 Internet-Draft                    CDDL                         June 2017
 
@@ -2685,4 +2853,4 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 48]
+Birkholz, et al.        Expires December 30, 2017              [Page 51]
