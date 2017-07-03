@@ -12,23 +12,23 @@ genericarg = "<" S type1 S *("," S type1 S ) ">"
 
 type = type1 S *("/" S type1 S)
 
-type1 = type2 [S (rangeop / annotator) S type2]
-     / "#" "6" ["." uint] "(" S type S ")" ; note no space!
-     / "#" DIGIT ["." uint]                ; major/ai
-     / "#"                                 ; any
-     / "{" S group S "}"
-     / "[" S group S "]"
-     / "&" S "(" S group S ")"
-     / "&" S groupname [genericarg]
-     / "~" S groupname [genericarg]
+type1 = type2 [S (rangeop / ctlop) S type2]
 
 type2 = value
       / typename [genericarg]
       / "(" type ")"
+      / "~" S groupname [genericarg]
+      / "#" "6" ["." uint] "(" S type S ")" ; note no space!
+      / "#" DIGIT ["." uint]                ; major/ai
+      / "#"                                 ; any
+      / "{" S group S "}"
+      / "[" S group S "]"
+      / "&" S "(" S group S ")"
+      / "&" S groupname [genericarg]
 
 rangeop = "..." / ".."
 
-annotator = "." id
+ctlop = "." id
 
 group = grpchoice S *("//" S grpchoice S)
 
