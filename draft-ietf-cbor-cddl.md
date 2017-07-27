@@ -1,8 +1,8 @@
 ---
 stand_alone: true
 ipr: trust200902
-docname: draft-greevenbosch-appsawg-cbor-cddl-latest
-cat: info
+docname: draft-ietf-cbor-cddl-latest
+cat: std
 pi:
   toc: 'yes'
   symrefs: 'yes'
@@ -14,7 +14,7 @@ title: >
 abbrev: CDDL
 area: Applications
 wg: ''
-date: 2017-07-03
+date: 2017-07-27
 author:
 - ins: H. Birkholz
   name: Henk Birkholz
@@ -58,7 +58,7 @@ informative:
   RFC7071:
   RFC8007:
   I-D.newton-json-content-rules: jcr
-  I-D.ietf-cose-msg: cose
+  RFC8152: cose
   I-D.ietf-anima-grasp: grasp
   I-D.ietf-core-senml: senml
 
