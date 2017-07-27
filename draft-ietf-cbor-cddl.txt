@@ -4,16 +4,16 @@
 
 Network Working Group                                        H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
-Intended status: Informational                                 C. Vigano
-Expires: December 30, 2017                           Universitaet Bremen
+Intended status: Standards Track                               C. Vigano
+Expires: January 28, 2018                            Universitaet Bremen
                                                               C. Bormann
                                                  Universitaet Bremen TZI
-                                                           June 28, 2017
+                                                           July 27, 2017
 
 
   Concise data definition language (CDDL): a notational convention to
                       express CBOR data structures
-              draft-greevenbosch-appsawg-cbor-cddl-latest
+                      draft-ietf-cbor-cddl-latest
 
 Abstract
 
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 30, 2017.
+   This Internet-Draft will expire on January 28, 2018.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Birkholz, et al.        Expires December 30, 2017               [Page 1]
+Birkholz, et al.        Expires January 28, 2018                [Page 1]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
    include Simplified BSD License text as described in Section 4.e of
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Birkholz, et al.        Expires December 30, 2017               [Page 2]
+Birkholz, et al.        Expires January 28, 2018                [Page 2]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
      8.2.  Informative References  . . . . . . . . . . . . . . . . .  31
@@ -165,9 +165,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017               [Page 3]
+Birkholz, et al.        Expires January 28, 2018                [Page 3]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
    (G7)  Extraction of specific elements from CBOR data for further
@@ -221,9 +221,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017               [Page 4]
+Birkholz, et al.        Expires January 28, 2018                [Page 4]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
    o  A _vector_, an array of elements that are mostly of the same
@@ -277,9 +277,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017               [Page 5]
+Birkholz, et al.        Expires January 28, 2018                [Page 5]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
 2.1.  Groups and Composition in CDDL
@@ -333,9 +333,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017               [Page 6]
+Birkholz, et al.        Expires January 28, 2018                [Page 6]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
    The parentheses for groups are optional when there is some other set
@@ -389,9 +389,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017               [Page 7]
+Birkholz, et al.        Expires January 28, 2018                [Page 7]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
 2.1.1.  Usage
@@ -445,9 +445,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017               [Page 8]
+Birkholz, et al.        Expires January 28, 2018                [Page 8]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
 2.2.1.  Values
@@ -501,9 +501,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017               [Page 9]
+Birkholz, et al.        Expires January 28, 2018                [Page 9]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
 2.2.2.1.  Ranges
@@ -557,9 +557,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 10]
+Birkholz, et al.        Expires January 28, 2018               [Page 10]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
       my_breakfast = #6.55799(breakfast)   ; cbor-any is too general!
@@ -613,9 +613,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 11]
+Birkholz, et al.        Expires January 28, 2018               [Page 11]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
       *  The hyphen is preferred over the underscore (except in a
@@ -669,9 +669,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 12]
+Birkholz, et al.        Expires January 28, 2018               [Page 12]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
                     ; This is a comment
@@ -725,9 +725,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 13]
+Birkholz, et al.        Expires January 28, 2018               [Page 13]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
 3.3.  Predefined names for types
@@ -781,9 +781,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 14]
+Birkholz, et al.        Expires January 28, 2018               [Page 14]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
                      unlimited-people = [* person]
@@ -837,9 +837,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 15]
+Birkholz, et al.        Expires January 28, 2018               [Page 15]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
          Geography = [
@@ -854,7 +854,7 @@ Internet-Draft                    CDDL                         June 2017
 
    When encoding, the Geography structure is encoded using a CBOR array
    with two entries (the keys for the group entries are ignored),
-   whereas the GpsCoordinates are encoded as a CBOR map with two key-
+   whereas the GpsCoordinates are encoded as a CBOR map with two key/
    value pairs.
 
    Types used in a structure can be defined in separate rules or just in
@@ -893,9 +893,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 16]
+Birkholz, et al.        Expires January 28, 2018               [Page 16]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
    A better way to demonstrate the double-arrow use may be:
@@ -949,9 +949,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 17]
+Birkholz, et al.        Expires January 28, 2018               [Page 17]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
                           PersonalData = {
@@ -1005,9 +1005,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 18]
+Birkholz, et al.        Expires January 28, 2018               [Page 18]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
 3.6.  Tags
@@ -1038,17 +1038,17 @@ Internet-Draft                    CDDL                         June 2017
    The group that is used to define a map or an array can often be
    reused in the definition of another map or array.  Similarly, a type
    defined as a tag carries an internal data item that one would like to
-   refer to.
+   refer to.  In these cases, it is expedient to simply use the name of
+   the map, array, or tag type as a handle for the group or type defined
+   inside it.
 
-   In these cases, it is expedient to simply use the name of a map,
-   array, or tag type as a handle for the group or type defined inside
-   it.  The "unwrap" operator (written by preceding a name by a tilde
+   The "unwrap" operator (written by preceding a name by a tilde
    character "~") can be used to strip the type defined for a name by
    one layer, exposing the underlying group (for maps and arrays) or
    type (for tags).
 
-   For example, an application might want to define a simple and a
-   complex header.  Without unwrapping, this might be done as follows:
+   For example, an application might want to define a basic and an
+   advanced header.  Without unwrapping, this might be done as follows:
 
 
 
@@ -1061,9 +1061,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 19]
+Birkholz, et al.        Expires January 28, 2018               [Page 19]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
    basic-header-group = (
@@ -1107,7 +1107,7 @@ Internet-Draft                    CDDL                         June 2017
    A _control_ allows to relate a _target_ type with a _controller_ type
    via a _control operator_.
 
-   The syntax for a control type is "target .control-operation
+   The syntax for a control type is "target .control-operator
    controller", where control operators are special identifiers prefixed
    by a dot.  (Note that _target_ or _controller_ might need to be
    parenthesized.)
@@ -1117,9 +1117,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 20]
+Birkholz, et al.        Expires January 28, 2018               [Page 20]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
    A number of control operators are defined at his point.  Note that
@@ -1173,9 +1173,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 21]
+Birkholz, et al.        Expires January 28, 2018               [Page 21]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
                       tcpflagbytes = bstr .bits flags
@@ -1229,9 +1229,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 22]
+Birkholz, et al.        Expires January 28, 2018               [Page 22]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
 3.8.4.  Control operators .cbor and .cborseq
@@ -1285,9 +1285,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 23]
+Birkholz, et al.        Expires January 28, 2018               [Page 23]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
    For ".within", a tool might flag an error if type1 allows data items
@@ -1341,9 +1341,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 24]
+Birkholz, et al.        Expires January 28, 2018               [Page 24]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
             tcp-header = {seq: uint, ack: uint, * $$tcp-option}
@@ -1397,9 +1397,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 25]
+Birkholz, et al.        Expires January 28, 2018               [Page 25]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
                      PersonalData = {
@@ -1453,9 +1453,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 26]
+Birkholz, et al.        Expires January 28, 2018               [Page 26]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
    as CDDL has both types and groups, with operators that are specific
@@ -1509,9 +1509,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 27]
+Birkholz, et al.        Expires January 28, 2018               [Page 27]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
    The operator precedences, in sequence of loose to tight binding, are
@@ -1559,15 +1559,15 @@ Internet-Draft                    CDDL                         June 2017
 4.2.  For automated checking of CBOR data structure
 
    CDDL has been specified such that a machine can handle the CDDL
-   definition and related CBOR data.  For example, a machine could use
-   CDDL to check whether or not CBOR data is compliant to its
-   definition.
+   definition and related CBOR data (and, thus, also JSON data).  For
+   example, a machine could use CDDL to check whether or not CBOR data
+   is compliant to its definition.
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 28]
+Birkholz, et al.        Expires January 28, 2018               [Page 28]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
    The need for thoroughness of such compliance checking depends on the
@@ -1576,7 +1576,7 @@ Internet-Draft                    CDDL                         June 2017
    to indicate the structure of the data to the programmer.
 
    On the other end, the application may also implement a checking
-   mechanism that goes as far as checking that all mandatory map pairs
+   mechanism that goes as far as checking that all mandatory map members
    are available.
 
    The matter in how far the data description must be enforced by an
@@ -1621,9 +1621,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 29]
+Birkholz, et al.        Expires January 28, 2018               [Page 29]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
 7.  Acknowledgements
@@ -1677,9 +1677,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 30]
+Birkholz, et al.        Expires January 28, 2018               [Page 30]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
 8.2.  Informative References
@@ -1687,17 +1687,13 @@ Internet-Draft                    CDDL                         June 2017
    [I-D.ietf-anima-grasp]
               Bormann, C., Carpenter, B., and B. Liu, "A Generic
               Autonomic Signaling Protocol (GRASP)", draft-ietf-anima-
-              grasp-14 (work in progress), July 2017.
+              grasp-15 (work in progress), July 2017.
 
    [I-D.ietf-core-senml]
               Jennings, C., Shelby, Z., Arkko, J., Keranen, A., and C.
               Bormann, "Media Types for Sensor Measurement Lists
-              (SenML)", draft-ietf-core-senml-09 (work in progress),
-              June 2017.
-
-   [I-D.ietf-cose-msg]
-              Schaad, J., "CBOR Object Signing and Encryption (COSE)",
-              draft-ietf-cose-msg-24 (work in progress), November 2016.
+              (SenML)", draft-ietf-core-senml-10 (work in progress),
+              July 2017.
 
    [I-D.newton-json-content-rules]
               Newton, A. and P. Cordell, "A Language for Rules
@@ -1720,6 +1716,10 @@ Internet-Draft                    CDDL                         June 2017
               RFC 8007, DOI 10.17487/RFC8007, December 2016,
               <http://www.rfc-editor.org/info/rfc8007>.
 
+   [RFC8152]  Schaad, J., "CBOR Object Signing and Encryption (COSE)",
+              RFC 8152, DOI 10.17487/RFC8152, July 2017,
+              <http://www.rfc-editor.org/info/rfc8152>.
+
 Appendix A.  Cemetery
 
    The following ideas have been buried in the discussions leading up to
@@ -1733,9 +1733,9 @@ Appendix A.  Cemetery
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 31]
+Birkholz, et al.        Expires January 28, 2018               [Page 31]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
 A.1.  Resolved Issues
@@ -1789,9 +1789,9 @@ Appendix C.  Change Log
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 32]
+Birkholz, et al.        Expires January 28, 2018               [Page 32]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
    o  Added ABNF
@@ -1845,9 +1845,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 33]
+Birkholz, et al.        Expires January 28, 2018               [Page 33]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
    o  Define .size on uint
@@ -1901,9 +1901,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 34]
+Birkholz, et al.        Expires January 28, 2018               [Page 34]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
 Appendix D.  ABNF grammar
@@ -1925,23 +1925,23 @@ Appendix D.  ABNF grammar
 
    type = type1 S *("/" S type1 S)
 
-   type1 = type2 [S (rangeop / annotator) S type2]
-        / "#" "6" ["." uint] "(" S type S ")" ; note no space!
-        / "#" DIGIT ["." uint]                ; major/ai
-        / "#"                                 ; any
-        / "{" S group S "}"
-        / "[" S group S "]"
-        / "&" S "(" S group S ")"
-        / "&" S groupname [genericarg]
-        / "~" S groupname [genericarg]
+   type1 = type2 [S (rangeop / ctlop) S type2]
 
    type2 = value
          / typename [genericarg]
          / "(" type ")"
+         / "~" S groupname [genericarg]
+         / "#" "6" ["." uint] "(" S type S ")" ; note no space!
+         / "#" DIGIT ["." uint]                ; major/ai
+         / "#"                                 ; any
+         / "{" S group S "}"
+         / "[" S group S "]"
+         / "&" S "(" S group S ")"
+         / "&" S groupname [genericarg]
 
    rangeop = "..." / ".."
 
-   annotator = "." id
+   ctlop = "." id
 
    group = grpchoice S *("//" S grpchoice S)
 
@@ -1957,9 +1957,9 @@ Appendix D.  ABNF grammar
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 35]
+Birkholz, et al.        Expires January 28, 2018               [Page 35]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
    bareword = id
@@ -2007,15 +2007,15 @@ Internet-Draft                    CDDL                         June 2017
    WS = SP / NL
    SP = %x20
    NL = COMMENT / CRLF
-   COMMENT = ";" *(SP / VCHAR) CRLF
-   VCHAR = %x21-7E
+   COMMENT = ";" *PCHAR CRLF
+   PCHAR = %x20-10FFFD
    CRLF = %x0A / %x0D.0A
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 36]
+Birkholz, et al.        Expires January 28, 2018               [Page 36]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
                            Figure 11: CDDL ABNF
@@ -2069,9 +2069,9 @@ Appendix E.  Standard Prelude
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 37]
+Birkholz, et al.        Expires January 28, 2018               [Page 37]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
                   any = #
@@ -2125,9 +2125,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 38]
+Birkholz, et al.        Expires January 28, 2018               [Page 38]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
    Note that the prelude is deemed to be fixed.  This means, for
@@ -2181,9 +2181,9 @@ E.1.  Use with JSON
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 39]
+Birkholz, et al.        Expires January 28, 2018               [Page 39]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
    There are a few fine points in using CDDL with JSON.  First, JSON
@@ -2237,9 +2237,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 40]
+Birkholz, et al.        Expires January 28, 2018               [Page 40]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
    CDDL at this point does not have a way to express the unlimited
@@ -2293,9 +2293,9 @@ Appendix G.  Extended Diagnostic Notation
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 41]
+Birkholz, et al.        Expires January 28, 2018               [Page 41]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
    This section discusses a few extensions to the diagnostic notation
@@ -2349,9 +2349,9 @@ G.3.  Embedded CBOR and CBOR sequences in byte strings
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 42]
+Birkholz, et al.        Expires January 28, 2018               [Page 42]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
 G.4.  Concatenated Strings
@@ -2405,9 +2405,9 @@ G.5.  Hexadecimal, octal, and binary numbers
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 43]
+Birkholz, et al.        Expires January 28, 2018               [Page 43]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
    1.5
@@ -2461,12 +2461,12 @@ Appendix H.  Examples
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 44]
+Birkholz, et al.        Expires January 28, 2018               [Page 44]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
-   CBOR can be found in [I-D.ietf-cose-msg], [I-D.ietf-anima-grasp], or
+   CBOR can be found in [RFC8152], [I-D.ietf-anima-grasp], or
    [I-D.ietf-core-senml].
 
 H.1.  RFC 7071
@@ -2517,9 +2517,9 @@ H.1.  RFC 7071
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 45]
+Birkholz, et al.        Expires January 28, 2018               [Page 45]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
    An equivalent, more compact form of this example would be:
@@ -2573,9 +2573,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 46]
+Birkholz, et al.        Expires January 28, 2018               [Page 46]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
                 {
@@ -2629,9 +2629,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 47]
+Birkholz, et al.        Expires January 28, 2018               [Page 47]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
 H.1.1.  Examples from JSON Content Rules
@@ -2685,9 +2685,9 @@ H.1.1.  Examples from JSON Content Rules
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 48]
+Birkholz, et al.        Expires January 28, 2018               [Page 48]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
                              root = { image }
@@ -2741,9 +2741,9 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 49]
+Birkholz, et al.        Expires January 28, 2018               [Page 49]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
 Editorial Comments
@@ -2773,10 +2773,10 @@ Editorial Comments
          occurrence indicators in front of type choices unless a member
          key is also present like in group2 above.
 
-[_abnftodo] TO DO: This doesn't allow non-ASCII characters in the text
-            or byte strings yet (and the prefixed byte strings are more
-            liberally specified than they actually are); representation
-            indicators are missing as well.
+[_abnftodo] Potential improvements: the prefixed byte strings are more
+            liberally specified than they actually are.  [^_abnfdontdo]:
+            representation indicators are not supported. - and this will
+            stay so.
 
 [tdate] The prelude as included here does not yet have a .regexp control
         on tdate, but we probably do want to have one.
@@ -2797,9 +2797,9 @@ Authors' Addresses
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 50]
+Birkholz, et al.        Expires January 28, 2018               [Page 50]
 
-Internet-Draft                    CDDL                         June 2017
+Internet-Draft                    CDDL                         July 2017
 
 
    Christoph Vigano
@@ -2853,4 +2853,4 @@ Internet-Draft                    CDDL                         June 2017
 
 
 
-Birkholz, et al.        Expires December 30, 2017              [Page 51]
+Birkholz, et al.        Expires January 28, 2018               [Page 51]

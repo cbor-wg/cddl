@@ -23,13 +23,12 @@
     position: fixed;
     bottom: 0;
     right: 0;
-    right: calc(50vw - 500px);
+    right: calc(50vw - 525px);
     width: 300px;
-    padding: 0 1em;
     z-index: 1;
   }
   #rfc\.toc {
-    top: 16px;
+    top: 15px;
   }
   ul.toc {
     top: 80px;
@@ -37,8 +36,7 @@
   }
 
   body {
-    padding-left: 1.5em;
-    padding-right: 29em;
+    padding-right: 350px;
   }
 }
 
@@ -47,7 +45,7 @@ body {
   color: #333;
   font-size-adjust: 0.5;
   line-height: 130%;
-  margin: 2.5em auto;
+  margin: 25px auto;
   max-width: 724px;
 }
 
@@ -344,8 +342,8 @@ address {
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Birkholz, H., Vigano, C., and C. Bormann" />
-  <meta name="dct.identifier" content="urn:ietf:id:draft-greevenbosch-appsawg-cbor-cddl-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2017-6-28" />
+  <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-cbor-cddl-latest" />
+  <meta name="dct.issued" scheme="ISO8601" content="2017-7-27" />
   <meta name="dct.abstract" content="This document proposes a notational convention to express CBOR data structures (RFC 7049).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR." />
   <meta name="description" content="This document proposes a notational convention to express CBOR data structures (RFC 7049).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR." />
 
@@ -365,11 +363,11 @@ address {
 <td class="right">Fraunhofer SIT</td>
 </tr>
 <tr>
-<td class="left">Intended status: Informational</td>
+<td class="left">Intended status: Standards Track</td>
 <td class="right">C. Vigano</td>
 </tr>
 <tr>
-<td class="left">Expires: December 30, 2017</td>
+<td class="left">Expires: January 28, 2018</td>
 <td class="right">Universit&#228;t Bremen</td>
 </tr>
 <tr>
@@ -382,7 +380,7 @@ address {
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">June 28, 2017</td>
+<td class="right">July 27, 2017</td>
 </tr>
 
     	
@@ -390,7 +388,7 @@ address {
   </table>
 
   <p class="title">Concise data definition language (CDDL): a notational convention to express CBOR data structures<br />
-  <span class="filename">draft-greevenbosch-appsawg-cbor-cddl-latest</span></p>
+  <span class="filename">draft-ietf-cbor-cddl-latest</span></p>
   
   <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
 <p>This document proposes a notational convention to express CBOR data structures (RFC 7049).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR.</p>
@@ -398,7 +396,7 @@ address {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on December 30, 2017.</p>
+<p>This Internet-Draft will expire on January 28, 2018.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2017 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -920,7 +918,7 @@ GpsCoordinates = {
   latitude       : uint,            ; multiplied by 10^7
 }
 </pre>
-<p id="rfc.section.3.5.1.p.5">When encoding, the Geography structure is encoded using a CBOR array with two entries (the keys for the group entries are ignored), whereas the GpsCoordinates are encoded as a CBOR map with two key-value pairs.</p>
+<p id="rfc.section.3.5.1.p.5">When encoding, the Geography structure is encoded using a CBOR array with two entries (the keys for the group entries are ignored), whereas the GpsCoordinates are encoded as a CBOR map with two key/value pairs.</p>
 <p id="rfc.section.3.5.1.p.6">Types used in a structure can be defined in separate rules or just in place (potentially placed inside parentheses, such as for choices).  E.g.:</p>
 <pre>
 located-samples = {
@@ -1022,9 +1020,9 @@ my_uri = #6.32(tstr) / tstr
 <h1 id="rfc.section.3.7">
 <a href="#rfc.section.3.7">3.7.</a> <a href="#unwrapping" id="unwrapping">Unwrapping</a>
 </h1>
-<p id="rfc.section.3.7.p.1">The group that is used to define a map or an array can often be reused in the definition of another map or array.  Similarly, a type defined as a tag carries an internal data item that one would like to refer to.</p>
-<p id="rfc.section.3.7.p.2">In these cases, it is expedient to simply use the name of a map, array, or tag type as a handle for the group or type defined inside it.  The &#8220;unwrap&#8221; operator (written by preceding a name by a tilde character &#8220;~&#8221;) can be used to strip the type defined for a name by one layer, exposing the underlying group (for maps and arrays) or type (for tags).</p>
-<p id="rfc.section.3.7.p.3">For example, an application might want to define a simple and a complex header.  Without unwrapping, this might be done as follows:</p>
+<p id="rfc.section.3.7.p.1">The group that is used to define a map or an array can often be reused in the definition of another map or array.  Similarly, a type defined as a tag carries an internal data item that one would like to refer to.  In these cases, it is expedient to simply use the name of the map, array, or tag type as a handle for the group or type defined inside it.</p>
+<p id="rfc.section.3.7.p.2">The &#8220;unwrap&#8221; operator (written by preceding a name by a tilde character &#8220;~&#8221;) can be used to strip the type defined for a name by one layer, exposing the underlying group (for maps and arrays) or type (for tags).</p>
+<p id="rfc.section.3.7.p.3">For example, an application might want to define a basic and an advanced header.  Without unwrapping, this might be done as follows:</p>
 <pre>
 basic-header-group = (
   field1: int,
@@ -1057,7 +1055,7 @@ advanced-header = {
 <a href="#rfc.section.3.8">3.8.</a> <a href="#controls" id="controls">Controls</a>
 </h1>
 <p id="rfc.section.3.8.p.1">A <em>control</em> allows to relate a <em>target</em> type with a <em>controller</em> type via a <em>control operator</em>.</p>
-<p id="rfc.section.3.8.p.2">The syntax for a control type is <samp>target .control-operation controller</samp>, where control operators are special identifiers prefixed by a dot.  (Note that <em>target</em> or <em>controller</em> might need to be parenthesized.)</p>
+<p id="rfc.section.3.8.p.2">The syntax for a control type is <samp>target .control-operator controller</samp>, where control operators are special identifiers prefixed by a dot.  (Note that <em>target</em> or <em>controller</em> might need to be parenthesized.)</p>
 <p id="rfc.section.3.8.p.3">A number of control operators are defined at his point.  Note that the CDDL tool does not currently support combining multiple controls on a single target.</p>
 <h1 id="rfc.section.3.8.1">
 <a href="#rfc.section.3.8.1">3.8.1.</a> <a href="#control-operator-size" id="control-operator-size">Control operator .size</a>
@@ -1393,9 +1391,9 @@ a = 1 b = 2 c = 3
 <h1 id="rfc.section.4.2">
 <a href="#rfc.section.4.2">4.2.</a> <a href="#for-automated-checking-of-cbor-data-structure" id="for-automated-checking-of-cbor-data-structure">For automated checking of CBOR data structure</a>
 </h1>
-<p id="rfc.section.4.2.p.1">CDDL has been specified such that a machine can handle the CDDL definition and related CBOR data.  For example, a machine could use CDDL to check whether or not CBOR data is compliant to its definition.</p>
+<p id="rfc.section.4.2.p.1">CDDL has been specified such that a machine can handle the CDDL definition and related CBOR data (and, thus, also JSON data).  For example, a machine could use CDDL to check whether or not CBOR data is compliant to its definition.</p>
 <p id="rfc.section.4.2.p.2">The need for thoroughness of such compliance checking depends on the application.  For example, an application may decide not to check the data structure at all, and use the CDDL definition solely as a means to indicate the structure of the data to the programmer.</p>
-<p id="rfc.section.4.2.p.3">On the other end, the application may also implement a checking mechanism that goes as far as checking that all mandatory map pairs are available.</p>
+<p id="rfc.section.4.2.p.3">On the other end, the application may also implement a checking mechanism that goes as far as checking that all mandatory map members are available.</p>
 <p id="rfc.section.4.2.p.4">The matter in how far the data description must be enforced by an application is left to the designers and implementers of that application, keeping in mind related security considerations.</p>
 <p id="rfc.section.4.2.p.5">In no case the intention is that a CDDL tool would be &#8220;writing code&#8221; for an implementation.</p>
 <h1 id="rfc.section.4.3">
@@ -1465,17 +1463,12 @@ a = 1 b = 2 c = 3
 <tr>
 <td class="reference"><b id="I-D.ietf-anima-grasp">[I-D.ietf-anima-grasp]</b></td>
 <td class="top">
-<a>Bormann, C.</a>, <a>Carpenter, B.</a> and <a>B. Liu</a>, "<a href="http://tools.ietf.org/html/draft-ietf-anima-grasp-14">A Generic Autonomic Signaling Protocol (GRASP)</a>", Internet-Draft draft-ietf-anima-grasp-14, July 2017.</td>
+<a>Bormann, C.</a>, <a>Carpenter, B.</a> and <a>B. Liu</a>, "<a href="http://tools.ietf.org/html/draft-ietf-anima-grasp-15">A Generic Autonomic Signaling Protocol (GRASP)</a>", Internet-Draft draft-ietf-anima-grasp-15, July 2017.</td>
 </tr>
 <tr>
 <td class="reference"><b id="I-D.ietf-core-senml">[I-D.ietf-core-senml]</b></td>
 <td class="top">
-<a>Jennings, C.</a>, <a>Shelby, Z.</a>, <a>Arkko, J.</a>, <a>Keranen, A.</a> and <a>C. Bormann</a>, "<a href="http://tools.ietf.org/html/draft-ietf-core-senml-09">Media Types for Sensor Measurement Lists (SenML)</a>", Internet-Draft draft-ietf-core-senml-09, June 2017.</td>
-</tr>
-<tr>
-<td class="reference"><b id="I-D.ietf-cose-msg">[I-D.ietf-cose-msg]</b></td>
-<td class="top">
-<a>Schaad, J.</a>, "<a href="http://tools.ietf.org/html/draft-ietf-cose-msg-24">CBOR Object Signing and Encryption (COSE)</a>", Internet-Draft draft-ietf-cose-msg-24, November 2016.</td>
+<a>Jennings, C.</a>, <a>Shelby, Z.</a>, <a>Arkko, J.</a>, <a>Keranen, A.</a> and <a>C. Bormann</a>, "<a href="http://tools.ietf.org/html/draft-ietf-core-senml-10">Media Types for Sensor Measurement Lists (SenML)</a>", Internet-Draft draft-ietf-core-senml-10, July 2017.</td>
 </tr>
 <tr>
 <td class="reference"><b id="I-D.newton-json-content-rules">[I-D.newton-json-content-rules]</b></td>
@@ -1501,6 +1494,11 @@ a = 1 b = 2 c = 3
 <td class="reference"><b id="RFC8007">[RFC8007]</b></td>
 <td class="top">
 <a>Murray, R.</a> and <a>B. Niven-Jenkins</a>, "<a href="http://tools.ietf.org/html/rfc8007">Content Delivery Network Interconnection (CDNI) Control Interface / Triggers</a>", RFC 8007, DOI 10.17487/RFC8007, December 2016.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8152">[RFC8152]</b></td>
+<td class="top">
+<a>Schaad, J.</a>, "<a href="http://tools.ietf.org/html/rfc8152">CBOR Object Signing and Encryption (COSE)</a>", RFC 8152, DOI 10.17487/RFC8152, July 2017.</td>
 </tr>
 </tbody></table>
 <h1 id="rfc.appendix.A">
@@ -1626,7 +1624,7 @@ a = 1 b = 2 c = 3
 <h1 id="rfc.appendix.D">
 <a href="#rfc.appendix.D">Appendix D.</a> <a href="#abnf" id="abnf">ABNF grammar</a>
 </h1>
-<p id="rfc.section.D.p.1">The following is a formal definition of the CDDL syntax in Augmented Backus-Naur Form (ABNF, <a href="#RFC5234" class="xref">[RFC5234]</a>).  <a id="_abnftodo" class="info">[_abnftodo]<span class="info">TO DO: This doesn&#8217;t allow non-ASCII characters in the text or byte strings yet (and the prefixed byte strings are more liberally specified than they actually are); representation indicators are missing as well.</span></a></p>
+<p id="rfc.section.D.p.1">The following is a formal definition of the CDDL syntax in Augmented Backus-Naur Form (ABNF, <a href="#RFC5234" class="xref">[RFC5234]</a>).  <a id="_abnftodo" class="info">[_abnftodo]<span class="info">Potential improvements: the prefixed byte strings are more liberally specified than they actually are.  [^_abnfdontdo]: representation indicators are not supported. &#8211; and this will stay so.</span></a></p>
 <div id="rfc.figure.11"></div>
 <div id="fig-abnf"></div>
 <pre>
@@ -1644,23 +1642,23 @@ genericarg = "&lt;" S type1 S *("," S type1 S ) "&gt;"
 
 type = type1 S *("/" S type1 S)
 
-type1 = type2 [S (rangeop / annotator) S type2]
-     / "#" "6" ["." uint] "(" S type S ")" ; note no space!
-     / "#" DIGIT ["." uint]                ; major/ai
-     / "#"                                 ; any
-     / "{" S group S "}"
-     / "[" S group S "]"
-     / "&amp;" S "(" S group S ")"
-     / "&amp;" S groupname [genericarg]
-     / "~" S groupname [genericarg]
+type1 = type2 [S (rangeop / ctlop) S type2]
 
 type2 = value
       / typename [genericarg]
       / "(" type ")"
+      / "~" S groupname [genericarg]
+      / "#" "6" ["." uint] "(" S type S ")" ; note no space!
+      / "#" DIGIT ["." uint]                ; major/ai
+      / "#"                                 ; any
+      / "{" S group S "}"
+      / "[" S group S "]"
+      / "&amp;" S "(" S group S ")"
+      / "&amp;" S groupname [genericarg]
 
 rangeop = "..." / ".."
 
-annotator = "." id
+ctlop = "." id
 
 group = grpchoice S *("//" S grpchoice S)
 
@@ -1719,8 +1717,8 @@ S = *WS
 WS = SP / NL
 SP = %x20
 NL = COMMENT / CRLF
-COMMENT = ";" *(SP / VCHAR) CRLF
-VCHAR = %x21-7E
+COMMENT = ";" *PCHAR CRLF
+PCHAR = %x20-10FFFD
 CRLF = %x0A / %x0D.0A
 </pre>
 <p class="figure">Figure 11: CDDL ABNF</p>
@@ -1960,7 +1958,7 @@ h'68 65 6c /doubled l!/ 6c 6f /hello/
 <p id="rfc.section.H.p.1">This section contains various examples of structures defined using CDDL.</p>
 <p id="rfc.section.H.p.2">The theme for the first example is taken from <a href="#RFC7071" class="xref">[RFC7071]</a>, which defines certain JSON structures in English.  For a similar example, it may also be of interest to examine Appendix A of <a href="#RFC8007" class="xref">[RFC8007]</a>, which contains a CDDL definition for a JSON structure defined in the main body of the RFC.</p>
 <p id="rfc.section.H.p.3">The second subsection in this appendix translates examples from <a href="#I-D.newton-json-content-rules" class="xref">[I-D.newton-json-content-rules]</a> into CDDL.</p>
-<p id="rfc.section.H.p.4">These examples all happen to describe data that is interchanged in JSON.  Examples for CDDL definitions of data that is interchanged in CBOR can be found in <a href="#I-D.ietf-cose-msg" class="xref">[I-D.ietf-cose-msg]</a>, <a href="#I-D.ietf-anima-grasp" class="xref">[I-D.ietf-anima-grasp]</a>, or <a href="#I-D.ietf-core-senml" class="xref">[I-D.ietf-core-senml]</a>.</p>
+<p id="rfc.section.H.p.4">These examples all happen to describe data that is interchanged in JSON.  Examples for CDDL definitions of data that is interchanged in CBOR can be found in <a href="#RFC8152" class="xref">[RFC8152]</a>, <a href="#I-D.ietf-anima-grasp" class="xref">[I-D.ietf-anima-grasp]</a>, or <a href="#I-D.ietf-core-senml" class="xref">[I-D.ietf-core-senml]</a>.</p>
 <h1 id="rfc.appendix.H.1">
 <a href="#rfc.appendix.H.1">H.1.</a> <a href="#example-7071" id="example-7071">RFC 7071</a>
 </h1>
