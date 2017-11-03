@@ -1521,11 +1521,11 @@ a = 1 b = 2 c = 3
 <h1 id="rfc.appendix.B">
 <a href="#rfc.appendix.B">Appendix B.</a> <a href="#matching" id="matching">Matching rules</a>
 </h1>
-<p id="rfc.section.B.p.1">In this appendix, we go through the ABNF syntax rules defined in <a href="#abnf" class="xref">Appendix D</a> and briefly describe the matching semantics of each syntactic feature.  In this context, an instance &#8220;matches&#8221; a CDDL specification if it is allowed by the CDDL specification; this is then broken down to parts of specifications and parts of instances.</p>
+<p id="rfc.section.B.p.1">In this appendix, we go through the ABNF syntax rules defined in <a href="#abnf" class="xref">Appendix D</a> and briefly describe the matching semantics of each syntactic feature.  In this context, an instance (data item) &#8220;matches&#8221; a CDDL specification if it is allowed by the CDDL specification; this is then broken down to parts of specifications (type and group expressions) and parts of instances (data items).</p>
 <pre>
 cddl = S 1*rule
 </pre>
-<p id="rfc.section.B.p.2">A CDDL specification is a sequence of one or more rules.  Each rule gives a name to a right hand side expression, either a CDDL type or a CDDL group.  Rule names can be used in the rule itself and/or other rules (and tools can output warnings if that is not the case).  The order of the rules is significant in a number of cases, including the following: The first rule defines the semantics of the entire specification; hence, its name may be descriptive only (or may be used in itself or other rules as with the other rule names).</p>
+<p id="rfc.section.B.p.2">A CDDL specification is a sequence of one or more rules.  Each rule gives a name to a right hand side expression, either a CDDL type or a CDDL group.  Rule names can be used in the rule itself and/or other rules (and tools can output warnings if that is not the case).  The order of the rules is significant only in two cases, including the following: The first rule defines the semantics of the entire specification; hence, its name may be descriptive only (or may be used in itself or other rules as with the other rule names).</p>
 <pre>
 rule = typename [genericparm] S assign S type S
      / groupname [genericparm] S assign S grpent S
@@ -1537,16 +1537,16 @@ groupname = id
 <pre>
 assign = "=" / "/=" / "//="
 </pre>
-<p id="rfc.section.B.p.4">A plain equals sign defines the rule name as the equivalent of the expression to the right.  A <samp>/=</samp> or <samp>//=</samp> extends a named type or a group by additional choices; a number of these could be replaced by collecting all the right hand sides and creating a single rule with a type choice or a group choice built from the right hand sides.  (It is not an error to extend a rule name that has not yet been defined; this makes the right hand side the first entry in the choice being created.)</p>
+<p id="rfc.section.B.p.4">A plain equals sign defines the rule name as the equivalent of the expression to the right.  A <samp>/=</samp> or <samp>//=</samp> extends a named type or a group by additional choices; a number of these could be replaced by collecting all the right hand sides and creating a single rule with a type choice or a group choice built from the right hand sides in the order of the rules given.  (It is not an error to extend a rule name that has not yet been defined; this makes the right hand side the first entry in the choice being created.)  The creation of the type choices and group choices from the right hand sides of rules is the other case where rule order can be significant.</p>
 <pre>
 genericparm = "&lt;" S id S *("," S id S ) "&gt;"
 genericarg = "&lt;" S type1 S *("," S type1 S ) "&gt;"
 </pre>
-<p id="rfc.section.B.p.5">Rule names can have generic parameters, which cause temporary assignments to the parameter names from the arguments given when citing the rule name.</p>
+<p id="rfc.section.B.p.5">Rule names can have generic parameters, which cause temporary assignments within the right hand sides to the parameter names from the arguments given when citing the rule name.</p>
 <pre>
 type = type1 S *("/" S type1 S)
 </pre>
-<p id="rfc.section.B.p.6">A type can be given as a choice between one or more types.  The choice matches an instance if the instance matcnes any one of the types given in the choice.  The choice uses Parse Expression Grammar semantics: The first choice that matches wins.  (As a result, the order of rules that contribute to a single rule name can very well matter.)</p>
+<p id="rfc.section.B.p.6">A type can be given as a choice between one or more types.  The choice matches an instance if the instance matches any one of the types given in the choice.  The choice uses Parse Expression Grammar (PEG) semantics: The first choice that matches wins.  (As a result, the order of rules that contribute to a single rule name can very well matter.)</p>
 <pre>
 type1 = type2 [S (rangeop / ctlop) S type2]
 </pre>
@@ -1554,15 +1554,15 @@ type1 = type2 [S (rangeop / ctlop) S type2]
 <pre>
 type2 = value
 </pre>
-<p id="rfc.section.B.p.8">A type can be just a single value (such as 1 or &#8220;icecream&#8221; or h&#8217;0815&#8217;), which matches only an instance with that specific value (no conversions defined), or</p>
+<p id="rfc.section.B.p.8">A type can be just a single value (such as 1 or &#8220;icecream&#8221; or h&#8217;0815&#8217;), which matches only an instance with that specific value (no conversions defined),</p>
 <pre>
       / typename [genericarg]
 </pre>
-<p id="rfc.section.B.p.9">or be defined by a rule giving a meaning to a name (possibly after supplying generic args),</p>
+<p id="rfc.section.B.p.9">or be defined by a rule giving a meaning to a name (possibly after supplying generic args as required by the generic parameters),</p>
 <pre>
       / "(" type ")"
 </pre>
-<p id="rfc.section.B.p.10">or be defined a parenthesized type (which may be necessary to override some operator precendence), or</p>
+<p id="rfc.section.B.p.10">or be defined in a parenthesized type expression (parentheses may be necessary to override some operator precendence), or</p>
 <pre>
       / "~" S groupname [genericarg]
 </pre>
@@ -1582,20 +1582,20 @@ type2 = value
 <pre>
       / "{" S group S "}"
 </pre>
-<p id="rfc.section.B.p.15">a map, the key/value pairs of which can be ordered in such a way that they match the group, or</p>
+<p id="rfc.section.B.p.15">a map expression, which matches a valid CBOR map the key/value pairs of which can be ordered in such a way that the resulting sequence matches the group expression, or</p>
 <pre>
       / "[" S group S "]"
 </pre>
-<p id="rfc.section.B.p.16">an array, the elements of which, when taken as values and complemented by a wildcard (matches anything) key each, match the group, or</p>
+<p id="rfc.section.B.p.16">an array expression, which matches a CBOR array the elements of which, when taken as values and complemented by a wildcard (matches anything) key each, match the group, or</p>
 <pre>
       / "&amp;" S "(" S group S ")"
       / "&amp;" S groupname [genericarg]
 </pre>
-<p id="rfc.section.B.p.17">a value within the set of values that the values of the group given can take.</p>
+<p id="rfc.section.B.p.17">an enumeration expression, which matches any a value that is within the set of values that the values of the group given can take.</p>
 <pre>
 rangeop = "..." / ".."
 </pre>
-<p id="rfc.section.B.p.18">A range operator can be used to join two expressions that stand for either two integer values or two floating point values; it matches any value that is between the two values, where is first value is always included in the matching set and the second value is included for <samp>..</samp> and excluded for <samp>...</samp>.</p>
+<p id="rfc.section.B.p.18">A range operator can be used to join two type expressions that stand for either two integer values or two floating point values; it matches any value that is between the two values, where the first value is always included in the matching set and the second value is included for <samp>..</samp> and excluded for <samp>...</samp>.</p>
 <pre>
 ctlop = "." id
 </pre>
@@ -1625,11 +1625,11 @@ memberkey = type1 S "=&gt;"
           / bareword S ":"
           / value S ":"
 </pre>
-<p id="rfc.section.B.p.25">Key types can be given by a type expression, a bareword (which stands for string value created from this bareword), or a value (which stands for its value).  A key value matches its key type if the key value is a member of the key type.</p>
+<p id="rfc.section.B.p.25">Key types can be given by a type expression, a bareword (which stands for string value created from this bareword), or a value (which stands for a type that just contains this value).  A key value matches its key type if the key value is a member of the key type.</p>
 <pre>
 bareword = id
 </pre>
-<p id="rfc.section.B.p.26">A bareword is an alternative way to write a type with a single text string value; it can only be used in the syntactic context fiven above.</p>
+<p id="rfc.section.B.p.26">A bareword is an alternative way to write a type with a single text string value; it can only be used in the syntactic context given above.</p>
 <pre>
 optcom = S ["," S]
 </pre>
@@ -1639,7 +1639,7 @@ occur = [uint] "*" [uint]
       / "+"
       / "?"
 </pre>
-<p id="rfc.section.B.p.28">An occurrence indicator modifies the group given to its right by requiring the group to match the sequence given for a certain number of times (see <a href="#occurrence" class="xref">Section 3.2</a>) in sequence.</p>
+<p id="rfc.section.B.p.28">An occurrence indicator modifies the group given to its right by requiring the group to match the sequence to be matched exactly for a certain number of times (see <a href="#occurrence" class="xref">Section 3.2</a>) in sequence, i.e. it acts as a (possibly infinite) group choice that contains choices with the group repeated each of the occurrences times.</p>
 <p id="rfc.section.B.p.29">The rest of the ABNF describes syntax for value notation that should be familiar from programming languages, with the possible exception of h&#8217;..&#8217; and b64&#8217;..&#8217; for byte strings, as well as syntactic elements such as comments and line ends.</p>
 <h1 id="rfc.appendix.C">
 <a href="#rfc.appendix.C">Appendix C.</a> <a href="#change-log" id="change-log">Change Log</a>

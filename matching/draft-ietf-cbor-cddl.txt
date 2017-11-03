@@ -1765,9 +1765,10 @@ Appendix B.  Matching rules
 
    In this appendix, we go through the ABNF syntax rules defined in
    Appendix D and briefly describe the matching semantics of each
-   syntactic feature.  In this context, an instance "matches" a CDDL
-   specification if it is allowed by the CDDL specification; this is
-   then broken down to parts of specifications and parts of instances.
+   syntactic feature.  In this context, an instance (data item)
+   "matches" a CDDL specification if it is allowed by the CDDL
+   specification; this is then broken down to parts of specifications
+   (type and group expressions) and parts of instances (data items).
 
    cddl = S 1*rule
 
@@ -1775,7 +1776,7 @@ Appendix B.  Matching rules
    gives a name to a right hand side expression, either a CDDL type or a
    CDDL group.  Rule names can be used in the rule itself and/or other
    rules (and tools can output warnings if that is not the case).  The
-   order of the rules is significant in a number of cases, including the
+   order of the rules is significant only in two cases, including the
    following: The first rule defines the semantics of the entire
    specification; hence, its name may be descriptive only (or may be
    used in itself or other rules as with the other rule names).
@@ -1785,7 +1786,6 @@ Appendix B.  Matching rules
 
    typename = id
    groupname = id
-
 
 
 
@@ -1805,26 +1805,28 @@ Internet-Draft                    CDDL                     November 2017
    expression to the right.  A "/=" or "//=" extends a named type or a
    group by additional choices; a number of these could be replaced by
    collecting all the right hand sides and creating a single rule with a
-   type choice or a group choice built from the right hand sides.  (It
-   is not an error to extend a rule name that has not yet been defined;
-   this makes the right hand side the first entry in the choice being
-   created.)
+   type choice or a group choice built from the right hand sides in the
+   order of the rules given.  (It is not an error to extend a rule name
+   that has not yet been defined; this makes the right hand side the
+   first entry in the choice being created.)  The creation of the type
+   choices and group choices from the right hand sides of rules is the
+   other case where rule order can be significant.
 
    genericparm = "<" S id S *("," S id S ) ">"
    genericarg = "<" S type1 S *("," S type1 S ) ">"
 
    Rule names can have generic parameters, which cause temporary
-   assignments to the parameter names from the arguments given when
-   citing the rule name.
+   assignments within the right hand sides to the parameter names from
+   the arguments given when citing the rule name.
 
    type = type1 S *("/" S type1 S)
 
    A type can be given as a choice between one or more types.  The
-   choice matches an instance if the instance matcnes any one of the
+   choice matches an instance if the instance matches any one of the
    types given in the choice.  The choice uses Parse Expression Grammar
-   semantics: The first choice that matches wins.  (As a result, the
-   order of rules that contribute to a single rule name can very well
-   matter.)
+   (PEG) semantics: The first choice that matches wins.  (As a result,
+   the order of rules that contribute to a single rule name can very
+   well matter.)
 
    type1 = type2 [S (rangeop / ctlop) S type2]
 
@@ -1835,12 +1837,10 @@ Internet-Draft                    CDDL                     November 2017
 
    A type can be just a single value (such as 1 or "icecream" or
    h'0815'), which matches only an instance with that specific value (no
-   conversions defined), or
+   conversions defined),
 
          / typename [genericarg]
 
-   or be defined by a rule giving a meaning to a name (possibly after
-   supplying generic args),
 
 
 
@@ -1850,10 +1850,13 @@ Birkholz, et al.          Expires May 15, 2018                 [Page 33]
 Internet-Draft                    CDDL                     November 2017
 
 
+   or be defined by a rule giving a meaning to a name (possibly after
+   supplying generic args as required by the generic parameters),
+
          / "(" type ")"
 
-   or be defined a parenthesized type (which may be necessary to
-   override some operator precendence), or
+   or be defined in a parenthesized type expression (parentheses may be
+   necessary to override some operator precendence), or
 
          / "~" S groupname [genericarg]
 
@@ -1876,28 +1879,25 @@ Internet-Draft                    CDDL                     November 2017
 
          / "{" S group S "}"
 
-   a map, the key/value pairs of which can be ordered in such a way that
-   they match the group, or
+   a map expression, which matches a valid CBOR map the key/value pairs
+   of which can be ordered in such a way that the resulting sequence
+   matches the group expression, or
 
          / "[" S group S "]"
 
-   an array, the elements of which, when taken as values and
-   complemented by a wildcard (matches anything) key each, match the
-   group, or
+   an array expression, which matches a CBOR array the elements of
+   which, when taken as values and complemented by a wildcard (matches
+   anything) key each, match the group, or
 
          / "&" S "(" S group S ")"
          / "&" S groupname [genericarg]
 
-   a value within the set of values that the values of the group given
-   can take.
+   an enumeration expression, which matches any a value that is within
+   the set of values that the values of the group given can take.
 
    rangeop = "..." / ".."
 
-   A range operator can be used to join two expressions that stand for
-   either two integer values or two floating point values; it matches
-   any value that is between the two values, where is first value is
-   always included in the matching set and the second value is included
-   for ".." and excluded for "...".
+
 
 
 
@@ -1905,6 +1905,12 @@ Birkholz, et al.          Expires May 15, 2018                 [Page 34]
 
 Internet-Draft                    CDDL                     November 2017
 
+
+   A range operator can be used to join two type expressions that stand
+   for either two integer values or two floating point values; it
+   matches any value that is between the two values, where the first
+   value is always included in the matching set and the second value is
+   included for ".." and excluded for "...".
 
    ctlop = "." id
 
@@ -1948,12 +1954,6 @@ Internet-Draft                    CDDL                     November 2017
 
    Key types can be given by a type expression, a bareword (which stands
    for string value created from this bareword), or a value (which
-   stands for its value).  A key value matches its key type if the key
-   value is a member of the key type.
-
-   bareword = id
-
-
 
 
 
@@ -1962,8 +1962,13 @@ Birkholz, et al.          Expires May 15, 2018                 [Page 35]
 Internet-Draft                    CDDL                     November 2017
 
 
+   stands for a type that just contains this value).  A key value
+   matches its key type if the key value is a member of the key type.
+
+   bareword = id
+
    A bareword is an alternative way to write a type with a single text
-   string value; it can only be used in the syntactic context fiven
+   string value; it can only be used in the syntactic context given
    above.
 
    optcom = S ["," S]
@@ -1975,8 +1980,10 @@ Internet-Draft                    CDDL                     November 2017
          / "?"
 
    An occurrence indicator modifies the group given to its right by
-   requiring the group to match the sequence given for a certain number
-   of times (see Section 3.2) in sequence.
+   requiring the group to match the sequence to be matched exactly for a
+   certain number of times (see Section 3.2) in sequence, i.e. it acts
+   as a (possibly infinite) group choice that contains choices with the
+   group repeated each of the occurrences times.
 
    The rest of the ABNF describes syntax for value notation that should
    be familiar from programming languages, with the possible exception
@@ -2003,13 +2010,6 @@ Appendix C.  Change Log
 
    o  Added information about characters used in names
 
-   o  Added text about an overall data structure and order of definition
-      of fields
-
-   o  Added text about encoding of keys
-
-   o  Added table with keywords
-
 
 
 
@@ -2017,6 +2017,13 @@ Birkholz, et al.          Expires May 15, 2018                 [Page 36]
 
 Internet-Draft                    CDDL                     November 2017
 
+
+   o  Added text about an overall data structure and order of definition
+      of fields
+
+   o  Added text about encoding of keys
+
+   o  Added table with keywords
 
    o  Strings and integer writing conventions
 
@@ -2059,13 +2066,6 @@ Internet-Draft                    CDDL                     November 2017
 
    o  Added experimental socket/plug
 
-   o  Added aliases text, bytes, null to prelude
-
-   o  Documented generics
-
-   o  Fixed more typos
-
-   Changes from 06 to 07:
 
 
 
@@ -2073,6 +2073,14 @@ Birkholz, et al.          Expires May 15, 2018                 [Page 37]
 
 Internet-Draft                    CDDL                     November 2017
 
+
+   o  Added aliases text, bytes, null to prelude
+
+   o  Documented generics
+
+   o  Fixed more typos
+
+   Changes from 06 to 07:
 
    o  .cbor, .cborseq, .within, .and
 
@@ -2114,14 +2122,6 @@ Internet-Draft                    CDDL                     November 2017
 
    o  Updated author list.
 
-   Changes from 10 to 11:
-
-   o  Define unwrapping operator ~
-
-   o  Change term for annotation into "control" (but leave "annotate"
-      for when it actually is meant in that sense)
-
-
 
 
 
@@ -2129,6 +2129,13 @@ Birkholz, et al.          Expires May 15, 2018                 [Page 38]
 
 Internet-Draft                    CDDL                     November 2017
 
+
+   Changes from 10 to 11:
+
+   o  Define unwrapping operator ~
+
+   o  Change term for annotation into "control" (but leave "annotate"
+      for when it actually is meant in that sense)
 
 Appendix D.  ABNF grammar
 
@@ -2171,13 +2178,6 @@ Appendix D.  ABNF grammar
 
    grpchoice = *grpent
 
-   grpent = [occur S] [memberkey S] type optcom
-          / [occur S] groupname [genericarg] optcom ; preempted by above
-          / [occur S] "(" S group S ")" optcom
-
-   memberkey = type1 S "=>"
-             / bareword S ":"
-             / value S ":"
 
 
 
@@ -2185,6 +2185,14 @@ Birkholz, et al.          Expires May 15, 2018                 [Page 39]
 
 Internet-Draft                    CDDL                     November 2017
 
+
+   grpent = [occur S] [memberkey S] type optcom
+          / [occur S] groupname [genericarg] optcom ; preempted by above
+          / [occur S] "(" S group S ")" optcom
+
+   memberkey = type1 S "=>"
+             / bareword S ":"
+             / value S ":"
 
    bareword = id
 
@@ -2227,6 +2235,13 @@ Internet-Draft                    CDDL                     November 2017
    HEXDIG = DIGIT / "A" / "B" / "C" / "D" / "E" / "F"
    BINDIG = %x30-31
 
+
+
+Birkholz, et al.          Expires May 15, 2018                 [Page 40]
+
+Internet-Draft                    CDDL                     November 2017
+
+
    S = *WS
    WS = SP / NL
    SP = %x20
@@ -2234,13 +2249,6 @@ Internet-Draft                    CDDL                     November 2017
    COMMENT = ";" *PCHAR CRLF
    PCHAR = %x20-10FFFD
    CRLF = %x0A / %x0D.0A
-
-
-
-Birkholz, et al.          Expires May 15, 2018                 [Page 40]
-
-Internet-Draft                    CDDL                     November 2017
-
 
                            Figure 11: CDDL ABNF
 
@@ -2250,14 +2258,6 @@ Appendix E.  Standard Prelude
    [tdate].  (Note that technically, it is a postlude, as it does not
    disturb the selection of the first rule as the root of the
    definition.)
-
-
-
-
-
-
-
-
 
 
 
