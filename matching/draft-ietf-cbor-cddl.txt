@@ -118,22 +118,22 @@ Internet-Draft                    CDDL                     November 2017
    Appendix A.  Cemetery . . . . . . . . . . . . . . . . . . . . . .  31
      A.1.  Resolved Issues . . . . . . . . . . . . . . . . . . . . .  32
    Appendix B.  Matching rules . . . . . . . . . . . . . . . . . . .  32
-   Appendix C.  Change Log . . . . . . . . . . . . . . . . . . . . .  36
-   Appendix D.  ABNF grammar . . . . . . . . . . . . . . . . . . . .  39
-   Appendix E.  Standard Prelude . . . . . . . . . . . . . . . . . .  41
-     E.1.  Use with JSON . . . . . . . . . . . . . . . . . . . . . .  43
-   Appendix F.  The CDDL tool  . . . . . . . . . . . . . . . . . . .  45
-   Appendix G.  Extended Diagnostic Notation . . . . . . . . . . . .  45
-     G.1.  White space in byte string notation . . . . . . . . . . .  46
-     G.2.  Text in byte string notation  . . . . . . . . . . . . . .  46
-     G.3.  Embedded CBOR and CBOR sequences in byte strings  . . . .  46
-     G.4.  Concatenated Strings  . . . . . . . . . . . . . . . . . .  47
-     G.5.  Hexadecimal, octal, and binary numbers  . . . . . . . . .  47
-     G.6.  Comments  . . . . . . . . . . . . . . . . . . . . . . . .  48
-   Appendix H.  Examples . . . . . . . . . . . . . . . . . . . . . .  48
-     H.1.  RFC 7071  . . . . . . . . . . . . . . . . . . . . . . . .  49
-       H.1.1.  Examples from JSON Content Rules  . . . . . . . . . .  52
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  54
+   Appendix C.  (Not used.)  . . . . . . . . . . . . . . . . . . . .  36
+   Appendix D.  ABNF grammar . . . . . . . . . . . . . . . . . . . .  36
+   Appendix E.  Standard Prelude . . . . . . . . . . . . . . . . . .  38
+     E.1.  Use with JSON . . . . . . . . . . . . . . . . . . . . . .  40
+   Appendix F.  The CDDL tool  . . . . . . . . . . . . . . . . . . .  42
+   Appendix G.  Extended Diagnostic Notation . . . . . . . . . . . .  42
+     G.1.  White space in byte string notation . . . . . . . . . . .  43
+     G.2.  Text in byte string notation  . . . . . . . . . . . . . .  43
+     G.3.  Embedded CBOR and CBOR sequences in byte strings  . . . .  43
+     G.4.  Concatenated Strings  . . . . . . . . . . . . . . . . . .  44
+     G.5.  Hexadecimal, octal, and binary numbers  . . . . . . . . .  44
+     G.6.  Comments  . . . . . . . . . . . . . . . . . . . . . . . .  45
+   Appendix H.  Examples . . . . . . . . . . . . . . . . . . . . . .  45
+     H.1.  RFC 7071  . . . . . . . . . . . . . . . . . . . . . . . .  46
+       H.1.1.  Examples from JSON Content Rules  . . . . . . . . . .  49
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  51
 
 1.  Introduction
 
@@ -1990,152 +1990,7 @@ Internet-Draft                    CDDL                     November 2017
    of h'..' and b64'..' for byte strings, as well as syntactic elements
    such as comments and line ends.
 
-Appendix C.  Change Log
-
-   Changes from version 00 to version 01:
-
-   o  Removed constants
-
-   o  Updated the tag mechanism
-
-   o  Extended the map structure
-
-   o  Added examples
-
-   Changes from version 01 to version 02:
-
-   o  Fixed example
-
-   Changes from version 02 to version 03:
-
-   o  Added information about characters used in names
-
-
-
-
-Birkholz, et al.          Expires May 15, 2018                 [Page 36]
-
-Internet-Draft                    CDDL                     November 2017
-
-
-   o  Added text about an overall data structure and order of definition
-      of fields
-
-   o  Added text about encoding of keys
-
-   o  Added table with keywords
-
-   o  Strings and integer writing conventions
-
-   o  Added ABNF
-
-   Changes from version 03 to version 04:
-
-   o  Removed optional fields for non-maps
-
-   o  Defined all key/value pairs in maps are considered optional from
-      the CDDL perspective
-
-   o  Allow omission of type of keys for maps with only text string and
-      integer keys
-
-   o  Changed order of definitions
-
-   o  Updated fruit and moves examples
-
-   o  Renamed the "Philosophy" section to "Using CDDL", and added more
-      text about CDDL usage
-
-   o  Several editorials
-
-   Changes from version 04 to version 05:
-
-   o  Added text about alternative datatypes and any datatype
-
-   o  Fixed typos
-
-   o  Restructured syntax and semantics
-
-   Changes from version 05 to version 05:
-
-   o  Fixed the ABNF for choices (no longer need to write a: (b/c))
-
-   o  Added group choices (//)
-
-   o  Added /= and //=
-
-   o  Added experimental socket/plug
-
-
-
-
-Birkholz, et al.          Expires May 15, 2018                 [Page 37]
-
-Internet-Draft                    CDDL                     November 2017
-
-
-   o  Added aliases text, bytes, null to prelude
-
-   o  Documented generics
-
-   o  Fixed more typos
-
-   Changes from 06 to 07:
-
-   o  .cbor, .cborseq, .within, .and
-
-   o  Define .size on uint
-
-   o  Extended Diagnostic Notation
-
-   o  Precedence discussion and table
-
-   o  Remove some of the "issues" that can only be understood with
-      historical context
-
-   o  Prefer "text" over "tstr" in some of the examples
-
-   o  Add "unsigned" to the prelude
-
-   Changes from 07 to 08:
-
-   o  .lt, .le, .eq, .ne, .gt, .ge
-
-   o  .default
-
-   Changes from 08 to 09:
-
-   o  Take annotations and socket/plug out of the nursery; they have
-      been battle-proven enough.
-
-   o  Define a value notation for byte strings as well.
-
-   o  Removed discussion section that was no longer relevant; move
-      "Resolved Issues" to appendix.
-
-   Changes from 09 to 10:
-
-   o  Remove a long but not very elucidating example.  (Maybe we'll add
-      back some shorter examples later.)
-
-   o  A few clarifications.
-
-   o  Updated author list.
-
-
-
-
-Birkholz, et al.          Expires May 15, 2018                 [Page 38]
-
-Internet-Draft                    CDDL                     November 2017
-
-
-   Changes from 10 to 11:
-
-   o  Define unwrapping operator ~
-
-   o  Change term for annotation into "control" (but leave "annotate"
-      for when it actually is meant in that sense)
+Appendix C.  (Not used.)
 
 Appendix D.  ABNF grammar
 
@@ -2155,6 +2010,13 @@ Appendix D.  ABNF grammar
    genericarg = "<" S type1 S *("," S type1 S ) ">"
 
    type = type1 S *("/" S type1 S)
+
+
+
+Birkholz, et al.          Expires May 15, 2018                 [Page 36]
+
+Internet-Draft                    CDDL                     November 2017
+
 
    type1 = type2 [S (rangeop / ctlop) S type2]
 
@@ -2177,14 +2039,6 @@ Appendix D.  ABNF grammar
    group = grpchoice S *("//" S grpchoice S)
 
    grpchoice = *grpent
-
-
-
-
-Birkholz, et al.          Expires May 15, 2018                 [Page 39]
-
-Internet-Draft                    CDDL                     November 2017
-
 
    grpent = [occur S] [memberkey S] type optcom
           / [occur S] groupname [genericarg] optcom ; preempted by above
@@ -2213,6 +2067,13 @@ Internet-Draft                    CDDL                     November 2017
 
    int = ["-"] uint
 
+
+
+Birkholz, et al.          Expires May 15, 2018                 [Page 37]
+
+Internet-Draft                    CDDL                     November 2017
+
+
    ; This is a float if it has fraction or exponent; int otherwise
    number = int ["." fraction] ["e" exponent ]
    fraction = 1*DIGIT
@@ -2234,13 +2095,6 @@ Internet-Draft                    CDDL                     November 2017
    DIGIT1 = %x31-39
    HEXDIG = DIGIT / "A" / "B" / "C" / "D" / "E" / "F"
    BINDIG = %x30-31
-
-
-
-Birkholz, et al.          Expires May 15, 2018                 [Page 40]
-
-Internet-Draft                    CDDL                     November 2017
-
 
    S = *WS
    WS = SP / NL
@@ -2271,29 +2125,7 @@ Appendix E.  Standard Prelude
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Birkholz, et al.          Expires May 15, 2018                 [Page 41]
+Birkholz, et al.          Expires May 15, 2018                 [Page 38]
 
 Internet-Draft                    CDDL                     November 2017
 
@@ -2349,7 +2181,7 @@ Internet-Draft                    CDDL                     November 2017
 
 
 
-Birkholz, et al.          Expires May 15, 2018                 [Page 42]
+Birkholz, et al.          Expires May 15, 2018                 [Page 39]
 
 Internet-Draft                    CDDL                     November 2017
 
@@ -2405,7 +2237,7 @@ E.1.  Use with JSON
 
 
 
-Birkholz, et al.          Expires May 15, 2018                 [Page 43]
+Birkholz, et al.          Expires May 15, 2018                 [Page 40]
 
 Internet-Draft                    CDDL                     November 2017
 
@@ -2461,7 +2293,7 @@ Internet-Draft                    CDDL                     November 2017
 
 
 
-Birkholz, et al.          Expires May 15, 2018                 [Page 44]
+Birkholz, et al.          Expires May 15, 2018                 [Page 41]
 
 Internet-Draft                    CDDL                     November 2017
 
@@ -2517,7 +2349,7 @@ Appendix G.  Extended Diagnostic Notation
 
 
 
-Birkholz, et al.          Expires May 15, 2018                 [Page 45]
+Birkholz, et al.          Expires May 15, 2018                 [Page 42]
 
 Internet-Draft                    CDDL                     November 2017
 
@@ -2573,7 +2405,7 @@ G.3.  Embedded CBOR and CBOR sequences in byte strings
 
 
 
-Birkholz, et al.          Expires May 15, 2018                 [Page 46]
+Birkholz, et al.          Expires May 15, 2018                 [Page 43]
 
 Internet-Draft                    CDDL                     November 2017
 
@@ -2629,7 +2461,7 @@ G.5.  Hexadecimal, octal, and binary numbers
 
 
 
-Birkholz, et al.          Expires May 15, 2018                 [Page 47]
+Birkholz, et al.          Expires May 15, 2018                 [Page 44]
 
 Internet-Draft                    CDDL                     November 2017
 
@@ -2685,7 +2517,7 @@ Appendix H.  Examples
 
 
 
-Birkholz, et al.          Expires May 15, 2018                 [Page 48]
+Birkholz, et al.          Expires May 15, 2018                 [Page 45]
 
 Internet-Draft                    CDDL                     November 2017
 
@@ -2741,7 +2573,7 @@ H.1.  RFC 7071
 
 
 
-Birkholz, et al.          Expires May 15, 2018                 [Page 49]
+Birkholz, et al.          Expires May 15, 2018                 [Page 46]
 
 Internet-Draft                    CDDL                     November 2017
 
@@ -2797,7 +2629,7 @@ Internet-Draft                    CDDL                     November 2017
 
 
 
-Birkholz, et al.          Expires May 15, 2018                 [Page 50]
+Birkholz, et al.          Expires May 15, 2018                 [Page 47]
 
 Internet-Draft                    CDDL                     November 2017
 
@@ -2853,7 +2685,7 @@ Internet-Draft                    CDDL                     November 2017
 
 
 
-Birkholz, et al.          Expires May 15, 2018                 [Page 51]
+Birkholz, et al.          Expires May 15, 2018                 [Page 48]
 
 Internet-Draft                    CDDL                     November 2017
 
@@ -2909,7 +2741,7 @@ H.1.1.  Examples from JSON Content Rules
 
 
 
-Birkholz, et al.          Expires May 15, 2018                 [Page 52]
+Birkholz, et al.          Expires May 15, 2018                 [Page 49]
 
 Internet-Draft                    CDDL                     November 2017
 
@@ -2965,7 +2797,7 @@ Internet-Draft                    CDDL                     November 2017
 
 
 
-Birkholz, et al.          Expires May 15, 2018                 [Page 53]
+Birkholz, et al.          Expires May 15, 2018                 [Page 50]
 
 Internet-Draft                    CDDL                     November 2017
 
@@ -3021,7 +2853,7 @@ Authors' Addresses
 
 
 
-Birkholz, et al.          Expires May 15, 2018                 [Page 54]
+Birkholz, et al.          Expires May 15, 2018                 [Page 51]
 
 Internet-Draft                    CDDL                     November 2017
 
@@ -3077,4 +2909,4 @@ Internet-Draft                    CDDL                     November 2017
 
 
 
-Birkholz, et al.          Expires May 15, 2018                 [Page 55]
+Birkholz, et al.          Expires May 15, 2018                 [Page 52]

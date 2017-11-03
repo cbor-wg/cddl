@@ -320,7 +320,7 @@ address {
 <link href="#rfc.appendix.A" rel="Chapter" title="A Cemetery">
 <link href="#rfc.appendix.A.1" rel="Chapter" title="A.1 Resolved Issues">
 <link href="#rfc.appendix.B" rel="Chapter" title="B Matching rules">
-<link href="#rfc.appendix.C" rel="Chapter" title="C Change Log">
+<link href="#rfc.appendix.C" rel="Chapter" title="C (Not used.)">
 <link href="#rfc.appendix.D" rel="Chapter" title="D ABNF grammar">
 <link href="#rfc.appendix.E" rel="Chapter" title="E Standard Prelude">
 <link href="#rfc.appendix.E.1" rel="Chapter" title="E.1 Use with JSON">
@@ -496,7 +496,7 @@ address {
 </li>
 </ul><li>Appendix B.   <a href="#rfc.appendix.B">Matching rules</a>
 </li>
-<li>Appendix C.   <a href="#rfc.appendix.C">Change Log</a>
+<li>Appendix C.   <a href="#rfc.appendix.C">(Not used.)</a>
 </li>
 <li>Appendix D.   <a href="#rfc.appendix.D">ABNF grammar</a>
 </li>
@@ -1642,106 +1642,8 @@ occur = [uint] "*" [uint]
 <p id="rfc.section.B.p.28">An occurrence indicator modifies the group given to its right by requiring the group to match the sequence to be matched exactly for a certain number of times (see <a href="#occurrence" class="xref">Section 3.2</a>) in sequence, i.e. it acts as a (possibly infinite) group choice that contains choices with the group repeated each of the occurrences times.</p>
 <p id="rfc.section.B.p.29">The rest of the ABNF describes syntax for value notation that should be familiar from programming languages, with the possible exception of h&#8217;..&#8217; and b64&#8217;..&#8217; for byte strings, as well as syntactic elements such as comments and line ends.</p>
 <h1 id="rfc.appendix.C">
-<a href="#rfc.appendix.C">Appendix C.</a> <a href="#change-log" id="change-log">Change Log</a>
+<a href="#rfc.appendix.C">Appendix C.</a> <a href="#not-used" id="not-used">(Not used.)</a>
 </h1>
-<p id="rfc.section.C.p.1">Changes from version 00 to version 01:</p>
-<p></p>
-
-<ul>
-<li>Removed constants</li>
-<li>Updated the tag mechanism</li>
-<li>Extended the map structure</li>
-<li>Added examples</li>
-</ul>
-<p id="rfc.section.C.p.3">Changes from version 01 to version 02:</p>
-<p></p>
-
-<ul><li>Fixed example</li></ul>
-<p id="rfc.section.C.p.5">Changes from version 02 to version 03:</p>
-<p></p>
-
-<ul>
-<li>Added information about characters used in names</li>
-<li>Added text about an overall data structure and order of definition of fields</li>
-<li>Added text about encoding of keys</li>
-<li>Added table with keywords</li>
-<li>Strings and integer writing conventions</li>
-<li>Added ABNF</li>
-</ul>
-<p id="rfc.section.C.p.7">Changes from version 03 to version 04:</p>
-<p></p>
-
-<ul>
-<li>Removed optional fields for non-maps</li>
-<li>Defined all key/value pairs in maps are considered optional from the CDDL perspective</li>
-<li>Allow omission of type of keys for maps with only text string and integer keys</li>
-<li>Changed order of definitions</li>
-<li>Updated fruit and moves examples</li>
-<li>Renamed the &#8220;Philosophy&#8221; section to &#8220;Using CDDL&#8221;, and added more text about CDDL usage</li>
-<li>Several editorials</li>
-</ul>
-<p id="rfc.section.C.p.9">Changes from version 04 to version 05:</p>
-<p></p>
-
-<ul>
-<li>Added text about alternative datatypes and any datatype</li>
-<li>Fixed typos</li>
-<li>Restructured syntax and semantics</li>
-</ul>
-<p id="rfc.section.C.p.11">Changes from version 05 to version 05:</p>
-<p></p>
-
-<ul>
-<li>Fixed the ABNF for choices (no longer need to write a: (b/c))</li>
-<li>Added group choices (//)</li>
-<li>Added /= and //=</li>
-<li>Added experimental socket/plug</li>
-<li>Added aliases text, bytes, null to prelude</li>
-<li>Documented generics</li>
-<li>Fixed more typos</li>
-</ul>
-<p id="rfc.section.C.p.13">Changes from 06 to 07:</p>
-<p></p>
-
-<ul>
-<li>.cbor, .cborseq, .within, .and</li>
-<li>Define .size on uint</li>
-<li>Extended Diagnostic Notation</li>
-<li>Precedence discussion and table</li>
-<li>Remove some of the &#8220;issues&#8221; that can only be understood with historical context</li>
-<li>Prefer <samp>text</samp> over <samp>tstr</samp> in some of the examples</li>
-<li>Add <samp>unsigned</samp> to the prelude</li>
-</ul>
-<p id="rfc.section.C.p.15">Changes from 07 to 08:</p>
-<p></p>
-
-<ul>
-<li>.lt, .le, .eq, .ne, .gt, .ge</li>
-<li>.default</li>
-</ul>
-<p id="rfc.section.C.p.17">Changes from 08 to 09:</p>
-<p></p>
-
-<ul>
-<li>Take annotations and socket/plug out of the nursery; they have been battle-proven enough.</li>
-<li>Define a value notation for byte strings as well.</li>
-<li>Removed discussion section that was no longer relevant; move &#8220;Resolved Issues&#8221; to appendix.</li>
-</ul>
-<p id="rfc.section.C.p.19">Changes from 09 to 10:</p>
-<p></p>
-
-<ul>
-<li>Remove a long but not very elucidating example.  (Maybe we&#8217;ll add back some shorter examples later.)</li>
-<li>A few clarifications.</li>
-<li>Updated author list.</li>
-</ul>
-<p id="rfc.section.C.p.21">Changes from 10 to 11:</p>
-<p></p>
-
-<ul>
-<li>Define unwrapping operator ~</li>
-<li>Change term for annotation into &#8220;control&#8221; (but leave &#8220;annotate&#8221; for when it actually is meant in that sense)</li>
-</ul>
 <h1 id="rfc.appendix.D">
 <a href="#rfc.appendix.D">Appendix D.</a> <a href="#abnf" id="abnf">ABNF grammar</a>
 </h1>
