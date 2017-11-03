@@ -14,7 +14,7 @@ title: >
 abbrev: CDDL
 area: Applications
 wg: ''
-date: 2017-07-27
+date: 2017-11-11
 author:
 - ins: H. Birkholz
   name: Henk Birkholz
@@ -197,6 +197,10 @@ can be expressed as a CBOR data item also is a type in its own right,
 e.g. `1`.  A type can be built as a _choice_ of other types, e.g., an
 `int` is either a `uint` or a `nint` (negative integer).
 Finally, a type can be built as an array or a map from a group.
+
+The rest of this section introduces a number of basic concepts of
+CDDL, and section {{syntax}} defines additional syntax.
+{{matching}} gives a concise summary of the semantics of CDDL.
 
 ## Groups and Composition in CDDL {#group}
 
@@ -1424,7 +1428,247 @@ precision (float16/float32/float64) when using CDDL for specifying
 JSON data structures.  (The current validator implementation {{tool}} does not
 handle this very well, either.)
 
-# (Not used.)
+# Matching rules {#matching}
+
+In this appendix, we go through the ABNF syntax rules defined in
+{{abnf}} and briefly describe the matching semantics of each syntactic
+feature.  In this context, an instance "matches" a CDDL specification
+if it is allowed by the CDDL specification; this is then broken down
+to parts of specifications and parts of instances.
+
+~~~ abnf
+cddl = S 1*rule
+~~~
+
+A CDDL specification is a sequence of one or more rules.  Each rule
+gives a name to a right hand side expression, either a CDDL type or a
+CDDL group.  Rule names can be used in the rule itself and/or other
+rules (and tools can output warnings if that is not the case).  The
+order of the rules is significant in a number of cases, including the
+following: The first rule defines the semantics of the entire
+specification; hence, its name may be descriptive only (or may be used
+in itself or other rules as with the other rule names).
+
+~~~ abnf
+rule = typename [genericparm] S assign S type S
+     / groupname [genericparm] S assign S grpent S
+
+typename = id
+groupname = id
+~~~
+
+A rule defines a name for a type expression (production `type`) or for
+a group expression (production `grpent`), with the intention that the
+semantics does not change when the name is replaced by its
+(parenthesized if needed) definition.
+
+~~~ abnf
+assign = "=" / "/=" / "//="
+~~~
+
+A plain equals sign defines the rule name as the equivalent of the
+expression to the right.  A `/=` or `//=` extends a named type or a
+group by additional choices; a number of these could be replaced by
+collecting all the right hand sides and creating a single rule with a
+type choice or a group choice built from the right hand sides.  (It is
+not an error to extend a rule name that has not yet been defined; this
+makes the right hand side the first entry in the choice being
+created.)
+
+~~~ abnf
+genericparm = "<" S id S *("," S id S ) ">"
+genericarg = "<" S type1 S *("," S type1 S ) ">"
+~~~
+
+Rule names can have generic parameters, which cause temporary
+assignments to the parameter names from the arguments given when
+citing the rule name.
+
+~~~ abnf
+type = type1 S *("/" S type1 S)
+~~~
+
+A type can be given as a choice between one or more types.  The choice
+matches an instance if the instance matcnes any one of the types given
+in the choice.  The choice uses Parse Expression Grammar semantics:
+The first choice that matches wins.  (As a result, the order of rules
+that contribute to a single rule name can very well matter.)
+
+~~~ abnf
+type1 = type2 [S (rangeop / ctlop) S type2]
+~~~
+
+Two types can be combined with a range operator (which see below) or a
+control operator (see {{controls}}).
+
+~~~ abnf
+type2 = value
+~~~
+
+A type can be just a single value (such as 1 or "icecream" or
+h'0815'), which matches only an instance with that specific value (no
+conversions defined), or
+
+~~~ abnf
+      / typename [genericarg]
+~~~
+
+or be defined by a rule giving a meaning to a name (possibly after
+supplying generic args),
+
+~~~ abnf
+      / "(" type ")"
+~~~
+
+or be defined a parenthesized type (which may be necessary to override some
+operator precendence), or
+
+~~~ abnf
+      / "~" S groupname [genericarg]
+~~~
+
+an "unwrapped" group (see {{unwrapping}}), which matches the group
+inside a type defined as a map or an array by wrapping the group, or
+
+~~~ abnf
+      / "#" "6" ["." uint] "(" S type S ")" ; note no space!
+~~~
+
+a tagged data item, tagged with the `uint` given and containing the
+type given as the tagged value, or
+
+~~~ abnf
+      / "#" DIGIT ["." uint]                ; major/ai
+~~~
+
+an instance of a major type (given by the DIGIT), optionally
+constrained to the additional information given by the uint, or
+
+~~~ abnf
+      / "#"                                 ; any
+~~~
+
+any data item, or
+
+~~~ abnf
+      / "{" S group S "}"
+~~~
+
+a map, the key/value pairs of which can be ordered in such a way that
+they match the group, or
+
+~~~ abnf
+      / "[" S group S "]"
+~~~
+
+an array, the elements of which, when taken as values and complemented by a wildcard
+(matches anything) key each, match the group, or
+
+~~~ abnf
+      / "&" S "(" S group S ")"
+      / "&" S groupname [genericarg]
+~~~
+
+a value within the set of values that the values of the group given
+can take.
+
+~~~ abnf
+rangeop = "..." / ".."
+~~~
+
+A range operator can be used to join two expressions that stand for
+either two integer values or two floating point values; it matches any
+value that is between the two values, where is first value is always
+included in the matching set and the second value is included for `..`
+and excluded for `...`.
+
+~~~ abnf
+ctlop = "." id
+~~~
+
+A control operator ties a _target_ type to a _controller_ type as
+defined in {{controls}}.  Note that control operators are an extension
+point for CDDL; additional documents may want to define additional
+control operators.
+
+
+~~~ abnf
+group = grpchoice S *("//" S grpchoice S)
+~~~
+
+A group matches any sequence of key/value pairs that matches any of
+the choices given (again using Parse Expression Grammar semantics).
+
+~~~ abnf
+grpchoice = *grpent
+~~~
+
+Each of the component groups is given as a sequence of group entries.
+For a match, the sequence of key/value pairs given needs to match the sequence of
+group entries in the sequence given.
+
+~~~ abnf
+grpent = [occur S] [memberkey S] type optcom
+~~~
+
+A group entry can be given by a value type, which needs to be matched by
+the value part of a single element, and optionally a memberkey type, which
+needs to be matched by the key pard of the element, if the memberkey
+is given.
+If the memberkey is not given, the entry can only be used for matching
+arrays, not for maps.
+(See below how that is modified by the occurrence indicator.)
+
+~~~ abnf
+       / [occur S] groupname [genericarg] optcom ; preempted by above
+~~~
+
+A group entry can be built from a named group, or
+
+~~~ abnf
+       / [occur S] "(" S group S ")" optcom
+~~~
+
+from a parenthesized group, again with a possible occurrence indicator.
+
+~~~ abnf
+memberkey = type1 S "=>"
+          / bareword S ":"
+          / value S ":"
+~~~
+
+Key types can be given by a type expression, a bareword (which stands
+for string value created from this bareword), or a value (which stands
+for its value).  A key value matches its key type if the key value is
+a member of the key type.
+
+~~~ abnf
+bareword = id
+~~~
+
+A bareword is an alternative way to write a type with a single text
+string value; it can only be used in the syntactic context fiven above.
+
+~~~ abnf
+optcom = S ["," S]
+~~~
+
+(Optional commas do not influence the matching.)
+
+~~~ abnf
+occur = [uint] "*" [uint]
+      / "+"
+      / "?"
+~~~
+
+An occurrence indicator modifies the group given to its right by
+requiring the group to match the sequence given for a certain number
+of times (see {{occurrence}}) in sequence.
+
+The rest of the ABNF describes syntax for value notation that should
+be familiar from programming languages, with the possible exception of
+h'..' and b64'..' for byte strings, as well as syntactic elements such
+as comments and line ends.
 
 # Change Log
 
