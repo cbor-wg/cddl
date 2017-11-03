@@ -1432,9 +1432,10 @@ handle this very well, either.)
 
 In this appendix, we go through the ABNF syntax rules defined in
 {{abnf}} and briefly describe the matching semantics of each syntactic
-feature.  In this context, an instance "matches" a CDDL specification
+feature.  In this context, an instance (data item) "matches" a CDDL specification
 if it is allowed by the CDDL specification; this is then broken down
-to parts of specifications and parts of instances.
+to parts of specifications (type and group expressions) and parts of
+instances (data items).
 
 ~~~ abnf
 cddl = S 1*rule
@@ -1444,7 +1445,7 @@ A CDDL specification is a sequence of one or more rules.  Each rule
 gives a name to a right hand side expression, either a CDDL type or a
 CDDL group.  Rule names can be used in the rule itself and/or other
 rules (and tools can output warnings if that is not the case).  The
-order of the rules is significant in a number of cases, including the
+order of the rules is significant only in two cases, including the
 following: The first rule defines the semantics of the entire
 specification; hence, its name may be descriptive only (or may be used
 in itself or other rules as with the other rule names).
@@ -1470,10 +1471,12 @@ A plain equals sign defines the rule name as the equivalent of the
 expression to the right.  A `/=` or `//=` extends a named type or a
 group by additional choices; a number of these could be replaced by
 collecting all the right hand sides and creating a single rule with a
-type choice or a group choice built from the right hand sides.  (It is
+type choice or a group choice built from the right hand sides in the
+order of the rules given.  (It is
 not an error to extend a rule name that has not yet been defined; this
 makes the right hand side the first entry in the choice being
-created.)
+created.)  The creation of the type choices and group choices from the
+right hand sides of rules is the other case where rule order can be significant.
 
 ~~~ abnf
 genericparm = "<" S id S *("," S id S ) ">"
@@ -1481,16 +1484,16 @@ genericarg = "<" S type1 S *("," S type1 S ) ">"
 ~~~
 
 Rule names can have generic parameters, which cause temporary
-assignments to the parameter names from the arguments given when
-citing the rule name.
+assignments within the right hand sides to the parameter names from
+the arguments given when citing the rule name.
 
 ~~~ abnf
 type = type1 S *("/" S type1 S)
 ~~~
 
 A type can be given as a choice between one or more types.  The choice
-matches an instance if the instance matcnes any one of the types given
-in the choice.  The choice uses Parse Expression Grammar semantics:
+matches an instance if the instance matches any one of the types given
+in the choice.  The choice uses Parse Expression Grammar (PEG) semantics:
 The first choice that matches wins.  (As a result, the order of rules
 that contribute to a single rule name can very well matter.)
 
@@ -1507,21 +1510,21 @@ type2 = value
 
 A type can be just a single value (such as 1 or "icecream" or
 h'0815'), which matches only an instance with that specific value (no
-conversions defined), or
+conversions defined),
 
 ~~~ abnf
       / typename [genericarg]
 ~~~
 
 or be defined by a rule giving a meaning to a name (possibly after
-supplying generic args),
+supplying generic args as required by the generic parameters),
 
 ~~~ abnf
       / "(" type ")"
 ~~~
 
-or be defined a parenthesized type (which may be necessary to override some
-operator precendence), or
+or be defined in a parenthesized type expression (parentheses may be
+necessary to override some operator precendence), or
 
 ~~~ abnf
       / "~" S groupname [genericarg]
@@ -1554,33 +1557,35 @@ any data item, or
       / "{" S group S "}"
 ~~~
 
-a map, the key/value pairs of which can be ordered in such a way that
-they match the group, or
+a map expression, which matches a valid CBOR map the key/value pairs
+of which can be ordered in such a way that the resulting sequence
+matches the group expression, or
 
 ~~~ abnf
       / "[" S group S "]"
 ~~~
 
-an array, the elements of which, when taken as values and complemented by a wildcard
-(matches anything) key each, match the group, or
+an array expression, which matches a CBOR array the elements of which,
+when taken as values and complemented by a wildcard (matches anything)
+key each, match the group, or
 
 ~~~ abnf
       / "&" S "(" S group S ")"
       / "&" S groupname [genericarg]
 ~~~
 
-a value within the set of values that the values of the group given
-can take.
+an enumeration expression, which matches any a value that is within
+the set of values that the values of the group given can take.
 
 ~~~ abnf
 rangeop = "..." / ".."
 ~~~
 
-A range operator can be used to join two expressions that stand for
-either two integer values or two floating point values; it matches any
-value that is between the two values, where is first value is always
-included in the matching set and the second value is included for `..`
-and excluded for `...`.
+A range operator can be used to join two type expressions that stand
+for either two integer values or two floating point values; it matches
+any value that is between the two values, where the first value is
+always included in the matching set and the second value is included
+for `..` and excluded for `...`.
 
 ~~~ abnf
 ctlop = "." id
@@ -1639,15 +1644,15 @@ memberkey = type1 S "=>"
 
 Key types can be given by a type expression, a bareword (which stands
 for string value created from this bareword), or a value (which stands
-for its value).  A key value matches its key type if the key value is
-a member of the key type.
+for a type that just contains this value).  A key value matches its
+key type if the key value is a member of the key type.
 
 ~~~ abnf
 bareword = id
 ~~~
 
 A bareword is an alternative way to write a type with a single text
-string value; it can only be used in the syntactic context fiven above.
+string value; it can only be used in the syntactic context given above.
 
 ~~~ abnf
 optcom = S ["," S]
@@ -1662,8 +1667,10 @@ occur = [uint] "*" [uint]
 ~~~
 
 An occurrence indicator modifies the group given to its right by
-requiring the group to match the sequence given for a certain number
-of times (see {{occurrence}}) in sequence.
+requiring the group to match the sequence to be matched exactly for a
+certain number of times (see {{occurrence}}) in sequence, i.e. it acts
+as a (possibly infinite) group choice that contains choices with the
+group repeated each of the occurrences times.
 
 The rest of the ABNF describes syntax for value notation that should
 be familiar from programming languages, with the possible exception of
