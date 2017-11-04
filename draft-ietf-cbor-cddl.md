@@ -323,7 +323,8 @@ The composition syntax intends to be concise and easy to read:
 *keytype => valuetype,* (read "keytype maps to valuetype").
 The comma is actually optional (not just in the final entry), but it is
 considered good style to set it.  The double arrow can be replaced by a colon
-in the common case of directly using a text string as a key (see {{structs}}).
+in the common case of directly using a text string or integer literal as a
+key (see {{structs}}).
 
 An entry consists of a *keytype* and a *valuetype*:
 
