@@ -142,11 +142,6 @@ byte strings;
 CDDL does not focus on specifying their structure.  CDDL of course
 also allows adding a CBOR tag to a data item.
 
-[^_reptype]: We don't have a way yet to qualify the representation of a
-      value, e.g., whether it is float16, float32 or float64.  TO DO:
-      probably borrowing something from diagnostic notation (section 6.1 RFC
-      7049). -- or probably not.
-
 The more important components of a data structure definition language
 are the data types used for composition: arrays and maps in CBOR
 (called arrays and objects in JSON).  While these are only two
@@ -155,30 +150,27 @@ distinguishable styles of composition:
 
 * A _vector_, an array of elements that are mostly of the same
   semantics.  The set of signatures associated with a signed data item
-  is a typical application of a vector. <!-- [^_example1] -->
+  is a typical application of a vector.
 * A _record_, an array the elements of which have different,
   positionally defined semantics, as detailed in the data structure
   definition.  A 2D point, specified as an array of an x coordinate
   (which comes first) and a y coordinate (coming second) is an example
   of a record, as is the pair of exponent (first) and mantissa
-  (second) in a CBOR decimal fraction. <!-- [^_example1] -->
+  (second) in a CBOR decimal fraction.
 * A _table_, a map from a domain of map keys to a domain of map
   values, that are mostly of the same semantics.  A set of language
   tags, each mapped to a text string translated to that specific language,
   is an example of a table.  The key domain is usually not limited to
   a specific set by the specification, but open for the
   application, e.g., in a table mapping IP addresses to MAC addresses,
-  the specification does not attempt to foresee all possible IP addresses. <!-- [^_example1] -->
+  the specification does not attempt to foresee all possible IP addresses.
 * A _struct_, a map from a domain of map keys as defined by the
   specification to a domain of map values the semantics of each of
   which is bound to a specific map key.  This is what many people have
   in mind when they think about JSON objects; CBOR adds the ability to
   use map keys that are not just text strings.  Structs can be used to
   solve similar problems as records; the use of explicit map keys
-  facilitates optionality and extensibility. <!-- [^_example1] -->
-
-[^_example1]: If there are suitable examples later on, maybe link them
-    here already? Maybe not.
+  facilitates optionality and extensibility.
 
 Two important concepts provide the foundation for CDDL:
 
@@ -320,14 +312,6 @@ respective name (possibly more than once).
 With this, one is allowed to define all small parts of their data structures
 and compose bigger protocol units with those or to have only one big
 protocol data unit that has all definitions ad hoc where needed.
-
-<!-- Duuh, we need a better way to point to RELAXNG.
-If it is obvious that a group is defined ad hoc, the round brackets can be
-omitted, allowing for an even more concise notation and a certain familiarity
-with the syntax of other notational languages such as JSON or {{RELAXNG}}. [^_EXAMPLE2]
-
-[^_EXAMPLE2]: This could certainly benefit from an example?
- -->
 
 ### Syntax {#composition_syntax}
 
@@ -1442,9 +1426,6 @@ The following is a formal definition of the CDDL syntax in Augmented Backus-Naur
 
 [^_abnftodo]: Potential improvements: the prefixed byte strings are
         more liberally specified than they actually are.
-[^_abnfdontdo]:
-        representation indicators are not supported. -- and this will
-        stay so.
 
 # Matching rules {#matching}
 
