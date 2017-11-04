@@ -1428,6 +1428,24 @@ precision (float16/float32/float64) when using CDDL for specifying
 JSON data structures.  (The current validator implementation {{tool}} does not
 handle this very well, either.)
 
+
+# ABNF grammar {#abnf}
+
+The following is a formal definition of the CDDL syntax in Augmented Backus-Naur Form
+(ABNF, {{RFC5234}}).[^_abnftodo]
+
+
+~~~~ ABNF
+{::include cddl.abnf}
+~~~~
+{:cddl #fig-abnf title="CDDL ABNF"}
+
+[^_abnftodo]: Potential improvements: the prefixed byte strings are
+        more liberally specified than they actually are.
+[^_abnfdontdo]:
+        representation indicators are not supported. -- and this will
+        stay so.
+
 # Matching rules {#matching}
 
 In this appendix, we go through the ABNF syntax rules defined in
@@ -1717,23 +1735,6 @@ The CDDL tool was written by Carsten Bormann, building on previous
 work by Troy Heninger and Tom Lord.
 
 --- back
-
-# ABNF grammar {#abnf}
-
-The following is a formal definition of the CDDL syntax in Augmented Backus-Naur Form
-(ABNF, {{RFC5234}}).[^_abnftodo]
-
-
-~~~~ ABNF
-{::include cddl.abnf}
-~~~~
-{:cddl #fig-abnf title="CDDL ABNF"}
-
-[^_abnftodo]: Potential improvements: the prefixed byte strings are
-        more liberally specified than they actually are.
-[^_abnfdontdo]:
-        representation indicators are not supported. -- and this will
-        stay so.
 
 # Standard Prelude {#prelude}
 
