@@ -14,7 +14,7 @@ title: >
 abbrev: CDDL
 area: Applications
 wg: ''
-date: 2017-11-11
+date: 2018-01-24
 author:
 - ins: H. Birkholz
   name: Henk Birkholz
@@ -45,8 +45,9 @@ normative:
   RFC3629: utf8
   RFC5234: abnf
   RFC7049: cbor
-  RFC7159: json
+  RFC8259: json
   RFC7493: i-json
+  W3C.REC-xmlschema-2-20041028: xsd2
 informative:
   RELAXNG:
     title: RELAX-NG Compact Syntax
@@ -61,6 +62,11 @@ informative:
   RFC8152: cose
   I-D.ietf-anima-grasp: grasp
   I-D.ietf-core-senml: senml
+  I.D.bormann-cbor-cddl-freezer:
+    -: freezer
+    author:
+      name: Carsten Bormann
+    title: A freezer for CDDL features
 
 --- abstract
 
@@ -530,7 +536,7 @@ The basic syntax is inspired by ABNF {{RFC5234}}, with
     by '0b'. <!-- ABNF borken here -->
 
 *   Text strings are enclosed by double quotation '"' characters.
-They follow the conventions for strings as defined in section 7 of {{RFC7159}}.
+They follow the conventions for strings as defined in section 7 of {{-json}}.
 (ABNF users may want to note that there is no support in CDDL for the
 concept of case insensitivity in text strings; if necessary, regular
 expressions can be used ({{regexp}}).)
@@ -1041,15 +1047,15 @@ as well.
 
 ### Control operator .regexp {#regexp}
 
-A `.regexp` control indicates that the text string given as a
-target needs to match the PCRE regular expression given as a value in the
-control type, where that regular expression is anchored on both sides.
-(If anchoring is not desired for a side, `.*` needs to be inserted there.)
+A `.regexp` control indicates that the text string given as a target
+needs to match the XSD regular expression given as a value in the
+control type.
+XSD regular expressions are defined in Appendix F of {{-xsd2}}.
 
 ~~~~ CDDL
-nai = tstr .regexp "\\w+@\\w+(\\.\\w+)+"
+nai = tstr .regexp "[A-Za-z0-9]+@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)+"
 ~~~~
-{:cddl #control-regexp title="Control with a PCRE regexp"}
+{:cddl #control-regexp title="Control with an XSD regexp"}
 
 The CDDL tool proposes:
 
@@ -1058,6 +1064,56 @@ The CDDL tool proposes:
 ~~~~
 {:cddl}
 
+#### Usage considerations
+
+Note that XSD regular expressions do not support the usual \x or \u
+escapes for hexadecimal expression of bytes or unicode code points.
+However, in CDDL the XSD regular expressions are contained in text
+strings, the literal notation for which provides \u escapes; this should
+suffice for most applications that use regular expressions for text
+strings.
+(Note that this also means that there is one level of string escaping
+before the XSD escaping rules are applied.)
+
+XSD regular expressions support character class subtraction, a feature
+often not found in regular expression libraries; specification writers
+may want to use this feature sparingly.
+Similar considerations apply to Unicode character classes; where these
+are used, the specification SHOULD identify which Unicode versions are
+addressed.
+
+Other surprises for infrequent users of XSD regular expressions may
+include:
+
+* No direct support for case insensitivity.  While case insensitivity
+  has gone mostly out of fashion in protocol design, it is sometimes
+  needed and then needs to be expressed manually as in
+  `[Cc][Aa][Ss][Ee]`.
+
+* No support for popular character classes such as \w, \s, \S.  (In
+  some regular expression libraries, these are mapped to various
+  Unicode character classes, which is often not what is desired in a
+  protocol and thus might have led to surprises of its own.)
+
+#### Discussion
+
+There are many flavors of regular expression in use in the programming
+community.
+For instance, perl-compatible regular expressions (PCRE) are widely
+used and probably are more useful than XSD regular expressions.
+However, there is no normative reference for PCRE that could be used
+in the present document.
+Instead, we opt for XSD regular expressions for now.
+There is precedent for that choice in the IETF, e.g., in YANG {{?RFC7950}}.
+
+Note that CDDL uses controls as its main extension point.
+This creates the opportunity to add further regular expression formats
+in addition to the one referenced here if desired.
+As an example, a control ".pcre" is defined in {{-freezer}}.
+
+<!-- The character escape sequences \d, \D, \h, \H, \p, \P, \s, \S, \v, \V, -->
+<!-- \w, and \W may appear in a character class, and add the characters -->
+<!-- that they match to the class. -->
 
 ### Control operators .cbor and .cborseq
 
