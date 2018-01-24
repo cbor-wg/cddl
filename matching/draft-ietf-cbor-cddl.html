@@ -338,12 +338,12 @@ address {
 <link href="#rfc.authors" rel="Chapter">
 
 
-  <meta name="generator" content="xml2rfc version 2.8.2 - https://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.8.5 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Birkholz, H., Vigano, C., and C. Bormann" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-cbor-cddl-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2017-11-11" />
+  <meta name="dct.issued" scheme="ISO8601" content="2018-1-24" />
   <meta name="dct.abstract" content="This document proposes a notational convention to express CBOR data structures (RFC 7049).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR." />
   <meta name="description" content="This document proposes a notational convention to express CBOR data structures (RFC 7049).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR." />
 
@@ -367,7 +367,7 @@ address {
 <td class="right">C. Vigano</td>
 </tr>
 <tr>
-<td class="left">Expires: May 15, 2018</td>
+<td class="left">Expires: July 28, 2018</td>
 <td class="right">Universit&#228;t Bremen</td>
 </tr>
 <tr>
@@ -380,7 +380,7 @@ address {
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">November 11, 2017</td>
+<td class="right">January 24, 2018</td>
 </tr>
 
     	
@@ -396,9 +396,9 @@ address {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on May 15, 2018.</p>
+<p>This Internet-Draft will expire on July 28, 2018.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
-<p>Copyright (c) 2017 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
+<p>Copyright (c) 2018 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
 
   
@@ -807,7 +807,7 @@ solid = tstr
 <li>Comments are started by a &#8216;;&#8217; (semicolon) character and finish at the end of a line (LF or CRLF).</li>
 <li>outside strings, whitespace (spaces, newlines, and comments) is used to separate syntactic elements for readability (and to separate identifiers or numbers that follow each other); it is otherwise completely optional.</li>
 <li>Hexadecimal numbers are preceded by &#8216;0x&#8217; (without quotes, lower case x), and are case insensitive.  Similarly, binary numbers are preceded by &#8216;0b&#8217;. </li>
-<li>Text strings are enclosed by double quotation &#8216;&#8221;&#8217; characters.  They follow the conventions for strings as defined in section 7 of <a href="#RFC7159" class="xref">[RFC7159]</a>.  (ABNF users may want to note that there is no support in CDDL for the concept of case insensitivity in text strings; if necessary, regular expressions can be used (<a href="#regexp" class="xref">Section 3.8.3</a>).)</li>
+<li>Text strings are enclosed by double quotation &#8216;&#8221;&#8217; characters.  They follow the conventions for strings as defined in section 7 of <a href="#RFC8259" class="xref">[RFC8259]</a>.  (ABNF users may want to note that there is no support in CDDL for the concept of case insensitivity in text strings; if necessary, regular expressions can be used (<a href="#regexp" class="xref">Section 3.8.3</a>).)</li>
 <li>Byte strings are enclosed by single quotation &#8220;&#8217;&#8221; characters and may be prefixed by &#8220;h&#8221; or &#8220;b64&#8221;.  If unprefixed, the string is interpreted as with a text string, except that single quotes must be escaped and that the UTF-8 bytes resulting are marked as a byte string (major type 2).  If prefixed as &#8220;h&#8221; or &#8220;b64&#8221;, the string is interpreted as a sequence of hex digits or a base64(url) string, respectively (as with the diagnostic notation in section 6 of <a href="#RFC7049" class="xref">[RFC7049]</a>; cf. <a href="#textbin" class="xref">Appendix G.2</a>); any white space present within the string (including comments) is ignored in the prefixed case.  <a id="_strings" class="info">[_strings]<span class="info">TO DO: This still needs to be fully realized in the ABNF and in the CDDL tool.</span></a>
 </li>
 </ul>
@@ -1113,17 +1113,34 @@ h'01fa' h'01fe'
 <h1 id="rfc.section.3.8.3">
 <a href="#rfc.section.3.8.3">3.8.3.</a> <a href="#regexp" id="regexp">Control operator .regexp</a>
 </h1>
-<p id="rfc.section.3.8.3.p.1">A <samp>.regexp</samp> control indicates that the text string given as a target needs to match the PCRE regular expression given as a value in the control type, where that regular expression is anchored on both sides.  (If anchoring is not desired for a side, <samp>.*</samp> needs to be inserted there.)</p>
+<p id="rfc.section.3.8.3.p.1">A <samp>.regexp</samp> control indicates that the text string given as a target needs to match the XSD regular expression given as a value in the control type.  XSD regular expressions are defined in Appendix F of <a href="#W3C.REC-xmlschema-2-20041028" class="xref">[W3C.REC-xmlschema-2-20041028]</a>.</p>
 <div id="rfc.figure.9"></div>
 <div id="control-regexp"></div>
 <pre>
-nai = tstr .regexp "\\w+@\\w+(\\.\\w+)+"
+nai = tstr .regexp "[A-Za-z0-9]+@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)+"
 </pre>
-<p class="figure">Figure 9: Control with a PCRE regexp</p>
+<p class="figure">Figure 9: Control with an XSD regexp</p>
 <p id="rfc.section.3.8.3.p.2">The CDDL tool proposes:</p>
 <pre>
 "N1@CH57HF.4Znqe0.dYJRN.igjf"
 </pre>
+<h1 id="rfc.section.3.8.3.1">
+<a href="#rfc.section.3.8.3.1">3.8.3.1.</a> <a href="#usage-considerations" id="usage-considerations">Usage considerations</a>
+</h1>
+<p id="rfc.section.3.8.3.1.p.1">Note that XSD regular expressions do not support the usual \x or \u escapes for hexadecimal expression of bytes or unicode code points.  However, in CDDL the XSD regular expressions are contained in text strings, the literal notation for which provides \u escapes; this should suffice for most applications that use regular expressions for text strings.  (Note that this also means that there is one level of string escaping before the XSD escaping rules are applied.)</p>
+<p id="rfc.section.3.8.3.1.p.2">XSD regular expressions support character class subtraction, a feature often not found in regular expression libraries; specification writers may want to use this feature sparingly.  Similar considerations apply to Unicode character classes; where these are used, the specification SHOULD identify which Unicode versions are addressed.</p>
+<p id="rfc.section.3.8.3.1.p.3">Other surprises for infrequent users of XSD regular expressions may include:</p>
+<p></p>
+
+<ul>
+<li>No direct support for case insensitivity.  While case insensitivity has gone mostly out of fashion in protocol design, it is sometimes needed and then needs to be expressed manually as in <samp>[Cc][Aa][Ss][Ee]</samp>.</li>
+<li>No support for popular character classes such as \w, \s, \S.  (In some regular expression libraries, these are mapped to various Unicode character classes, which is often not what is desired in a protocol and thus might have led to surprises of its own.)</li>
+</ul>
+<h1 id="rfc.section.3.8.3.2">
+<a href="#rfc.section.3.8.3.2">3.8.3.2.</a> <a href="#discussion" id="discussion">Discussion</a>
+</h1>
+<p id="rfc.section.3.8.3.2.p.1">There are many flavors of regular expression in use in the programming community.  For instance, perl-compatible regular expressions (PCRE) are widely used and probably are more useful than XSD regular expressions.  However, there is no normative reference for PCRE that could be used in the present document.  Instead, we opt for XSD regular expressions for now.  There is precedent for that choice in the IETF, e.g., in YANG <a href="#RFC7950" class="xref">[RFC7950]</a>.</p>
+<p id="rfc.section.3.8.3.2.p.2">Note that CDDL uses controls as its main extension point.  This creates the opportunity to add further regular expression formats in addition to the one referenced here if desired.  As an example, a control &#8220;.pcre&#8221; is defined in <a href="#I.D.bormann-cbor-cddl-freezer" class="xref">[I.D.bormann-cbor-cddl-freezer]</a>.</p>
 <h1 id="rfc.section.3.8.4">
 <a href="#rfc.section.3.8.4">3.8.4.</a> <a href="#control-operators-cbor-and-cborseq" id="control-operators-cbor-and-cborseq">Control operators .cbor and .cborseq</a>
 </h1>
@@ -1448,14 +1465,19 @@ a = 1 b = 2 c = 3
 <a>Bormann, C.</a> and <a>P. Hoffman</a>, "<a href="https://tools.ietf.org/html/rfc7049">Concise Binary Object Representation (CBOR)</a>", RFC 7049, DOI 10.17487/RFC7049, October 2013.</td>
 </tr>
 <tr>
-<td class="reference"><b id="RFC7159">[RFC7159]</b></td>
-<td class="top">
-<a>Bray, T.</a>, "<a href="https://tools.ietf.org/html/rfc7159">The JavaScript Object Notation (JSON) Data Interchange Format</a>", RFC 7159, DOI 10.17487/RFC7159, March 2014.</td>
-</tr>
-<tr>
 <td class="reference"><b id="RFC7493">[RFC7493]</b></td>
 <td class="top">
 <a>Bray, T.</a>, "<a href="https://tools.ietf.org/html/rfc7493">The I-JSON Message Format</a>", RFC 7493, DOI 10.17487/RFC7493, March 2015.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8259">[RFC8259]</b></td>
+<td class="top">
+<a>Bray, T.</a>, "<a href="https://tools.ietf.org/html/rfc8259">The JavaScript Object Notation (JSON) Data Interchange Format</a>", STD 90, RFC 8259, DOI 10.17487/RFC8259, December 2017.</td>
+</tr>
+<tr>
+<td class="reference"><b id="W3C.REC-xmlschema-2-20041028">[W3C.REC-xmlschema-2-20041028]</b></td>
+<td class="top">
+<a>Biron, P.</a> and <a>A. Malhotra</a>, "<a href="http://www.w3.org/TR/2004/REC-xmlschema-2-20041028">XML Schema Part 2: Datatypes Second Edition</a>", World Wide Web Consortium Recommendation REC-xmlschema-2-20041028, October 2004.</td>
 </tr>
 </tbody></table>
 <h1 id="rfc.references.2">
@@ -1469,12 +1491,17 @@ a = 1 b = 2 c = 3
 <tr>
 <td class="reference"><b id="I-D.ietf-core-senml">[I-D.ietf-core-senml]</b></td>
 <td class="top">
-<a>Jennings, C.</a>, <a>Shelby, Z.</a>, <a>Arkko, J.</a>, <a>Keranen, A.</a> and <a>C. Bormann</a>, "<a href="https://tools.ietf.org/html/draft-ietf-core-senml-11">Media Types for Sensor Measurement Lists (SenML)</a>", Internet-Draft draft-ietf-core-senml-11, October 2017.</td>
+<a>Jennings, C.</a>, <a>Shelby, Z.</a>, <a>Arkko, J.</a>, <a>Keranen, A.</a> and <a>C. Bormann</a>, "<a href="https://tools.ietf.org/html/draft-ietf-core-senml-12">Media Types for Sensor Measurement Lists (SenML)</a>", Internet-Draft draft-ietf-core-senml-12, December 2017.</td>
 </tr>
 <tr>
 <td class="reference"><b id="I-D.newton-json-content-rules">[I-D.newton-json-content-rules]</b></td>
 <td class="top">
 <a>Newton, A.</a> and <a>P. Cordell</a>, "<a href="https://tools.ietf.org/html/draft-newton-json-content-rules-09">A Language for Rules Describing JSON Content</a>", Internet-Draft draft-newton-json-content-rules-09, September 2017.</td>
+</tr>
+<tr>
+<td class="reference"><b id="I.D.bormann-cbor-cddl-freezer">[I.D.bormann-cbor-cddl-freezer]</b></td>
+<td class="top">
+<a>Bormann, C.</a>, "<a>A freezer for CDDL features</a>", n.d..</td>
 </tr>
 <tr>
 <td class="reference"><b id="RELAXNG">[RELAXNG]</b></td>
@@ -1490,6 +1517,11 @@ a = 1 b = 2 c = 3
 <td class="reference"><b id="RFC7071">[RFC7071]</b></td>
 <td class="top">
 <a>Borenstein, N.</a> and <a>M. Kucherawy</a>, "<a href="https://tools.ietf.org/html/rfc7071">A Media Type for Reputation Interchange</a>", RFC 7071, DOI 10.17487/RFC7071, November 2013.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7950">[RFC7950]</b></td>
+<td class="top">
+<a>Bjorklund, M.</a>, "<a href="https://tools.ietf.org/html/rfc7950">The YANG 1.1 Data Modeling Language</a>", RFC 7950, DOI 10.17487/RFC7950, August 2016.</td>
 </tr>
 <tr>
 <td class="reference"><b id="RFC8007">[RFC8007]</b></td>
@@ -1805,7 +1837,7 @@ undefined = #7.23
 <h1 id="rfc.appendix.E.1">
 <a href="#rfc.appendix.E.1">E.1.</a> <a href="#sec-json" id="sec-json">Use with JSON</a>
 </h1>
-<p id="rfc.section.E.1.p.1">The JSON generic data model (implicit in <a href="#RFC7159" class="xref">[RFC7159]</a>) is a subset of the generic data model of CBOR.  So one can use CDDL with JSON by limiting oneself to what can be represented in JSON.  Roughly speaking, this means leaving out byte strings, tags, and simple values other than <samp>false</samp>, <samp>true</samp>, and <samp>null</samp>, leading to the following limited prelude:</p>
+<p id="rfc.section.E.1.p.1">The JSON generic data model (implicit in <a href="#RFC8259" class="xref">[RFC8259]</a>) is a subset of the generic data model of CBOR.  So one can use CDDL with JSON by limiting oneself to what can be represented in JSON.  Roughly speaking, this means leaving out byte strings, tags, and simple values other than <samp>false</samp>, <samp>true</samp>, and <samp>null</samp>, leading to the following limited prelude:</p>
 <div id="rfc.figure.13"></div>
 <div id="fig-json-prelude"></div>
 <pre>
