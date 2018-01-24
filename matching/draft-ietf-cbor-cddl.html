@@ -1134,7 +1134,7 @@ nai = tstr .regexp "[A-Za-z0-9]+@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)+"
 
 <ul>
 <li>No direct support for case insensitivity.  While case insensitivity has gone mostly out of fashion in protocol design, it is sometimes needed and then needs to be expressed manually as in <samp>[Cc][Aa][Ss][Ee]</samp>.</li>
-<li>No support for popular character classes such as \w, \s, \S.  (In some regular expression libraries, these are mapped to various Unicode character classes, which is often not what is desired in a protocol and thus might have led to surprises of its own.)</li>
+<li>The support for popular character classes such as \w and \d is based on Unicode character properties, which is often not what is desired in an ASCII-based protocol and thus might lead to surprises.  (\s and \S do have their more conventional meanings, and <samp>.</samp> matches any character but the line ending characters \r or \n.)</li>
 </ul>
 <h1 id="rfc.section.3.8.3.2">
 <a href="#rfc.section.3.8.3.2">3.8.3.2.</a> <a href="#discussion" id="discussion">Discussion</a>
