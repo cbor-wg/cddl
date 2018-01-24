@@ -1090,10 +1090,11 @@ include:
   needed and then needs to be expressed manually as in
   `[Cc][Aa][Ss][Ee]`.
 
-* No support for popular character classes such as \w, \s, \S.  (In
-  some regular expression libraries, these are mapped to various
-  Unicode character classes, which is often not what is desired in a
-  protocol and thus might have led to surprises of its own.)
+* The support for popular character classes such as \w and \d is based
+  on Unicode character properties, which is often not what is desired
+  in an ASCII-based protocol and thus might lead to surprises.  (\s
+  and \S do have their more conventional meanings, and `.` matches any
+  character but the line ending characters \r or \n.)
 
 #### Discussion
 
