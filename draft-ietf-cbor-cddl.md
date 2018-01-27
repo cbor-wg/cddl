@@ -896,11 +896,11 @@ Unfortunately, the instance
 
 does match this specification:  While the first entry of the group
 does not match, the second one (the wildcard) does.  This may be very
-well desirable (e.g., if a future extension extends the type of
-"optional-key"), but in many cases isn't.
+well desirable (e.g., if a future extension is to be allowed to extend
+the type of "optional-key"), but in many cases isn't.
 
 In anticipation of a more general potential feature called "cuts",
-CDDL allows the addition of a cut "^" to the map entry:
+CDDL allows inserting a cut "^" into the definition of the map entry:
 
 ~~~~ CDDL
 extensible-map-example = {
@@ -912,9 +912,9 @@ extensible-map-example = {
 
 A cut in this position means that once the map key matches the entry
 carrying the cut, other potential matches for the key that occur in
-later entries in the group are no longer allowed.  (This rule applies
-independent of whether the value matches, too.)  So the example above
-no longer matches the version modified with a cut.
+later entries in the group of the map are no longer allowed.  (This
+rule applies independent of whether the value matches, too.)  So the
+example above no longer matches the version modified with a cut.
 
 Since the desire for this kind of exclusive matching is so frequent,
 the ":" shortcut is actually defined to include the cut semantics.  So
@@ -929,7 +929,7 @@ extensible-map-example = {
 ~~~~
 {:cddl}
 
-or even shorter:
+or even shorter, using a bareword for the key:
 
 ~~~~ CDDL
 extensible-map-example = {
