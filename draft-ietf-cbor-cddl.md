@@ -227,6 +227,10 @@ person = {
 ~~~~
 {:cddl #group-in-map title="Using a group in a map"}
 
+Here, "age", "name", and "employer" are the names that turn into the
+map key text strings, and "int" and "tstr" (text string) are the types
+of the map values under these keys.
+
 A group by itself (without creating a map around it) can be placed in
 (round) parentheses, and given a name by using it in a rule:
 
