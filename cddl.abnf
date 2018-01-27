@@ -38,7 +38,7 @@ grpent = [occur S] [memberkey S] type optcom
        / [occur S] groupname [genericarg] optcom ; preempted by above
        / [occur S] "(" S group S ")" optcom
 
-memberkey = type1 S "=>"
+memberkey = type1 S ["^" S] "=>"
           / bareword S ":"
           / value S ":"
 

@@ -757,8 +757,7 @@ if the specifier just happens to prefer using double quotes), the text
 string syntax can also be used in the member key position, followed by
 a colon.  The above example could therefore have been written with
 quoted strings in the member key positions.
-
-All the types defined can be used in a keytype position by following them with a
+More generally, all the types defined can be used in a keytype position by following them with a
 double arrow.  A string also is a (single-valued) type, so another
 form for this example is:
 
@@ -769,6 +768,9 @@ located-samples = {
 }
 ~~~~
 {:cddl}
+
+See {{cuts-in-maps}} below for how the colon shortcut described here
+also adds some implied semantics.
 
 A better way to demonstrate the double-arrow use may be:
 
@@ -865,6 +867,73 @@ mynumber = int / float
 ~~~~
 {:cddl}
 
+### Cuts in Maps
+
+The extensibility idiom discussed above for structs has one problem:
+
+~~~~ CDDL
+extensible-map-example = {
+  ? "optional-key" => int,
+  * tstr => any
+}
+~~~~
+{:cddl}
+
+In this example, there is one optional key "optional-key", which, when
+present, maps to an integer.  There is also a wild card for any future
+additions.
+
+Unfortunately, the instance
+
+~~~~ CBORdiag
+{ "optional-key": "nonsense" }
+~~~~
+{:cddl}
+
+does match this specification:  While the first entry of the group
+does not match, the second one (the wildcard) does.  This may be very
+well desirable (e.g., if a future extension extends the type of
+"optional-key"), but in many cases isn't.
+
+In anticipation of a more general potential feature called "cuts",
+CDDL allows the addition of a cut "^" to the map entry:
+
+~~~~ CDDL
+extensible-map-example = {
+  ? "optional-key" ^ => int,
+  * tstr => any
+}
+~~~~
+{:cddl}
+
+A cut in this position means that once the map key matches the entry
+carrying the cut, other potential matches for the key that occur in
+later entries in the group are no longer allowed.  (This rule applies
+independent of whether the value matches, too.)  So the example above
+no longer matches the version modified with a cut.
+
+Since the desire for this kind of exclusive matching is so frequent,
+the ":" shortcut is actually defined to include the cut semantics.  So
+the preceding example (including the cut) can be written more simply
+as:
+
+~~~~ CDDL
+extensible-map-example = {
+  ? "optional-key": int,
+  * tstr => any
+}
+~~~~
+{:cddl}
+
+or even shorter:
+
+~~~~ CDDL
+extensible-map-example = {
+  ? optional-key: int,
+  * tstr => any
+}
+~~~~
+{:cddl}
 
 ## Tags {#tagsec}
 
@@ -1655,7 +1724,6 @@ defined in {{controls}}.  Note that control operators are an extension
 point for CDDL; additional documents may want to define additional
 control operators.
 
-
 ~~~ abnf
 group = grpchoice S *("//" S grpchoice S)
 ~~~
@@ -1696,7 +1764,7 @@ A group entry can be built from a named group, or
 from a parenthesized group, again with a possible occurrence indicator.
 
 ~~~ abnf
-memberkey = type1 S "=>"
+memberkey = type1 S ["^" S] "=>"
           / bareword S ":"
           / value S ":"
 ~~~
@@ -1704,7 +1772,10 @@ memberkey = type1 S "=>"
 Key types can be given by a type expression, a bareword (which stands
 for string value created from this bareword), or a value (which stands
 for a type that just contains this value).  A key value matches its
-key type if the key value is a member of the key type.
+key type if the key value is a member of the key type, unless a cut
+preceding it in the group applies (see {{cuts-in-maps}} how map
+matching is infuenced by the presence of the cuts denoted by "^" or
+":" in previous entries).
 
 ~~~ abnf
 bareword = id
