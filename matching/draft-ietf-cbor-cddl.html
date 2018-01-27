@@ -343,7 +343,7 @@ address {
 
   <meta name="dct.creator" content="Birkholz, H., Vigano, C., and C. Bormann" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-cbor-cddl-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2018-1-24" />
+  <meta name="dct.issued" scheme="ISO8601" content="2018-1-27" />
   <meta name="dct.abstract" content="This document proposes a notational convention to express CBOR data structures (RFC 7049).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR." />
   <meta name="description" content="This document proposes a notational convention to express CBOR data structures (RFC 7049).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR." />
 
@@ -367,7 +367,7 @@ address {
 <td class="right">C. Vigano</td>
 </tr>
 <tr>
-<td class="left">Expires: July 28, 2018</td>
+<td class="left">Expires: July 31, 2018</td>
 <td class="right">Universit&#228;t Bremen</td>
 </tr>
 <tr>
@@ -380,7 +380,7 @@ address {
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">January 24, 2018</td>
+<td class="right">January 27, 2018</td>
 </tr>
 
     	
@@ -396,7 +396,7 @@ address {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on July 28, 2018.</p>
+<p>This Internet-Draft will expire on July 31, 2018.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2018 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -595,8 +595,19 @@ address {
 <p id="rfc.section.2.1.p.1">CDDL Groups are lists of name/value pairs (group <em>entries</em>).</p>
 <p id="rfc.section.2.1.p.2">In an array context, only the value of the entry is represented; the name is annotation only (and can be left off if not needed).  In a map context, the names become the map keys (&#8220;member keys&#8221;).</p>
 <p id="rfc.section.2.1.p.3">In an array context, the sequence of elements in the group is important, as it is the information that allows associating actual array elements with entries in the group.  In a map context, the sequence of entries in a group is not relevant (but there is still a need to write down group entries in a sequence).</p>
-<p id="rfc.section.2.1.p.4">A group can be placed in (round) parentheses, and given a name by using it in a rule:</p>
+<p id="rfc.section.2.1.p.4">A simple example of using a group right in a map definition is:</p>
 <div id="rfc.figure.1"></div>
+<div id="group-in-map"></div>
+<pre>
+person = {
+  age: int,
+  name: tstr,
+  employer: tstr,
+}
+</pre>
+<p class="figure">Figure 1: Using a group in a map</p>
+<p id="rfc.section.2.1.p.5">A group by itself (without creating a map around it) can be placed in (round) parentheses, and given a name by using it in a rule:</p>
+<div id="rfc.figure.2"></div>
 <div id="basic-group"></div>
 <pre>
 pii = (
@@ -605,19 +616,8 @@ pii = (
   employer: tstr,
 )
 </pre>
-<p class="figure">Figure 1: A basic group</p>
-<p id="rfc.section.2.1.p.5">Or a group can just be used in the definition of something else:</p>
-<div id="rfc.figure.2"></div>
-<div id="group-in-map"></div>
-<pre>
-person = {(
-  age: int,
-  name: tstr,
-  employer: tstr,
-)}
-</pre>
-<p class="figure">Figure 2: Using a group in a map</p>
-<p id="rfc.section.2.1.p.6">which, given the above rule for pii, is identical to:</p>
+<p class="figure">Figure 2: A basic group</p>
+<p id="rfc.section.2.1.p.6">This separate group definition allows us to rephrase <a href="#group-in-map" class="xref">Figure 1</a> as:</p>
 <div id="rfc.figure.3"></div>
 <div id="group-by-name"></div>
 <pre>
@@ -627,13 +627,13 @@ person = {
 </pre>
 <p class="figure">Figure 3: Using a group by name</p>
 <p id="rfc.section.2.1.p.7">Note that the (curly) braces signify the creation of a map; the groups themselves are neutral as to whether they will be used in a map or an array.</p>
-<p id="rfc.section.2.1.p.8">The parentheses for groups are optional when there is some other set of brackets present, so it would be slightly more natural to express <a href="#group-in-map" class="xref">Figure 2</a> as:</p>
+<p id="rfc.section.2.1.p.8">As shown in <a href="#group-in-map" class="xref">Figure 1</a>, the parentheses for groups are optional when there is some other set of brackets present.  Note that they can still be used, leading to the not so realistic, but perfectly valid example:</p>
 <pre>
-person = {
+person = {(
   age: int,
   name: tstr,
   employer: tstr,
-}
+)}
 </pre>
 <p id="rfc.section.2.1.p.9">Groups can be used to factor out common parts of structs, e.g., instead of writing:</p>
 <pre>

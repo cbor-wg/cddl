@@ -5,10 +5,10 @@
 Network Working Group                                        H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                               C. Vigano
-Expires: July 28, 2018                               Universitaet Bremen
+Expires: July 31, 2018                               Universitaet Bremen
                                                               C. Bormann
                                                  Universitaet Bremen TZI
-                                                        January 24, 2018
+                                                        January 27, 2018
 
 
   Concise data definition language (CDDL): a notational convention to
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on July 28, 2018.
+   This Internet-Draft will expire on July 31, 2018.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Birkholz, et al.          Expires July 28, 2018                 [Page 1]
+Birkholz, et al.          Expires July 31, 2018                 [Page 1]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Birkholz, et al.          Expires July 28, 2018                 [Page 2]
+Birkholz, et al.          Expires July 31, 2018                 [Page 2]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -165,7 +165,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                 [Page 3]
+Birkholz, et al.          Expires July 31, 2018                 [Page 3]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -221,7 +221,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                 [Page 4]
+Birkholz, et al.          Expires July 31, 2018                 [Page 4]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -277,7 +277,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                 [Page 5]
+Birkholz, et al.          Expires July 31, 2018                 [Page 5]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -300,8 +300,18 @@ Internet-Draft                    CDDL                      January 2018
    sequence of entries in a group is not relevant (but there is still a
    need to write down group entries in a sequence).
 
-   A group can be placed in (round) parentheses, and given a name by
-   using it in a rule:
+   A simple example of using a group right in a map definition is:
+
+                             person = {
+                               age: int,
+                               name: tstr,
+                               employer: tstr,
+                             }
+
+                     Figure 1: Using a group in a map
+
+   A group by itself (without creating a map around it) can be placed in
+   (round) parentheses, and given a name by using it in a rule:
 
                              pii = (
                                age: int,
@@ -309,19 +319,9 @@ Internet-Draft                    CDDL                      January 2018
                                employer: tstr,
                              )
 
-                          Figure 1: A basic group
+                          Figure 2: A basic group
 
-   Or a group can just be used in the definition of something else:
-
-                             person = {(
-                               age: int,
-                               name: tstr,
-                               employer: tstr,
-                             )}
-
-                     Figure 2: Using a group in a map
-
-   which, given the above rule for pii, is identical to:
+   This separate group definition allows us to rephrase Figure 1 as:
 
                                 person = {
                                   pii
@@ -333,7 +333,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                 [Page 6]
+Birkholz, et al.          Expires July 31, 2018                 [Page 6]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -342,15 +342,16 @@ Internet-Draft                    CDDL                      January 2018
    groups themselves are neutral as to whether they will be used in a
    map or an array.
 
-   The parentheses for groups are optional when there is some other set
-   of brackets present, so it would be slightly more natural to express
-   Figure 2 as:
+   As shown in Figure 1, the parentheses for groups are optional when
+   there is some other set of brackets present.  Note that they can
+   still be used, leading to the not so realistic, but perfectly valid
+   example:
 
-                             person = {
+                             person = {(
                                age: int,
                                name: tstr,
                                employer: tstr,
-                             }
+                             )}
 
    Groups can be used to factor out common parts of structs, e.g.,
    instead of writing:
@@ -388,8 +389,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-
-Birkholz, et al.          Expires July 28, 2018                 [Page 7]
+Birkholz, et al.          Expires July 31, 2018                 [Page 7]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -445,7 +445,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                 [Page 8]
+Birkholz, et al.          Expires July 31, 2018                 [Page 8]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -501,7 +501,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                 [Page 9]
+Birkholz, et al.          Expires July 31, 2018                 [Page 9]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -557,7 +557,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 10]
+Birkholz, et al.          Expires July 31, 2018                [Page 10]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -613,7 +613,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 11]
+Birkholz, et al.          Expires July 31, 2018                [Page 11]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -669,7 +669,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 12]
+Birkholz, et al.          Expires July 31, 2018                [Page 12]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -725,7 +725,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 13]
+Birkholz, et al.          Expires July 31, 2018                [Page 13]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -781,7 +781,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 14]
+Birkholz, et al.          Expires July 31, 2018                [Page 14]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -837,7 +837,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 15]
+Birkholz, et al.          Expires July 31, 2018                [Page 15]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -893,7 +893,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 16]
+Birkholz, et al.          Expires July 31, 2018                [Page 16]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -949,7 +949,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 17]
+Birkholz, et al.          Expires July 31, 2018                [Page 17]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -1005,7 +1005,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 18]
+Birkholz, et al.          Expires July 31, 2018                [Page 18]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -1061,7 +1061,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 19]
+Birkholz, et al.          Expires July 31, 2018                [Page 19]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -1117,7 +1117,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 20]
+Birkholz, et al.          Expires July 31, 2018                [Page 20]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -1173,7 +1173,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 21]
+Birkholz, et al.          Expires July 31, 2018                [Page 21]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -1229,7 +1229,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 22]
+Birkholz, et al.          Expires July 31, 2018                [Page 22]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -1285,7 +1285,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 23]
+Birkholz, et al.          Expires July 31, 2018                [Page 23]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -1341,7 +1341,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 24]
+Birkholz, et al.          Expires July 31, 2018                [Page 24]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -1397,7 +1397,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 25]
+Birkholz, et al.          Expires July 31, 2018                [Page 25]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -1453,7 +1453,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 26]
+Birkholz, et al.          Expires July 31, 2018                [Page 26]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -1509,7 +1509,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 27]
+Birkholz, et al.          Expires July 31, 2018                [Page 27]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -1565,7 +1565,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 28]
+Birkholz, et al.          Expires July 31, 2018                [Page 28]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -1621,7 +1621,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 29]
+Birkholz, et al.          Expires July 31, 2018                [Page 29]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -1677,7 +1677,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 30]
+Birkholz, et al.          Expires July 31, 2018                [Page 30]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -1733,7 +1733,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 31]
+Birkholz, et al.          Expires July 31, 2018                [Page 31]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -1789,7 +1789,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 32]
+Birkholz, et al.          Expires July 31, 2018                [Page 32]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -1845,7 +1845,7 @@ Appendix B.  ABNF grammar
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 33]
+Birkholz, et al.          Expires July 31, 2018                [Page 33]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -1901,7 +1901,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 34]
+Birkholz, et al.          Expires July 31, 2018                [Page 34]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -1957,7 +1957,7 @@ Appendix C.  Matching rules
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 35]
+Birkholz, et al.          Expires July 31, 2018                [Page 35]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -2013,7 +2013,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 36]
+Birkholz, et al.          Expires July 31, 2018                [Page 36]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -2069,7 +2069,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 37]
+Birkholz, et al.          Expires July 31, 2018                [Page 37]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -2125,7 +2125,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 38]
+Birkholz, et al.          Expires July 31, 2018                [Page 38]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -2181,7 +2181,7 @@ Appendix E.  Standard Prelude
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 39]
+Birkholz, et al.          Expires July 31, 2018                [Page 39]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -2237,7 +2237,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 40]
+Birkholz, et al.          Expires July 31, 2018                [Page 40]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -2293,7 +2293,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 41]
+Birkholz, et al.          Expires July 31, 2018                [Page 41]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -2349,7 +2349,7 @@ E.1.  Use with JSON
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 42]
+Birkholz, et al.          Expires July 31, 2018                [Page 42]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -2405,7 +2405,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 43]
+Birkholz, et al.          Expires July 31, 2018                [Page 43]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -2461,7 +2461,7 @@ Appendix G.  Extended Diagnostic Notation
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 44]
+Birkholz, et al.          Expires July 31, 2018                [Page 44]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -2517,7 +2517,7 @@ G.3.  Embedded CBOR and CBOR sequences in byte strings
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 45]
+Birkholz, et al.          Expires July 31, 2018                [Page 45]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -2573,7 +2573,7 @@ G.5.  Hexadecimal, octal, and binary numbers
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 46]
+Birkholz, et al.          Expires July 31, 2018                [Page 46]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -2629,7 +2629,7 @@ Appendix H.  Examples
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 47]
+Birkholz, et al.          Expires July 31, 2018                [Page 47]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -2685,7 +2685,7 @@ H.1.  RFC 7071
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 48]
+Birkholz, et al.          Expires July 31, 2018                [Page 48]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -2741,7 +2741,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 49]
+Birkholz, et al.          Expires July 31, 2018                [Page 49]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -2797,7 +2797,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 50]
+Birkholz, et al.          Expires July 31, 2018                [Page 50]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -2853,7 +2853,7 @@ H.1.1.  Examples from JSON Content Rules
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 51]
+Birkholz, et al.          Expires July 31, 2018                [Page 51]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -2909,7 +2909,7 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 52]
+Birkholz, et al.          Expires July 31, 2018                [Page 52]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -2965,7 +2965,7 @@ Authors' Addresses
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 53]
+Birkholz, et al.          Expires July 31, 2018                [Page 53]
 
 Internet-Draft                    CDDL                      January 2018
 
@@ -3021,4 +3021,4 @@ Internet-Draft                    CDDL                      January 2018
 
 
 
-Birkholz, et al.          Expires July 28, 2018                [Page 54]
+Birkholz, et al.          Expires July 31, 2018                [Page 54]
