@@ -314,12 +314,10 @@ address {
 <link href="#rfc.section.4.3" rel="Chapter" title="4.3 For data analysis tools">
 <link href="#rfc.section.5" rel="Chapter" title="5 Security considerations">
 <link href="#rfc.section.6" rel="Chapter" title="6 IANA considerations">
-<link href="#rfc.section.7" rel="Chapter" title="7 Acknowledgements">
-<link href="#rfc.references" rel="Chapter" title="8 References">
-<link href="#rfc.references.1" rel="Chapter" title="8.1 Normative References">
-<link href="#rfc.references.2" rel="Chapter" title="8.2 Informative References">
-<link href="#rfc.appendix.A" rel="Chapter" title="A Cemetery">
-<link href="#rfc.appendix.A.1" rel="Chapter" title="A.1 Resolved Issues">
+<link href="#rfc.references" rel="Chapter" title="7 References">
+<link href="#rfc.references.1" rel="Chapter" title="7.1 Normative References">
+<link href="#rfc.references.2" rel="Chapter" title="7.2 Informative References">
+<link href="#rfc.appendix.A" rel="Chapter" title="A (Not used.)">
 <link href="#rfc.appendix.B" rel="Chapter" title="B ABNF grammar">
 <link href="#rfc.appendix.C" rel="Chapter" title="C Matching rules">
 <link href="#rfc.appendix.D" rel="Chapter" title="D (Not used.)">
@@ -336,6 +334,7 @@ address {
 <link href="#rfc.appendix.H" rel="Chapter" title="H Examples">
 <link href="#rfc.appendix.H.1" rel="Chapter" title="H.1 RFC 7071">
 <link href="#rfc.appendix.H.1.1" rel="Chapter" title="H.1.1 Examples from JSON Content Rules">
+<link href="#rfc.acknowledgements" rel="Chapter">
 <link href="#rfc.authors" rel="Chapter">
 
 
@@ -485,19 +484,15 @@ address {
 </li>
 <li>6.   <a href="#rfc.section.6">IANA considerations</a>
 </li>
-<li>7.   <a href="#rfc.section.7">Acknowledgements</a>
+<li>7.   <a href="#rfc.references">References</a>
 </li>
-<li>8.   <a href="#rfc.references">References</a>
+<ul><li>7.1.   <a href="#rfc.references.1">Normative References</a>
 </li>
-<ul><li>8.1.   <a href="#rfc.references.1">Normative References</a>
+<li>7.2.   <a href="#rfc.references.2">Informative References</a>
 </li>
-<li>8.2.   <a href="#rfc.references.2">Informative References</a>
+</ul><li>Appendix A.   <a href="#rfc.appendix.A">(Not used.)</a>
 </li>
-</ul><li>Appendix A.   <a href="#rfc.appendix.A">Cemetery</a>
-</li>
-<ul><li>A.1.   <a href="#rfc.appendix.A.1">Resolved Issues</a>
-</li>
-</ul><li>Appendix B.   <a href="#rfc.appendix.B">ABNF grammar</a>
+<li>Appendix B.   <a href="#rfc.appendix.B">ABNF grammar</a>
 </li>
 <li>Appendix C.   <a href="#rfc.appendix.C">Matching rules</a>
 </li>
@@ -529,7 +524,9 @@ address {
 </li>
 <ul><li>H.1.1.   <a href="#rfc.appendix.H.1.1">Examples from JSON Content Rules</a>
 </li>
-</ul></ul><li><a href="#rfc.authors">Authors' Addresses</a>
+</ul></ul><li><a href="#rfc.acknowledgements">Acknowledgements</a>
+</li>
+<li><a href="#rfc.authors">Authors' Addresses</a>
 </li>
 
 
@@ -907,6 +904,7 @@ person = (
 <a href="#rfc.section.3.5">3.5.</a> <a href="#maps" id="maps">Maps</a>
 </h1>
 <p id="rfc.section.3.5.p.1">The syntax for specifying maps merits special attention, as well as a number of optimizations and conveniences, as it is likely to be the focal point of many specifications employing CDDL.  While the syntax does not strictly distinguish struct and table usage of maps, it caters specifically to each of them.</p>
+<p id="rfc.section.3.5.p.2">But first, let&#8217;s reiterate a feature of CBOR that it has inherited from JSON: The key/value pairs in CBOR maps have no fixed ordering.  (One could imagine situations where fixing the ordering may be of use.  For example, a decoder could look for values related with integer keys 1, 3 and 7.  If the order were fixed and the decoder encounters the key 4 without having encountered key 3, it could conclude that key 3 is not available without doing more complicated bookkeeping.  Unfortunately, neither JSON nor CBOR support this, so no attempt was made to support this in CDDL either.)</p>
 <h1 id="rfc.section.3.5.1">
 <a href="#rfc.section.3.5.1">3.5.1.</a> <a href="#structs" id="structs">Structs</a>
 </h1>
@@ -1023,15 +1021,15 @@ extensible-map-example = {
 <pre>
 { "optional-key": "nonsense" }
 </pre>
-<p id="rfc.section.3.5.3.p.4">does match this specification:  While the first entry of the group does not match, the second one (the wildcard) does.  This may be very well desirable (e.g., if a future extension extends the type of &#8220;optional-key&#8221;), but in many cases isn&#8217;t.</p>
-<p id="rfc.section.3.5.3.p.5">In anticipation of a more general potential feature called &#8220;cuts&#8221;, CDDL allows the addition of a cut &#8220;^&#8221; to the map entry:</p>
+<p id="rfc.section.3.5.3.p.4">does match this specification:  While the first entry of the group does not match, the second one (the wildcard) does.  This may be very well desirable (e.g., if a future extension is to be allowed to extend the type of &#8220;optional-key&#8221;), but in many cases isn&#8217;t.</p>
+<p id="rfc.section.3.5.3.p.5">In anticipation of a more general potential feature called &#8220;cuts&#8221;, CDDL allows inserting a cut &#8220;^&#8221; into the definition of the map entry:</p>
 <pre>
 extensible-map-example = {
   ? "optional-key" ^ =&gt; int,
   * tstr =&gt; any
 }
 </pre>
-<p id="rfc.section.3.5.3.p.6">A cut in this position means that once the map key matches the entry carrying the cut, other potential matches for the key that occur in later entries in the group are no longer allowed.  (This rule applies independent of whether the value matches, too.)  So the example above no longer matches the version modified with a cut.</p>
+<p id="rfc.section.3.5.3.p.6">A cut in this position means that once the map key matches the entry carrying the cut, other potential matches for the key that occur in later entries in the group of the map are no longer allowed.  (This rule applies independent of whether the value matches, too.)  So the example above no longer matches the version modified with a cut.</p>
 <p id="rfc.section.3.5.3.p.7">Since the desire for this kind of exclusive matching is so frequent, the &#8220;:&#8221; shortcut is actually defined to include the cut semantics.  So the preceding example (including the cut) can be written more simply as:</p>
 <pre>
 extensible-map-example = {
@@ -1039,7 +1037,7 @@ extensible-map-example = {
   * tstr =&gt; any
 }
 </pre>
-<p id="rfc.section.3.5.3.p.8">or even shorter:</p>
+<p id="rfc.section.3.5.3.p.8">or even shorter, using a bareword for the key:</p>
 <pre>
 extensible-map-example = {
   ? optional-key: int,
@@ -1184,7 +1182,7 @@ nai = tstr .regexp "[A-Za-z0-9]+@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)+"
 <a href="#rfc.section.3.8.3.2">3.8.3.2.</a> <a href="#discussion" id="discussion">Discussion</a>
 </h1>
 <p id="rfc.section.3.8.3.2.p.1">There are many flavors of regular expression in use in the programming community.  For instance, perl-compatible regular expressions (PCRE) are widely used and probably are more useful than XSD regular expressions.  However, there is no normative reference for PCRE that could be used in the present document.  Instead, we opt for XSD regular expressions for now.  There is precedent for that choice in the IETF, e.g., in YANG <a href="#RFC7950" class="xref">[RFC7950]</a>.</p>
-<p id="rfc.section.3.8.3.2.p.2">Note that CDDL uses controls as its main extension point.  This creates the opportunity to add further regular expression formats in addition to the one referenced here if desired.  As an example, a control &#8220;.pcre&#8221; is defined in <a href="#I.D.bormann-cbor-cddl-freezer" class="xref">[I.D.bormann-cbor-cddl-freezer]</a>.</p>
+<p id="rfc.section.3.8.3.2.p.2">Note that CDDL uses controls as its main extension point.  This creates the opportunity to add further regular expression formats in addition to the one referenced here if desired.  As an example, a control &#8220;.pcre&#8221; is defined in <a href="#I-D.bormann-cbor-cddl-freezer" class="xref">[I-D.bormann-cbor-cddl-freezer]</a>.</p>
 <h1 id="rfc.section.3.8.4">
 <a href="#rfc.section.3.8.4">3.8.4.</a> <a href="#control-operators-cbor-and-cborseq" id="control-operators-cbor-and-cborseq">Control operators .cbor and .cborseq</a>
 </h1>
@@ -1476,17 +1474,10 @@ a = 1 b = 2 c = 3
 <a href="#rfc.section.6">6.</a> <a href="#iana-considerations" id="iana-considerations">IANA considerations</a>
 </h1>
 <p id="rfc.section.6.p.1">This document does not require any IANA registrations.</p>
-<h1 id="rfc.section.7">
-<a href="#rfc.section.7">7.</a> <a href="#acknowledgements" id="acknowledgements">Acknowledgements</a>
-</h1>
-<p id="rfc.section.7.p.1">CDDL was originally conceived by Bert Greevenbosch, who also wrote the original five versions of this document.</p>
-<p id="rfc.section.7.p.2">Inspiration was taken from the C and Pascal languages, MPEG&#8217;s conventions for describing structures in the ISO base media file format, Relax-NG and its compact syntax <a href="#RELAXNG" class="xref">[RELAXNG]</a>, and in particular from Andrew Lee Newton&#8217;s <a href="#I-D.newton-json-content-rules" class="xref">&#8220;JSON Content Rules&#8221;</a>.</p>
-<p id="rfc.section.7.p.3">Useful feedback came from Joe Hildebrand, Sean Leonard and Jim Schaad.</p>
-<p id="rfc.section.7.p.4">The CDDL tool was written by Carsten Bormann, building on previous work by Troy Heninger and Tom Lord.</p>
 <h1 id="rfc.references">
-<a href="#rfc.references">8.</a> References</h1>
+<a href="#rfc.references">7.</a> References</h1>
 <h1 id="rfc.references.1">
-<a href="#rfc.references.1">8.1.</a> Normative References</h1>
+<a href="#rfc.references.1">7.1.</a> Normative References</h1>
 <table><tbody>
 <tr>
 <td class="reference"><b id="RFC2119">[RFC2119]</b></td>
@@ -1525,8 +1516,13 @@ a = 1 b = 2 c = 3
 </tr>
 </tbody></table>
 <h1 id="rfc.references.2">
-<a href="#rfc.references.2">8.2.</a> Informative References</h1>
+<a href="#rfc.references.2">7.2.</a> Informative References</h1>
 <table><tbody>
+<tr>
+<td class="reference"><b id="I-D.bormann-cbor-cddl-freezer">[I-D.bormann-cbor-cddl-freezer]</b></td>
+<td class="top">
+<a>Bormann, C.</a>, "<a href="https://tools.ietf.org/html/draft-bormann-cbor-cddl-freezer-00">A feature freezer for the Concise Data Definition Language (CDDL)</a>", Internet-Draft draft-bormann-cbor-cddl-freezer-00, January 2018.</td>
+</tr>
 <tr>
 <td class="reference"><b id="I-D.ietf-anima-grasp">[I-D.ietf-anima-grasp]</b></td>
 <td class="top">
@@ -1541,11 +1537,6 @@ a = 1 b = 2 c = 3
 <td class="reference"><b id="I-D.newton-json-content-rules">[I-D.newton-json-content-rules]</b></td>
 <td class="top">
 <a>Newton, A.</a> and <a>P. Cordell</a>, "<a href="https://tools.ietf.org/html/draft-newton-json-content-rules-09">A Language for Rules Describing JSON Content</a>", Internet-Draft draft-newton-json-content-rules-09, September 2017.</td>
-</tr>
-<tr>
-<td class="reference"><b id="I.D.bormann-cbor-cddl-freezer">[I.D.bormann-cbor-cddl-freezer]</b></td>
-<td class="top">
-<a>Bormann, C.</a>, "<a>A freezer for CDDL features</a>", n.d..</td>
 </tr>
 <tr>
 <td class="reference"><b id="RELAXNG">[RELAXNG]</b></td>
@@ -1579,21 +1570,8 @@ a = 1 b = 2 c = 3
 </tr>
 </tbody></table>
 <h1 id="rfc.appendix.A">
-<a href="#rfc.appendix.A">Appendix A.</a> <a href="#cemetery" id="cemetery">Cemetery</a>
+<a href="#rfc.appendix.A">Appendix A.</a> <a href="#not-used" id="not-used">(Not used.)</a>
 </h1>
-<p id="rfc.section.A.p.1">The following ideas have been buried in the discussions leading up to the present specification:</p>
-<p></p>
-
-<ul><li>&lt;&#8230;&gt; as syntax for enumerations. We view values to be just another type (a very specific type with just one member), so that an enumeration can be denoted as a choice using &#8220;/&#8221; as the delimiter of choices. Because of this, no evidence is present that a separate syntax for enumerations is needed.</li></ul>
-<h1 id="rfc.appendix.A.1">
-<a href="#rfc.appendix.A.1">A.1.</a> <a href="#resolved-issues" id="resolved-issues">Resolved Issues</a>
-</h1>
-<p></p>
-
-<ul>
-<li>The key/value pairs in maps have no fixed ordering.  One could imagine situations where fixing the ordering may be of use.  For example, a decoder could look for values related with integer keys 1, 3 and 7.  If the order were fixed and the decoder encounters the key 4 without having encountered key 3, it could conclude that key 3 is not available without doing more complicated bookkeeping.  Unfortunately, neither JSON nor CBOR support this, so no attempt was made to support this in CDDL either.</li>
-<li>CDDL distinguishes the various CBOR number types, but there is only one number type in JSON.  There is no effect in specifying a precision (float16/float32/float64) when using CDDL for specifying JSON data structures.  (The current validator implementation <a href="#tool" class="xref">Appendix F</a> does not handle this very well, either.)</li>
-</ul>
 <h1 id="rfc.appendix.B">
 <a href="#rfc.appendix.B">Appendix B.</a> <a href="#abnf" id="abnf">ABNF grammar</a>
 </h1>
@@ -1819,7 +1797,7 @@ occur = [uint] "*" [uint]
 <p id="rfc.section.C.p.28">An occurrence indicator modifies the group given to its right by requiring the group to match the sequence to be matched exactly for a certain number of times (see <a href="#occurrence" class="xref">Section 3.2</a>) in sequence, i.e. it acts as a (possibly infinite) group choice that contains choices with the group repeated each of the occurrences times.</p>
 <p id="rfc.section.C.p.29">The rest of the ABNF describes syntax for value notation that should be familiar from programming languages, with the possible exception of h&#8217;..&#8217; and b64&#8217;..&#8217; for byte strings, as well as syntactic elements such as comments and line ends.</p>
 <h1 id="rfc.appendix.D">
-<a href="#rfc.appendix.D">Appendix D.</a> <a href="#not-used" id="not-used">(Not used.)</a>
+<a href="#rfc.appendix.D">Appendix D.</a> <a href="#not-used-1" id="not-used-1">(Not used.)</a>
 </h1>
 <h1 id="rfc.appendix.E">
 <a href="#rfc.appendix.E">Appendix E.</a> <a href="#prelude" id="prelude">Standard Prelude</a>
@@ -1917,8 +1895,9 @@ null = nil
 10 10.0 1e1 1.0e1 100e-1
 </pre>
 <p id="rfc.section.E.1.p.4">(The fact that these are all integers may be surprising to users accustomed to the long tradition in programming languages of using decimal points or exponents in a number to indicate a floating point literal.)</p>
-<p id="rfc.section.E.1.p.5">Fundamentally, the number system of JSON itself is based on decimal numbers and decimal fractions and does not have limits to its precision or range.  In practice, JSON numbers are often parsed into a number type that is called float64 here, creating a number of limitations to the generic data model <a href="#RFC7493" class="xref">[RFC7493]</a>.  In particular, this means that integers can only be expressed with interoperable exactness when they lie in the range [-(2**53)+1, (2**53)-1] &#8212; a smaller range than that covered by CDDL <samp>int</samp>.</p>
-<p id="rfc.section.E.1.p.6">JSON applications that want to stay compatible with I-JSON therefore may want to define integer types with more limited ranges, such as in <a href="#fig-json-types" class="xref">Figure 15</a>.  Note that the types given here are not part of the prelude; they need to be copied into the CDDL specification if needed.</p>
+<p id="rfc.section.E.1.p.5">CDDL distinguishes the various CBOR number types, but there is only one number type in JSON.  The effect of specifying a floating point precision (float16/float32/float64) is only to restrict the set of permissible values to those expressible with binary16/binary32/binary64; this is unlikely to be very useful when using CDDL for specifying JSON data structures.</p>
+<p id="rfc.section.E.1.p.6">Fundamentally, the number system of JSON itself is based on decimal numbers and decimal fractions and does not have limits to its precision or range.  In practice, JSON numbers are often parsed into a number type that is called float64 here, creating a number of limitations to the generic data model <a href="#RFC7493" class="xref">[RFC7493]</a>.  In particular, this means that integers can only be expressed with interoperable exactness when they lie in the range [-(2**53)+1, (2**53)-1] &#8212; a smaller range than that covered by CDDL <samp>int</samp>.</p>
+<p id="rfc.section.E.1.p.7">JSON applications that want to stay compatible with I-JSON therefore may want to define integer types with more limited ranges, such as in <a href="#fig-json-types" class="xref">Figure 15</a>.  Note that the types given here are not part of the prelude; they need to be copied into the CDDL specification if needed.</p>
 <div id="rfc.figure.15"></div>
 <div id="fig-json-types"></div>
 <pre>
@@ -1927,7 +1906,7 @@ ij-nint = -9007199254740991..-1
 ij-int = -9007199254740991..9007199254740991
 </pre>
 <p class="figure">Figure 15: I-JSON types for CDDL (not part of prelude)</p>
-<p id="rfc.section.E.1.p.7">JSON applications that do not need to stay compatible with I-JSON and that actually may need to go beyond the 64-bit unsigned and negative integers supported by <samp>int</samp> (= <samp>uint</samp>/<samp>nint</samp>) may want to use the following additional types from the standard prelude, which are expressed in terms of tags but can straightforwardly be mapped into JSON (but not I-JSON) numbers:</p>
+<p id="rfc.section.E.1.p.8">JSON applications that do not need to stay compatible with I-JSON and that actually may need to go beyond the 64-bit unsigned and negative integers supported by <samp>int</samp> (= <samp>uint</samp>/<samp>nint</samp>) may want to use the following additional types from the standard prelude, which are expressed in terms of tags but can straightforwardly be mapped into JSON (but not I-JSON) numbers:</p>
 <pre>
 biguint = #6.2(bstr)
 bignint = #6.3(bstr)
@@ -1935,8 +1914,8 @@ bigint = biguint / bignint
 integer = int / bigint
 unsigned = uint / biguint
 </pre>
-<p id="rfc.section.E.1.p.8">CDDL at this point does not have a way to express the unlimited floating point precision that is theoretically possible with JSON; at the time of writing, this is rarely used in protocols in practice.</p>
-<p id="rfc.section.E.1.p.9">Note that a data model described in CDDL is always restricted by what can be expressed in the serialization; e.g., floating point values such as NaN (not a number) and the infinities cannot be represented in JSON even if they are allowed in the CDDL generic data model.</p>
+<p id="rfc.section.E.1.p.9">CDDL at this point does not have a way to express the unlimited floating point precision that is theoretically possible with JSON; at the time of writing, this is rarely used in protocols in practice.</p>
+<p id="rfc.section.E.1.p.10">Note that a data model described in CDDL is always restricted by what can be expressed in the serialization; e.g., floating point values such as NaN (not a number) and the infinities cannot be represented in JSON even if they are allowed in the CDDL generic data model.</p>
 <h1 id="rfc.appendix.F">
 <a href="#rfc.appendix.F">Appendix F.</a> <a href="#tool" id="tool">The CDDL tool</a>
 </h1>
@@ -2251,6 +2230,11 @@ size = (
   "Thumbnail": {"Width": 1111, "Height": 176, "Url": 32("scrog")},
   "IDs": []}}
 </pre>
+<h1 id="rfc.acknowledgements"><a href="#rfc.acknowledgements">Acknowledgements</a></h1>
+<p id="rfc.section.I.p.1">CDDL was originally conceived by Bert Greevenbosch, who also wrote the original five versions of this document.</p>
+<p id="rfc.section.I.p.2">Inspiration was taken from the C and Pascal languages, MPEG&#8217;s conventions for describing structures in the ISO base media file format, Relax-NG and its compact syntax <a href="#RELAXNG" class="xref">[RELAXNG]</a>, and in particular from Andrew Lee Newton&#8217;s <a href="#I-D.newton-json-content-rules" class="xref">&#8220;JSON Content Rules&#8221;</a>.</p>
+<p id="rfc.section.I.p.3">Useful feedback came from members of the IETF CBOR WG, in particular Joe Hildebrand, Sean Leonard and Jim Schaad.  Also, Francesca Palombini and Joe volunteered to chair this WG, providing the framework for generating and processing this feedback.</p>
+<p id="rfc.section.I.p.4">The CDDL tool was written by Carsten Bormann, building on previous work by Troy Heninger and Tom Lord.</p>
 <h1 id="rfc.authors"><a href="#rfc.authors">Authors' Addresses</a></h1>
 <div class="avoidbreak">
   <address class="vcard">
