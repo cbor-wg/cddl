@@ -227,6 +227,8 @@ person = {
 ~~~~
 {:cddl #group-in-map title="Using a group in a map"}
 
+The three entries of the group are written between the curly braces
+that create the map:
 Here, "age", "name", and "employer" are the names that turn into the
 map key text strings, and "int" and "tstr" (text string) are the types
 of the map values under these keys.
@@ -243,7 +245,7 @@ pii = (
 ~~~~
 {:cddl #basic-group title="A basic group"}
 
-This separate group definition allows us to rephrase {{group-in-map}} as:
+This separate, named group definition allows us to rephrase {{group-in-map}} as:
 
 ~~~~ CDDLx
 person = {
@@ -269,7 +271,10 @@ person = {(
 {:cddl}
 
 Groups can be used to factor out common parts of structs, e.g.,
-instead of writing:
+instead of writing copy/paste style specifications such as in
+{{group_redundancy}}, one can factor out the common subgroup, choose a
+name for it, and write only the specific parts into the individual
+maps ({{group_factorization}}).
 
 ~~~~ CDDL
 person = {
@@ -284,9 +289,8 @@ dog = {
   leash-length: float,
 }
 ~~~~
-{:cddl}
+{:cddl #group_redundancy title="Maps with copy/paste"}
 
-one can choose a name for the common subgroup and write:
 
 ~~~~ CDDL
 person = {
@@ -306,7 +310,7 @@ identity = (
 ~~~~
 {:cddl #group_factorization title="Using a group for factorization"}
 
-Note that the contents of the braces in the above definitions
+Note that the lists inside the braces in the above definitions
 constitute (anonymous) groups, while `identity` is a named group.
 
 ### Usage {#composition_usage}
