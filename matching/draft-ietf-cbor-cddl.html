@@ -295,6 +295,7 @@ address {
 <link href="#rfc.section.3.5" rel="Chapter" title="3.5 Maps">
 <link href="#rfc.section.3.5.1" rel="Chapter" title="3.5.1 Structs">
 <link href="#rfc.section.3.5.2" rel="Chapter" title="3.5.2 Tables">
+<link href="#rfc.section.3.5.3" rel="Chapter" title="3.5.3 Cuts in Maps">
 <link href="#rfc.section.3.6" rel="Chapter" title="3.6 Tags">
 <link href="#rfc.section.3.7" rel="Chapter" title="3.7 Unwrapping">
 <link href="#rfc.section.3.8" rel="Chapter" title="3.8 Controls">
@@ -445,6 +446,8 @@ address {
 <ul><li>3.5.1.   <a href="#rfc.section.3.5.1">Structs</a>
 </li>
 <li>3.5.2.   <a href="#rfc.section.3.5.2">Tables</a>
+</li>
+<li>3.5.3.   <a href="#rfc.section.3.5.3">Cuts in Maps</a>
 </li>
 </ul><li>3.6.   <a href="#rfc.section.3.6">Tags</a>
 </li>
@@ -606,7 +609,8 @@ person = {
 }
 </pre>
 <p class="figure">Figure 1: Using a group in a map</p>
-<p id="rfc.section.2.1.p.5">A group by itself (without creating a map around it) can be placed in (round) parentheses, and given a name by using it in a rule:</p>
+<p id="rfc.section.2.1.p.5">Here, &#8220;age&#8221;, &#8220;name&#8221;, and &#8220;employer&#8221; are the names that turn into the map key text strings, and &#8220;int&#8221; and &#8220;tstr&#8221; (text string) are the types of the map values under these keys.</p>
+<p id="rfc.section.2.1.p.6">A group by itself (without creating a map around it) can be placed in (round) parentheses, and given a name by using it in a rule:</p>
 <div id="rfc.figure.2"></div>
 <div id="basic-group"></div>
 <pre>
@@ -617,7 +621,7 @@ pii = (
 )
 </pre>
 <p class="figure">Figure 2: A basic group</p>
-<p id="rfc.section.2.1.p.6">This separate group definition allows us to rephrase <a href="#group-in-map" class="xref">Figure 1</a> as:</p>
+<p id="rfc.section.2.1.p.7">This separate group definition allows us to rephrase <a href="#group-in-map" class="xref">Figure 1</a> as:</p>
 <div id="rfc.figure.3"></div>
 <div id="group-by-name"></div>
 <pre>
@@ -626,8 +630,8 @@ person = {
 }
 </pre>
 <p class="figure">Figure 3: Using a group by name</p>
-<p id="rfc.section.2.1.p.7">Note that the (curly) braces signify the creation of a map; the groups themselves are neutral as to whether they will be used in a map or an array.</p>
-<p id="rfc.section.2.1.p.8">As shown in <a href="#group-in-map" class="xref">Figure 1</a>, the parentheses for groups are optional when there is some other set of brackets present.  Note that they can still be used, leading to the not so realistic, but perfectly valid example:</p>
+<p id="rfc.section.2.1.p.8">Note that the (curly) braces signify the creation of a map; the groups themselves are neutral as to whether they will be used in a map or an array.</p>
+<p id="rfc.section.2.1.p.9">As shown in <a href="#group-in-map" class="xref">Figure 1</a>, the parentheses for groups are optional when there is some other set of brackets present.  Note that they can still be used, leading to the not so realistic, but perfectly valid example:</p>
 <pre>
 person = {(
   age: int,
@@ -635,7 +639,7 @@ person = {(
   employer: tstr,
 )}
 </pre>
-<p id="rfc.section.2.1.p.9">Groups can be used to factor out common parts of structs, e.g., instead of writing:</p>
+<p id="rfc.section.2.1.p.10">Groups can be used to factor out common parts of structs, e.g., instead of writing:</p>
 <pre>
 person = {
   age: int,
@@ -649,7 +653,7 @@ dog = {
   leash-length: float,
 }
 </pre>
-<p id="rfc.section.2.1.p.10">one can choose a name for the common subgroup and write:</p>
+<p id="rfc.section.2.1.p.11">one can choose a name for the common subgroup and write:</p>
 <div id="rfc.figure.4"></div>
 <div id="group_factorization"></div>
 <pre>
@@ -669,7 +673,7 @@ identity = (
 )
 </pre>
 <p class="figure">Figure 4: Using a group for factorization</p>
-<p id="rfc.section.2.1.p.11">Note that the contents of the braces in the above definitions constitute (anonymous) groups, while <samp>identity</samp> is a named group.</p>
+<p id="rfc.section.2.1.p.12">Note that the contents of the braces in the above definitions constitute (anonymous) groups, while <samp>identity</samp> is a named group.</p>
 <h1 id="rfc.section.2.1.1">
 <a href="#rfc.section.2.1.1">2.1.1.</a> <a href="#composition_usage" id="composition_usage">Usage</a>
 </h1>
@@ -929,14 +933,14 @@ located-samples = {
 
 </pre>
 <p id="rfc.section.3.5.1.p.7">where <samp>located-samples</samp> is the datatype to be used when referring to the struct, and <samp>sample-point</samp> and <samp>samples</samp> are the keys to be used.  This is actually a complete example: an identifier that is followed by a colon can be directly used as the text string for a member key (we speak of a &#8220;bareword&#8221; member key), as can a double-quoted string or a number.  (When other types, in particular multi-valued ones, are used as keytypes, they are followed by a double arrow, see below.)</p>
-<p id="rfc.section.3.5.1.p.8">If a text string key does not match the syntax for an identifier (or if the specifier just happens to prefer using double quotes), the text string syntax can also be used in the member key position, followed by a colon.  The above example could therefore have been written with quoted strings in the member key positions.</p>
-<p id="rfc.section.3.5.1.p.9">All the types defined can be used in a keytype position by following them with a double arrow.  A string also is a (single-valued) type, so another form for this example is:</p>
+<p id="rfc.section.3.5.1.p.8">If a text string key does not match the syntax for an identifier (or if the specifier just happens to prefer using double quotes), the text string syntax can also be used in the member key position, followed by a colon.  The above example could therefore have been written with quoted strings in the member key positions.  More generally, all the types defined can be used in a keytype position by following them with a double arrow.  A string also is a (single-valued) type, so another form for this example is:</p>
 <pre>
 located-samples = {
   "sample-point" =&gt; int,
   "samples" =&gt; [+ float],
 }
 </pre>
+<p id="rfc.section.3.5.1.p.9">See <a href="#cuts-in-maps" class="xref">Section 3.5.3</a> below for how the colon shortcut described here also adds some implied semantics.</p>
 <p id="rfc.section.3.5.1.p.10">A better way to demonstrate the double-arrow use may be:</p>
 <pre>
 located-samples = {
@@ -1001,6 +1005,44 @@ y = float
 <pre>
 tostring = {* mynumber =&gt; tstr}
 mynumber = int / float
+</pre>
+<h1 id="rfc.section.3.5.3">
+<a href="#rfc.section.3.5.3">3.5.3.</a> <a href="#cuts-in-maps" id="cuts-in-maps">Cuts in Maps</a>
+</h1>
+<p id="rfc.section.3.5.3.p.1">The extensibility idiom discussed above for structs has one problem:</p>
+<pre>
+extensible-map-example = {
+  ? "optional-key" =&gt; int,
+  * tstr =&gt; any
+}
+</pre>
+<p id="rfc.section.3.5.3.p.2">In this example, there is one optional key &#8220;optional-key&#8221;, which, when present, maps to an integer.  There is also a wild card for any future additions.</p>
+<p id="rfc.section.3.5.3.p.3">Unfortunately, the instance</p>
+<pre>
+{ "optional-key": "nonsense" }
+</pre>
+<p id="rfc.section.3.5.3.p.4">does match this specification:  While the first entry of the group does not match, the second one (the wildcard) does.  This may be very well desirable (e.g., if a future extension extends the type of &#8220;optional-key&#8221;), but in many cases isn&#8217;t.</p>
+<p id="rfc.section.3.5.3.p.5">In anticipation of a more general potential feature called &#8220;cuts&#8221;, CDDL allows the addition of a cut &#8220;^&#8221; to the map entry:</p>
+<pre>
+extensible-map-example = {
+  ? "optional-key" ^ =&gt; int,
+  * tstr =&gt; any
+}
+</pre>
+<p id="rfc.section.3.5.3.p.6">A cut in this position means that once the map key matches the entry carrying the cut, other potential matches for the key that occur in later entries in the group are no longer allowed.  (This rule applies independent of whether the value matches, too.)  So the example above no longer matches the version modified with a cut.</p>
+<p id="rfc.section.3.5.3.p.7">Since the desire for this kind of exclusive matching is so frequent, the &#8220;:&#8221; shortcut is actually defined to include the cut semantics.  So the preceding example (including the cut) can be written more simply as:</p>
+<pre>
+extensible-map-example = {
+  ? "optional-key": int,
+  * tstr =&gt; any
+}
+</pre>
+<p id="rfc.section.3.5.3.p.8">or even shorter:</p>
+<pre>
+extensible-map-example = {
+  ? optional-key: int,
+  * tstr =&gt; any
+}
 </pre>
 <h1 id="rfc.section.3.6">
 <a href="#rfc.section.3.6">3.6.</a> <a href="#tagsec" id="tagsec">Tags</a>
@@ -1597,7 +1639,7 @@ grpent = [occur S] [memberkey S] type optcom
        / [occur S] groupname [genericarg] optcom ; preempted by above
        / [occur S] "(" S group S ")" optcom
 
-memberkey = type1 S "=&gt;"
+memberkey = type1 S ["^" S] "=&gt;"
           / bareword S ":"
           / value S ":"
 
@@ -1754,11 +1796,11 @@ grpent = [occur S] [memberkey S] type optcom
 </pre>
 <p id="rfc.section.C.p.24">from a parenthesized group, again with a possible occurrence indicator.</p>
 <pre>
-memberkey = type1 S "=&gt;"
+memberkey = type1 S ["^" S] "=&gt;"
           / bareword S ":"
           / value S ":"
 </pre>
-<p id="rfc.section.C.p.25">Key types can be given by a type expression, a bareword (which stands for string value created from this bareword), or a value (which stands for a type that just contains this value).  A key value matches its key type if the key value is a member of the key type.</p>
+<p id="rfc.section.C.p.25">Key types can be given by a type expression, a bareword (which stands for string value created from this bareword), or a value (which stands for a type that just contains this value).  A key value matches its key type if the key value is a member of the key type, unless a cut preceding it in the group applies (see <a href="#cuts-in-maps" class="xref">Section 3.5.3</a> how map matching is infuenced by the presence of the cuts denoted by &#8220;^&#8221; or &#8220;:&#8221; in previous entries).</p>
 <pre>
 bareword = id
 </pre>
