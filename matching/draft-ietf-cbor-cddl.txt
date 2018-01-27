@@ -310,9 +310,10 @@ Internet-Draft                    CDDL                      January 2018
 
                      Figure 1: Using a group in a map
 
-   Here, "age", "name", and "employer" are the names that turn into the
-   map key text strings, and "int" and "tstr" (text string) are the
-   types of the map values under these keys.
+   The three entries of the group are written between the curly braces
+   that create the map: Here, "age", "name", and "employer" are the
+   names that turn into the map key text strings, and "int" and "tstr"
+   (text string) are the types of the map values under these keys.
 
    A group by itself (without creating a map around it) can be placed in
    (round) parentheses, and given a name by using it in a rule:
@@ -325,9 +326,8 @@ Internet-Draft                    CDDL                      January 2018
 
                           Figure 2: A basic group
 
-   This separate group definition allows us to rephrase Figure 1 as:
-
-
+   This separate, named group definition allows us to rephrase Figure 1
+   as:
 
 
 
@@ -360,7 +360,10 @@ Internet-Draft                    CDDL                      January 2018
                              )}
 
    Groups can be used to factor out common parts of structs, e.g.,
-   instead of writing:
+   instead of writing copy/paste style specifications such as in
+   Figure 4, one can factor out the common subgroup, choose a name for
+   it, and write only the specific parts into the individual maps
+   (Figure 5).
 
                           person = {
                             age: int,
@@ -374,10 +377,7 @@ Internet-Draft                    CDDL                      January 2018
                             leash-length: float,
                           }
 
-   one can choose a name for the common subgroup and write:
-
-
-
+                      Figure 4: Maps with copy/paste
 
 
 
@@ -409,9 +409,9 @@ Internet-Draft                    CDDL                      January 2018
                             name: tstr,
                           )
 
-                 Figure 4: Using a group for factorization
+                 Figure 5: Using a group for factorization
 
-   Note that the contents of the braces in the above definitions
+   Note that the lists inside the braces in the above definitions
    constitute (anonymous) groups, while "identity" is a named group.
 
 2.1.1.  Usage
@@ -973,7 +973,7 @@ Internet-Draft                    CDDL                      January 2018
                             ? familyName: tstr,
                           )
 
-            Figure 5: Personal Data: Example for extensibility
+            Figure 6: Personal Data: Example for extensibility
 
    The cddl tool (Appendix F) generated as one acceptable instance for
    this specification:
@@ -1192,7 +1192,7 @@ Internet-Draft                    CDDL                      January 2018
                    ip6 = bstr .size 16
                    label = bstr .size (1..63)
 
-                    Figure 6: Control for size in bytes
+                    Figure 7: Control for size in bytes
 
    When applied to an unsigned integer, the ".size" control restricts
    the range of that integer by giving a maximum number of bytes that
@@ -1202,7 +1202,7 @@ Internet-Draft                    CDDL                      January 2018
 
       audio_sample = uint .size 3 ; 24-bit, equivalent to 0..16777215
 
-                Figure 7: Control for integer size in bytes
+                Figure 8: Control for integer size in bytes
 
    Note that, as with value restrictions in CDDL, this control is not a
    representation constraint; a number that fits into fewer bytes can
@@ -1250,7 +1250,7 @@ Internet-Draft                    CDDL                      January 2018
                       rwxbits = uint .bits rwx
                       rwx = &(r: 2, w: 1, x: 0)
 
-                Figure 8: Control for what bits can be set
+                Figure 9: Control for what bits can be set
 
    The CDDL tool generates the following ten example instances for
    "tcpflagbytes":
@@ -1272,7 +1272,7 @@ Internet-Draft                    CDDL                      January 2018
 
      nai = tstr .regexp "[A-Za-z0-9]+@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)+"
 
-                   Figure 9: Control with an XSD regexp
+                   Figure 10: Control with an XSD regexp
 
    The CDDL tool proposes:
 
@@ -1480,8 +1480,8 @@ Internet-Draft                    CDDL                      January 2018
    All definitions (plugs) for socket names must be augmentations, i.e.,
    they must be using "/=" and "//=", respectively.
 
-   To pick up the example illustrated in Figure 5, the socket/plug
-   mechanism could be used as shown in Figure 10:
+   To pick up the example illustrated in Figure 6, the socket/plug
+   mechanism could be used as shown in Figure 11:
 
 
 
@@ -1539,7 +1539,7 @@ Internet-Draft                    CDDL                      January 2018
                        shoesize: uint,
                      )
 
-     Figure 10: Personal Data example: Using socket/plug extensibility
+     Figure 11: Personal Data example: Using socket/plug extensibility
 
 3.10.  Generics
 
@@ -2000,7 +2000,7 @@ Internet-Draft                    CDDL                      January 2018
    PCHAR = %x20-10FFFD
    CRLF = %x0A / %x0D.0A
 
-                           Figure 11: CDDL ABNF
+                           Figure 12: CDDL ABNF
 
 Appendix C.  Matching rules
 
@@ -2345,7 +2345,7 @@ Internet-Draft                    CDDL                      January 2018
                   undefined = #7.23
 
 
-                          Figure 12: CDDL Prelude
+                          Figure 13: CDDL Prelude
 
 
 
@@ -2397,7 +2397,7 @@ E.1.  Use with JSON
                       null = nil
 
 
-             Figure 13: JSON compatible subset of CDDL Prelude
+             Figure 14: JSON compatible subset of CDDL Prelude
 
    (The major types given here do not have a direct meaning in JSON, but
    they can be interpreted as CBOR major types translated through
@@ -2435,7 +2435,7 @@ Internet-Draft                    CDDL                      January 2018
 
    JSON applications that want to stay compatible with I-JSON therefore
    may want to define integer types with more limited ranges, such as in
-   Figure 14.  Note that the types given here are not part of the
+   Figure 15.  Note that the types given here are not part of the
    prelude; they need to be copied into the CDDL specification if
    needed.
 
@@ -2443,7 +2443,7 @@ Internet-Draft                    CDDL                      January 2018
                ij-nint = -9007199254740991..-1
                ij-int = -9007199254740991..9007199254740991
 
-          Figure 14: I-JSON types for CDDL (not part of prelude)
+          Figure 15: I-JSON types for CDDL (not part of prelude)
 
    JSON applications that do not need to stay compatible with I-JSON and
    that actually may need to go beyond the 64-bit unsigned and negative
@@ -2488,13 +2488,13 @@ Appendix F.  The CDDL tool
                    cddl spec.cddl validate instance.cbor
                    cddl spec.cddl validate instance.json
 
-                        Figure 15: CDDL tool usage
+                        Figure 16: CDDL tool usage
 
    Install on a system with a modern Ruby via:
 
                              gem install cddl
 
-                     Figure 16: CDDL tool installation
+                     Figure 17: CDDL tool installation
 
    The accompanying CBOR diagnostic tools (which are automatically
    installed by the above) are described in https://github.com/cabo/
@@ -2879,7 +2879,7 @@ H.1.1.  Examples from JSON Content Rules
                               Country: text
                             }]
 
-                     Figure 17: JCR, Figure 2, in CDDL
+                     Figure 18: JCR, Figure 2, in CDDL
 
    Apart from the lack of a need to quote the member names, text strings
    are called "text" or "tstr" in CDDL ("string" would be ambiguous as
