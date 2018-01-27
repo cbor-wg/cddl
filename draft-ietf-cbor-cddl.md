@@ -62,11 +62,7 @@ informative:
   RFC8152: cose
   I-D.ietf-anima-grasp: grasp
   I-D.ietf-core-senml: senml
-  I.D.bormann-cbor-cddl-freezer:
-    -: freezer
-    author:
-      name: Carsten Bormann
-    title: A freezer for CDDL features
+  I-D.bormann-cbor-cddl-freezer: freezer
 
 --- abstract
 
@@ -1817,22 +1813,6 @@ uses CDDL to define CBOR structures include the following:
 
 This document does not require any IANA registrations.
 
-# Acknowledgements
-
-CDDL was originally conceived by Bert Greevenbosch, who also wrote the
-original five versions of this document.
-
-Inspiration was taken from the C and Pascal languages, MPEG's
-conventions for describing structures in the ISO base media file
-format, Relax-NG and its compact syntax {{RELAXNG}}, and in particular
-from Andrew Lee Newton's ["JSON Content Rules"](#I-D.newton-json-content-rules).
-
-Useful feedback came from Joe Hildebrand, Sean Leonard and
-Jim Schaad.
-
-The CDDL tool was written by Carsten Bormann, building on previous
-work by Troy Heninger and Tom Lord.
-
 --- back
 
 # Standard Prelude {#prelude}
@@ -2381,3 +2361,21 @@ The CDDL tool creates the below example instance for this:
 ~~~~
 {:cddl}
 
+# Acknowledgements
+{:numbered="no"}
+
+CDDL was originally conceived by Bert Greevenbosch, who also wrote the
+original five versions of this document.
+
+Inspiration was taken from the C and Pascal languages, MPEG's
+conventions for describing structures in the ISO base media file
+format, Relax-NG and its compact syntax {{RELAXNG}}, and in particular
+from Andrew Lee Newton's ["JSON Content Rules"](#I-D.newton-json-content-rules).
+
+Useful feedback came from members of the IETF CBOR WG, in particular
+Joe Hildebrand, Sean Leonard and Jim Schaad.  Also, Francesca
+Palombini and Joe volunteered to chair this WG, providing the
+framework for generating and processing this feedback.
+
+The CDDL tool was written by Carsten Bormann, building on previous
+work by Troy Heninger and Tom Lord.
