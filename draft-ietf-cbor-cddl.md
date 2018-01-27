@@ -704,6 +704,16 @@ focal point of many specifications employing CDDL.  While the syntax
 does not strictly distinguish struct and table usage of maps, it
 caters specifically to each of them.
 
+But first, let's reiterate a feature of CBOR that it has inherited
+from JSON: The key/value pairs in CBOR maps have no fixed ordering.
+(One could imagine situations where fixing the ordering may be of use.
+For example, a decoder could look for values related with integer keys
+1, 3 and 7.  If the order were fixed and the decoder encounters the
+key 4 without having encountered key 3, it could conclude that key 3
+is not available without doing more complicated bookkeeping.
+Unfortunately, neither JSON nor CBOR support this, so no attempt was
+made to support this in CDDL either.)
+
 ### Structs
 
 The "struct" usage of maps is similar to the way JSON objects are used
@@ -1517,34 +1527,7 @@ An interesting use would thus be automated analysis of sensor data.
 
 --- back
 
-# Cemetery
-
-The following ideas have been buried in the discussions leading up to
-the present specification:
-
-* <...> as syntax for enumerations. We view values to be just another
-type (a very specific type with just one member), so that an
-enumeration can be denoted as a choice using "/" as the delimiter of
-choices. Because of this, no evidence is present that a separate
-syntax for enumerations is needed.
-
-## Resolved Issues
-
-* The key/value pairs in maps have no fixed ordering.  One could
-imagine situations where fixing the ordering may be of use.  For
-example, a decoder could look for values related with integer keys 1,
-3 and 7.  If the order were fixed and the decoder encounters the key 4
-without having encountered key 3, it could conclude that key 3 is not
-available without doing more complicated bookkeeping.
-Unfortunately, neither JSON nor CBOR support this, so no attempt was
-made to support this in CDDL either.
-
-* CDDL distinguishes the various CBOR number types, but there is
-only one number type in JSON.  There is no effect in specifying a
-precision (float16/float32/float64) when using CDDL for specifying
-JSON data structures.  (The current validator implementation {{tool}} does not
-handle this very well, either.)
-
+# (Not used.)
 
 # ABNF grammar {#abnf}
 
@@ -1907,6 +1890,13 @@ the following JSON numbers are all matching `uint`:
 accustomed to the long tradition in programming languages of using
 decimal points or exponents in a number to indicate a floating point
 literal.)
+
+CDDL distinguishes the various CBOR number types, but there is only
+one number type in JSON.  The effect of specifying a floating point
+precision (float16/float32/float64) is only to restrict the set of
+permissible values to those expressible with
+binary16/binary32/binary64; this is unlikely to be very useful when
+using CDDL for specifying JSON data structures.
 
 Fundamentally, the number system of JSON itself is based on decimal
 numbers and decimal fractions and does not have limits to its
