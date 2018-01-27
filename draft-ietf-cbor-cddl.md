@@ -14,7 +14,7 @@ title: >
 abbrev: CDDL
 area: Applications
 wg: ''
-date: 2018-01-24
+date: 2018-01-27
 author:
 - ins: H. Birkholz
   name: Henk Birkholz
@@ -214,11 +214,21 @@ array elements with entries in the group.
 In a map context, the sequence of entries in a group is not relevant
 (but there is still a need to write down group entries in a sequence).
 
-A group can be placed in (round) parentheses, and given a name by
-using it in a rule:
+A simple example of using a group right in a map definition is:
 
 {:cddl: artwork-align="center"}
 
+~~~~ CDDL
+person = {
+  age: int,
+  name: tstr,
+  employer: tstr,
+}
+~~~~
+{:cddl #group-in-map title="Using a group in a map"}
+
+A group by itself (without creating a map around it) can be placed in
+(round) parentheses, and given a name by using it in a rule:
 
 ~~~~ CDDLx
 pii = (
@@ -229,19 +239,7 @@ pii = (
 ~~~~
 {:cddl #basic-group title="A basic group"}
 
-
-Or a group can just be used in the definition of something else:
-
-~~~~ CDDL
-person = {(
-  age: int,
-  name: tstr,
-  employer: tstr,
-)}
-~~~~
-{:cddl #group-in-map title="Using a group in a map"}
-
-which, given the above rule for pii, is identical to:
+This separate group definition allows us to rephrase {{group-in-map}} as:
 
 ~~~~ CDDLx
 person = {
@@ -253,16 +251,16 @@ person = {
 Note that the (curly) braces signify the creation of a map; the groups
 themselves are neutral as to whether they will be used in a map or an array.
 
-The parentheses for groups are optional when there is some other set
-of brackets present, so it would be slightly more
-natural to express {{group-in-map}} as:
+As shown in {{group-in-map}}, the parentheses for groups are optional
+when there is some other set of brackets present.  Note that they can
+still be used, leading to the not so realistic, but perfectly valid example:
 
 ~~~~ CDDL
-person = {
+person = {(
   age: int,
   name: tstr,
   employer: tstr,
-}
+)}
 ~~~~
 {:cddl}
 
