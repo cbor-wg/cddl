@@ -636,13 +636,13 @@ The following keywords for primitive datatypes are defined:
 :   An unsigned integer or a negative integer.
 
 "float16"
-:   IEEE 754 half-precision float (major type 7, additional information 25).
+:   A number representable as an IEEE 754 half-precision float (major type 7, additional information 25).
 
 "float32"
-:   IEEE 754 single-precision float (major type 7, additional information 26).
+:   A number representable as an IEEE 754 single-precision float (major type 7, additional information 26).
 
 "float64"
-:   IEEE 754 double-precision float (major type 7, additional information 27).
+:   A number representable as an IEEE 754 double-precision float (major type 7, additional information 27).
 
 "float"
 :   One of float16, float32, or float64.
