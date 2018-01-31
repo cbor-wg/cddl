@@ -14,7 +14,7 @@ title: >
 abbrev: CDDL
 area: Applications
 wg: ''
-date: 2017-07-27
+date: 2018-01-27
 author:
 - ins: H. Birkholz
   name: Henk Birkholz
@@ -45,8 +45,9 @@ normative:
   RFC3629: utf8
   RFC5234: abnf
   RFC7049: cbor
-  RFC7159: json
+  RFC8259: json
   RFC7493: i-json
+  W3C.REC-xmlschema-2-20041028: xsd2
 informative:
   RELAXNG:
     title: RELAX-NG Compact Syntax
@@ -61,6 +62,7 @@ informative:
   RFC8152: cose
   I-D.ietf-anima-grasp: grasp
   I-D.ietf-core-senml: senml
+  I-D.bormann-cbor-cddl-freezer: freezer
 
 --- abstract
 
@@ -142,11 +144,6 @@ byte strings;
 CDDL does not focus on specifying their structure.  CDDL of course
 also allows adding a CBOR tag to a data item.
 
-[^_reptype]: We don't have a way yet to qualify the representation of a
-      value, e.g., whether it is float16, float32 or float64.  TO DO:
-      probably borrowing something from diagnostic notation (section 6.1 RFC
-      7049). -- or probably not.
-
 The more important components of a data structure definition language
 are the data types used for composition: arrays and maps in CBOR
 (called arrays and objects in JSON).  While these are only two
@@ -155,30 +152,27 @@ distinguishable styles of composition:
 
 * A _vector_, an array of elements that are mostly of the same
   semantics.  The set of signatures associated with a signed data item
-  is a typical application of a vector. <!-- [^_example1] -->
+  is a typical application of a vector.
 * A _record_, an array the elements of which have different,
   positionally defined semantics, as detailed in the data structure
   definition.  A 2D point, specified as an array of an x coordinate
   (which comes first) and a y coordinate (coming second) is an example
   of a record, as is the pair of exponent (first) and mantissa
-  (second) in a CBOR decimal fraction. <!-- [^_example1] -->
+  (second) in a CBOR decimal fraction.
 * A _table_, a map from a domain of map keys to a domain of map
   values, that are mostly of the same semantics.  A set of language
   tags, each mapped to a text string translated to that specific language,
   is an example of a table.  The key domain is usually not limited to
   a specific set by the specification, but open for the
   application, e.g., in a table mapping IP addresses to MAC addresses,
-  the specification does not attempt to foresee all possible IP addresses. <!-- [^_example1] -->
+  the specification does not attempt to foresee all possible IP addresses.
 * A _struct_, a map from a domain of map keys as defined by the
   specification to a domain of map values the semantics of each of
   which is bound to a specific map key.  This is what many people have
   in mind when they think about JSON objects; CBOR adds the ability to
   use map keys that are not just text strings.  Structs can be used to
   solve similar problems as records; the use of explicit map keys
-  facilitates optionality and extensibility. <!-- [^_example1] -->
-
-[^_example1]: If there are suitable examples later on, maybe link them
-    here already? Maybe not.
+  facilitates optionality and extensibility.
 
 Two important concepts provide the foundation for CDDL:
 
@@ -198,6 +192,10 @@ e.g. `1`.  A type can be built as a _choice_ of other types, e.g., an
 `int` is either a `uint` or a `nint` (negative integer).
 Finally, a type can be built as an array or a map from a group.
 
+The rest of this section introduces a number of basic concepts of
+CDDL, and section {{syntax}} defines additional syntax.
+{{matching}} gives a concise summary of the semantics of CDDL.
+
 ## Groups and Composition in CDDL {#group}
 
 CDDL Groups are lists of name/value pairs (group _entries_).
@@ -212,11 +210,27 @@ array elements with entries in the group.
 In a map context, the sequence of entries in a group is not relevant
 (but there is still a need to write down group entries in a sequence).
 
-A group can be placed in (round) parentheses, and given a name by
-using it in a rule:
+A simple example of using a group right in a map definition is:
 
 {:cddl: artwork-align="center"}
 
+~~~~ CDDL
+person = {
+  age: int,
+  name: tstr,
+  employer: tstr,
+}
+~~~~
+{:cddl #group-in-map title="Using a group in a map"}
+
+The three entries of the group are written between the curly braces
+that create the map:
+Here, "age", "name", and "employer" are the names that turn into the
+map key text strings, and "int" and "tstr" (text string) are the types
+of the map values under these keys.
+
+A group by itself (without creating a map around it) can be placed in
+(round) parentheses, and given a name by using it in a rule:
 
 ~~~~ CDDLx
 pii = (
@@ -227,19 +241,7 @@ pii = (
 ~~~~
 {:cddl #basic-group title="A basic group"}
 
-
-Or a group can just be used in the definition of something else:
-
-~~~~ CDDL
-person = {(
-  age: int,
-  name: tstr,
-  employer: tstr,
-)}
-~~~~
-{:cddl #group-in-map title="Using a group in a map"}
-
-which, given the above rule for pii, is identical to:
+This separate, named group definition allows us to rephrase {{group-in-map}} as:
 
 ~~~~ CDDLx
 person = {
@@ -251,21 +253,24 @@ person = {
 Note that the (curly) braces signify the creation of a map; the groups
 themselves are neutral as to whether they will be used in a map or an array.
 
-The parentheses for groups are optional when there is some other set
-of brackets present, so it would be slightly more
-natural to express {{group-in-map}} as:
+As shown in {{group-in-map}}, the parentheses for groups are optional
+when there is some other set of brackets present.  Note that they can
+still be used, leading to the not so realistic, but perfectly valid example:
 
 ~~~~ CDDL
-person = {
+person = {(
   age: int,
   name: tstr,
   employer: tstr,
-}
+)}
 ~~~~
 {:cddl}
 
 Groups can be used to factor out common parts of structs, e.g.,
-instead of writing:
+instead of writing copy/paste style specifications such as in
+{{group_redundancy}}, one can factor out the common subgroup, choose a
+name for it, and write only the specific parts into the individual
+maps ({{group_factorization}}).
 
 ~~~~ CDDL
 person = {
@@ -280,9 +285,8 @@ dog = {
   leash-length: float,
 }
 ~~~~
-{:cddl}
+{:cddl #group_redundancy title="Maps with copy/paste"}
 
-one can choose a name for the common subgroup and write:
 
 ~~~~ CDDL
 person = {
@@ -302,7 +306,7 @@ identity = (
 ~~~~
 {:cddl #group_factorization title="Using a group for factorization"}
 
-Note that the contents of the braces in the above definitions
+Note that the lists inside the braces in the above definitions
 constitute (anonymous) groups, while `identity` is a named group.
 
 ### Usage {#composition_usage}
@@ -317,14 +321,6 @@ With this, one is allowed to define all small parts of their data structures
 and compose bigger protocol units with those or to have only one big
 protocol data unit that has all definitions ad hoc where needed.
 
-<!-- Duuh, we need a better way to point to RELAXNG.
-If it is obvious that a group is defined ad hoc, the round brackets can be
-omitted, allowing for an even more concise notation and a certain familiarity
-with the syntax of other notational languages such as JSON or {{RELAXNG}}. [^_EXAMPLE2]
-
-[^_EXAMPLE2]: This could certainly benefit from an example?
- -->
-
 ### Syntax {#composition_syntax}
 
 The composition syntax intends to be concise and easy to read:
@@ -335,7 +331,8 @@ The composition syntax intends to be concise and easy to read:
 *keytype => valuetype,* (read "keytype maps to valuetype").
 The comma is actually optional (not just in the final entry), but it is
 considered good style to set it.  The double arrow can be replaced by a colon
-in the common case of directly using a text string as a key (see {{structs}}).
+in the common case of directly using a text string or integer literal as a
+key (see {{structs}}).
 
 An entry consists of a *keytype* and a *valuetype*:
 
@@ -541,7 +538,7 @@ The basic syntax is inspired by ABNF {{RFC5234}}, with
     by '0b'. <!-- ABNF borken here -->
 
 *   Text strings are enclosed by double quotation '"' characters.
-They follow the conventions for strings as defined in section 7 of {{RFC7159}}.
+They follow the conventions for strings as defined in section 7 of {{-json}}.
 (ABNF users may want to note that there is no support in CDDL for the
 concept of case insensitivity in text strings; if necessary, regular
 expressions can be used ({{regexp}}).)
@@ -703,6 +700,16 @@ focal point of many specifications employing CDDL.  While the syntax
 does not strictly distinguish struct and table usage of maps, it
 caters specifically to each of them.
 
+But first, let's reiterate a feature of CBOR that it has inherited
+from JSON: The key/value pairs in CBOR maps have no fixed ordering.
+(One could imagine situations where fixing the ordering may be of use.
+For example, a decoder could look for values related with integer keys
+1, 3 and 7.  If the order were fixed and the decoder encounters the
+key 4 without having encountered key 3, it could conclude that key 3
+is not available without doing more complicated bookkeeping.
+Unfortunately, neither JSON nor CBOR support this, so no attempt was
+made to support this in CDDL either.)
+
 ### Structs
 
 The "struct" usage of maps is similar to the way JSON objects are used
@@ -760,8 +767,7 @@ if the specifier just happens to prefer using double quotes), the text
 string syntax can also be used in the member key position, followed by
 a colon.  The above example could therefore have been written with
 quoted strings in the member key positions.
-
-All the types defined can be used in a keytype position by following them with a
+More generally, all the types defined can be used in a keytype position by following them with a
 double arrow.  A string also is a (single-valued) type, so another
 form for this example is:
 
@@ -772,6 +778,9 @@ located-samples = {
 }
 ~~~~
 {:cddl}
+
+See {{cuts-in-maps}} below for how the colon shortcut described here
+also adds some implied semantics.
 
 A better way to demonstrate the double-arrow use may be:
 
@@ -868,6 +877,73 @@ mynumber = int / float
 ~~~~
 {:cddl}
 
+### Cuts in Maps
+
+The extensibility idiom discussed above for structs has one problem:
+
+~~~~ CDDL
+extensible-map-example = {
+  ? "optional-key" => int,
+  * tstr => any
+}
+~~~~
+{:cddl}
+
+In this example, there is one optional key "optional-key", which, when
+present, maps to an integer.  There is also a wild card for any future
+additions.
+
+Unfortunately, the instance
+
+~~~~ CBORdiag
+{ "optional-key": "nonsense" }
+~~~~
+{:cddl}
+
+does match this specification:  While the first entry of the group
+does not match, the second one (the wildcard) does.  This may be very
+well desirable (e.g., if a future extension is to be allowed to extend
+the type of "optional-key"), but in many cases isn't.
+
+In anticipation of a more general potential feature called "cuts",
+CDDL allows inserting a cut "^" into the definition of the map entry:
+
+~~~~ CDDL
+extensible-map-example = {
+  ? "optional-key" ^ => int,
+  * tstr => any
+}
+~~~~
+{:cddl}
+
+A cut in this position means that once the map key matches the entry
+carrying the cut, other potential matches for the key that occur in
+later entries in the group of the map are no longer allowed.  (This
+rule applies independent of whether the value matches, too.)  So the
+example above no longer matches the version modified with a cut.
+
+Since the desire for this kind of exclusive matching is so frequent,
+the ":" shortcut is actually defined to include the cut semantics.  So
+the preceding example (including the cut) can be written more simply
+as:
+
+~~~~ CDDL
+extensible-map-example = {
+  ? "optional-key": int,
+  * tstr => any
+}
+~~~~
+{:cddl}
+
+or even shorter, using a bareword for the key:
+
+~~~~ CDDL
+extensible-map-example = {
+  ? optional-key: int,
+  * tstr => any
+}
+~~~~
+{:cddl}
 
 ## Tags {#tagsec}
 
@@ -1052,15 +1128,15 @@ as well.
 
 ### Control operator .regexp {#regexp}
 
-A `.regexp` control indicates that the text string given as a
-target needs to match the PCRE regular expression given as a value in the
-control type, where that regular expression is anchored on both sides.
-(If anchoring is not desired for a side, `.*` needs to be inserted there.)
+A `.regexp` control indicates that the text string given as a target
+needs to match the XSD regular expression given as a value in the
+control type.
+XSD regular expressions are defined in Appendix F of {{-xsd2}}.
 
 ~~~~ CDDL
-nai = tstr .regexp "\\w+@\\w+(\\.\\w+)+"
+nai = tstr .regexp "[A-Za-z0-9]+@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)+"
 ~~~~
-{:cddl #control-regexp title="Control with a PCRE regexp"}
+{:cddl #control-regexp title="Control with an XSD regexp"}
 
 The CDDL tool proposes:
 
@@ -1069,6 +1145,57 @@ The CDDL tool proposes:
 ~~~~
 {:cddl}
 
+#### Usage considerations
+
+Note that XSD regular expressions do not support the usual \x or \u
+escapes for hexadecimal expression of bytes or unicode code points.
+However, in CDDL the XSD regular expressions are contained in text
+strings, the literal notation for which provides \u escapes; this should
+suffice for most applications that use regular expressions for text
+strings.
+(Note that this also means that there is one level of string escaping
+before the XSD escaping rules are applied.)
+
+XSD regular expressions support character class subtraction, a feature
+often not found in regular expression libraries; specification writers
+may want to use this feature sparingly.
+Similar considerations apply to Unicode character classes; where these
+are used, the specification SHOULD identify which Unicode versions are
+addressed.
+
+Other surprises for infrequent users of XSD regular expressions may
+include:
+
+* No direct support for case insensitivity.  While case insensitivity
+  has gone mostly out of fashion in protocol design, it is sometimes
+  needed and then needs to be expressed manually as in
+  `[Cc][Aa][Ss][Ee]`.
+
+* The support for popular character classes such as \w and \d is based
+  on Unicode character properties, which is often not what is desired
+  in an ASCII-based protocol and thus might lead to surprises.  (\s
+  and \S do have their more conventional meanings, and `.` matches any
+  character but the line ending characters \r or \n.)
+
+#### Discussion
+
+There are many flavors of regular expression in use in the programming
+community.
+For instance, perl-compatible regular expressions (PCRE) are widely
+used and probably are more useful than XSD regular expressions.
+However, there is no normative reference for PCRE that could be used
+in the present document.
+Instead, we opt for XSD regular expressions for now.
+There is precedent for that choice in the IETF, e.g., in YANG {{?RFC7950}}.
+
+Note that CDDL uses controls as its main extension point.
+This creates the opportunity to add further regular expression formats
+in addition to the one referenced here if desired.
+As an example, a control ".pcre" is defined in {{-freezer}}.
+
+<!-- The character escape sequences \d, \D, \h, \H, \p, \P, \s, \S, \v, \V, -->
+<!-- \w, and \W may appear in a character class, and add the characters -->
+<!-- that they match to the class. -->
 
 ### Control operators .cbor and .cborseq
 
@@ -1396,156 +1523,274 @@ An interesting use would thus be automated analysis of sensor data.
 
 --- back
 
-# Cemetery
-
-The following ideas have been buried in the discussions leading up to
-the present specification:
-
-* <...> as syntax for enumerations. We view values to be just another
-type (a very specific type with just one member), so that an
-enumeration can be denoted as a choice using "/" as the delimiter of
-choices. Because of this, no evidence is present that a separate
-syntax for enumerations is needed.
-
-## Resolved Issues
-
-* The key/value pairs in maps have no fixed ordering.  One could
-imagine situations where fixing the ordering may be of use.  For
-example, a decoder could look for values related with integer keys 1,
-3 and 7.  If the order were fixed and the decoder encounters the key 4
-without having encountered key 3, it could conclude that key 3 is not
-available without doing more complicated bookkeeping.
-Unfortunately, neither JSON nor CBOR support this, so no attempt was
-made to support this in CDDL either.
-
-* CDDL distinguishes the various CBOR number types, but there is
-only one number type in JSON.  There is no effect in specifying a
-precision (float16/float32/float64) when using CDDL for specifying
-JSON data structures.  (The current validator implementation {{tool}} does not
-handle this very well, either.)
-
 # (Not used.)
 
-# Change Log
+# ABNF grammar {#abnf}
 
-Changes from version 00 to version 01:
-
-* Removed constants
-
-* Updated the tag mechanism
-
-* Extended the map structure
-
-* Added examples
+The following is a formal definition of the CDDL syntax in Augmented Backus-Naur Form
+(ABNF, {{RFC5234}}).[^_abnftodo]
 
 
-Changes from version 01 to version 02:
+~~~~ ABNF
+{::include cddl.abnf}
+~~~~
+{:cddl #fig-abnf title="CDDL ABNF"}
 
-* Fixed example
+[^_abnftodo]: Potential improvements: the prefixed byte strings are
+        more liberally specified than they actually are.
 
+# Matching rules {#matching}
 
-Changes from version 02 to version 03:
+In this appendix, we go through the ABNF syntax rules defined in
+{{abnf}} and briefly describe the matching semantics of each syntactic
+feature.  In this context, an instance (data item) "matches" a CDDL specification
+if it is allowed by the CDDL specification; this is then broken down
+to parts of specifications (type and group expressions) and parts of
+instances (data items).
 
-* Added information about characters used in names
+~~~ abnf
+cddl = S 1*rule
+~~~
 
-* Added text about an overall data structure and order of definition of fields
+A CDDL specification is a sequence of one or more rules.  Each rule
+gives a name to a right hand side expression, either a CDDL type or a
+CDDL group.  Rule names can be used in the rule itself and/or other
+rules (and tools can output warnings if that is not the case).  The
+order of the rules is significant only in two cases, including the
+following: The first rule defines the semantics of the entire
+specification; hence, its name may be descriptive only (or may be used
+in itself or other rules as with the other rule names).
 
-* Added text about encoding of keys
+~~~ abnf
+rule = typename [genericparm] S assign S type S
+     / groupname [genericparm] S assign S grpent S
 
-* Added table with keywords
+typename = id
+groupname = id
+~~~
 
-* Strings and integer writing conventions
+A rule defines a name for a type expression (production `type`) or for
+a group expression (production `grpent`), with the intention that the
+semantics does not change when the name is replaced by its
+(parenthesized if needed) definition.
 
-* Added ABNF
+~~~ abnf
+assign = "=" / "/=" / "//="
+~~~
 
+A plain equals sign defines the rule name as the equivalent of the
+expression to the right.  A `/=` or `//=` extends a named type or a
+group by additional choices; a number of these could be replaced by
+collecting all the right hand sides and creating a single rule with a
+type choice or a group choice built from the right hand sides in the
+order of the rules given.  (It is
+not an error to extend a rule name that has not yet been defined; this
+makes the right hand side the first entry in the choice being
+created.)  The creation of the type choices and group choices from the
+right hand sides of rules is the other case where rule order can be significant.
 
-Changes from version 03 to version 04:
+~~~ abnf
+genericparm = "<" S id S *("," S id S ) ">"
+genericarg = "<" S type1 S *("," S type1 S ) ">"
+~~~
 
-* Removed optional fields for non-maps
+Rule names can have generic parameters, which cause temporary
+assignments within the right hand sides to the parameter names from
+the arguments given when citing the rule name.
 
-* Defined all key/value pairs in maps are considered optional from the CDDL
-perspective
+~~~ abnf
+type = type1 S *("/" S type1 S)
+~~~
 
-* Allow omission of type of keys for maps with only text string and integer
-keys
+A type can be given as a choice between one or more types.  The choice
+matches an instance if the instance matches any one of the types given
+in the choice.  The choice uses Parse Expression Grammar (PEG) semantics:
+The first choice that matches wins.  (As a result, the order of rules
+that contribute to a single rule name can very well matter.)
 
-* Changed order of definitions
+~~~ abnf
+type1 = type2 [S (rangeop / ctlop) S type2]
+~~~
 
-* Updated fruit and moves examples
+Two types can be combined with a range operator (which see below) or a
+control operator (see {{controls}}).
 
-* Renamed the "Philosophy" section to "Using CDDL", and added more text about
-CDDL usage
+~~~ abnf
+type2 = value
+~~~
 
-* Several editorials
+A type can be just a single value (such as 1 or "icecream" or
+h'0815'), which matches only an instance with that specific value (no
+conversions defined),
 
+~~~ abnf
+      / typename [genericarg]
+~~~
 
-Changes from version 04 to version 05:
+or be defined by a rule giving a meaning to a name (possibly after
+supplying generic args as required by the generic parameters),
 
-* Added text about alternative datatypes and any datatype
+~~~ abnf
+      / "(" type ")"
+~~~
 
-* Fixed typos
+or be defined in a parenthesized type expression (parentheses may be
+necessary to override some operator precendence), or
 
-* Restructured syntax and semantics
+~~~ abnf
+      / "~" S groupname [genericarg]
+~~~
 
+an "unwrapped" group (see {{unwrapping}}), which matches the group
+inside a type defined as a map or an array by wrapping the group, or
 
-Changes from version 05 to version 05:
+~~~ abnf
+      / "#" "6" ["." uint] "(" S type S ")" ; note no space!
+~~~
 
-* Fixed the ABNF for choices (no longer need to write a: (b/c))
+a tagged data item, tagged with the `uint` given and containing the
+type given as the tagged value, or
 
-* Added group choices (//)
+~~~ abnf
+      / "#" DIGIT ["." uint]                ; major/ai
+~~~
 
-* Added /= and //=
+an instance of a major type (given by the DIGIT), optionally
+constrained to the additional information given by the uint, or
 
-* Added experimental socket/plug
+~~~ abnf
+      / "#"                                 ; any
+~~~
 
-* Added aliases text, bytes, null to prelude
+any data item, or
 
-* Documented generics
+~~~ abnf
+      / "{" S group S "}"
+~~~
 
-* Fixed more typos
+a map expression, which matches a valid CBOR map the key/value pairs
+of which can be ordered in such a way that the resulting sequence
+matches the group expression, or
 
-Changes from 06 to 07:
+~~~ abnf
+      / "[" S group S "]"
+~~~
 
-* .cbor, .cborseq, .within, .and
+an array expression, which matches a CBOR array the elements of which,
+when taken as values and complemented by a wildcard (matches anything)
+key each, match the group, or
 
-* Define .size on uint
+~~~ abnf
+      / "&" S "(" S group S ")"
+      / "&" S groupname [genericarg]
+~~~
 
-* Extended Diagnostic Notation
+an enumeration expression, which matches any a value that is within
+the set of values that the values of the group given can take.
 
-* Precedence discussion and table
+~~~ abnf
+rangeop = "..." / ".."
+~~~
 
-* Remove some of the "issues" that can only be understood with
-  historical context
+A range operator can be used to join two type expressions that stand
+for either two integer values or two floating point values; it matches
+any value that is between the two values, where the first value is
+always included in the matching set and the second value is included
+for `..` and excluded for `...`.
 
-* Prefer `text` over `tstr` in some of the examples
+~~~ abnf
+ctlop = "." id
+~~~
 
-* Add `unsigned` to the prelude
+A control operator ties a _target_ type to a _controller_ type as
+defined in {{controls}}.  Note that control operators are an extension
+point for CDDL; additional documents may want to define additional
+control operators.
 
-Changes from 07 to 08:
+~~~ abnf
+group = grpchoice S *("//" S grpchoice S)
+~~~
 
-* .lt, .le, .eq, .ne, .gt, .ge
-* .default
+A group matches any sequence of key/value pairs that matches any of
+the choices given (again using Parse Expression Grammar semantics).
 
-Changes from 08 to 09:
+~~~ abnf
+grpchoice = *grpent
+~~~
 
-* Take annotations and socket/plug out of the nursery; they have been
-  battle-proven enough.
-* Define a value notation for byte strings as well.
-* Removed discussion section that was no longer relevant; move
-  "Resolved Issues" to appendix.
+Each of the component groups is given as a sequence of group entries.
+For a match, the sequence of key/value pairs given needs to match the sequence of
+group entries in the sequence given.
 
-Changes from 09 to 10:
+~~~ abnf
+grpent = [occur S] [memberkey S] type optcom
+~~~
 
-* Remove a long but not very elucidating example.  (Maybe we'll add
-  back some shorter examples later.)
-* A few clarifications.
-* Updated author list.
+A group entry can be given by a value type, which needs to be matched by
+the value part of a single element, and optionally a memberkey type, which
+needs to be matched by the key pard of the element, if the memberkey
+is given.
+If the memberkey is not given, the entry can only be used for matching
+arrays, not for maps.
+(See below how that is modified by the occurrence indicator.)
 
-Changes from 10 to 11:
+~~~ abnf
+       / [occur S] groupname [genericarg] optcom ; preempted by above
+~~~
 
-* Define unwrapping operator ~
-* Change term for annotation into "control" (but leave "annotate" for
-  when it actually is meant in that sense)
+A group entry can be built from a named group, or
+
+~~~ abnf
+       / [occur S] "(" S group S ")" optcom
+~~~
+
+from a parenthesized group, again with a possible occurrence indicator.
+
+~~~ abnf
+memberkey = type1 S ["^" S] "=>"
+          / bareword S ":"
+          / value S ":"
+~~~
+
+Key types can be given by a type expression, a bareword (which stands
+for string value created from this bareword), or a value (which stands
+for a type that just contains this value).  A key value matches its
+key type if the key value is a member of the key type, unless a cut
+preceding it in the group applies (see {{cuts-in-maps}} how map
+matching is infuenced by the presence of the cuts denoted by "^" or
+":" in previous entries).
+
+~~~ abnf
+bareword = id
+~~~
+
+A bareword is an alternative way to write a type with a single text
+string value; it can only be used in the syntactic context given above.
+
+~~~ abnf
+optcom = S ["," S]
+~~~
+
+(Optional commas do not influence the matching.)
+
+~~~ abnf
+occur = [uint] "*" [uint]
+      / "+"
+      / "?"
+~~~
+
+An occurrence indicator modifies the group given to its right by
+requiring the group to match the sequence to be matched exactly for a
+certain number of times (see {{occurrence}}) in sequence, i.e. it acts
+as a (possibly infinite) group choice that contains choices with the
+group repeated each of the occurrences times.
+
+The rest of the ABNF describes syntax for value notation that should
+be familiar from programming languages, with the possible exception of
+h'..' and b64'..' for byte strings, as well as syntactic elements such
+as comments and line ends.
+
+# (Not used.)
 
 --- middle
 
@@ -1568,40 +1813,7 @@ uses CDDL to define CBOR structures include the following:
 
 This document does not require any IANA registrations.
 
-# Acknowledgements
-
-CDDL was originally conceived by Bert Greevenbosch, who also wrote the
-original five versions of this document.
-
-Inspiration was taken from the C and Pascal languages, MPEG's
-conventions for describing structures in the ISO base media file
-format, Relax-NG and its compact syntax {{RELAXNG}}, and in particular
-from Andrew Lee Newton's ["JSON Content Rules"](#I-D.newton-json-content-rules).
-
-Useful feedback came from Joe Hildebrand, Sean Leonard and
-Jim Schaad.
-
-The CDDL tool was written by Carsten Bormann, building on previous
-work by Troy Heninger and Tom Lord.
-
 --- back
-
-# ABNF grammar {#abnf}
-
-The following is a formal definition of the CDDL syntax in Augmented Backus-Naur Form
-(ABNF, {{RFC5234}}).[^_abnftodo]
-
-
-~~~~ ABNF
-{::include cddl.abnf}
-~~~~
-{:cddl #fig-abnf title="CDDL ABNF"}
-
-[^_abnftodo]: Potential improvements: the prefixed byte strings are
-        more liberally specified than they actually are.
-[^_abnfdontdo]:
-        representation indicators are not supported. -- and this will
-        stay so.
 
 # Standard Prelude {#prelude}
 
@@ -1658,6 +1870,13 @@ the following JSON numbers are all matching `uint`:
 accustomed to the long tradition in programming languages of using
 decimal points or exponents in a number to indicate a floating point
 literal.)
+
+CDDL distinguishes the various CBOR number types, but there is only
+one number type in JSON.  The effect of specifying a floating point
+precision (float16/float32/float64) is only to restrict the set of
+permissible values to those expressible with
+binary16/binary32/binary64; this is unlikely to be very useful when
+using CDDL for specifying JSON data structures.
 
 Fundamentally, the number system of JSON itself is based on decimal
 numbers and decimal fractions and does not have limits to its
@@ -2142,3 +2361,21 @@ The CDDL tool creates the below example instance for this:
 ~~~~
 {:cddl}
 
+# Acknowledgements
+{:numbered="no"}
+
+CDDL was originally conceived by Bert Greevenbosch, who also wrote the
+original five versions of this document.
+
+Inspiration was taken from the C and Pascal languages, MPEG's
+conventions for describing structures in the ISO base media file
+format, Relax-NG and its compact syntax {{RELAXNG}}, and in particular
+from Andrew Lee Newton's ["JSON Content Rules"](#I-D.newton-json-content-rules).
+
+Useful feedback came from members of the IETF CBOR WG, in particular
+Joe Hildebrand, Sean Leonard and Jim Schaad.  Also, Francesca
+Palombini and Joe volunteered to chair this WG, providing the
+framework for generating and processing this feedback.
+
+The CDDL tool was written by Carsten Bormann, building on previous
+work by Troy Heninger and Tom Lord.
