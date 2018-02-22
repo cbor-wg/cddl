@@ -1805,8 +1805,10 @@ Internet-Draft                    CDDL                      January 2018
               Describing JSON Content", draft-newton-json-content-
               rules-09 (work in progress), September 2017.
 
-   [RELAXNG]  OASIS, "RELAX-NG Compact Syntax", November 2002,
-              <http://relaxng.org/compact-20021121.html>.
+   [RELAXNG]  ISO/IEC, "Information technology -- Document Schema
+              Definition Language (DSDL) -- Part 2: Regular-grammar-
+              based validation -- RELAX NG", ISO/IEC 19757-2, December
+              2008.
 
    [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
               Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006,
@@ -1840,8 +1842,6 @@ Appendix B.  ABNF grammar
    The following is a formal definition of the CDDL syntax in Augmented
    Backus-Naur Form (ABNF, [RFC5234]).  [_abnftodo]
 
-   cddl = S 1*rule
-   rule = typename [genericparm] S assign S type S
 
 
 
@@ -1850,6 +1850,8 @@ Birkholz, et al.          Expires July 31, 2018                [Page 33]
 Internet-Draft                    CDDL                      January 2018
 
 
+   cddl = S 1*rule
+   rule = typename [genericparm] S assign S type S
         / groupname [genericparm] S assign S grpent S
 
    typename = id
@@ -1896,8 +1898,6 @@ Internet-Draft                    CDDL                      January 2018
 
    optcom = S ["," S]
 
-   occur = [uint] "*" [uint]
-         / "+"
 
 
 
@@ -1906,6 +1906,8 @@ Birkholz, et al.          Expires July 31, 2018                [Page 34]
 Internet-Draft                    CDDL                      January 2018
 
 
+   occur = [uint] "*" [uint]
+         / "+"
          / "?"
 
    uint = ["0x" / "0b"] "0"
@@ -1950,8 +1952,6 @@ Internet-Draft                    CDDL                      January 2018
    CRLF = %x0A / %x0D.0A
 
                            Figure 12: CDDL ABNF
-
-
 
 
 
@@ -2134,7 +2134,7 @@ Internet-Draft                    CDDL                      January 2018
 
    A group entry can be given by a value type, which needs to be matched
    by the value part of a single element, and optionally a memberkey
-   type, which needs to be matched by the key pard of the element, if
+   type, which needs to be matched by the key part of the element, if
    the memberkey is given.  If the memberkey is not given, the entry can
    only be used for matching arrays, not for maps.  (See below how that
    is modified by the occurrence indicator.)

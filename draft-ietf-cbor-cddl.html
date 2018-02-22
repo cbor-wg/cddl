@@ -338,12 +338,12 @@ address {
 <link href="#rfc.authors" rel="Chapter">
 
 
-  <meta name="generator" content="xml2rfc version 2.8.5 - https://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.9.6 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Birkholz, H., Vigano, C., and C. Bormann" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-cbor-cddl-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2018-1-27" />
+  <meta name="dct.issued" scheme="ISO8601" content="2018-01-27" />
   <meta name="dct.abstract" content="This document proposes a notational convention to express CBOR data structures (RFC 7049).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR." />
   <meta name="description" content="This document proposes a notational convention to express CBOR data structures (RFC 7049).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR." />
 
@@ -1541,7 +1541,7 @@ a = 1 b = 2 c = 3
 <tr>
 <td class="reference"><b id="RELAXNG">[RELAXNG]</b></td>
 <td class="top">
-<a>OASIS</a>, "<a href="http://relaxng.org/compact-20021121.html">RELAX-NG Compact Syntax</a>", November 2002.</td>
+<a>ISO/IEC</a>, "<a>Information technology &#8212; Document Schema Definition Language (DSDL) &#8212; Part 2: Regular-grammar-based validation &#8212; RELAX NG</a>", ISO/IEC 19757-2, December 2008.</td>
 </tr>
 <tr>
 <td class="reference"><b id="RFC4648">[RFC4648]</b></td>
@@ -1766,7 +1766,7 @@ grpchoice = *grpent
 <pre>
 grpent = [occur S] [memberkey S] type optcom
 </pre>
-<p id="rfc.section.C.p.22">A group entry can be given by a value type, which needs to be matched by the value part of a single element, and optionally a memberkey type, which needs to be matched by the key pard of the element, if the memberkey is given.  If the memberkey is not given, the entry can only be used for matching arrays, not for maps.  (See below how that is modified by the occurrence indicator.)</p>
+<p id="rfc.section.C.p.22">A group entry can be given by a value type, which needs to be matched by the value part of a single element, and optionally a memberkey type, which needs to be matched by the key part of the element, if the memberkey is given.  If the memberkey is not given, the entry can only be used for matching arrays, not for maps.  (See below how that is modified by the occurrence indicator.)</p>
 <pre>
        / [occur S] groupname [genericarg] optcom ; preempted by above
 </pre>
