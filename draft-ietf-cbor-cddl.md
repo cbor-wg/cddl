@@ -50,11 +50,16 @@ normative:
   W3C.REC-xmlschema-2-20041028: xsd2
 informative:
   RELAXNG:
-    title: RELAX-NG Compact Syntax
-    target: http://relaxng.org/compact-20021121.html
+    title: >
+      Information technology — Document Schema Definition Language (DSDL) —
+      Part 2:
+      Regular-grammar-based validation — RELAX NG
     author:
-      organization: OASIS
-    date: 2002-11-21
+    - org: ISO/IEC
+    date: 2008-12-15
+    seriesinfo:
+      ISO/IEC: 19757-2
+#      Annex C:: RELAX NG Compact syntax
 # The specs used in the examples appendix:
   RFC7071:
   RFC8007:
@@ -1728,7 +1733,7 @@ grpent = [occur S] [memberkey S] type optcom
 
 A group entry can be given by a value type, which needs to be matched by
 the value part of a single element, and optionally a memberkey type, which
-needs to be matched by the key pard of the element, if the memberkey
+needs to be matched by the key part of the element, if the memberkey
 is given.
 If the memberkey is not given, the entry can only be used for matching
 arrays, not for maps.
