@@ -343,7 +343,7 @@ address {
 
   <meta name="dct.creator" content="Birkholz, H., Vigano, C., and C. Bormann" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-cbor-cddl-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2018-01-27" />
+  <meta name="dct.issued" scheme="ISO8601" content="2018-02-26" />
   <meta name="dct.abstract" content="This document proposes a notational convention to express CBOR data structures (RFC 7049).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR." />
   <meta name="description" content="This document proposes a notational convention to express CBOR data structures (RFC 7049).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR." />
 
@@ -367,7 +367,7 @@ address {
 <td class="right">C. Vigano</td>
 </tr>
 <tr>
-<td class="left">Expires: July 31, 2018</td>
+<td class="left">Expires: August 30, 2018</td>
 <td class="right">Universit&#228;t Bremen</td>
 </tr>
 <tr>
@@ -380,7 +380,7 @@ address {
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">January 27, 2018</td>
+<td class="right">February 26, 2018</td>
 </tr>
 
     	
@@ -396,7 +396,7 @@ address {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on July 31, 2018.</p>
+<p>This Internet-Draft will expire on August 30, 2018.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2018 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -558,7 +558,7 @@ address {
 </dl>
 <p id="rfc.section.1.p.5">Not an explicit goal per se, but a convenient side effect of the JSON generic data model being a subset of the CBOR generic data model, is the fact that CDDL can also be used for describing JSON data structures (see <a href="#sec-json" class="xref">Appendix E.1</a>).</p>
 <p id="rfc.section.1.p.6">This document has the following structure:</p>
-<p id="rfc.section.1.p.7">The syntax of CDDL is defined in <a href="#syntax" class="xref">Section 3</a>.  Examples of CDDL and related CBOR data instances are defined in <a href="#examples" class="xref">Appendix H</a>. <a href="#usage" class="xref">Section 4</a> discusses usage of CDDL. Examples are provided early in the text to better illustrate concept definitions.  A formal definition of CDDL using ABNF grammar is provided in <a href="#abnf" class="xref">Appendix B</a>.  Finally, a prelude of standard CDDL definitions available in every CBOR specification is listed in <a href="#prelude" class="xref">Appendix E</a>.</p>
+<p id="rfc.section.1.p.7">The syntax of CDDL is defined in <a href="#syntax" class="xref">Section 3</a>.  Examples of CDDL and related CBOR data items (&#8220;instances&#8221;) are defined in <a href="#examples" class="xref">Appendix H</a>. <a href="#usage" class="xref">Section 4</a> discusses usage of CDDL. Examples are provided early in the text to better illustrate concept definitions.  A formal definition of CDDL using ABNF grammar is provided in <a href="#abnf" class="xref">Appendix B</a>.  Finally, a prelude of standard CDDL definitions available in every CBOR specification is listed in <a href="#prelude" class="xref">Appendix E</a>.</p>
 <h1 id="rfc.section.1.1">
 <a href="#rfc.section.1.1">1.1.</a> <a href="#requirements-notation" id="requirements-notation">Requirements notation</a>
 </h1>
@@ -586,7 +586,7 @@ address {
 
 <ol>
 <li>Instead of defining all four types of composition in CDDL separately, or even defining one kind for arrays (vectors and records) and one kind for maps (tables and structs), there is only one kind of composition in CDDL: the <em>group</em> (<a href="#group" class="xref">Section 2.1</a>).</li>
-<li>The other important concept is that of a <em>type</em>.  The entire CDDL specification defines a type (the one defined by its first <em>rule</em>), which formally is the set of CBOR instances that are acceptable for this specification.  CDDL predefines a number of basic types such as <samp>uint</samp> (unsigned integer) or <samp>tstr</samp> (text string), often making use of a simple formal notation for CBOR data items.  Each value that can be expressed as a CBOR data item also is a type in its own right, e.g. <samp>1</samp>.  A type can be built as a <em>choice</em> of other types, e.g., an <samp>int</samp> is either a <samp>uint</samp> or a <samp>nint</samp> (negative integer).  Finally, a type can be built as an array or a map from a group.</li>
+<li>The other important concept is that of a <em>type</em>.  The entire CDDL specification defines a type (the one defined by its first <em>rule</em>), which formally is the set of CBOR data items that are acceptable as &#8220;instances&#8221; for this specification.  CDDL predefines a number of basic types such as <samp>uint</samp> (unsigned integer) or <samp>tstr</samp> (text string), often making use of a simple formal notation for CBOR data items.  Each value that can be expressed as a CBOR data item also is a type in its own right, e.g. <samp>1</samp>.  A type can be built as a <em>choice</em> of other types, e.g., an <samp>int</samp> is either a <samp>uint</samp> or a <samp>nint</samp> (negative integer).  Finally, a type can be built as an array or a map from a group.</li>
 </ol>
 <p id="rfc.section.2.p.7">The rest of this section introduces a number of basic concepts of CDDL, and section <a href="#syntax" class="xref">Section 3</a> defines additional syntax.  <a href="#matching" class="xref">Appendix C</a> gives a concise summary of the semantics of CDDL.</p>
 <h1 id="rfc.section.2.1">
@@ -863,11 +863,11 @@ size = float ; in m2
 <dt>&#8220;int&#8221;</dt>
 <dd style="margin-left: 8">An unsigned integer or a negative integer.</dd>
 <dt>&#8220;float16&#8221;</dt>
-<dd style="margin-left: 8">IEEE 754 half-precision float (major type 7, additional information 25).</dd>
+<dd style="margin-left: 8">A number representable as an IEEE 754 half-precision float (major type 7, additional information 25).</dd>
 <dt>&#8220;float32&#8221;</dt>
-<dd style="margin-left: 8">IEEE 754 single-precision float (major type 7, additional information 26).</dd>
+<dd style="margin-left: 8">A number representable as an IEEE 754 single-precision float (major type 7, additional information 26).</dd>
 <dt>&#8220;float64&#8221;</dt>
-<dd style="margin-left: 8">IEEE 754 double-precision float (major type 7, additional information 27).</dd>
+<dd style="margin-left: 8">A number representable as an IEEE 754 double-precision float (major type 7, additional information 27).</dd>
 <dt>&#8220;float&#8221;</dt>
 <dd style="margin-left: 8">One of float16, float32, or float64.</dd>
 <dt>&#8220;bstr&#8221; or &#8220;bytes&#8221;</dt>
@@ -1017,7 +1017,7 @@ extensible-map-example = {
 }
 </pre>
 <p id="rfc.section.3.5.3.p.2">In this example, there is one optional key &#8220;optional-key&#8221;, which, when present, maps to an integer.  There is also a wild card for any future additions.</p>
-<p id="rfc.section.3.5.3.p.3">Unfortunately, the instance</p>
+<p id="rfc.section.3.5.3.p.3">Unfortunately, the data item</p>
 <pre>
 { "optional-key": "nonsense" }
 </pre>
@@ -1643,9 +1643,10 @@ value = number
 int = ["-"] uint
 
 ; This is a float if it has fraction or exponent; int otherwise
-number = int ["." fraction] ["e" exponent ]
+number = hexfloat / (int ["." fraction] ["e" exponent ])
+hexfloat = "0x" 1*HEXDIG ["." 1*HEXDIG] "p" exponent
 fraction = 1*DIGIT
-exponent = int
+exponent = ["+"/"-"] 1*DIGIT
 
 text = %x22 *SCHAR %x22
 SCHAR = %x20-21 / %x23-5B / %x5D-10FFFD / SESC
@@ -1701,7 +1702,7 @@ genericarg = "&lt;" S type1 S *("," S type1 S ) "&gt;"
 <pre>
 type = type1 S *("/" S type1 S)
 </pre>
-<p id="rfc.section.C.p.6">A type can be given as a choice between one or more types.  The choice matches an instance if the instance matches any one of the types given in the choice.  The choice uses Parse Expression Grammar (PEG) semantics: The first choice that matches wins.  (As a result, the order of rules that contribute to a single rule name can very well matter.)</p>
+<p id="rfc.section.C.p.6">A type can be given as a choice between one or more types.  The choice matches a data item if the data item matches any one of the types given in the choice.  The choice uses Parse Expression Grammar (PEG) semantics: The first choice that matches wins.  (As a result, the order of rules that contribute to a single rule name can very well matter.)</p>
 <pre>
 type1 = type2 [S (rangeop / ctlop) S type2]
 </pre>
@@ -1709,7 +1710,7 @@ type1 = type2 [S (rangeop / ctlop) S type2]
 <pre>
 type2 = value
 </pre>
-<p id="rfc.section.C.p.8">A type can be just a single value (such as 1 or &#8220;icecream&#8221; or h&#8217;0815&#8217;), which matches only an instance with that specific value (no conversions defined),</p>
+<p id="rfc.section.C.p.8">A type can be just a single value (such as 1 or &#8220;icecream&#8221; or h&#8217;0815&#8217;), which matches only a data item with that specific value (no conversions defined),</p>
 <pre>
       / typename [genericarg]
 </pre>
@@ -1729,7 +1730,7 @@ type2 = value
 <pre>
       / "#" DIGIT ["." uint]                ; major/ai
 </pre>
-<p id="rfc.section.C.p.13">an instance of a major type (given by the DIGIT), optionally constrained to the additional information given by the uint, or</p>
+<p id="rfc.section.C.p.13">a data item of a major type (given by the DIGIT), optionally constrained to the additional information given by the uint, or</p>
 <pre>
       / "#"                                 ; any
 </pre>
