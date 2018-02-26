@@ -113,7 +113,7 @@ structures (see {{sec-json}}).
 This document has the following structure:
 
 The syntax of CDDL is defined in {{syntax}}.
-Examples of CDDL and related CBOR data instances are defined in
+Examples of CDDL and related CBOR data items ("instances") are defined in
 {{examples}}. {{usage}} discusses usage of CDDL. Examples are provided
 early in the text to better illustrate concept definitions.
 A formal definition of CDDL using ABNF grammar is provided in {{abnf}}.
@@ -188,7 +188,8 @@ composition in CDDL: the _group_ ({{group}}).
 
 2. The other important concept is that of a _type_.  The entire CDDL
 specification defines a type (the one defined by its first _rule_),
-which formally is the set of CBOR instances that are acceptable for
+which formally is the set of CBOR data items that are acceptable as
+"instances" for
 this specification.  CDDL predefines a number of basic types such as
 `uint` (unsigned integer) or `tstr` (text string), often making use of
 a simple formal notation for CBOR data items.  Each value that
@@ -898,7 +899,7 @@ In this example, there is one optional key "optional-key", which, when
 present, maps to an integer.  There is also a wild card for any future
 additions.
 
-Unfortunately, the instance
+Unfortunately, the data item
 
 ~~~~ CBORdiag
 { "optional-key": "nonsense" }
@@ -1608,7 +1609,7 @@ type = type1 S *("/" S type1 S)
 ~~~
 
 A type can be given as a choice between one or more types.  The choice
-matches an instance if the instance matches any one of the types given
+matches a data item if the data item matches any one of the types given
 in the choice.  The choice uses Parse Expression Grammar (PEG) semantics:
 The first choice that matches wins.  (As a result, the order of rules
 that contribute to a single rule name can very well matter.)
@@ -1625,7 +1626,7 @@ type2 = value
 ~~~
 
 A type can be just a single value (such as 1 or "icecream" or
-h'0815'), which matches only an instance with that specific value (no
+h'0815'), which matches only a data item with that specific value (no
 conversions defined),
 
 ~~~ abnf
@@ -1660,7 +1661,7 @@ type given as the tagged value, or
       / "#" DIGIT ["." uint]                ; major/ai
 ~~~
 
-an instance of a major type (given by the DIGIT), optionally
+a data item of a major type (given by the DIGIT), optionally
 constrained to the additional information given by the uint, or
 
 ~~~ abnf
