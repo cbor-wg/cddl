@@ -314,6 +314,7 @@ address {
 <link href="#rfc.section.4.3" rel="Chapter" title="4.3 For data analysis tools">
 <link href="#rfc.section.5" rel="Chapter" title="5 Security considerations">
 <link href="#rfc.section.6" rel="Chapter" title="6 IANA considerations">
+<link href="#rfc.section.6.1" rel="Chapter" title="6.1 CDDL control operator registry">
 <link href="#rfc.references" rel="Chapter" title="7 References">
 <link href="#rfc.references.1" rel="Chapter" title="7.1 Normative References">
 <link href="#rfc.references.2" rel="Chapter" title="7.2 Informative References">
@@ -484,7 +485,9 @@ address {
 </li>
 <li>6.   <a href="#rfc.section.6">IANA considerations</a>
 </li>
-<li>7.   <a href="#rfc.references">References</a>
+<ul><li>6.1.   <a href="#rfc.section.6.1">CDDL control operator registry</a>
+</li>
+</ul><li>7.   <a href="#rfc.references">References</a>
 </li>
 <ul><li>7.1.   <a href="#rfc.references.1">Normative References</a>
 </li>
@@ -1212,11 +1215,11 @@ $message /= [4, noodles: text, sauce: text, parmesan: bool]
 <h1 id="rfc.section.3.8.6">
 <a href="#rfc.section.3.8.6">3.8.6.</a> <a href="#control-operators-lt-le-gt-ge-eq-ne-and-default" id="control-operators-lt-le-gt-ge-eq-ne-and-default">Control operators .lt, .le, .gt, .ge, .eq, .ne, and .default</a>
 </h1>
-<p id="rfc.section.3.8.6.p.1">The controls .lt, .le, .gt, .ge, .eq, .ne specify a constraint on the left hand side type to be a value less than, less than or equal, equal to, not equal to, greather than, or greater than or equal to a value given as a (single-valued) right hand side type.  In the present specification, the first four controls (.lt, .le, .gt, .ge) are defined only for numeric types, as these have a natural ordering relationship.</p>
+<p id="rfc.section.3.8.6.p.1">The controls .lt, .le, .gt, .ge, .eq, .ne specify a constraint on the left hand side type to be a value less than, less than or equal, equal to, not equal to, greater than, or greater than or equal to a value given as a (single-valued) right hand side type.  In the present specification, the first four controls (.lt, .le, .gt, .ge) are defined only for numeric types, as these have a natural ordering relationship.</p>
 <pre>
 speed = number .ge 0  ; unit: m/s
 </pre>
-<p id="rfc.section.3.8.6.p.2">A variant of the <samp>.ne</samp> control is the <samp>.default</samp> control, which expresses an additional intent: the value specified by the right-hand-side type is intended as a default value for the left hand side type given, and the implied .ne control is there to prevent this value from being sent over the wire.  This control is only meaningful when the controld type is used in an optional context; otherwise there would be no way to express the default value.</p>
+<p id="rfc.section.3.8.6.p.2">A variant of the <samp>.ne</samp> control is the <samp>.default</samp> control, which expresses an additional intent: the value specified by the right-hand-side type is intended as a default value for the left hand side type given, and the implied .ne control is there to prevent this value from being sent over the wire.  This control is only meaningful when the control type is used in an optional context; otherwise there would be no way to express the default value.</p>
 <pre>
 timer = {
   time: uint,
@@ -1467,7 +1470,11 @@ a = 1 b = 2 c = 3
 <h1 id="rfc.section.6">
 <a href="#rfc.section.6">6.</a> <a href="#iana-considerations" id="iana-considerations">IANA considerations</a>
 </h1>
-<p id="rfc.section.6.p.1">This document does not require any IANA registrations.</p>
+<h1 id="rfc.section.6.1">
+<a href="#rfc.section.6.1">6.1.</a> <a href="#cddl-control-operator-registry" id="cddl-control-operator-registry">CDDL control operator registry</a>
+</h1>
+<p id="rfc.section.6.1.p.1">IANA is requested &#8230;</p>
+<p id="rfc.section.6.1.p.2">(TBD: define a registry of control operators.  Policy to be defined, definitely at least specification required.  Designated expert should be instructed to require a workable specification that enables interoperability of implementations of CDDL specifications making use of the control operator.  Define initial table from the present document.)</p>
 <h1 id="rfc.references">
 <a href="#rfc.references">7.</a> References</h1>
 <h1 id="rfc.references.1">

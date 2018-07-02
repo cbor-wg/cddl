@@ -104,8 +104,8 @@ Table of Contents
      4.3.  For data analysis tools . . . . . . . . . . . . . . . . .  31
    5.  Security considerations . . . . . . . . . . . . . . . . . . .  31
    6.  IANA considerations . . . . . . . . . . . . . . . . . . . . .  32
+     6.1.  CDDL control operator registry  . . . . . . . . . . . . .  32
    7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  32
-     7.1.  Normative References  . . . . . . . . . . . . . . . . . .  32
 
 
 
@@ -114,6 +114,7 @@ Birkholz, et al.         Expires August 30, 2018                [Page 2]
 Internet-Draft                    CDDL                     February 2018
 
 
+     7.1.  Normative References  . . . . . . . . . . . . . . . . . .  32
      7.2.  Informative References  . . . . . . . . . . . . . . . . .  33
    Appendix A.  (Not used.)  . . . . . . . . . . . . . . . . . . . .  34
    Appendix B.  ABNF grammar . . . . . . . . . . . . . . . . . . . .  34
@@ -160,7 +161,6 @@ Internet-Draft                    CDDL                     February 2018
    (G5)  Human and machine readable and processable.
 
    (G6)  Automatic checking of data format compliance.
-
 
 
 
@@ -1410,7 +1410,7 @@ Internet-Draft                    CDDL                     February 2018
 
    The controls .lt, .le, .gt, .ge, .eq, .ne specify a constraint on the
    left hand side type to be a value less than, less than or equal,
-   equal to, not equal to, greather than, or greater than or equal to a
+   equal to, not equal to, greater than, or greater than or equal to a
    value given as a (single-valued) right hand side type.  In the
    present specification, the first four controls (.lt, .le, .gt, .ge)
    are defined only for numeric types, as these have a natural ordering
@@ -1423,8 +1423,8 @@ Internet-Draft                    CDDL                     February 2018
    hand-side type is intended as a default value for the left hand side
    type given, and the implied .ne control is there to prevent this
    value from being sent over the wire.  This control is only meaningful
-   when the controld type is used in an optional context; otherwise
-   there would be no way to express the default value.
+   when the control type is used in an optional context; otherwise there
+   would be no way to express the default value.
 
    timer = {
      time: uint,
@@ -1747,7 +1747,16 @@ Internet-Draft                    CDDL                     February 2018
 
 6.  IANA considerations
 
-   This document does not require any IANA registrations.
+6.1.  CDDL control operator registry
+
+   IANA is requested ...
+
+   (TBD: define a registry of control operators.  Policy to be defined,
+   definitely at least specification required.  Designated expert should
+   be instructed to require a workable specification that enables
+   interoperability of implementations of CDDL specifications making use
+   of the control operator.  Define initial table from the present
+   document.)
 
 7.  References
 
@@ -1775,6 +1784,16 @@ Internet-Draft                    CDDL                     February 2018
               DOI 10.17487/RFC7493, March 2015,
               <https://www.rfc-editor.org/info/rfc7493>.
 
+
+
+
+
+
+Birkholz, et al.         Expires August 30, 2018               [Page 32]
+
+Internet-Draft                    CDDL                     February 2018
+
+
    [RFC8259]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
               Interchange Format", STD 90, RFC 8259,
               DOI 10.17487/RFC8259, December 2017,
@@ -1785,14 +1804,6 @@ Internet-Draft                    CDDL                     February 2018
               Second Edition", World Wide Web Consortium Recommendation
               REC-xmlschema-2-20041028, October 2004,
               <http://www.w3.org/TR/2004/REC-xmlschema-2-20041028>.
-
-
-
-
-Birkholz, et al.         Expires August 30, 2018               [Page 32]
-
-Internet-Draft                    CDDL                     February 2018
-
 
 7.2.  Informative References
 
@@ -1829,6 +1840,16 @@ Internet-Draft                    CDDL                     February 2018
               Reputation Interchange", RFC 7071, DOI 10.17487/RFC7071,
               November 2013, <https://www.rfc-editor.org/info/rfc7071>.
 
+
+
+
+
+
+Birkholz, et al.         Expires August 30, 2018               [Page 33]
+
+Internet-Draft                    CDDL                     February 2018
+
+
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
               <https://www.rfc-editor.org/info/rfc7950>.
@@ -1841,14 +1862,6 @@ Internet-Draft                    CDDL                     February 2018
    [RFC8152]  Schaad, J., "CBOR Object Signing and Encryption (COSE)",
               RFC 8152, DOI 10.17487/RFC8152, July 2017,
               <https://www.rfc-editor.org/info/rfc8152>.
-
-
-
-
-Birkholz, et al.         Expires August 30, 2018               [Page 33]
-
-Internet-Draft                    CDDL                     February 2018
-
 
 7.3.  URIs
 
@@ -1885,6 +1898,14 @@ Appendix B.  ABNF grammar
          / "#" DIGIT ["." uint]                ; major/ai
          / "#"                                 ; any
          / "{" S group S "}"
+
+
+
+Birkholz, et al.         Expires August 30, 2018               [Page 34]
+
+Internet-Draft                    CDDL                     February 2018
+
+
          / "[" S group S "]"
          / "&" S "(" S group S ")"
          / "&" S groupname [genericarg]
@@ -1898,14 +1919,6 @@ Appendix B.  ABNF grammar
    grpchoice = *grpent
 
    grpent = [occur S] [memberkey S] type optcom
-
-
-
-Birkholz, et al.         Expires August 30, 2018               [Page 34]
-
-Internet-Draft                    CDDL                     February 2018
-
-
           / [occur S] groupname [genericarg] optcom ; preempted by above
           / [occur S] "(" S group S ")" optcom
 
@@ -1942,6 +1955,13 @@ Internet-Draft                    CDDL                     February 2018
    SCHAR = %x20-21 / %x23-5B / %x5D-10FFFD / SESC
    SESC = "\" %x20-10FFFD
 
+
+
+Birkholz, et al.         Expires August 30, 2018               [Page 35]
+
+Internet-Draft                    CDDL                     February 2018
+
+
    bytes = [bsqual] %x27 *BCHAR %x27
    BCHAR = %x20-26 / %x28-5B / %x5D-10FFFD / SESC / CRLF
    bsqual = %x68 ; "h"
@@ -1954,13 +1974,6 @@ Internet-Draft                    CDDL                     February 2018
    DIGIT1 = %x31-39
    HEXDIG = DIGIT / "A" / "B" / "C" / "D" / "E" / "F"
    BINDIG = %x30-31
-
-
-
-Birkholz, et al.         Expires August 30, 2018               [Page 35]
-
-Internet-Draft                    CDDL                     February 2018
-
 
    S = *WS
    WS = SP / NL
@@ -1998,6 +2011,13 @@ Appendix C.  Matching rules
    typename = id
    groupname = id
 
+
+
+Birkholz, et al.         Expires August 30, 2018               [Page 36]
+
+Internet-Draft                    CDDL                     February 2018
+
+
    A rule defines a name for a type expression (production "type") or
    for a group expression (production "grpent"), with the intention that
    the semantics does not change when the name is replaced by its
@@ -2010,14 +2030,6 @@ Appendix C.  Matching rules
    group by additional choices; a number of these could be replaced by
    collecting all the right hand sides and creating a single rule with a
    type choice or a group choice built from the right hand sides in the
-
-
-
-Birkholz, et al.         Expires August 30, 2018               [Page 36]
-
-Internet-Draft                    CDDL                     February 2018
-
-
    order of the rules given.  (It is not an error to extend a rule name
    that has not yet been defined; this makes the right hand side the
    first entry in the choice being created.)  The creation of the type
@@ -2053,6 +2065,15 @@ Internet-Draft                    CDDL                     February 2018
 
          / typename [genericarg]
 
+
+
+
+
+Birkholz, et al.         Expires August 30, 2018               [Page 37]
+
+Internet-Draft                    CDDL                     February 2018
+
+
    or be defined by a rule giving a meaning to a name (possibly after
    supplying generic args as required by the generic parameters),
 
@@ -2065,14 +2086,6 @@ Internet-Draft                    CDDL                     February 2018
 
    an "unwrapped" group (see Section 3.7), which matches the group
    inside a type defined as a map or an array by wrapping the group, or
-
-
-
-
-Birkholz, et al.         Expires August 30, 2018               [Page 37]
-
-Internet-Draft                    CDDL                     February 2018
-
 
          / "#" "6" ["." uint] "(" S type S ")" ; note no space!
 
@@ -2108,6 +2121,15 @@ Internet-Draft                    CDDL                     February 2018
 
    rangeop = "..." / ".."
 
+
+
+
+
+Birkholz, et al.         Expires August 30, 2018               [Page 38]
+
+Internet-Draft                    CDDL                     February 2018
+
+
    A range operator can be used to join two type expressions that stand
    for either two integer values or two floating point values; it
    matches any value that is between the two values, where the first
@@ -2122,13 +2144,6 @@ Internet-Draft                    CDDL                     February 2018
    control operators.
 
    group = grpchoice S *("//" S grpchoice S)
-
-
-
-Birkholz, et al.         Expires August 30, 2018               [Page 38]
-
-Internet-Draft                    CDDL                     February 2018
-
 
    A group matches any sequence of key/value pairs that matches any of
    the choices given (again using Parse Expression Grammar semantics).
@@ -2163,6 +2178,14 @@ Internet-Draft                    CDDL                     February 2018
 
    Key types can be given by a type expression, a bareword (which stands
    for a type that just contains a string value created from this
+
+
+
+Birkholz, et al.         Expires August 30, 2018               [Page 39]
+
+Internet-Draft                    CDDL                     February 2018
+
+
    bareword), or a value (which stands for a type that just contains
    this value).  A key value matches its key type if the key value is a
    member of the key type, unless a cut preceding it in the group
@@ -2178,13 +2201,6 @@ Internet-Draft                    CDDL                     February 2018
    optcom = S ["," S]
 
    (Optional commas do not influence the matching.)
-
-
-
-Birkholz, et al.         Expires August 30, 2018               [Page 39]
-
-Internet-Draft                    CDDL                     February 2018
-
 
    occur = [uint] "*" [uint]
          / "+"
@@ -2209,22 +2225,6 @@ Appendix E.  Standard Prelude
    [tdate].  (Note that technically, it is a postlude, as it does not
    disturb the selection of the first rule as the root of the
    definition.)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
