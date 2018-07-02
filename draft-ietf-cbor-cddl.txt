@@ -1725,10 +1725,10 @@ Internet-Draft                    CDDL                     February 2018
    o  Where could the language maybe cause confusion in a way that will
       enable security issues?
 
-   Writers of CDDL specifications are strongly encouraged to value
-   simplicity and transparency of the specification over its elegance.
-   Keep it as simple as possible while still expressing the needed data
-   model.
+   o  Where a CDDL matcher is part of the implementation of a system,
+      the security of the system ought not depend on the correctness of
+      the CDDL specification or CDDL implementation without any further
+      defenses in place.
 
 
 
@@ -1737,6 +1737,11 @@ Birkholz, et al.         Expires August 30, 2018               [Page 31]
 
 Internet-Draft                    CDDL                     February 2018
 
+
+   Writers of CDDL specifications are strongly encouraged to value
+   simplicity and transparency of the specification over its elegance.
+   Keep it as simple as possible while still expressing the needed data
+   model.
 
    A related observation about formal description techniques in general
    that is strongly recommended to be kept in mind by writers of CDDL
@@ -1780,11 +1785,6 @@ Internet-Draft                    CDDL                     February 2018
               DOI 10.17487/RFC5234, January 2008,
               <https://www.rfc-editor.org/info/rfc5234>.
 
-   [RFC7049]  Bormann, C. and P. Hoffman, "Concise Binary Object
-              Representation (CBOR)", RFC 7049, DOI 10.17487/RFC7049,
-              October 2013, <https://www.rfc-editor.org/info/rfc7049>.
-
-
 
 
 
@@ -1793,6 +1793,10 @@ Birkholz, et al.         Expires August 30, 2018               [Page 32]
 
 Internet-Draft                    CDDL                     February 2018
 
+
+   [RFC7049]  Bormann, C. and P. Hoffman, "Concise Binary Object
+              Representation (CBOR)", RFC 7049, DOI 10.17487/RFC7049,
+              October 2013, <https://www.rfc-editor.org/info/rfc7049>.
 
    [RFC7493]  Bray, T., Ed., "The I-JSON Message Format", RFC 7493,
               DOI 10.17487/RFC7493, March 2015,
@@ -1836,10 +1840,6 @@ Internet-Draft                    CDDL                     February 2018
               based validation -- RELAX NG", ISO/IEC 19757-2, December
               2008.
 
-   [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
-              Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006,
-              <https://www.rfc-editor.org/info/rfc4648>.
-
 
 
 
@@ -1849,6 +1849,10 @@ Birkholz, et al.         Expires August 30, 2018               [Page 33]
 
 Internet-Draft                    CDDL                     February 2018
 
+
+   [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
+              Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006,
+              <https://www.rfc-editor.org/info/rfc4648>.
 
    [RFC7071]  Borenstein, N. and M. Kucherawy, "A Media Type for
               Reputation Interchange", RFC 7071, DOI 10.17487/RFC7071,
@@ -1894,10 +1898,6 @@ Appendix B.  ABNF grammar
 
    type1 = type2 [S (rangeop / ctlop) S type2]
 
-   type2 = value
-         / typename [genericarg]
-         / "(" type ")"
-         / "~" S groupname [genericarg]
 
 
 
@@ -1906,6 +1906,10 @@ Birkholz, et al.         Expires August 30, 2018               [Page 34]
 Internet-Draft                    CDDL                     February 2018
 
 
+   type2 = value
+         / typename [genericarg]
+         / "(" type ")"
+         / "~" S groupname [genericarg]
          / "#" "6" ["." uint] "(" S type S ")" ; note no space!
          / "#" DIGIT ["." uint]                ; major/ai
          / "#"                                 ; any
@@ -1950,10 +1954,6 @@ Internet-Draft                    CDDL                     February 2018
    int = ["-"] uint
 
    ; This is a float if it has fraction or exponent; int otherwise
-   number = hexfloat / (int ["." fraction] ["e" exponent ])
-   hexfloat = "0x" 1*HEXDIG ["." 1*HEXDIG] "p" exponent
-   fraction = 1*DIGIT
-   exponent = ["+"/"-"] 1*DIGIT
 
 
 
@@ -1961,6 +1961,11 @@ Birkholz, et al.         Expires August 30, 2018               [Page 35]
 
 Internet-Draft                    CDDL                     February 2018
 
+
+   number = hexfloat / (int ["." fraction] ["e" exponent ])
+   hexfloat = "0x" 1*HEXDIG ["." 1*HEXDIG] "p" exponent
+   fraction = 1*DIGIT
+   exponent = ["+"/"-"] 1*DIGIT
 
    text = %x22 *SCHAR %x22
    SCHAR = %x20-21 / %x23-5B / %x5D-10FFFD / SESC
@@ -2005,11 +2010,6 @@ Appendix C.  Matching rules
    CDDL group.  Rule names can be used in the rule itself and/or other
    rules (and tools can output warnings if that is not the case).  The
    order of the rules is significant only in two cases, including the
-   following: The first rule defines the semantics of the entire
-   specification; hence, its name may be descriptive only (or may be
-   used in itself or other rules as with the other rule names).
-
-
 
 
 
@@ -2017,6 +2017,10 @@ Birkholz, et al.         Expires August 30, 2018               [Page 36]
 
 Internet-Draft                    CDDL                     February 2018
 
+
+   following: The first rule defines the semantics of the entire
+   specification; hence, its name may be descriptive only (or may be
+   used in itself or other rules as with the other rule names).
 
    rule = typename [genericparm] S assign S type S
         / groupname [genericparm] S assign S grpent S
@@ -2063,16 +2067,14 @@ Internet-Draft                    CDDL                     February 2018
    Two types can be combined with a range operator (which see below) or
    a control operator (see Section 3.8).
 
-   type2 = value
-
-
-
 
 
 Birkholz, et al.         Expires August 30, 2018               [Page 37]
 
 Internet-Draft                    CDDL                     February 2018
 
+
+   type2 = value
 
    A type can be just a single value (such as 1 or "icecream" or
    h'0815'), which matches only a data item with that specific value (no
@@ -2119,8 +2121,6 @@ Internet-Draft                    CDDL                     February 2018
    which, when taken as values and complemented by a wildcard (matches
    anything) key each, match the group, or
 
-         / "&" S "(" S group S ")"
-         / "&" S groupname [genericarg]
 
 
 
@@ -2129,6 +2129,9 @@ Birkholz, et al.         Expires August 30, 2018               [Page 38]
 
 Internet-Draft                    CDDL                     February 2018
 
+
+         / "&" S "(" S group S ")"
+         / "&" S groupname [genericarg]
 
    an enumeration expression, which matches any a value that is within
    the set of values that the values of the group given can take.
@@ -2174,9 +2177,6 @@ Internet-Draft                    CDDL                     February 2018
 
           / [occur S] "(" S group S ")" optcom
 
-   from a parenthesized group, again with a possible occurrence
-   indicator.
-
 
 
 
@@ -2185,6 +2185,9 @@ Birkholz, et al.         Expires August 30, 2018               [Page 39]
 
 Internet-Draft                    CDDL                     February 2018
 
+
+   from a parenthesized group, again with a possible occurrence
+   indicator.
 
    memberkey = type1 S ["^" S] "=>"
              / bareword S ":"
@@ -2231,9 +2234,6 @@ Appendix E.  Standard Prelude
    [tdate].  (Note that technically, it is a postlude, as it does not
    disturb the selection of the first rule as the root of the
    definition.)
-
-
-
 
 
 

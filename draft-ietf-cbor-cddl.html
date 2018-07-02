@@ -1465,7 +1465,10 @@ a = 1 b = 2 c = 3
 <p id="rfc.section.5.p.2">Topics that could be considered in a security considerations section that uses CDDL to define CBOR structures include the following:</p>
 <p></p>
 
-<ul><li>Where could the language maybe cause confusion in a way that will enable security issues?</li></ul>
+<ul>
+<li>Where could the language maybe cause confusion in a way that will enable security issues?</li>
+<li>Where a CDDL matcher is part of the implementation of a system, the security of the system ought not depend on the correctness of the CDDL specification or CDDL implementation without any further defenses in place.</li>
+</ul>
 <p id="rfc.section.5.p.4">Writers of CDDL specifications are strongly encouraged to value simplicity and transparency of the specification over its elegance.  Keep it as simple as possible while still expressing the needed data model.</p>
 <p id="rfc.section.5.p.5">A related observation about formal description techniques in general that is strongly recommended to be kept in mind by writers of CDDL specifications: Just because CDDL makes it easier to handle complexity in a specification, that does not make that complexity somehow less bad (except maybe on the level of the humans having to grasp the complex structure while reading the spec).</p>
 <h1 id="rfc.section.6">
