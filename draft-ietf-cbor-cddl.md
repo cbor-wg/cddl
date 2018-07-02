@@ -1830,6 +1830,11 @@ uses CDDL to define CBOR structures include the following:
 * Where could the language maybe cause confusion in a way that will
   enable security issues?
 
+* Where a CDDL matcher is part of the implementation of a system, the
+  security of the system ought not depend on the correctness of the
+  CDDL specification or CDDL implementation without any further
+  defenses in place.
+
 Writers of CDDL specifications are strongly encouraged to value
 simplicity and transparency of the specification over its elegance.
 Keep it as simple as possible while still expressing the needed
