@@ -374,7 +374,7 @@ inherits from C the distinction between integer values (no fractional
 part or exponent given — NR1 {{ISO6093}}) and floating point values
 (where a fractional part and/or an exponent is present — NR2 or NR3),
 so the type `1` does not include any floating point numbers while the
-types `1e3` and `1.5` are both floating point Numbers and do not
+types `1e3` and `1.5` are both floating point numbers and do not
 include any integer numbers.
 
 ### Choices
