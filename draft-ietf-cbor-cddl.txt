@@ -244,7 +244,9 @@ Internet-Draft                    CDDL                     February 2018
       limited to a specific set by the specification, but open for the
       application, e.g., in a table mapping IP addresses to MAC
       addresses, the specification does not attempt to foresee all
-      possible IP addresses.
+      possible IP addresses.  In a language such as JavaScript, a "Map"
+      (as opposed to a plain "Object") would often be employed to
+      achieve the generality of the key domain.
 
    o  A _struct_, a map from a domain of map keys as defined by the
       specification to a domain of map values the semantics of each of
@@ -272,8 +274,6 @@ Internet-Draft                    CDDL                     February 2018
        e.g. "1".  A type can be built as a _choice_ of other types,
        e.g., an "int" is either a "uint" or a "nint" (negative integer).
        Finally, a type can be built as an array or a map from a group.
-
-
 
 
 
