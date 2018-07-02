@@ -1262,7 +1262,7 @@ expectation that type1 already is a subset of type2.
 
 The controls .lt, .le, .gt, .ge, .eq, .ne specify a constraint on
 the left hand side type to be a value less than, less than or equal,
-equal to, not equal to, greather than, or greater than or equal to a
+equal to, not equal to, greater than, or greater than or equal to a
 value given as a (single-valued) right hand side type.
 In the present specification, the first four controls (.lt, .le,
 .gt, .ge) are defined only for numeric types, as these have a natural
@@ -1277,7 +1277,7 @@ expresses an additional intent: the value specified by the
 right-hand-side type is intended as a default value for the left hand
 side type given, and the implied .ne control is there to prevent
 this value from being sent over the wire.
-This control is only meaningful when the controld type is used in
+This control is only meaningful when the control type is used in
 an optional context; otherwise there would be no way to express the
 default value.
 
@@ -1827,7 +1827,15 @@ complex structure while reading the spec).
 
 # IANA considerations
 
-This document does not require any IANA registrations.
+## CDDL control operator registry
+
+IANA is requested ...
+
+(TBD: define a registry of control operators.  Policy to be defined,
+definitely at least specification required.  Designated expert should
+be instructed to require a workable specification that enables
+interoperability of implementations of CDDL specifications making use
+of the control operator.  Define initial table from the present document.)
 
 --- back
 
