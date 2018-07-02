@@ -701,6 +701,7 @@ identity = (
 <a href="#rfc.section.2.2.1">2.2.1.</a> <a href="#values" id="values">Values</a>
 </h1>
 <p id="rfc.section.2.2.1.p.1">Values such as numbers and strings can be used in place of a type.  (For instance, this is a very common thing to do for a keytype, common enough that CDDL provides additional convenience syntax for this.)</p>
+<p id="rfc.section.2.2.1.p.2">The value notation is based on the C language, but does not offer all the syntactic variations <a href="#abnf" class="xref">Appendix B</a>.  The value notation for numbers inherits from C the distinction between integer values (no fractional part or exponent given &#8212; NR1 <a href="#ISO6093" class="xref">[ISO6093]</a>) and floating point values (where a fractional part and/or an exponent is present &#8212; NR2 or NR3), so the type <samp>1</samp> does not include any floating point numbers while the types <samp>1e3</samp> and <samp>1.5</samp> are both floating point Numbers and do not include any integer numbers.</p>
 <h1 id="rfc.section.2.2.2">
 <a href="#rfc.section.2.2.2">2.2.2.</a> <a href="#choices" id="choices">Choices</a>
 </h1>
@@ -1480,6 +1481,11 @@ a = 1 b = 2 c = 3
 <h1 id="rfc.references.1">
 <a href="#rfc.references.1">7.1.</a> Normative References</h1>
 <table><tbody>
+<tr>
+<td class="reference"><b id="ISO6093">[ISO6093]</b></td>
+<td class="top">
+<a>ISO</a>, "<a>Information processing -- Representation of numerical values in character strings for information interchange</a>", ISO 6093, 1985.</td>
+</tr>
 <tr>
 <td class="reference"><b id="RFC2119">[RFC2119]</b></td>
 <td class="top">
