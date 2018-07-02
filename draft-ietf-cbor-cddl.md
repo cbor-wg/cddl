@@ -1813,6 +1813,18 @@ uses CDDL to define CBOR structures include the following:
 * Where could the language maybe cause confusion in a way that will
   enable security issues?
 
+Writers of CDDL specifications are strongly encouraged to value
+simplicity and transparency of the specification over its elegance.
+Keep it as simple as possible while still expressing the needed
+data model.
+
+A related observation about formal description techniques in general
+that is strongly recommended to be kept in mind by writers of CDDL
+specifications: Just because CDDL makes it easier to handle complexity
+in a specification, that does not make that complexity somehow less
+bad (except maybe on the level of the humans having to grasp the
+complex structure while reading the spec).
+
 # IANA considerations
 
 This document does not require any IANA registrations.
