@@ -48,6 +48,14 @@ normative:
   RFC8259: json
   RFC7493: i-json
   W3C.REC-xmlschema-2-20041028: xsd2
+  ISO6093:
+    author:
+    - org: ISO
+    title: >
+      Information processing -- Representation of numerical values in character strings for information interchange
+    seriesinfo:
+      ISO: 6093
+    date: 1985
 informative:
   RELAXNG:
     title: >
@@ -355,6 +363,15 @@ A group definition can also contain choices between groups, see {{choices}}.
 Values such as numbers and strings can be used in place of a type.
 (For instance, this is a very common thing to do for a keytype, common
 enough that CDDL provides additional convenience syntax for this.)
+
+The value notation is based on the C language, but does not offer all
+the syntactic variations {{abnf}}.  The value notation for numbers
+inherits from C the distinction between integer values (no fractional
+part or exponent given — NR1 {{ISO6093}}) and floating point values
+(where a fractional part and/or an exponent is present — NR2 or NR3),
+so the type `1` does not include any floating point numbers while the
+types `1e3` and `1.5` are both floating point Numbers and do not
+include any integer numbers.
 
 ### Choices
 
