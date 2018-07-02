@@ -1130,36 +1130,36 @@ Internet-Draft                    CDDL                     February 2018
      field2: text,
    )
 
-   basic-header = { basic-header-group }
+   basic-header = [ basic-header-group ]
 
-   advanced-header = {
+   advanced-header = [
      basic-header-group,
      field3: bytes,
      field4: number, ; as in the tagged type "time"
-   }
+   ]
 
    Unwrapping simplifies this to:
 
-   basic-header = {
+   basic-header = [
      field1: int,
      field2: text,
-   }
+   ]
 
-   advanced-header = {
+   advanced-header = [
      ~basic-header,
      field3: bytes,
      field4: ~time,
-   }
+   ]
 
    (Note that leaving out the first unwrap operator in the latter
-   example would lead to nesting the basic-header in its own map inside
-   the advanced-header, while, with the unwrapped basic-header, the
-   definition of the group inside basic-header is essentially repeated
-   inside advanced-header, leading to a single map.  This can be used
-   for various applications often solved by inheritance in programming
-   languages.  The effect of unwrapping can also be described as
-   "threading in" the group or type inside the referenced type, which
-   suggested the thread-like "~" character.)
+   example would lead to nesting the basic-header in its own array
+   inside the advanced-header, while, with the unwrapped basic-header,
+   the definition of the group inside basic-header is essentially
+   repeated inside advanced-header, leading to a single array.  This can
+   be used for various applications often solved by inheritance in
+   programming languages.  The effect of unwrapping can also be
+   described as "threading in" the group or type inside the referenced
+   type, which suggested the thread-like "~" character.)
 
 3.8.  Controls
 

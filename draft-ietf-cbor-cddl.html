@@ -1064,28 +1064,28 @@ basic-header-group = (
   field2: text,
 )
 
-basic-header = { basic-header-group }
+basic-header = [ basic-header-group ]
 
-advanced-header = {
+advanced-header = [
   basic-header-group,
   field3: bytes,
   field4: number, ; as in the tagged type "time"
-}
+]
 </pre>
 <p id="rfc.section.3.7.p.4">Unwrapping simplifies this to:</p>
 <pre>
-basic-header = {
+basic-header = [
   field1: int,
   field2: text,
-}
+]
 
-advanced-header = {
+advanced-header = [
   ~basic-header,
   field3: bytes,
   field4: ~time,
-}
+]
 </pre>
-<p id="rfc.section.3.7.p.5">(Note that leaving out the first unwrap operator in the latter example would lead to nesting the basic-header in its own map inside the advanced-header, while, with the unwrapped basic-header, the definition of the group inside basic-header is essentially repeated inside advanced-header, leading to a single map.  This can be used for various applications often solved by inheritance in programming languages.  The effect of unwrapping can also be described as &#8220;threading in&#8221; the group or type inside the referenced type, which suggested the thread-like &#8220;~&#8221; character.)</p>
+<p id="rfc.section.3.7.p.5">(Note that leaving out the first unwrap operator in the latter example would lead to nesting the basic-header in its own array inside the advanced-header, while, with the unwrapped basic-header, the definition of the group inside basic-header is essentially repeated inside advanced-header, leading to a single array.  This can be used for various applications often solved by inheritance in programming languages.  The effect of unwrapping can also be described as &#8220;threading in&#8221; the group or type inside the referenced type, which suggested the thread-like &#8220;~&#8221; character.)</p>
 <h1 id="rfc.section.3.8">
 <a href="#rfc.section.3.8">3.8.</a> <a href="#controls" id="controls">Controls</a>
 </h1>
