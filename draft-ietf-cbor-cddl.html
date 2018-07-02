@@ -338,7 +338,7 @@ address {
 <link href="#rfc.authors" rel="Chapter">
 
 
-  <meta name="generator" content="xml2rfc version 2.9.6 - https://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.9.9 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Birkholz, H., Vigano, C., and C. Bormann" />
@@ -558,7 +558,7 @@ address {
 </dl>
 <p id="rfc.section.1.p.5">Not an explicit goal per se, but a convenient side effect of the JSON generic data model being a subset of the CBOR generic data model, is the fact that CDDL can also be used for describing JSON data structures (see <a href="#sec-json" class="xref">Appendix E.1</a>).</p>
 <p id="rfc.section.1.p.6">This document has the following structure:</p>
-<p id="rfc.section.1.p.7">The syntax of CDDL is defined in <a href="#syntax" class="xref">Section 3</a>.  Examples of CDDL and related CBOR data items (&#8220;instances&#8221;) are defined in <a href="#examples" class="xref">Appendix H</a>. <a href="#usage" class="xref">Section 4</a> discusses usage of CDDL. Examples are provided early in the text to better illustrate concept definitions.  A formal definition of CDDL using ABNF grammar is provided in <a href="#abnf" class="xref">Appendix B</a>.  Finally, a prelude of standard CDDL definitions available in every CBOR specification is listed in <a href="#prelude" class="xref">Appendix E</a>.</p>
+<p id="rfc.section.1.p.7">The syntax of CDDL is defined in <a href="#syntax" class="xref">Section 3</a>.  Examples of CDDL and related CBOR data items (&#8220;instances&#8221;) are defined in <a href="#examples" class="xref">Appendix H</a>. <a href="#usage" class="xref">Section 4</a> discusses usage of CDDL. Examples are provided early in the text to better illustrate concept definitions.  A formal definition of CDDL using ABNF grammar is provided in <a href="#abnf" class="xref">Appendix B</a>.  Finally, a <em>prelude</em> of standard CDDL definitions that is automatically prepended to and thus available in every CBOR specification is listed in <a href="#prelude" class="xref">Appendix E</a>.</p>
 <h1 id="rfc.section.1.1">
 <a href="#rfc.section.1.1">1.1.</a> <a href="#requirements-notation" id="requirements-notation">Requirements notation</a>
 </h1>
@@ -592,7 +592,7 @@ address {
 <h1 id="rfc.section.2.1">
 <a href="#rfc.section.2.1">2.1.</a> <a href="#group" id="group">Groups and Composition in CDDL</a>
 </h1>
-<p id="rfc.section.2.1.p.1">CDDL Groups are lists of name/value pairs (group <em>entries</em>).</p>
+<p id="rfc.section.2.1.p.1">CDDL Groups are lists of group <em>entries</em>, each of which can be a name/value pair or a more complex group expression composed of name/value pairs.</p>
 <p id="rfc.section.2.1.p.2">In an array context, only the value of the entry is represented; the name is annotation only (and can be left off if not needed).  In a map context, the names become the map keys (&#8220;member keys&#8221;).</p>
 <p id="rfc.section.2.1.p.3">In an array context, the sequence of elements in the group is important, as it is the information that allows associating actual array elements with entries in the group.  In a map context, the sequence of entries in a group is not relevant (but there is still a need to write down group entries in a sequence).</p>
 <p id="rfc.section.2.1.p.4">A simple example of using a group right in a map definition is:</p>
@@ -689,16 +689,8 @@ identity = (
 <li>The end of a group can be marked by &#8216;)&#8217;</li>
 <li>Definitions of entries inside of a group are noted as follows: <em>keytype =&gt; valuetype,</em> (read &#8220;keytype maps to valuetype&#8221;).  The comma is actually optional (not just in the final entry), but it is considered good style to set it.  The double arrow can be replaced by a colon in the common case of directly using a text string or integer literal as a key (see <a href="#structs" class="xref">Section 3.5.1</a>).</li>
 </ul>
-<p id="rfc.section.2.1.2.p.3">An entry consists of a <em>keytype</em> and a <em>valuetype</em>:</p>
-<p></p>
-
-<ul>
-<li>
-<em>keytype</em> is either an atom used as the actual key or a type in general.  The latter case may be needed when using groups in a table context, where the actual keys are of lesser importance than the key types, e.g in contexts verifying incoming data.</li>
-<li>
-<em>valuetype</em> is a type, which could be derived from the major types defined in <a href="#RFC7049" class="xref">[RFC7049]</a>, could be a convenience valuetype defined in this document (<a href="#prelude" class="xref">Appendix E</a>) or the name of a type defined in the specification.</li>
-</ul>
-<p id="rfc.section.2.1.2.p.5">A group definition can also contain choices between groups, see <a href="#choices" class="xref">Section 2.2.2</a>.</p>
+<p id="rfc.section.2.1.2.p.3">A basic entry consists of a <em>keytype</em> and a <em>valuetype</em>, both of which are types (<a href="#types" class="xref">Section 2.2</a>).</p>
+<p id="rfc.section.2.1.2.p.4">A group definition can also contain choices between groups, see <a href="#choices" class="xref">Section 2.2.2</a>.</p>
 <h1 id="rfc.section.2.2">
 <a href="#rfc.section.2.2">2.2.</a> <a href="#types" id="types">Types</a>
 </h1>
@@ -1531,7 +1523,7 @@ a = 1 b = 2 c = 3
 <tr>
 <td class="reference"><b id="I-D.ietf-core-senml">[I-D.ietf-core-senml]</b></td>
 <td class="top">
-<a>Jennings, C.</a>, <a>Shelby, Z.</a>, <a>Arkko, J.</a>, <a>Keranen, A.</a> and <a>C. Bormann</a>, "<a href="https://tools.ietf.org/html/draft-ietf-core-senml-12">Media Types for Sensor Measurement Lists (SenML)</a>", Internet-Draft draft-ietf-core-senml-12, December 2017.</td>
+<a>Jennings, C.</a>, <a>Shelby, Z.</a>, <a>Arkko, J.</a>, <a>Keranen, A.</a> and <a>C. Bormann</a>, "<a href="https://tools.ietf.org/html/draft-ietf-core-senml-16">Sensor Measurement Lists (SenML)</a>", Internet-Draft draft-ietf-core-senml-16, May 2018.</td>
 </tr>
 <tr>
 <td class="reference"><b id="I-D.newton-json-content-rules">[I-D.newton-json-content-rules]</b></td>
