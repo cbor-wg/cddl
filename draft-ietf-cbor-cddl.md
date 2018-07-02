@@ -117,7 +117,8 @@ Examples of CDDL and related CBOR data items ("instances") are defined in
 {{examples}}. {{usage}} discusses usage of CDDL. Examples are provided
 early in the text to better illustrate concept definitions.
 A formal definition of CDDL using ABNF grammar is provided in {{abnf}}.
-Finally, a prelude of standard CDDL definitions available in every
+Finally, a _prelude_ of standard CDDL definitions that is
+automatically prepended to and thus available in every
 CBOR specification is listed in {{prelude}}.
 
 [^_format]: So far, the ability to restrict format choices have not
@@ -343,7 +344,7 @@ in the common case of directly using a text string or integer literal as a
 key (see {{structs}}).
 
 A basic entry consists of a *keytype* and a *valuetype*, both of which
-are types ({{Types}}).
+are types ({{types}}).
 
 A group definition can also contain choices between groups, see {{choices}}.
 
