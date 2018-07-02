@@ -179,7 +179,11 @@ distinguishable styles of composition:
   is an example of a table.  The key domain is usually not limited to
   a specific set by the specification, but open for the
   application, e.g., in a table mapping IP addresses to MAC addresses,
-  the specification does not attempt to foresee all possible IP addresses.
+  the specification does not attempt to foresee all possible IP
+  addresses.
+  In a language such as JavaScript, a `Map` (as opposed to a plain
+  `Object`) would often be employed to achieve the generality of the
+  key domain.
 * A _struct_, a map from a domain of map keys as defined by the
   specification to a domain of map values the semantics of each of
   which is bound to a specific map key.  This is what many people have
