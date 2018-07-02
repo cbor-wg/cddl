@@ -770,7 +770,9 @@ string syntax can also be used in the member key position, followed by
 a colon.  The above example could therefore have been written with
 quoted strings in the member key positions.
 More generally, all the types defined can be used in a keytype position by following them with a
-double arrow.  A string also is a (single-valued) type, so another
+double arrow — in particular, the double arrow is necessary if a type
+is named by an identifier (which would be interpreted as a string
+before a colon).  A string also is a (single-valued) type, so another
 form for this example is:
 
 ~~~~ CDDL
@@ -1755,7 +1757,7 @@ memberkey = type1 S ["^" S] "=>"
 ~~~
 
 Key types can be given by a type expression, a bareword (which stands
-for string value created from this bareword), or a value (which stands
+for a type that just contains a string value created from this bareword), or a value (which stands
 for a type that just contains this value).  A key value matches its
 key type if the key value is a member of the key type, unless a cut
 preceding it in the group applies (see {{cuts-in-maps}} how map
