@@ -146,6 +146,9 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 New terms are introduced in _cursive_.
 CDDL text in the running text is in `typewriter`.
 
+In this specification, the term "byte" is used in its now customary
+sense as a synonym for "octet".
+
 # The Style of Data Structure Specification
 
 CDDL focuses on styles of specification that are in use in the
@@ -1076,7 +1079,10 @@ on a single target.
 ### Control operator .size
 
 A `.size` control controls the size of the target in bytes by the
-control type.  Examples:
+control type.  The control is defined for text and byte strings, where
+it directly controls the number of bytes in the string.  It is also
+defined for unsigned integers (see below).
+{{control-size}} shows example usage for byte strings.
 
 ~~~~ CDDL
 full-address = [[+ label], ip4, ip6]
