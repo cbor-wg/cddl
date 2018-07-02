@@ -204,7 +204,9 @@ CDDL, and section {{syntax}} defines additional syntax.
 
 ## Groups and Composition in CDDL {#group}
 
-CDDL Groups are lists of name/value pairs (group _entries_).
+CDDL Groups are lists of group _entries_, each of which can be a
+name/value pair or a more complex group expression composed of
+name/value pairs.
 
 In an array context, only the value of the entry is represented; the name is
 annotation only (and can be left off if not needed).
@@ -340,15 +342,8 @@ considered good style to set it.  The double arrow can be replaced by a colon
 in the common case of directly using a text string or integer literal as a
 key (see {{structs}}).
 
-An entry consists of a *keytype* and a *valuetype*:
-
-* *keytype* is either an atom used as the actual key or a type in general.
-  The latter case may be needed when using groups in a table context, where the actual
-  keys are of lesser importance than the key types, e.g in contexts verifying
-  incoming data.
-* *valuetype* is a type, which could be derived from the major types
-  defined in {{RFC7049}}, could be a convenience valuetype defined in this
-  document ({{prelude}}) or the name of a type defined in the specification.
+A basic entry consists of a *keytype* and a *valuetype*, both of which
+are types ({{Types}}).
 
 A group definition can also contain choices between groups, see {{choices}}.
 
