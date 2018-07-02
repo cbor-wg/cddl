@@ -103,7 +103,7 @@ Table of Contents
      4.2.  For automated checking of CBOR data structure . . . . . .  30
      4.3.  For data analysis tools . . . . . . . . . . . . . . . . .  31
    5.  Security considerations . . . . . . . . . . . . . . . . . . .  31
-   6.  IANA considerations . . . . . . . . . . . . . . . . . . . . .  31
+   6.  IANA considerations . . . . . . . . . . . . . . . . . . . . .  32
    7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  32
      7.1.  Normative References  . . . . . . . . . . . . . . . . . .  32
 
@@ -114,9 +114,9 @@ Birkholz, et al.         Expires August 30, 2018                [Page 2]
 Internet-Draft                    CDDL                     February 2018
 
 
-     7.2.  Informative References  . . . . . . . . . . . . . . . . .  32
-   Appendix A.  (Not used.)  . . . . . . . . . . . . . . . . . . . .  33
-   Appendix B.  ABNF grammar . . . . . . . . . . . . . . . . . . . .  33
+     7.2.  Informative References  . . . . . . . . . . . . . . . . .  33
+   Appendix A.  (Not used.)  . . . . . . . . . . . . . . . . . . . .  34
+   Appendix B.  ABNF grammar . . . . . . . . . . . . . . . . . . . .  34
    Appendix C.  Matching rules . . . . . . . . . . . . . . . . . . .  36
    Appendix D.  (Not used.)  . . . . . . . . . . . . . . . . . . . .  40
    Appendix E.  Standard Prelude . . . . . . . . . . . . . . . . . .  40
@@ -1725,10 +1725,10 @@ Internet-Draft                    CDDL                     February 2018
    o  Where could the language maybe cause confusion in a way that will
       enable security issues?
 
-6.  IANA considerations
-
-   This document does not require any IANA registrations.
-
+   Writers of CDDL specifications are strongly encouraged to value
+   simplicity and transparency of the specification over its elegance.
+   Keep it as simple as possible while still expressing the needed data
+   model.
 
 
 
@@ -1737,6 +1737,17 @@ Birkholz, et al.         Expires August 30, 2018               [Page 31]
 
 Internet-Draft                    CDDL                     February 2018
 
+
+   A related observation about formal description techniques in general
+   that is strongly recommended to be kept in mind by writers of CDDL
+   specifications: Just because CDDL makes it easier to handle
+   complexity in a specification, that does not make that complexity
+   somehow less bad (except maybe on the level of the humans having to
+   grasp the complex structure while reading the spec).
+
+6.  IANA considerations
+
+   This document does not require any IANA registrations.
 
 7.  References
 
@@ -1775,6 +1786,14 @@ Internet-Draft                    CDDL                     February 2018
               REC-xmlschema-2-20041028, October 2004,
               <http://www.w3.org/TR/2004/REC-xmlschema-2-20041028>.
 
+
+
+
+Birkholz, et al.         Expires August 30, 2018               [Page 32]
+
+Internet-Draft                    CDDL                     February 2018
+
+
 7.2.  Informative References
 
    [I-D.bormann-cbor-cddl-freezer]
@@ -1786,13 +1805,6 @@ Internet-Draft                    CDDL                     February 2018
               Bormann, C., Carpenter, B., and B. Liu, "A Generic
               Autonomic Signaling Protocol (GRASP)", draft-ietf-anima-
               grasp-15 (work in progress), July 2017.
-
-
-
-Birkholz, et al.         Expires August 30, 2018               [Page 32]
-
-Internet-Draft                    CDDL                     February 2018
-
 
    [I-D.ietf-core-senml]
               Jennings, C., Shelby, Z., Arkko, J., Keranen, A., and C.
@@ -1830,6 +1842,14 @@ Internet-Draft                    CDDL                     February 2018
               RFC 8152, DOI 10.17487/RFC8152, July 2017,
               <https://www.rfc-editor.org/info/rfc8152>.
 
+
+
+
+Birkholz, et al.         Expires August 30, 2018               [Page 33]
+
+Internet-Draft                    CDDL                     February 2018
+
+
 7.3.  URIs
 
    [1] https://github.com/cabo/cbor-diag
@@ -1842,14 +1862,6 @@ Appendix B.  ABNF grammar
    Backus-Naur Form (ABNF, [RFC5234]).  [_abnftodo]
 
    cddl = S 1*rule
-
-
-
-Birkholz, et al.         Expires August 30, 2018               [Page 33]
-
-Internet-Draft                    CDDL                     February 2018
-
-
    rule = typename [genericparm] S assign S type S
         / groupname [genericparm] S assign S grpent S
 
@@ -1886,6 +1898,14 @@ Internet-Draft                    CDDL                     February 2018
    grpchoice = *grpent
 
    grpent = [occur S] [memberkey S] type optcom
+
+
+
+Birkholz, et al.         Expires August 30, 2018               [Page 34]
+
+Internet-Draft                    CDDL                     February 2018
+
+
           / [occur S] groupname [genericarg] optcom ; preempted by above
           / [occur S] "(" S group S ")" optcom
 
@@ -1898,14 +1918,6 @@ Internet-Draft                    CDDL                     February 2018
    optcom = S ["," S]
 
    occur = [uint] "*" [uint]
-
-
-
-Birkholz, et al.         Expires August 30, 2018               [Page 34]
-
-Internet-Draft                    CDDL                     February 2018
-
-
          / "+"
          / "?"
 
@@ -1943,6 +1955,13 @@ Internet-Draft                    CDDL                     February 2018
    HEXDIG = DIGIT / "A" / "B" / "C" / "D" / "E" / "F"
    BINDIG = %x30-31
 
+
+
+Birkholz, et al.         Expires August 30, 2018               [Page 35]
+
+Internet-Draft                    CDDL                     February 2018
+
+
    S = *WS
    WS = SP / NL
    SP = %x20
@@ -1952,15 +1971,6 @@ Internet-Draft                    CDDL                     February 2018
    CRLF = %x0A / %x0D.0A
 
                            Figure 12: CDDL ABNF
-
-
-
-
-
-Birkholz, et al.         Expires August 30, 2018               [Page 35]
-
-Internet-Draft                    CDDL                     February 2018
-
 
 Appendix C.  Matching rules
 
@@ -2000,6 +2010,14 @@ Appendix C.  Matching rules
    group by additional choices; a number of these could be replaced by
    collecting all the right hand sides and creating a single rule with a
    type choice or a group choice built from the right hand sides in the
+
+
+
+Birkholz, et al.         Expires August 30, 2018               [Page 36]
+
+Internet-Draft                    CDDL                     February 2018
+
+
    order of the rules given.  (It is not an error to extend a rule name
    that has not yet been defined; this makes the right hand side the
    first entry in the choice being created.)  The creation of the type
@@ -2008,15 +2026,6 @@ Appendix C.  Matching rules
 
    genericparm = "<" S id S *("," S id S ) ">"
    genericarg = "<" S type1 S *("," S type1 S ) ">"
-
-
-
-
-
-Birkholz, et al.         Expires August 30, 2018               [Page 36]
-
-Internet-Draft                    CDDL                     February 2018
-
 
    Rule names can have generic parameters, which cause temporary
    assignments within the right hand sides to the parameter names from
@@ -2057,6 +2066,14 @@ Internet-Draft                    CDDL                     February 2018
    an "unwrapped" group (see Section 3.7), which matches the group
    inside a type defined as a map or an array by wrapping the group, or
 
+
+
+
+Birkholz, et al.         Expires August 30, 2018               [Page 37]
+
+Internet-Draft                    CDDL                     February 2018
+
+
          / "#" "6" ["." uint] "(" S type S ")" ; note no space!
 
    a tagged data item, tagged with the "uint" given and containing the
@@ -2066,13 +2083,6 @@ Internet-Draft                    CDDL                     February 2018
 
    a data item of a major type (given by the DIGIT), optionally
    constrained to the additional information given by the uint, or
-
-
-
-Birkholz, et al.         Expires August 30, 2018               [Page 37]
-
-Internet-Draft                    CDDL                     February 2018
-
 
          / "#"                                 ; any
 
@@ -2113,6 +2123,13 @@ Internet-Draft                    CDDL                     February 2018
 
    group = grpchoice S *("//" S grpchoice S)
 
+
+
+Birkholz, et al.         Expires August 30, 2018               [Page 38]
+
+Internet-Draft                    CDDL                     February 2018
+
+
    A group matches any sequence of key/value pairs that matches any of
    the choices given (again using Parse Expression Grammar semantics).
 
@@ -2121,14 +2138,6 @@ Internet-Draft                    CDDL                     February 2018
    Each of the component groups is given as a sequence of group entries.
    For a match, the sequence of key/value pairs given needs to match the
    sequence of group entries in the sequence given.
-
-
-
-
-Birkholz, et al.         Expires August 30, 2018               [Page 38]
-
-Internet-Draft                    CDDL                     February 2018
-
 
    grpent = [occur S] [memberkey S] type optcom
 
@@ -2170,15 +2179,6 @@ Internet-Draft                    CDDL                     February 2018
 
    (Optional commas do not influence the matching.)
 
-   occur = [uint] "*" [uint]
-         / "+"
-         / "?"
-
-   An occurrence indicator modifies the group given to its right by
-   requiring the group to match the sequence to be matched exactly for a
-   certain number of times (see Section 3.2) in sequence, i.e. it acts
-
-
 
 
 Birkholz, et al.         Expires August 30, 2018               [Page 39]
@@ -2186,6 +2186,13 @@ Birkholz, et al.         Expires August 30, 2018               [Page 39]
 Internet-Draft                    CDDL                     February 2018
 
 
+   occur = [uint] "*" [uint]
+         / "+"
+         / "?"
+
+   An occurrence indicator modifies the group given to its right by
+   requiring the group to match the sequence to be matched exactly for a
+   certain number of times (see Section 3.2) in sequence, i.e. it acts
    as a (possibly infinite) group choice that contains choices with the
    group repeated each of the occurrences times.
 
@@ -2202,13 +2209,6 @@ Appendix E.  Standard Prelude
    [tdate].  (Note that technically, it is a postlude, as it does not
    disturb the selection of the first rule as the root of the
    definition.)
-
-
-
-
-
-
-
 
 
 
