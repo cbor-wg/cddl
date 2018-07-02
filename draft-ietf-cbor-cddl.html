@@ -344,7 +344,7 @@ address {
 
   <meta name="dct.creator" content="Birkholz, H., Vigano, C., and C. Bormann" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-cbor-cddl-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2018-02-26" />
+  <meta name="dct.issued" scheme="ISO8601" content="2018-07-02" />
   <meta name="dct.abstract" content="This document proposes a notational convention to express CBOR data structures (RFC 7049).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR." />
   <meta name="description" content="This document proposes a notational convention to express CBOR data structures (RFC 7049).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR." />
 
@@ -368,7 +368,7 @@ address {
 <td class="right">C. Vigano</td>
 </tr>
 <tr>
-<td class="left">Expires: August 30, 2018</td>
+<td class="left">Expires: January 3, 2019</td>
 <td class="right">Universit&#228;t Bremen</td>
 </tr>
 <tr>
@@ -381,7 +381,7 @@ address {
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">February 26, 2018</td>
+<td class="right">July 02, 2018</td>
 </tr>
 
     	
@@ -397,7 +397,7 @@ address {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on August 30, 2018.</p>
+<p>This Internet-Draft will expire on January 3, 2019.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2018 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -570,6 +570,7 @@ address {
 <a href="#rfc.section.1.2">1.2.</a> <a href="#terminology" id="terminology">Terminology</a>
 </h1>
 <p id="rfc.section.1.2.p.1">New terms are introduced in <em>cursive</em>.  CDDL text in the running text is in <samp>typewriter</samp>.</p>
+<p id="rfc.section.1.2.p.2">In this specification, the term &#8220;byte&#8221; is used in its now customary sense as a synonym for &#8220;octet&#8221;.</p>
 <h1 id="rfc.section.2">
 <a href="#rfc.section.2">2.</a> <a href="#the-style-of-data-structure-specification" id="the-style-of-data-structure-specification">The Style of Data Structure Specification</a>
 </h1>
@@ -701,7 +702,7 @@ identity = (
 <a href="#rfc.section.2.2.1">2.2.1.</a> <a href="#values" id="values">Values</a>
 </h1>
 <p id="rfc.section.2.2.1.p.1">Values such as numbers and strings can be used in place of a type.  (For instance, this is a very common thing to do for a keytype, common enough that CDDL provides additional convenience syntax for this.)</p>
-<p id="rfc.section.2.2.1.p.2">The value notation is based on the C language, but does not offer all the syntactic variations <a href="#abnf" class="xref">Appendix B</a>.  The value notation for numbers inherits from C the distinction between integer values (no fractional part or exponent given &#8212; NR1 <a href="#ISO6093" class="xref">[ISO6093]</a>) and floating point values (where a fractional part and/or an exponent is present &#8212; NR2 or NR3), so the type <samp>1</samp> does not include any floating point numbers while the types <samp>1e3</samp> and <samp>1.5</samp> are both floating point Numbers and do not include any integer numbers.</p>
+<p id="rfc.section.2.2.1.p.2">The value notation is based on the C language, but does not offer all the syntactic variations <a href="#abnf" class="xref">Appendix B</a>.  The value notation for numbers inherits from C the distinction between integer values (no fractional part or exponent given &#8212; NR1 <a href="#ISO6093" class="xref">[ISO6093]</a>) and floating point values (where a fractional part and/or an exponent is present &#8212; NR2 or NR3), so the type <samp>1</samp> does not include any floating point numbers while the types <samp>1e3</samp> and <samp>1.5</samp> are both floating point numbers and do not include any integer numbers.</p>
 <h1 id="rfc.section.2.2.2">
 <a href="#rfc.section.2.2.2">2.2.2.</a> <a href="#choices" id="choices">Choices</a>
 </h1>
@@ -1099,7 +1100,7 @@ advanced-header = [
 <h1 id="rfc.section.3.8.1">
 <a href="#rfc.section.3.8.1">3.8.1.</a> <a href="#control-operator-size" id="control-operator-size">Control operator .size</a>
 </h1>
-<p id="rfc.section.3.8.1.p.1">A <samp>.size</samp> control controls the size of the target in bytes by the control type.  Examples:</p>
+<p id="rfc.section.3.8.1.p.1">A <samp>.size</samp> control controls the size of the target in bytes by the control type.  The control is defined for text and byte strings, where it directly controls the number of bytes in the string.  It is also defined for unsigned integers (see below).  <a href="#control-size" class="xref">Figure 7</a> shows example usage for byte strings.</p>
 <div id="rfc.figure.7"></div>
 <div id="control-size"></div>
 <pre>
