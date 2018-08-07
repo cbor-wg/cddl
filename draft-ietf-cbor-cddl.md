@@ -495,7 +495,19 @@ when displaying integers that are taken from that choice).
 
 CDDL allows the specification of a data item type by referring to the
 CBOR representation (major and minor numbers).  How this is used
-should be evident from the prelude ({{prelude}}).
+should be evident from the prelude ({{prelude}}): a hash mark (`#`)
+optionally followed by a major type, which can be followed by
+additional information, specifies the set of values that can be
+serialized in CBOR (i.e., `any`), by the given major type if one is
+given, or by the given major type with the additional information if
+both are given.  Note that although this notation is based on the CBOR
+serialization, it is about a set of values at the data model level,
+e.g. `#7.25` specifies the set of values that can be represented as
+half-precision floats; it does not mandate that these values also do
+have to be serialized as half-precision floats: CDDL does not provide
+any language means to restrict the choice of serialization variants.
+This also enables the use of CDDL with JSON, which uses a
+fundamentally different way of serializing (some of) the same values.
 
 It may be necessary to make use of representation types outside the
 prelude, e.g., a specification could start by making use of an
