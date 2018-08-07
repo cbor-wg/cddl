@@ -76,6 +76,7 @@ informative:
   I-D.ietf-anima-grasp: grasp
   I-D.ietf-core-senml: senml
   I-D.bormann-cbor-cddl-freezer: freezer
+  PEG: DOI.10.1145_964001.964011
 
 --- abstract
 
@@ -1635,7 +1636,7 @@ type = type1 S *("/" S type1 S)
 
 A type can be given as a choice between one or more types.  The choice
 matches a data item if the data item matches any one of the types given
-in the choice.  The choice uses Parse Expression Grammar (PEG) semantics:
+in the choice.  The choice uses Parsing Expression Grammar {{PEG}} semantics:
 The first choice that matches wins.  (As a result, the order of rules
 that contribute to a single rule name can very well matter.)
 
@@ -1743,7 +1744,7 @@ group = grpchoice S *("//" S grpchoice S)
 ~~~
 
 A group matches any sequence of key/value pairs that matches any of
-the choices given (again using Parse Expression Grammar semantics).
+the choices given (again using Parsing Expression Grammar semantics).
 
 ~~~ abnf
 grpchoice = *grpent
