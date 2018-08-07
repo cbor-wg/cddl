@@ -224,10 +224,11 @@ CDDL, and section {{syntax}} defines additional syntax.
 
 CDDL Groups are lists of group _entries_, each of which can be a
 name/value pair or a more complex group expression composed of
-name/value pairs.
+name/value pairs.  A CDDL group is a production in a grammar that can
+produce certain sequences of name/value pairs bbut not thers.
 
-In an array context, only the value of the entry is represented; the name is
-annotation only (and can be left off if not needed).
+In an array context, only the value of the name/value pair is represented; the name is
+annotation only (and can be left off from the group specification if not needed).
 In a map context, the names become the map keys ("member keys").
 
 In an array context, the sequence of elements in the group is
@@ -235,6 +236,15 @@ important, as it is the information that allows associating actual
 array elements with entries in the group.
 In a map context, the sequence of entries in a group is not relevant
 (but there is still a need to write down group entries in a sequence).
+
+An array matches a specification given as a group when the group can
+produce a sequence of name/value pairs the value parts of which
+exactly match the elements of the array in order.
+
+A map matches a specification given as a group when the group can
+produce a sequence of name/value pairs such that all of these
+name/value pairs are present in the map and the map has no name/value
+pair that is not covered by the group.
 
 A simple example of using a group right in a map definition is:
 
@@ -946,8 +956,9 @@ extensible-map-example = {
 ~~~~
 {:cddl}
 
-A cut in this position means that once the map key matches the entry
-carrying the cut, other potential matches for the key that occur in
+A cut in this position means that once the map key matches the name
+part of an entry that can be produced and carries a cut,
+other potential matches for the key that occur in
 later entries in the group of the map are no longer allowed.  (This
 rule applies independent of whether the value matches, too.)  So the
 example above no longer matches the version modified with a cut.
