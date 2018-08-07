@@ -1445,8 +1445,11 @@ actual arguments supplied (also using angle brackets), within the
 scope of the generic rule (as if there were a rule of the form
 parameter = argument).
 
-(There are some limitations to nesting of generics in {{tool}} at this
-time.)
+Generic rules can be used for establishing names for both types and
+groups.
+
+(There are some limitations to nesting of generics in the tool
+described in {{tool}} at this time.)
 
 
 ## Operator Precedence
