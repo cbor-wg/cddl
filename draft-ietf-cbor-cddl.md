@@ -250,7 +250,7 @@ person = {
   employer: tstr,
 }
 ~~~~
-{:cddl #group-in-map title="Using a group in a map"}
+{:cddl #group-in-map title="Using a group directly in a map"}
 
 The three entries of the group are written between the curly braces
 that create the map:
@@ -293,7 +293,7 @@ person = {(
   employer: tstr,
 )}
 ~~~~
-{:cddl}
+{:cddl #paren-group-in-map title="Using a parenthesized group in a map"}
 
 Groups can be used to factor out common parts of structs, e.g.,
 instead of writing copy/paste style specifications such as in
@@ -401,7 +401,10 @@ protocol = 6 / 17
 {:cddl}
 
 Similarly as for types, CDDL also allows choices between groups,
-delimited by a "//" (double slash).
+delimited by a "//" (double slash).  Note that the "//" operators
+binds much more weakly than the other CDDL operators, so each line
+within `delivery` in
+the following example is its own alternative in the group choice:
 
 ~~~~ CDDL
 address = { delivery }
