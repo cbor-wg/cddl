@@ -1533,10 +1533,11 @@ for unary prefix operators and 2 for binary infix operators.)
 | \=>      |  2 | type => type              |    5 |
 | :        |  2 | name: type                |    5 |
 | /        |  2 | type / type               |    6 |
-| &        |  1 | &group                    |    6 |
 | ..       |  2 | type..type                |    7 |
 | ...      |  2 | type...type               |    7 |
 | .anno    |  2 | type .anno type           |    7 |
+| &        |  1 | &group                    |    8 |
+| ~        |  1 | ~type                     |    8 |
 {: #prec cols="c r l r" title="Summary of operator precedences"}
 
 # Making Use of CDDL {#usage}
@@ -1711,7 +1712,7 @@ or be defined in a parenthesized type expression (parentheses may be
 necessary to override some operator precendence), or
 
 ~~~ abnf
-      / "~" S groupname [genericarg]
+      / "~" S typename [genericarg]
 ~~~
 
 an "unwrapped" group (see {{unwrapping}}), which matches the group

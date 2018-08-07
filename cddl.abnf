@@ -17,7 +17,7 @@ type1 = type2 [S (rangeop / ctlop) S type2]
 type2 = value
       / typename [genericarg]
       / "(" type ")"
-      / "~" S groupname [genericarg]
+      / "~" S typename [genericarg]
       / "#" "6" ["." uint] "(" S type S ")" ; note no space!
       / "#" DIGIT ["." uint]                ; major/ai
       / "#"                                 ; any
