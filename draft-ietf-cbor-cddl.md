@@ -45,6 +45,7 @@ normative:
   RFC3629: utf8
   RFC5234: abnf
   RFC7049: cbor
+  RFC8126: ianapol
   RFC8259: json
   RFC7493: i-json
   W3C.REC-xmlschema-2-20041028: xsd2
@@ -1075,7 +1076,9 @@ where control operators are special identifiers prefixed by a dot.
 
 A number of control operators are defined at his point.  Note that
 the CDDL tool does not currently support combining multiple controls
-on a single target.
+on a single target.  Further control operators may be defined by new
+versions of this specification or by registering them according to the
+procedures in {{sec-controlreg}}.
 
 ### Control operator .size
 
@@ -1858,17 +1861,48 @@ in a specification, that does not make that complexity somehow less
 bad (except maybe on the level of the humans having to grasp the
 complex structure while reading the spec).
 
-# IANA considerations
+# IANA Considerations
 
-## CDDL control operator registry
+## CDDL control operator registry {#sec-controlreg}
 
-IANA is requested ...
+IANA is requested to create a registry for control operators
+{{controls}}.  The name of this registry is "CDDL Control Operators".
 
-(TBD: define a registry of control operators.  Policy to be defined,
-definitely at least specification required.  Designated expert should
-be instructed to require a workable specification that enables
-interoperability of implementations of CDDL specifications making use
-of the control operator.  Define initial table from the present document.)
+Each entry in the subregistry must include the name of the control
+operator (by convention given with the leading dot) and a reference to
+its documentation.  Names must be composed of the leading dot followed
+by a text string conforming to the production "id" in {{abnf}}.
+
+Initial entries in this registry are as follows:
+
+| name     | documentation |
+| .size    | [RFCthis]     |
+| .bits    | [RFCthis]     |
+| .regexp  | [RFCthis]     |
+| .cbor    | [RFCthis]     |
+| .cborseq | [RFCthis]     |
+| .within  | [RFCthis]     |
+| .and     | [RFCthis]     |
+| .lt      | [RFCthis]     |
+| .le      | [RFCthis]     |
+| .gt      | [RFCthis]     |
+| .ge      | [RFCthis]     |
+| .eq      | [RFCthis]     |
+| .ne      | [RFCthis]     |
+| .default | [RFCthis]     |
+
+
+All other control operator names are Unassigned.
+
+The IANA policy for additions to this registry is "Specification
+Required" as defined in {{-ianapol}} (which involves an Expert
+Review) for names that do not include an internal dot, and "IETF
+Review" for names that do include an internal dot.
+The Expert is specifically instructed that other Standards Development
+Organizations (SDOs) may want to define control operators that are
+specific to their fields (e.g., based on a binary syntax already in
+use at the SDO); the review process should strive to facilitate such
+an undertaking.
 
 --- back
 
