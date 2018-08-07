@@ -1865,7 +1865,7 @@ be familiar from programming languages, with the possible exception of
 h'..' and b64'..' for byte strings, as well as syntactic elements such
 as comments and line ends.
 
-# (Not used.)
+<!-- # (Not used.) -->
 
 --- middle
 
@@ -1969,7 +1969,7 @@ ambiguous.
 [^tdate]: The prelude as included here does not yet have a .regexp
         control on tdate, but we probably do want to have one.
 
-## Use with JSON {#sec-json}
+# Use with JSON {#sec-json}
 
 The JSON generic data model (implicit in {{-json}}) is a subset of the
 generic data model of CBOR.  So one can use CDDL with JSON by limiting
