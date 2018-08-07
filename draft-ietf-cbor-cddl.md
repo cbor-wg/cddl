@@ -1303,6 +1303,23 @@ ordering relationship.
 speed = number .ge 0  ; unit: m/s
 ~~~~
 
+.ne and .eq are defined both for numeric values and values of other types.
+If one of the values is not of a numeric type, equality is determined as follows:
+Text strings are equal (satisfy .eq/do not satisfy .ne) if
+they are bytewise identical; the same applies for byte strings.
+Arrays are equal if they have the same number
+of elements, all of which are equal pairwise in order between the arrays.
+Maps are equal if they have the same number of key/value pairs, and there
+is pairwise equality between the key/value pairs between the two maps.
+Tagged values are equal if they both have the same tag and the values
+are equal.
+Values of simple types match if they are the same values.
+Numeric types that occur within arrays, maps, or tagged values are
+equal if their numeric value is equal and they are both integers or
+both floating point values.
+All other cases are not equal (e.g., comparing a text string with a
+byte string).
+
 A variant of the `.ne` control is the `.default` control, which
 expresses an additional intent: the value specified by the
 right-hand-side type is intended as a default value for the left hand
