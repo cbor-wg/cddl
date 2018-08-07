@@ -105,8 +105,6 @@ The CBOR notational convention has the following goals:
 
 * Flexibility to express the freedoms of choice in the CBOR data format.
 
-* Possibility to restrict format choices where appropriate [^_format].
-
 * Able to express common CBOR datatypes and structures.
 
 * Human and machine readable and processable.
@@ -130,11 +128,6 @@ A formal definition of CDDL using ABNF grammar is provided in {{abnf}}.
 Finally, a _prelude_ of standard CDDL definitions that is
 automatically prepended to and thus available in every
 CBOR specification is listed in {{prelude}}.
-
-[^_format]: So far, the ability to restrict format choices have not
-    been needed beyond the floating point formats.  Those can be
-    applied to ranges using the new .and control now.  It is not
-    clear we want to add more format control before we have a use case.
 
 ## Requirements notation
 
@@ -449,11 +442,6 @@ A range can be inclusive of both ends given (denoted by joining two
 values by ".."), or include the first and exclude the second (denoted
 by instead using "...").
 
-[^_range]:  TO DO: define this precisely.  This clearly includes integers and
-        floats.  Strings -- as in "a".."z" -- could be added if desired, but
-        this would require adopting a definition of string ordering and
-        possibly a successor function so "a".."z" does not include "bb".
-
 ~~~~ CDDL
 device-address = byte
 max-byte = 255
@@ -463,7 +451,22 @@ byte1 = 0...first-non-byte ; byte1 is equivalent to byte
 ~~~~
 {:cddl}
 
-CDDL currently only allows ranges between numbers [^_range].
+CDDL currently only allows ranges between integers (matching integer
+values) or between floating point values (matching floating point
+values).  If both are needed in a type, a type choice between the two
+kinds of ranges can be (clumsily) used:
+
+~~~~ CDDL
+int-range = 0..10 ; only integers match
+float-range = 0.0..10.0 ; only floats match
+BAD-range1 = 0..10.0 ; NOT DEFINED
+BAD-range2 = 0.0..10 ; NOT DEFINED
+numeric-range = int-range / float-range
+~~~~
+{:cddl}
+
+(See also the control operators .lt/.ge and .le/.gt in {{fortran}}.)
+
 
 #### Turning a group into a choice
 
@@ -602,10 +605,6 @@ If prefixed as "h" or "b64", the string is interpreted as a sequence
 of hex digits or a base64(url) string, respectively (as with the
 diagnostic notation in section 6 of {{RFC7049}}; cf. {{textbin}}); any white space
 present within the string (including comments) is ignored in the prefixed case.
-[^_strings]
-
-
-[^_strings]: TO DO: This still needs to be fully realized in the ABNF and in the CDDL tool.
 
 
 *   CDDL uses UTF-8 {{RFC3629}} for its encoding.
@@ -1142,8 +1141,7 @@ constraints outside of CDDL, such as the rules in Section 3.9 of
 A `.bits` control on a byte string indicates that, in the
 target, only the bits numbered by a number in the control type are
 allowed to be set.  (Bits are counted the usual way, bit number `n`
-being set in `str` meaning that `(str[n >> 3] & (1 << (n & 7))) != 0`.)[^_bitsendian]
-
+being set in `str` meaning that `(str[n >> 3] & (1 << (n & 7))) != 0`.)
 Similarly, a `.bits` control on an unsigned integer `i` indicates
 that for all unsigned integers `n` where `(i & (1 << n)) != 0`, `n`
 must be in the control type.
@@ -1180,9 +1178,6 @@ does not explicitly specify a size of two bytes: A valid all clear
 instance of flag bytes could be `h''` or `h'00'` or even `h'000000'`
 as well.
 
-[^_bitsendian]: How useful would it be to have another variant that
-        counts bits like in RFC box notation?  (Or at least per-byte?
-        32-bit words don't always perfectly mesh with byte strings.)
 
 ### Control operator .regexp {#regexp}
 
@@ -1312,7 +1307,7 @@ For `.within`, a tool might flag an error if type1 allows data items
 that are not allowed by type2.  In contrast, for `.and`, there is no
 expectation that type1 already is a subset of type2.
 
-### Control operators .lt, .le, .gt, .ge, .eq, .ne, and .default
+### Control operators .lt, .le, .gt, .ge, .eq, .ne, and .default {#fortran}
 
 The controls .lt, .le, .gt, .ge, .eq, .ne specify a constraint on
 the left hand side type to be a value less than, less than or equal,
@@ -1493,12 +1488,12 @@ group3 = (+ a / b / c)
 a = 1 b = 2 c = 3
 ~~~
 
-group3 is a repetition of a type choice between a, b, and c[^unflex];  if just
+group3 is a repetition of a type choice between a, b, and c;  if just
 a is to be repeatable, a group choice is needed to focus the occurrence:
 
-[^unflex]: A comment has been that this is counter-intuitive. One solution
-    would be to simply disallow unparenthesized usage of occurrence indicators
-    in front of type choices unless a member key is also present like in group2 above.
+(A comment has been that this could be counter-intuitive.  The
+specification writer is encouraged to use parentheses liberally to
+guide readers that are not familiar with CDDL precedence rules.)
 
 ~~~
 t = [group4]
@@ -1603,7 +1598,7 @@ An interesting use would thus be automated analysis of sensor data.
 # ABNF grammar {#abnf}
 
 The following is a formal definition of the CDDL syntax in Augmented Backus-Naur Form
-(ABNF, {{RFC5234}}).[^_abnftodo]
+(ABNF, {{RFC5234}}).
 
 
 ~~~~ ABNF
@@ -1611,8 +1606,8 @@ The following is a formal definition of the CDDL syntax in Augmented Backus-Naur
 ~~~~
 {:cddl #fig-abnf title="CDDL ABNF"}
 
-[^_abnftodo]: Potential improvements: the prefixed byte strings are
-        more liberally specified than they actually are.
+Note that this ABNF does not attempt to reflect the detailed rules of
+what can be in a prefixed byte string.
 
 # Matching rules {#matching}
 
@@ -1948,7 +1943,7 @@ an undertaking.
 
 # Standard Prelude {#prelude}
 
-The following prelude is automatically added to each CDDL file[^tdate].
+The following prelude is automatically added to each CDDL file.
 (Note that technically, it is a postlude, as it does not disturb the
 selection of the first rule as the root of the definition.)
 
@@ -1966,8 +1961,8 @@ A common stumbling point is that the prelude does not define a type
 strings (`text`), so a type that is simply called `string` would be
 ambiguous.
 
-[^tdate]: The prelude as included here does not yet have a .regexp
-        control on tdate, but we probably do want to have one.
+<!-- The prelude as included here does not yet have a .regexp -->
+<!--         control on tdate, but we probably do want to have one. -->
 
 # Use with JSON {#sec-json}
 
