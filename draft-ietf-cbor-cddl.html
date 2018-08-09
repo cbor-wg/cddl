@@ -1680,9 +1680,9 @@ a = 1 b = 2 c = 3
 <div id="rfc.figure.13"></div>
 <div id="fig-abnf"></div>
 <pre>
-cddl = S 1*rule
-rule = typename [genericparm] S assign S type S
-     / groupname [genericparm] S assign S grpent S
+cddl = S 1*(rule S)
+rule = typename [genericparm] S assign S type
+     / groupname [genericparm] S assign S grpent
 
 typename = id
 groupname = id
@@ -1692,33 +1692,33 @@ assign = "=" / "/=" / "//="
 genericparm = "&lt;" S id S *("," S id S ) "&gt;"
 genericarg = "&lt;" S type1 S *("," S type1 S ) "&gt;"
 
-type = type1 S *("/" S type1 S)
+type = type1 *(S "/" S type1)
 
 type1 = type2 [S (rangeop / ctlop) S type2]
 
 type2 = value
       / typename [genericarg]
-      / "(" type ")"
+      / "(" S type S ")"
+      / "{" S group S "}"
+      / "[" S group S "]"
       / "~" S typename [genericarg]
+      / "&amp;" S "(" S group S ")"
+      / "&amp;" S groupname [genericarg]
       / "#" "6" ["." uint] "(" S type S ")" ; note no space!
       / "#" DIGIT ["." uint]                ; major/ai
       / "#"                                 ; any
-      / "{" S group S "}"
-      / "[" S group S "]"
-      / "&amp;" S "(" S group S ")"
-      / "&amp;" S groupname [genericarg]
 
 rangeop = "..." / ".."
 
 ctlop = "." id
 
-group = grpchoice S *("//" S grpchoice S)
+group = grpchoice *(S "//" S grpchoice)
 
-grpchoice = *grpent
+grpchoice = *(grpent optcom)
 
-grpent = [occur S] [memberkey S] type optcom
-       / [occur S] groupname [genericarg] optcom ; preempted by above
-       / [occur S] "(" S group S ")" optcom
+grpent = [occur S] [memberkey S] type
+       / [occur S] groupname [genericarg]  ; preempted by above
+       / [occur S] "(" S group S ")"
 
 memberkey = type1 S ["^" S] "=&gt;"
           / bareword S ":"
@@ -1732,10 +1732,10 @@ occur = [uint] "*" [uint]
       / "+"
       / "?"
 
-uint = ["0x" / "0b"] "0"
-     / DIGIT1 *DIGIT
+uint = DIGIT1 *DIGIT
      / "0x" 1*HEXDIG
      / "0b" 1*BINDIG
+     / "0"
 
 value = number
       / text
