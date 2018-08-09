@@ -12,7 +12,7 @@ Expires: January 3, 2019                             Universitaet Bremen
 
 
   Concise data definition language (CDDL): a notational convention to
-                      express CBOR data structures
+                 express CBOR and JSON data structures
                       draft-ietf-cbor-cddl-latest
 
 Abstract
@@ -20,7 +20,7 @@ Abstract
    This document proposes a notational convention to express CBOR data
    structures (RFC 7049).  Its main goal is to provide an easy and
    unambiguous way to express structures for protocol messages and data
-   formats that use CBOR.
+   formats that use CBOR or JSON.
 
 Status of This Memo
 
@@ -73,24 +73,24 @@ Table of Contents
        2.1.2.  Syntax  . . . . . . . . . . . . . . . . . . . . . . .   9
      2.2.  Types . . . . . . . . . . . . . . . . . . . . . . . . . .   9
        2.2.1.  Values  . . . . . . . . . . . . . . . . . . . . . . .   9
-       2.2.2.  Choices . . . . . . . . . . . . . . . . . . . . . . .   9
-       2.2.3.  Representation Types  . . . . . . . . . . . . . . . .  11
+       2.2.2.  Choices . . . . . . . . . . . . . . . . . . . . . . .  10
+       2.2.3.  Representation Types  . . . . . . . . . . . . . . . .  12
        2.2.4.  Root type . . . . . . . . . . . . . . . . . . . . . .  12
-   3.  Syntax  . . . . . . . . . . . . . . . . . . . . . . . . . . .  12
+   3.  Syntax  . . . . . . . . . . . . . . . . . . . . . . . . . . .  13
      3.1.  General conventions . . . . . . . . . . . . . . . . . . .  13
      3.2.  Occurrence  . . . . . . . . . . . . . . . . . . . . . . .  14
      3.3.  Predefined names for types  . . . . . . . . . . . . . . .  15
      3.4.  Arrays  . . . . . . . . . . . . . . . . . . . . . . . . .  16
-     3.5.  Maps  . . . . . . . . . . . . . . . . . . . . . . . . . .  16
+     3.5.  Maps  . . . . . . . . . . . . . . . . . . . . . . . . . .  17
        3.5.1.  Structs . . . . . . . . . . . . . . . . . . . . . . .  17
-       3.5.2.  Tables  . . . . . . . . . . . . . . . . . . . . . . .  19
+       3.5.2.  Tables  . . . . . . . . . . . . . . . . . . . . . . .  20
        3.5.3.  Cuts in Maps  . . . . . . . . . . . . . . . . . . . .  20
      3.6.  Tags  . . . . . . . . . . . . . . . . . . . . . . . . . .  21
-     3.7.  Unwrapping  . . . . . . . . . . . . . . . . . . . . . . .  21
+     3.7.  Unwrapping  . . . . . . . . . . . . . . . . . . . . . . .  22
      3.8.  Controls  . . . . . . . . . . . . . . . . . . . . . . . .  23
        3.8.1.  Control operator .size  . . . . . . . . . . . . . . .  23
        3.8.2.  Control operator .bits  . . . . . . . . . . . . . . .  24
-       3.8.3.  Control operator .regexp  . . . . . . . . . . . . . .  24
+       3.8.3.  Control operator .regexp  . . . . . . . . . . . . . .  25
        3.8.4.  Control operators .cbor and .cborseq  . . . . . . . .  26
        3.8.5.  Control operators .within and .and  . . . . . . . . .  26
        3.8.6.  Control operators .lt, .le, .gt, .ge, .eq, .ne, and
@@ -99,10 +99,10 @@ Table of Contents
      3.10. Generics  . . . . . . . . . . . . . . . . . . . . . . . .  29
      3.11. Operator Precedence . . . . . . . . . . . . . . . . . . .  30
    4.  Making Use of CDDL  . . . . . . . . . . . . . . . . . . . . .  31
-     4.1.  As a guide to a human user  . . . . . . . . . . . . . . .  31
+     4.1.  As a guide to a human user  . . . . . . . . . . . . . . .  32
      4.2.  For automated checking of CBOR data structure . . . . . .  32
      4.3.  For data analysis tools . . . . . . . . . . . . . . . . .  32
-   5.  Security considerations . . . . . . . . . . . . . . . . . . .  32
+   5.  Security considerations . . . . . . . . . . . . . . . . . . .  33
    6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  33
      6.1.  CDDL control operator registry  . . . . . . . . . . . . .  33
    7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  34
@@ -170,7 +170,7 @@ Birkholz, et al.         Expires January 3, 2019                [Page 3]
 Internet-Draft                    CDDL                         July 2018
 
 
-   Not an explicit goal per se, but a convenient side effect of the JSON
+   Not an original goal per se, but a convenient side effect of the JSON
    generic data model being a subset of the CBOR generic data model, is
    the fact that CDDL can also be used for describing JSON data
    structures (see Appendix E).
@@ -291,7 +291,7 @@ Internet-Draft                    CDDL                         July 2018
    CDDL Groups are lists of group _entries_, each of which can be a
    name/value pair or a more complex group expression composed of name/
    value pairs.  A CDDL group is a production in a grammar that can
-   produce certain sequences of name/value pairs bbut not thers.
+   produce certain sequences of name/value pairs but not others.
 
    In an array context, only the value of the name/value pair is
    represented; the name is annotation only (and can be left off from
@@ -466,7 +466,13 @@ Internet-Draft                    CDDL                         July 2018
       string or integer literal as a key (see Section 3.5.1).
 
    A basic entry consists of a _keytype_ and a _valuetype_, both of
-   which are types (Section 2.2).
+   which are types (Section 2.2); this entry can produce any name-value
+   pair the name of which is in the keytype and the value of which is in
+   the valuetype.
+
+   A group defined as a sequence of group entries can produce any
+   sequence of name-value pairs that is composed by concatenation in
+   order of what the entries can produce.
 
    A group definition can also contain choices between groups, see
    Section 2.2.2.
@@ -489,14 +495,8 @@ Internet-Draft                    CDDL                         July 2018
    while the types "1e3" and "1.5" are both floating point numbers and
    do not include any integer numbers.
 
-2.2.2.  Choices
 
-   Many places that allow a type also allow a choice between types,
-   delimited by a "/" (slash).  The entire choice construct can be put
-   into parentheses if this is required to make the construction
-   unambiguous (please see Appendix B for the details).
 
-   Choices of values can be used to express enumerations:
 
 
 
@@ -505,6 +505,15 @@ Birkholz, et al.         Expires January 3, 2019                [Page 9]
 
 Internet-Draft                    CDDL                         July 2018
 
+
+2.2.2.  Choices
+
+   Many places that allow a type also allow a choice between types,
+   delimited by a "/" (slash).  The entire choice construct can be put
+   into parentheses if this is required to make the construction
+   unambiguous (please see Appendix B for the details).
+
+   Choices of values can be used to express enumerations:
 
             attire = "bow tie" / "necktie" / "Internet attire"
             protocol = 6 / 17
@@ -526,6 +535,9 @@ Internet-Draft                    CDDL                         July 2018
                    name: tstr, zip-code: uint
                    )
 
+   A group choice can produce the union of the name-value pair sequences
+   that the alternatives in the choice can.
+
    Both for type choices and for group choices, additional alternatives
    can be added to a rule later in separate rules by using "/=" and
    "//=", respectively, instead of "=":
@@ -538,6 +550,17 @@ Internet-Draft                    CDDL                         July 2018
 
    It is not an error if a name is first used with a "/=" or "//="
    (there is no need to "create it" with "=").
+
+
+
+
+
+
+
+Birkholz, et al.         Expires January 3, 2019               [Page 10]
+
+Internet-Draft                    CDDL                         July 2018
+
 
 2.2.2.1.  Ranges
 
@@ -552,15 +575,6 @@ Internet-Draft                    CDDL                         July 2018
          byte = 0..max-byte ; inclusive range
          first-non-byte = 256
          byte1 = 0...first-non-byte ; byte1 is equivalent to byte
-
-
-
-
-
-Birkholz, et al.         Expires January 3, 2019               [Page 10]
-
-Internet-Draft                    CDDL                         July 2018
-
 
    CDDL currently only allows ranges between integers (matching integer
    values) or between floating point values (matching floating point
@@ -594,6 +608,16 @@ Internet-Draft                    CDDL                         July 2018
                 orange: 8,  pink: 9,  purple: 10,  brown: 11,
               )
 
+
+
+
+
+
+Birkholz, et al.         Expires January 3, 2019               [Page 11]
+
+Internet-Draft                    CDDL                         July 2018
+
+
    As with the use of groups in arrays (Section 3.4), the membernames
    have only documentary value (in particular, they might be used by a
    tool when displaying integers that are taken from that choice).
@@ -610,14 +634,6 @@ Internet-Draft                    CDDL                         July 2018
    both are given.  Note that although this notation is based on the
    CBOR serialization, it is about a set of values at the data model
    level, e.g. "#7.25" specifies the set of values that can be
-
-
-
-Birkholz, et al.         Expires January 3, 2019               [Page 11]
-
-Internet-Draft                    CDDL                         July 2018
-
-
    represented as half-precision floats; it does not mandate that these
    values also do have to be serialized as half-precision floats: CDDL
    does not provide any language means to restrict the choice of
@@ -650,6 +666,14 @@ Internet-Draft                    CDDL                         July 2018
    however, except for the root type, there is no need to strictly
    follow this sequence.
 
+
+
+
+Birkholz, et al.         Expires January 3, 2019               [Page 12]
+
+Internet-Draft                    CDDL                         July 2018
+
+
    (Note that there is no way to use a group as a root - it must be a
    type.  Using a group as the root might be employed as a way to
    specify a CBOR sequence in a future version of this specification;
@@ -661,18 +685,6 @@ Internet-Draft                    CDDL                         July 2018
    In this section, the overall syntax of CDDL is shown, alongside some
    examples just illustrating syntax.  (The definition will not attempt
    to be overly formal; refer to Appendix B for the details.)
-
-
-
-
-
-
-
-
-Birkholz, et al.         Expires January 3, 2019               [Page 12]
-
-Internet-Draft                    CDDL                         July 2018
-
 
 3.1.  General conventions
 
@@ -710,6 +722,14 @@ Internet-Draft                    CDDL                         July 2018
 
    o  outside strings, whitespace (spaces, newlines, and comments) is
       used to separate syntactic elements for readability (and to
+
+
+
+Birkholz, et al.         Expires January 3, 2019               [Page 13]
+
+Internet-Draft                    CDDL                         July 2018
+
+
       separate identifiers or numbers that follow each other); it is
       otherwise completely optional.
 
@@ -722,13 +742,6 @@ Internet-Draft                    CDDL                         July 2018
       [RFC8259].  (ABNF users may want to note that there is no support
       in CDDL for the concept of case insensitivity in text strings; if
       necessary, regular expressions can be used (Section 3.8.3).)
-
-
-
-Birkholz, et al.         Expires January 3, 2019               [Page 13]
-
-Internet-Draft                    CDDL                         July 2018
-
 
    o  Byte strings are enclosed by single quotation "'" characters and
       may be prefixed by "h" or "b64".  If unprefixed, the string is
@@ -761,7 +774,20 @@ Internet-Draft                    CDDL                         July 2018
    and m is the upper limit (default no limit) of occurrences.
 
    If no occurrence indicator is specified, the group entry is to occur
-   exactly once (as if 1*1 were specified).
+   exactly once (as if 1*1 were specified).  A group entry with an
+   occurrence indicator can produce sequences of name-value pairs that
+   are composed by concatenating a number of sequences that the basic
+
+
+
+
+Birkholz, et al.         Expires January 3, 2019               [Page 14]
+
+Internet-Draft                    CDDL                         July 2018
+
+
+   group entry can produce, where the number needs to be allowed by the
+   occurrence indicator.
 
    Note that CDDL, outside any directives/annotations that could
    possibly be defined, does not make any prescription as to whether
@@ -773,18 +799,6 @@ Internet-Draft                    CDDL                         July 2018
    Please also note that CDDL can describe flexibility that the data
    model of the target representation does not have.  This is rather
    obvious for JSON, but also is relevant for CBOR:
-
-
-
-
-
-
-
-
-Birkholz, et al.         Expires January 3, 2019               [Page 14]
-
-Internet-Draft                    CDDL                         July 2018
-
 
    apartment = {
      kitchen: size,
@@ -821,6 +835,13 @@ Internet-Draft                    CDDL                         July 2018
    "float16"  A number representable as an IEEE 754 half-precision float
       (major type 7, additional information 25).
 
+
+
+Birkholz, et al.         Expires January 3, 2019               [Page 15]
+
+Internet-Draft                    CDDL                         July 2018
+
+
    "float32"  A number representable as an IEEE 754 single-precision
       float (major type 7, additional information 26).
 
@@ -832,15 +853,6 @@ Internet-Draft                    CDDL                         July 2018
    "bstr" or "bytes"  A byte string (major type 2).
 
    "tstr" or "text"  Text string (major type 3)
-
-
-
-
-
-Birkholz, et al.         Expires January 3, 2019               [Page 15]
-
-Internet-Draft                    CDDL                         July 2018
-
 
    (Note that there are no predefined names for arrays or maps; these
    are defined with the syntax given below.)
@@ -875,6 +887,17 @@ Internet-Draft                    CDDL                         July 2018
       ["penintime", 1513, "endocarditis", 4084, "impermeator", 1669,
        "coextension", 865]
 
+
+
+
+
+
+
+Birkholz, et al.         Expires January 3, 2019               [Page 16]
+
+Internet-Draft                    CDDL                         July 2018
+
+
 3.5.  Maps
 
    The syntax for specifying maps merits special attention, as well as a
@@ -890,14 +913,6 @@ Internet-Draft                    CDDL                         July 2018
    integer keys 1, 3 and 7.  If the order were fixed and the decoder
    encounters the key 4 without having encountered key 3, it could
    conclude that key 3 is not available without doing more complicated
-
-
-
-Birkholz, et al.         Expires January 3, 2019               [Page 16]
-
-Internet-Draft                    CDDL                         July 2018
-
-
    bookkeeping.  Unfortunately, neither JSON nor CBOR support this, so
    no attempt was made to support this in CDDL either.)
 
@@ -930,6 +945,15 @@ Internet-Draft                    CDDL                         July 2018
    whereas the GpsCoordinates are encoded as a CBOR map with two key/
    value pairs.
 
+
+
+
+
+Birkholz, et al.         Expires January 3, 2019               [Page 17]
+
+Internet-Draft                    CDDL                         July 2018
+
+
    Types used in a structure can be defined in separate rules or just in
    place (potentially placed inside parentheses, such as for choices).
    E.g.:
@@ -945,15 +969,6 @@ Internet-Draft                    CDDL                         July 2018
    This is actually a complete example: an identifier that is followed
    by a colon can be directly used as the text string for a member key
    (we speak of a "bareword" member key), as can a double-quoted string
-
-
-
-
-Birkholz, et al.         Expires January 3, 2019               [Page 17]
-
-Internet-Draft                    CDDL                         July 2018
-
-
    or a number.  (When other types, in particular multi-valued ones, are
    used as keytypes, they are followed by a double arrow, see below.)
 
@@ -986,6 +1001,15 @@ Internet-Draft                    CDDL                         July 2018
              equipment-type = [name: tstr, manufacturer: tstr]
              equipment-tolerances = [+ [float, float]]
 
+
+
+
+
+Birkholz, et al.         Expires January 3, 2019               [Page 18]
+
+Internet-Draft                    CDDL                         July 2018
+
+
    The example below defines a struct with optional entries: display
    name (as a text string), the name components first name and family
    name (as a map of text strings), and age information (as an unsigned
@@ -1001,14 +1025,6 @@ Internet-Draft                    CDDL                         July 2018
                             ? firstName: tstr,
                             ? familyName: tstr,
                           )
-
-
-
-
-Birkholz, et al.         Expires January 3, 2019               [Page 18]
-
-Internet-Draft                    CDDL                         July 2018
-
 
    Note that the group definition for NameComponents does not generate
    another map; instead, all four keys are directly in the struct built
@@ -1042,6 +1058,14 @@ Internet-Draft                    CDDL                         July 2018
           "springbuck": "illuminatingly", "exuviae": "ephemeris",
           "kilometrage": "frogfish"}
 
+
+
+
+Birkholz, et al.         Expires January 3, 2019               [Page 19]
+
+Internet-Draft                    CDDL                         July 2018
+
+
    (See Section 3.9 for one way to explicitly identify an extension
    point.)
 
@@ -1056,15 +1080,6 @@ Internet-Draft                    CDDL                         July 2018
 
    Here, the key in each key/value pair has datatype x (defined as int),
    and the value has datatype y (defined as float).
-
-
-
-
-
-Birkholz, et al.         Expires January 3, 2019               [Page 19]
-
-Internet-Draft                    CDDL                         July 2018
-
 
    If the specification does not need to restrict one of x or y (i.e.,
    the application is free to choose per entry), it can be replaced by
@@ -1098,6 +1113,15 @@ Internet-Draft                    CDDL                         July 2018
    well desirable (e.g., if a future extension is to be allowed to
    extend the type of "optional-key"), but in many cases isn't.
 
+
+
+
+
+Birkholz, et al.         Expires January 3, 2019               [Page 20]
+
+Internet-Draft                    CDDL                         July 2018
+
+
    In anticipation of a more general potential feature called "cuts",
    CDDL allows inserting a cut "^" into the definition of the map entry:
 
@@ -1112,15 +1136,6 @@ Internet-Draft                    CDDL                         July 2018
    group of the map are no longer allowed.  (This rule applies
    independent of whether the value matches, too.)  So the example above
    no longer matches the version modified with a cut.
-
-
-
-
-
-Birkholz, et al.         Expires January 3, 2019               [Page 20]
-
-Internet-Draft                    CDDL                         July 2018
-
 
    Since the desire for this kind of exclusive matching is so frequent,
    the ":" shortcut is actually defined to include the cut semantics.
@@ -1156,6 +1171,13 @@ Internet-Draft                    CDDL                         July 2018
    specification as needed; e.g., a binary UUID tag could be referenced
    as "buuid" in a specification after defining
 
+
+
+Birkholz, et al.         Expires January 3, 2019               [Page 21]
+
+Internet-Draft                    CDDL                         July 2018
+
+
                             buuid = #6.37(bstr)
 
    In the following example, usage of the tag 32 for URIs is optional:
@@ -1170,13 +1192,6 @@ Internet-Draft                    CDDL                         July 2018
    refer to.  In these cases, it is expedient to simply use the name of
    the map, array, or tag type as a handle for the group or type defined
    inside it.
-
-
-
-Birkholz, et al.         Expires January 3, 2019               [Page 21]
-
-Internet-Draft                    CDDL                         July 2018
-
 
    The "unwrap" operator (written by preceding a name by a tilde
    character "~") can be used to strip the type defined for a name by
@@ -1212,6 +1227,13 @@ Internet-Draft                    CDDL                         July 2018
      field4: ~time,
    ]
 
+
+
+Birkholz, et al.         Expires January 3, 2019               [Page 22]
+
+Internet-Draft                    CDDL                         July 2018
+
+
    (Note that leaving out the first unwrap operator in the latter
    example would lead to nesting the basic-header in its own array
    inside the advanced-header, while, with the unwrapped basic-header,
@@ -1221,18 +1243,6 @@ Internet-Draft                    CDDL                         July 2018
    programming languages.  The effect of unwrapping can also be
    described as "threading in" the group or type inside the referenced
    type, which suggested the thread-like "~" character.)
-
-
-
-
-
-
-
-
-Birkholz, et al.         Expires January 3, 2019               [Page 22]
-
-Internet-Draft                    CDDL                         July 2018
-
 
 3.8.  Controls
 
@@ -1271,6 +1281,15 @@ Internet-Draft                    CDDL                         July 2018
    integer.  In other words, "uint .size N" is equivalent to
    "0...BYTES_N", where BYTES_N == 256**N.
 
+
+
+
+
+Birkholz, et al.         Expires January 3, 2019               [Page 23]
+
+Internet-Draft                    CDDL                         July 2018
+
+
       audio_sample = uint .size 3 ; 24-bit, equivalent to 0..16777215
 
                 Figure 9: Control for integer size in bytes
@@ -1281,14 +1300,6 @@ Internet-Draft                    CDDL                         July 2018
    could use a longer form (unless that is restricted by some format
    constraints outside of CDDL, such as the rules in Section 3.9 of
    [RFC7049]).
-
-
-
-
-Birkholz, et al.         Expires January 3, 2019               [Page 23]
-
-Internet-Draft                    CDDL                         July 2018
-
 
 3.8.2.  Control operator .bits
 
@@ -1326,6 +1337,15 @@ Internet-Draft                    CDDL                         July 2018
 
    These examples do not illustrate that the above CDDL specification
    does not explicitly specify a size of two bytes: A valid all clear
+
+
+
+
+Birkholz, et al.         Expires January 3, 2019               [Page 24]
+
+Internet-Draft                    CDDL                         July 2018
+
+
    instance of flag bytes could be "h''" or "h'00'" or even "h'000000'"
    as well.
 
@@ -1335,16 +1355,6 @@ Internet-Draft                    CDDL                         July 2018
    needs to match the XSD regular expression given as a value in the
    control type.  XSD regular expressions are defined in Appendix F of
    [W3C.REC-xmlschema-2-20041028].
-
-
-
-
-
-
-Birkholz, et al.         Expires January 3, 2019               [Page 24]
-
-Internet-Draft                    CDDL                         July 2018
-
 
      nai = tstr .regexp "[A-Za-z0-9]+@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)+"
 
@@ -1383,6 +1393,15 @@ Internet-Draft                    CDDL                         July 2018
       based on Unicode character properties, which is often not what is
       desired in an ASCII-based protocol and thus might lead to
       surprises.  (\s and \S do have their more conventional meanings,
+
+
+
+
+Birkholz, et al.         Expires January 3, 2019               [Page 25]
+
+Internet-Draft                    CDDL                         July 2018
+
+
       and "." matches any character but the line ending characters \r or
       \n.)
 
@@ -1393,15 +1412,6 @@ Internet-Draft                    CDDL                         July 2018
    expressions (PCRE) are widely used and probably are more useful than
    XSD regular expressions.  However, there is no normative reference
    for PCRE that could be used in the present document.  Instead, we opt
-
-
-
-
-Birkholz, et al.         Expires January 3, 2019               [Page 25]
-
-Internet-Draft                    CDDL                         July 2018
-
-
    for XSD regular expressions for now.  There is precedent for that
    choice in the IETF, e.g., in YANG [RFC7950].
 
@@ -1440,6 +1450,14 @@ Internet-Draft                    CDDL                         July 2018
 
       "type1 .and type2"
 
+
+
+
+Birkholz, et al.         Expires January 3, 2019               [Page 26]
+
+Internet-Draft                    CDDL                         July 2018
+
+
    A variant of the ".and" control is the ".within" control, which
    expresses an additional intent: the left hand side type is meant to
    be a subset of the right-hand-side type.
@@ -1450,13 +1468,6 @@ Internet-Draft                    CDDL                         July 2018
    the intention of the ".within" form is that the right hand side gives
    guidance to the types allowed on the left hand side, which typically
    is a socket (Section 3.9):
-
-
-
-Birkholz, et al.         Expires January 3, 2019               [Page 26]
-
-Internet-Draft                    CDDL                         July 2018
-
 
    message = $message .within message-structure
    message-structure = [message_type, *message_option]
@@ -1495,6 +1506,14 @@ Internet-Draft                    CDDL                         July 2018
    they are the same values.  Numeric types that occur within arrays,
    maps, or tagged values are equal if their numeric value is equal and
    they are both integers or both floating point values.  All other
+
+
+
+Birkholz, et al.         Expires January 3, 2019               [Page 27]
+
+Internet-Draft                    CDDL                         July 2018
+
+
    cases are not equal (e.g., comparing a text string with a byte
    string).
 
@@ -1505,14 +1524,6 @@ Internet-Draft                    CDDL                         July 2018
    value from being sent over the wire.  This control is only meaningful
    when the control type is used in an optional context; otherwise there
    would be no way to express the default value.
-
-
-
-
-Birkholz, et al.         Expires January 3, 2019               [Page 27]
-
-Internet-Draft                    CDDL                         July 2018
-
 
    timer = {
      time: uint,
@@ -1551,17 +1562,6 @@ Internet-Draft                    CDDL                         July 2018
    definition for a socket at all; this then means there is no way to
    satisfy the rule (i.e., the choice is empty).
 
-   All definitions (plugs) for socket names must be augmentations, i.e.,
-   they must be using "/=" and "//=", respectively.
-
-   To pick up the example illustrated in Figure 7, the socket/plug
-   mechanism could be used as shown in Figure 12:
-
-
-
-
-
-
 
 
 
@@ -1569,6 +1569,12 @@ Birkholz, et al.         Expires January 3, 2019               [Page 28]
 
 Internet-Draft                    CDDL                         July 2018
 
+
+   All definitions (plugs) for socket names must be augmentations, i.e.,
+   they must be using "/=" and "//=", respectively.
+
+   To pick up the example illustrated in Figure 7, the socket/plug
+   mechanism could be used as shown in Figure 12:
 
                      PersonalData = {
                        ? displayName: tstr,
@@ -1613,18 +1619,15 @@ Internet-Draft                    CDDL                         July 2018
    Generic rules can be used for establishing names for both types and
    groups.
 
-   (There are some limitations to nesting of generics in the tool
-   described in Appendix F at this time.)
-
-
-
-
 
 
 Birkholz, et al.         Expires January 3, 2019               [Page 29]
 
 Internet-Draft                    CDDL                         July 2018
 
+
+   (There are some limitations to nesting of generics in the tool
+   described in Appendix F at this time.)
 
 3.11.  Operator Precedence
 
@@ -1670,9 +1673,6 @@ Internet-Draft                    CDDL                         July 2018
    specification writer is encouraged to use parentheses liberally to
    guide readers that are not familiar with CDDL precedence rules.)
 
-   t = [group4]
-   group4 = (+ a // b / c)
-   a = 1 b = 2 c = 3
 
 
 
@@ -1681,6 +1681,10 @@ Birkholz, et al.         Expires January 3, 2019               [Page 30]
 
 Internet-Draft                    CDDL                         July 2018
 
+
+   t = [group4]
+   group4 = (+ a // b / c)
+   a = 1 b = 2 c = 3
 
    group4 is a group choice between a repeatable a and a single b or c.
 
@@ -1724,11 +1728,7 @@ Internet-Draft                    CDDL                         July 2018
 
    In this section, we discuss several potential ways to employ CDDL.
 
-4.1.  As a guide to a human user
 
-   CDDL can be used to efficiently define the layout of CBOR data, such
-   that a human implementer can easily see how data is supposed to be
-   encoded.
 
 
 
@@ -1737,6 +1737,12 @@ Birkholz, et al.         Expires January 3, 2019               [Page 31]
 
 Internet-Draft                    CDDL                         July 2018
 
+
+4.1.  As a guide to a human user
+
+   CDDL can be used to efficiently define the layout of CBOR data, such
+   that a human implementer can easily see how data is supposed to be
+   encoded.
 
    Since CDDL maps parts of the CBOR data to human readable names, tools
    could be built that use CDDL to provide a human friendly
@@ -1780,12 +1786,6 @@ Internet-Draft                    CDDL                         July 2018
    of it would be small sensors.  An interesting use would thus be
    automated analysis of sensor data.
 
-5.  Security considerations
-
-   This document presents a content rules language for expressing CBOR
-   data structures.  As such, it does not bring any security issues on
-   itself, although specification of protocols that use CBOR naturally
-   need security analysis when defined.
 
 
 
@@ -1793,6 +1793,13 @@ Birkholz, et al.         Expires January 3, 2019               [Page 32]
 
 Internet-Draft                    CDDL                         July 2018
 
+
+5.  Security considerations
+
+   This document presents a content rules language for expressing CBOR
+   data structures.  As such, it does not bring any security issues on
+   itself, although specification of protocols that use CBOR naturally
+   need security analysis when defined.
 
    Topics that could be considered in a security considerations section
    that uses CDDL to define CBOR structures include the following:
@@ -1831,13 +1838,6 @@ Internet-Draft                    CDDL                         July 2018
    Appendix B.
 
    Initial entries in this registry are as follows:
-
-
-
-
-
-
-
 
 
 
