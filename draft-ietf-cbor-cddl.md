@@ -218,7 +218,7 @@ CDDL, and section {{syntax}} defines additional syntax.
 CDDL Groups are lists of group _entries_, each of which can be a
 name/value pair or a more complex group expression composed of
 name/value pairs.  A CDDL group is a production in a grammar that can
-produce certain sequences of name/value pairs bbut not thers.
+produce certain sequences of name/value pairs but not others.
 
 In an array context, only the value of the name/value pair is represented; the name is
 annotation only (and can be left off from the group specification if not needed).
@@ -364,7 +364,12 @@ in the common case of directly using a text string or integer literal as a
 key (see {{structs}}).
 
 A basic entry consists of a *keytype* and a *valuetype*, both of which
-are types ({{types}}).
+are types ({{types}}); this entry can produce any name-value pair the
+name of which is in the keytype and the value of which is in the valuetype.
+
+A group defined as a sequence of group entries can produce any
+sequence of name-value pairs that is composed by concatenation in
+order of what the entries can produce.
 
 A group definition can also contain choices between groups, see {{choices}}.
 
@@ -419,6 +424,9 @@ name: tstr, zip-code: uint
 )
 ~~~~
 {:cddl}
+
+A group choice can produce the union of the name-value pair sequences
+that the alternatives in the choice can.
 
 Both for type choices and for group choices, additional alternatives
 can be added to a rule later in separate rules by using "/=" and "//=",
@@ -635,6 +643,10 @@ and m are optional unsigned integers and n is the lower limit (default
 
 If no occurrence indicator is specified, the group entry is to occur exactly
 once (as if 1\*1 were specified).
+A group entry with an occurrence indicator can produce sequences of
+name-value pairs that are composed by concatenating a number of sequences that the basic
+group entry can produce, where the number needs to be allowed by the
+occurrence indicator.
 
 Note that CDDL, outside any directives/annotations that could possibly
 be defined, does not make any
