@@ -10,7 +10,7 @@ pi:
   comments: 'yes'
 title: >
   Concise data definition language (CDDL):
-  a notational convention to express CBOR data structures
+  a notational convention to express CBOR and JSON data structures
 abbrev: CDDL
 area: Applications
 wg: ''
@@ -85,7 +85,7 @@ informative:
 This document proposes a notational convention to express CBOR data
 structures (RFC 7049).
 Its main goal is to provide an easy and unambiguous way to express structures
-for protocol messages and data formats that use CBOR.
+for protocol messages and data formats that use CBOR or JSON.
 
 --- middle
 
@@ -113,7 +113,7 @@ The CBOR notational convention has the following goals:
 
 * Extraction of specific elements from CBOR data for further processing.
 
-Not an explicit goal per se, but a convenient side effect of the JSON
+Not an original goal per se, but a convenient side effect of the JSON
 generic data model being a subset of the CBOR generic data model, is
 the fact that CDDL can also be used for describing JSON data
 structures (see {{sec-json}}).
