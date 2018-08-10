@@ -2510,21 +2510,38 @@ The CDDL tool creates the below example instance for this:
 ~~~~
 {:cddl}
 
-# Acknowledgements
+# Contributors
 {:numbered="no"}
 
 CDDL was originally conceived by Bert Greevenbosch, who also wrote the
 original five versions of this document.
+
+# Acknowledgements
+{:numbered="no"}
 
 Inspiration was taken from the C and Pascal languages, MPEG's
 conventions for describing structures in the ISO base media file
 format, Relax-NG and its compact syntax {{RELAXNG}}, and in particular
 from Andrew Lee Newton's ["JSON Content Rules"](#I-D.newton-json-content-rules).
 
-Useful feedback came from members of the IETF CBOR WG, in particular
-Joe Hildebrand, Sean Leonard and Jim Schaad.  Also, Francesca
-Palombini and Joe volunteered to chair this WG, providing the
-framework for generating and processing this feedback.
+Lots of highly useful feedback came from members of the IETF CBOR WG,
+in particular
+Brian Carpenter,
+Burt Harris,
+Jeffrey Yasskin,
+Jim Hague,
+Jim Schaad,
+Joe Hildebrand,
+Max Pritikin,
+Michael Richardson,
+Pete Cordell,
+Sean Leonard,
+and
+Yaron Sheffer.
+Also, Francesca Palombini and Joe volunteered to chair the WG when it
+was created, providing the framework for generating and processing this
+feedback; with Barry Leiba having taken over from Joe since.
 
 The CDDL tool was written by Carsten Bormann, building on previous
 work by Troy Heninger and Tom Lord.
+
