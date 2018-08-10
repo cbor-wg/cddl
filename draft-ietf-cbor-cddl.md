@@ -14,7 +14,7 @@ title: >
 abbrev: CDDL
 area: Applications
 wg: ''
-date: 2018-07-02
+date: 2018-08-10
 author:
 - ins: H. Birkholz
   name: Henk Birkholz
@@ -425,8 +425,8 @@ name: tstr, zip-code: uint
 ~~~~
 {:cddl}
 
-A group choice can produce the union of the name-value pair sequences
-that the alternatives in the choice can.
+A group choice can produce the union of the sets of name-value pair
+sequences that the alternatives in the choice can.
 
 Both for type choices and for group choices, additional alternatives
 can be added to a rule later in separate rules by using "/=" and "//=",
