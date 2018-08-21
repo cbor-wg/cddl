@@ -13,7 +13,7 @@ title: >
   a notational convention to express CBOR and JSON data structures
 abbrev: CDDL
 area: Applications
-wg: ''
+wg: CBOR
 date: 2018-08-21
 author:
 - ins: H. Birkholz
@@ -219,8 +219,7 @@ CDDL, and section {{syntax}} defines additional syntax.
 CDDL Groups are lists of group _entries_, each of which can be a
 name/value pair or a more complex group expression (which then in turn
 stands for a sequence of name/value pairs).  A CDDL group is a
-production in a grammar that can
-produce certain sequences of name/value pairs but not others.
+production in a grammar that matches certain sequences of name/value pairs but not others.
 
 In an array context, only the value of the name/value pair is represented; the name is
 annotation only (and can be left off from the group specification if not needed).
@@ -232,12 +231,12 @@ array elements with entries in the group.
 In a map context, the sequence of entries in a group is not relevant
 (but there is still a need to write down group entries in a sequence).
 
-An array matches a specification given as a group when the group can
-produce a sequence of name/value pairs the value parts of which
+An array matches a specification given as a group when the group
+matches a sequence of name/value pairs the value parts of which
 exactly match the elements of the array in order.
 
-A map matches a specification given as a group when the group can
-produce a sequence of name/value pairs such that all of these
+A map matches a specification given as a group when the group
+matches a sequence of name/value pairs such that all of these
 name/value pairs are present in the map and the map has no name/value
 pair that is not covered by the group.
 
@@ -366,12 +365,12 @@ key (see {{structs}}; this is also the common way of naming elements
 of an array just for documentation, see {{arrays}}).
 
 A basic entry consists of a *keytype* and a *valuetype*, both of which
-are types ({{types}}); this entry can produce any name-value pair the
+are types ({{types}}); this entry matches any name-value pair the
 name of which is in the keytype and the value of which is in the valuetype.
 
-A group defined as a sequence of group entries can produce any
+A group defined as a sequence of group entries matches any
 sequence of name-value pairs that is composed by concatenation in
-order of what the entries can produce.
+order of what the entries match.
 
 A group definition can also contain choices between groups, see {{choices}}.
 
@@ -427,7 +426,7 @@ name: tstr, zip-code: uint
 ~~~~
 {:cddl}
 
-A group choice can produce the union of the sets of name-value pair
+A group choice matches the union of the sets of name-value pair
 sequences that the alternatives in the choice can.
 
 Both for type choices and for group choices, additional alternatives
@@ -653,9 +652,9 @@ and m are optional unsigned integers and n is the lower limit (default
 
 If no occurrence indicator is specified, the group entry is to occur exactly
 once (as if 1\*1 were specified).
-A group entry with an occurrence indicator can produce sequences of
+A group entry with an occurrence indicator matches sequences of
 name-value pairs that are composed by concatenating a number of sequences that the basic
-group entry can produce, where the number needs to be allowed by the
+group entry matches, where the number needs to be allowed by the
 occurrence indicator.
 
 Note that CDDL, outside any directives/annotations that could possibly
@@ -993,7 +992,7 @@ extensible-map-example = {
 {:cddl}
 
 A cut in this position means that once the map key matches the name
-part of an entry that can be produced and carries a cut,
+part of an entry that matches and carries a cut,
 other potential matches for the key that occur in
 later entries in the group of the map are no longer allowed.  (This
 rule applies independent of whether the value matches, too.)  So the
