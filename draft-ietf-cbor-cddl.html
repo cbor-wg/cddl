@@ -295,7 +295,8 @@ address {
 <link href="#rfc.section.3.5" rel="Chapter" title="3.5 Maps">
 <link href="#rfc.section.3.5.1" rel="Chapter" title="3.5.1 Structs">
 <link href="#rfc.section.3.5.2" rel="Chapter" title="3.5.2 Tables">
-<link href="#rfc.section.3.5.3" rel="Chapter" title="3.5.3 Cuts in Maps">
+<link href="#rfc.section.3.5.3" rel="Chapter" title="3.5.3 Non-deterministic order">
+<link href="#rfc.section.3.5.4" rel="Chapter" title="3.5.4 Cuts in Maps">
 <link href="#rfc.section.3.6" rel="Chapter" title="3.6 Tags">
 <link href="#rfc.section.3.7" rel="Chapter" title="3.7 Unwrapping">
 <link href="#rfc.section.3.8" rel="Chapter" title="3.8 Controls">
@@ -355,7 +356,7 @@ address {
     <tbody>
     
     	<tr>
-<td class="left">Network Working Group</td>
+<td class="left">CBOR</td>
 <td class="right">H. Birkholz</td>
 </tr>
 <tr>
@@ -446,7 +447,9 @@ address {
 </li>
 <li>3.5.2.   <a href="#rfc.section.3.5.2">Tables</a>
 </li>
-<li>3.5.3.   <a href="#rfc.section.3.5.3">Cuts in Maps</a>
+<li>3.5.3.   <a href="#rfc.section.3.5.3">Non-deterministic order</a>
+</li>
+<li>3.5.4.   <a href="#rfc.section.3.5.4">Cuts in Maps</a>
 </li>
 </ul><li>3.6.   <a href="#rfc.section.3.6">Tags</a>
 </li>
@@ -591,11 +594,11 @@ address {
 <h1 id="rfc.section.2.1">
 <a href="#rfc.section.2.1">2.1.</a> <a href="#group" id="group">Groups and Composition in CDDL</a>
 </h1>
-<p id="rfc.section.2.1.p.1">CDDL Groups are lists of group <em>entries</em>, each of which can be a name/value pair or a more complex group expression (which then in turn stands for a sequence of name/value pairs).  A CDDL group is a production in a grammar that can produce certain sequences of name/value pairs but not others.</p>
+<p id="rfc.section.2.1.p.1">CDDL Groups are lists of group <em>entries</em>, each of which can be a name/value pair or a more complex group expression (which then in turn stands for a sequence of name/value pairs).  A CDDL group is a production in a grammar that matches certain sequences of name/value pairs but not others.  The grammar is based on the concepts of Parsing Expression Grammars <a href="#PEG" class="xref">[PEG]</a>.</p>
 <p id="rfc.section.2.1.p.2">In an array context, only the value of the name/value pair is represented; the name is annotation only (and can be left off from the group specification if not needed).  In a map context, the names become the map keys (&#8220;member keys&#8221;).</p>
-<p id="rfc.section.2.1.p.3">In an array context, the sequence of elements in the group is important, as that sequence is the information that allows associating actual array elements with entries in the group.  In a map context, the sequence of entries in a group is not relevant (but there is still a need to write down group entries in a sequence).</p>
-<p id="rfc.section.2.1.p.4">An array matches a specification given as a group when the group can produce a sequence of name/value pairs the value parts of which exactly match the elements of the array in order.</p>
-<p id="rfc.section.2.1.p.5">A map matches a specification given as a group when the group can produce a sequence of name/value pairs such that all of these name/value pairs are present in the map and the map has no name/value pair that is not covered by the group.</p>
+<p id="rfc.section.2.1.p.3">In an array context, the actual sequence of elements in the group is important, as that sequence is the information that allows associating actual array elements with entries in the group.  In a map context, the sequence of entries in a group is not relevant (but there is still a need to write down group entries in a sequence).</p>
+<p id="rfc.section.2.1.p.4">An array matches a specification given as a group when the group matches a sequence of name/value pairs the value parts of which exactly match the elements of the array in order.</p>
+<p id="rfc.section.2.1.p.5">A map matches a specification given as a group when the group matches a sequence of name/value pairs such that all of these name/value pairs are present in the map and the map has no name/value pair that is not covered by the group.</p>
 <p id="rfc.section.2.1.p.6">A simple example of using a group directly in a map definition is:</p>
 <div id="rfc.figure.1"></div>
 <div id="group-in-map"></div>
@@ -692,8 +695,8 @@ identity = (
 <li>The start and end of a group can be marked by &#8216;(&#8216; and &#8216;)&#8217;</li>
 <li>Definitions of entries inside of a group are noted as follows: <em>keytype =&gt; valuetype,</em> (read &#8220;keytype maps to valuetype&#8221;).  The comma is actually optional (not just in the final entry), but it is considered good style to set it.  The double arrow can be replaced by a colon in the common case of directly using a text string or integer literal as a key (see <a href="#structs" class="xref">Section 3.5.1</a>; this is also the common way of naming elements of an array just for documentation, see <a href="#arrays" class="xref">Section 3.4</a>).</li>
 </ul>
-<p id="rfc.section.2.1.2.p.3">A basic entry consists of a <em>keytype</em> and a <em>valuetype</em>, both of which are types (<a href="#types" class="xref">Section 2.2</a>); this entry can produce any name-value pair the name of which is in the keytype and the value of which is in the valuetype.</p>
-<p id="rfc.section.2.1.2.p.4">A group defined as a sequence of group entries can produce any sequence of name-value pairs that is composed by concatenation in order of what the entries can produce.</p>
+<p id="rfc.section.2.1.2.p.3">A basic entry consists of a <em>keytype</em> and a <em>valuetype</em>, both of which are types (<a href="#types" class="xref">Section 2.2</a>); this entry matches any name-value pair the name of which is in the keytype and the value of which is in the valuetype.</p>
+<p id="rfc.section.2.1.2.p.4">A group defined as a sequence of group entries matches any sequence of name-value pairs that is composed by concatenation in order of what the entries match.</p>
 <p id="rfc.section.2.1.2.p.5">A group definition can also contain choices between groups, see <a href="#choices" class="xref">Section 2.2.2</a>.</p>
 <h1 id="rfc.section.2.2">
 <a href="#rfc.section.2.2">2.2.</a> <a href="#types" id="types">Types</a>
@@ -725,7 +728,7 @@ city = (
 name: tstr, zip-code: uint
 )
 </pre>
-<p id="rfc.section.2.2.2.p.4">A group choice can produce the union of the sets of name-value pair sequences that the alternatives in the choice can.</p>
+<p id="rfc.section.2.2.2.p.4">A group choice matches the union of the sets of name-value pair sequences that the alternatives in the choice can.</p>
 <p id="rfc.section.2.2.2.p.5">Both for type choices and for group choices, additional alternatives can be added to a rule later in separate rules by using &#8220;/=&#8221; and &#8220;//=&#8221;, respectively, instead of &#8220;=&#8221;:</p>
 <pre>
 attire /= "swimwear"
@@ -836,7 +839,7 @@ g = (
 <a href="#rfc.section.3.2">3.2.</a> <a href="#occurrence" id="occurrence">Occurrence</a>
 </h1>
 <p id="rfc.section.3.2.p.1">An optional <em>occurrence</em> indicator can be given in front of a group entry.  It is either one of the characters &#8216;?&#8217; (optional), &#8216;*&#8217; (zero or more), or &#8216;+&#8217; (one or more), or is of the form n*m, where n and m are optional unsigned integers and n is the lower limit (default 0) and m is the upper limit (default no limit) of occurrences.</p>
-<p id="rfc.section.3.2.p.2">If no occurrence indicator is specified, the group entry is to occur exactly once (as if 1*1 were specified).  A group entry with an occurrence indicator can produce sequences of name-value pairs that are composed by concatenating a number of sequences that the basic group entry can produce, where the number needs to be allowed by the occurrence indicator.</p>
+<p id="rfc.section.3.2.p.2">If no occurrence indicator is specified, the group entry is to occur exactly once (as if 1*1 were specified).  A group entry with an occurrence indicator matches sequences of name-value pairs that are composed by concatenating a number of sequences that the basic group entry matches, where the number needs to be allowed by the occurrence indicator.</p>
 <p id="rfc.section.3.2.p.3">Note that CDDL, outside any directives/annotations that could possibly be defined, does not make any prescription as to whether arrays or maps use the definite length or indefinite length encoding.  I.e., there is no correlation between leaving the size of an array &#8220;open&#8221; in the spec and the fact that it is then interchanged with definite or indefinite length.</p>
 <p id="rfc.section.3.2.p.4">Please also note that CDDL can describe flexibility that the data model of the target representation does not have.  This is rather obvious for JSON, but also is relevant for CBOR:</p>
 <pre>
@@ -945,7 +948,7 @@ located-samples = {
   "samples" =&gt; [+ float],
 }
 </pre>
-<p id="rfc.section.3.5.1.p.9">See <a href="#cuts-in-maps" class="xref">Section 3.5.3</a> below for how the colon shortcut described here also adds some implied semantics.</p>
+<p id="rfc.section.3.5.1.p.9">See <a href="#cuts-in-maps" class="xref">Section 3.5.4</a> below for how the colon shortcut described here also adds some implied semantics.</p>
 <p id="rfc.section.3.5.1.p.10">A better way to demonstrate the double-arrow use may be:</p>
 <pre>
 located-samples = {
@@ -1012,37 +1015,59 @@ tostring = {* mynumber =&gt; tstr}
 mynumber = int / float
 </pre>
 <h1 id="rfc.section.3.5.3">
-<a href="#rfc.section.3.5.3">3.5.3.</a> <a href="#cuts-in-maps" id="cuts-in-maps">Cuts in Maps</a>
+<a href="#rfc.section.3.5.3">3.5.3.</a> <a href="#non-deterministic-order" id="non-deterministic-order">Non-deterministic order</a>
 </h1>
-<p id="rfc.section.3.5.3.p.1">The extensibility idiom discussed above for structs has one problem:</p>
+<p id="rfc.section.3.5.3.p.1">While the way arrays are matched is fully determined by the Parsing Expression Grammar (PEG) algorithm, matching is more complicated for maps, as maps do not have an inherent order.  For each candidate name/value pair that the PEG algorithm would try, a match is picked out of the entire map.  For certain group expressions, more than key/value pair in the map may match.  Most often, this is inconsequential, as the group expression tends to consume all matches:</p>
+<pre>
+labeled-values = {
+  ? fritz: number,
+  * label =&gt; value
+}
+label = text
+value = number
+</pre>
+<p id="rfc.section.3.5.3.p.2">Here, if any key/value pair with the name <samp>fritz</samp> is present, this will be picked by the first entry of the group; all remaining text/number pairs will be picked by the second entry (and if anything remains unpicked, the map does not match).</p>
+<p id="rfc.section.3.5.3.p.3">However, it is possible to construct group expressions where what is actually picked is indeterminate, and does matter:</p>
+<pre>
+do-not-do-this = {
+  int =&gt; int,
+  int =&gt; 6,
+}
+</pre>
+<p id="rfc.section.3.5.3.p.4">When this expression is matched against <samp>{3: 5, 4: 6}</samp>, the first group entry might pick off the <samp>3: 5</samp>, leaving <samp>4: 6</samp> for matching the second one.  Or it might pick off <samp>4: 6</samp>, leaving nothing for the second entry.  This pathological non-determinism is caused by specifying more general before more specific, and by having a general rule that only consumes a subset of the map key/value pairs that it is able to match &#8212; both tend not to occur in real-world specifications of maps.  At the time of writing, CDDL tools cannot detect such cases automatically, and for the present version of the CDDL specification, the specification writer is simply urged to not write pathologically non-deterministic specifications.</p>
+<p id="rfc.section.3.5.3.p.5">(The astute reader will be reminded of what was called &#8220;ambiguous content models&#8221; in SGML and &#8220;non-deterministic content models&#8221; in XML.  That problem is related to the one described here, but the problem here is specifically caused by the lack of order in maps, something that the XML schema languages do not have to contend with.  Note that Relax-NG&#8217;s <samp>interleave</samp> pattern handles lack of order explicitly on the specification side, while the instances in XML always have determinate order.)</p>
+<h1 id="rfc.section.3.5.4">
+<a href="#rfc.section.3.5.4">3.5.4.</a> <a href="#cuts-in-maps" id="cuts-in-maps">Cuts in Maps</a>
+</h1>
+<p id="rfc.section.3.5.4.p.1">The extensibility idiom discussed above for structs has one problem:</p>
 <pre>
 extensible-map-example = {
   ? "optional-key" =&gt; int,
   * tstr =&gt; any
 }
 </pre>
-<p id="rfc.section.3.5.3.p.2">In this example, there is one optional key &#8220;optional-key&#8221;, which, when present, maps to an integer.  There is also a wild card for any future additions.</p>
-<p id="rfc.section.3.5.3.p.3">Unfortunately, the data item</p>
+<p id="rfc.section.3.5.4.p.2">In this example, there is one optional key &#8220;optional-key&#8221;, which, when present, maps to an integer.  There is also a wild card for any future additions.</p>
+<p id="rfc.section.3.5.4.p.3">Unfortunately, the data item</p>
 <pre>
 { "optional-key": "nonsense" }
 </pre>
-<p id="rfc.section.3.5.3.p.4">does match this specification:  While the first entry of the group does not match, the second one (the wildcard) does.  This may be very well desirable (e.g., if a future extension is to be allowed to extend the type of &#8220;optional-key&#8221;), but in many cases isn&#8217;t.</p>
-<p id="rfc.section.3.5.3.p.5">In anticipation of a more general potential feature called &#8220;cuts&#8221;, CDDL allows inserting a cut &#8220;^&#8221; into the definition of the map entry:</p>
+<p id="rfc.section.3.5.4.p.4">does match this specification:  While the first entry of the group does not match, the second one (the wildcard) does.  This may be very well desirable (e.g., if a future extension is to be allowed to extend the type of &#8220;optional-key&#8221;), but in many cases isn&#8217;t.</p>
+<p id="rfc.section.3.5.4.p.5">In anticipation of a more general potential feature called &#8220;cuts&#8221;, CDDL allows inserting a cut &#8220;^&#8221; into the definition of the map entry:</p>
 <pre>
 extensible-map-example = {
   ? "optional-key" ^ =&gt; int,
   * tstr =&gt; any
 }
 </pre>
-<p id="rfc.section.3.5.3.p.6">A cut in this position means that once the map key matches the name part of an entry that can be produced and carries a cut, other potential matches for the key that occur in later entries in the group of the map are no longer allowed.  (This rule applies independent of whether the value matches, too.)  So the example above no longer matches the version modified with a cut.</p>
-<p id="rfc.section.3.5.3.p.7">Since the desire for this kind of exclusive matching is so frequent, the &#8220;:&#8221; shortcut is actually defined to include the cut semantics.  So the preceding example (including the cut) can be written more simply as:</p>
+<p id="rfc.section.3.5.4.p.6">A cut in this position means that once the map key matches the name part of an entry that matches and carries a cut, other potential matches for the key that occur in later entries in the group of the map are no longer allowed.  (This rule applies independent of whether the value matches, too.)  So the example above no longer matches the version modified with a cut.</p>
+<p id="rfc.section.3.5.4.p.7">Since the desire for this kind of exclusive matching is so frequent, the &#8220;:&#8221; shortcut is actually defined to include the cut semantics.  So the preceding example (including the cut) can be written more simply as:</p>
 <pre>
 extensible-map-example = {
   ? "optional-key": int,
   * tstr =&gt; any
 }
 </pre>
-<p id="rfc.section.3.5.3.p.8">or even shorter, using a bareword for the key:</p>
+<p id="rfc.section.3.5.4.p.8">or even shorter, using a bareword for the key:</p>
 <pre>
 extensible-map-example = {
   ? optional-key: int,
@@ -2085,7 +2110,7 @@ memberkey = type1 S ["^" S] "=&gt;"
           / bareword S ":"
           / value S ":"
 </pre>
-<p id="rfc.section.C.p.25">Key types can be given by a type expression, a bareword (which stands for a type that just contains a string value created from this bareword), or a value (which stands for a type that just contains this value).  A key value matches its key type if the key value is a member of the key type, unless a cut preceding it in the group applies (see <a href="#cuts-in-maps" class="xref">Section 3.5.3</a> how map matching is infuenced by the presence of the cuts denoted by &#8220;^&#8221; or &#8220;:&#8221; in previous entries).</p>
+<p id="rfc.section.C.p.25">Key types can be given by a type expression, a bareword (which stands for a type that just contains a string value created from this bareword), or a value (which stands for a type that just contains this value).  A key value matches its key type if the key value is a member of the key type, unless a cut preceding it in the group applies (see <a href="#cuts-in-maps" class="xref">Section 3.5.4</a> how map matching is infuenced by the presence of the cuts denoted by &#8220;^&#8221; or &#8220;:&#8221; in previous entries).</p>
 <pre>
 bareword = id
 </pre>

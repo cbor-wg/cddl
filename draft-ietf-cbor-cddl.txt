@@ -2,7 +2,7 @@
 
 
 
-Network Working Group                                        H. Birkholz
+CBOR                                                         H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                               C. Vigano
 Expires: February 22, 2019                           Universitaet Bremen
@@ -84,28 +84,28 @@ Table of Contents
      3.5.  Maps  . . . . . . . . . . . . . . . . . . . . . . . . . .  17
        3.5.1.  Structs . . . . . . . . . . . . . . . . . . . . . . .  17
        3.5.2.  Tables  . . . . . . . . . . . . . . . . . . . . . . .  20
-       3.5.3.  Cuts in Maps  . . . . . . . . . . . . . . . . . . . .  21
-     3.6.  Tags  . . . . . . . . . . . . . . . . . . . . . . . . . .  22
-     3.7.  Unwrapping  . . . . . . . . . . . . . . . . . . . . . . .  22
-     3.8.  Controls  . . . . . . . . . . . . . . . . . . . . . . . .  23
-       3.8.1.  Control operator .size  . . . . . . . . . . . . . . .  24
-       3.8.2.  Control operator .bits  . . . . . . . . . . . . . . .  24
-       3.8.3.  Control operator .regexp  . . . . . . . . . . . . . .  25
-       3.8.4.  Control operators .cbor and .cborseq  . . . . . . . .  27
-       3.8.5.  Control operators .within and .and  . . . . . . . . .  27
+       3.5.3.  Non-deterministic order . . . . . . . . . . . . . . .  21
+       3.5.4.  Cuts in Maps  . . . . . . . . . . . . . . . . . . . .  22
+     3.6.  Tags  . . . . . . . . . . . . . . . . . . . . . . . . . .  23
+     3.7.  Unwrapping  . . . . . . . . . . . . . . . . . . . . . . .  23
+     3.8.  Controls  . . . . . . . . . . . . . . . . . . . . . . . .  24
+       3.8.1.  Control operator .size  . . . . . . . . . . . . . . .  25
+       3.8.2.  Control operator .bits  . . . . . . . . . . . . . . .  25
+       3.8.3.  Control operator .regexp  . . . . . . . . . . . . . .  26
+       3.8.4.  Control operators .cbor and .cborseq  . . . . . . . .  28
+       3.8.5.  Control operators .within and .and  . . . . . . . . .  28
        3.8.6.  Control operators .lt, .le, .gt, .ge, .eq, .ne, and
-               .default  . . . . . . . . . . . . . . . . . . . . . .  28
-     3.9.  Socket/Plug . . . . . . . . . . . . . . . . . . . . . . .  29
-     3.10. Generics  . . . . . . . . . . . . . . . . . . . . . . . .  30
-     3.11. Operator Precedence . . . . . . . . . . . . . . . . . . .  31
-   4.  Making Use of CDDL  . . . . . . . . . . . . . . . . . . . . .  32
-     4.1.  As a guide to a human user  . . . . . . . . . . . . . . .  32
-     4.2.  For automated checking of CBOR data structure . . . . . .  33
-     4.3.  For data analysis tools . . . . . . . . . . . . . . . . .  33
-   5.  Security considerations . . . . . . . . . . . . . . . . . . .  33
-   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  34
-     6.1.  CDDL control operator registry  . . . . . . . . . . . . .  34
-   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  35
+               .default  . . . . . . . . . . . . . . . . . . . . . .  29
+     3.9.  Socket/Plug . . . . . . . . . . . . . . . . . . . . . . .  30
+     3.10. Generics  . . . . . . . . . . . . . . . . . . . . . . . .  31
+     3.11. Operator Precedence . . . . . . . . . . . . . . . . . . .  32
+   4.  Making Use of CDDL  . . . . . . . . . . . . . . . . . . . . .  33
+     4.1.  As a guide to a human user  . . . . . . . . . . . . . . .  33
+     4.2.  For automated checking of CBOR data structure . . . . . .  34
+     4.3.  For data analysis tools . . . . . . . . . . . . . . . . .  34
+   5.  Security considerations . . . . . . . . . . . . . . . . . . .  34
+   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  35
+     6.1.  CDDL control operator registry  . . . . . . . . . . . . .  35
 
 
 
@@ -114,26 +114,27 @@ Birkholz, et al.        Expires February 22, 2019               [Page 2]
 Internet-Draft                    CDDL                       August 2018
 
 
-     7.1.  Normative References  . . . . . . . . . . . . . . . . . .  35
-     7.2.  Informative References  . . . . . . . . . . . . . . . . .  36
-   Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  37
-     A.1.  RFC 7071  . . . . . . . . . . . . . . . . . . . . . . . .  38
-     A.2.  Examples from JSON Content Rules  . . . . . . . . . . . .  42
-   Appendix B.  ABNF grammar . . . . . . . . . . . . . . . . . . . .  44
-   Appendix C.  Matching rules . . . . . . . . . . . . . . . . . . .  46
-   Appendix D.  Standard Prelude . . . . . . . . . . . . . . . . . .  50
-   Appendix E.  Use with JSON  . . . . . . . . . . . . . . . . . . .  52
-   Appendix F.  The CDDL tool  . . . . . . . . . . . . . . . . . . .  54
-   Appendix G.  Extended Diagnostic Notation . . . . . . . . . . . .  54
-     G.1.  White space in byte string notation . . . . . . . . . . .  55
-     G.2.  Text in byte string notation  . . . . . . . . . . . . . .  55
-     G.3.  Embedded CBOR and CBOR sequences in byte strings  . . . .  55
-     G.4.  Concatenated Strings  . . . . . . . . . . . . . . . . . .  56
-     G.5.  Hexadecimal, octal, and binary numbers  . . . . . . . . .  56
-     G.6.  Comments  . . . . . . . . . . . . . . . . . . . . . . . .  57
-   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  57
-   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  58
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  58
+   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  36
+     7.1.  Normative References  . . . . . . . . . . . . . . . . . .  36
+     7.2.  Informative References  . . . . . . . . . . . . . . . . .  37
+   Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  38
+     A.1.  RFC 7071  . . . . . . . . . . . . . . . . . . . . . . . .  39
+     A.2.  Examples from JSON Content Rules  . . . . . . . . . . . .  43
+   Appendix B.  ABNF grammar . . . . . . . . . . . . . . . . . . . .  45
+   Appendix C.  Matching rules . . . . . . . . . . . . . . . . . . .  47
+   Appendix D.  Standard Prelude . . . . . . . . . . . . . . . . . .  51
+   Appendix E.  Use with JSON  . . . . . . . . . . . . . . . . . . .  53
+   Appendix F.  The CDDL tool  . . . . . . . . . . . . . . . . . . .  55
+   Appendix G.  Extended Diagnostic Notation . . . . . . . . . . . .  55
+     G.1.  White space in byte string notation . . . . . . . . . . .  56
+     G.2.  Text in byte string notation  . . . . . . . . . . . . . .  56
+     G.3.  Embedded CBOR and CBOR sequences in byte strings  . . . .  56
+     G.4.  Concatenated Strings  . . . . . . . . . . . . . . . . . .  57
+     G.5.  Hexadecimal, octal, and binary numbers  . . . . . . . . .  57
+     G.6.  Comments  . . . . . . . . . . . . . . . . . . . . . . . .  58
+   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  58
+   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  59
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  59
 
 1.  Introduction
 
@@ -160,7 +161,6 @@ Internet-Draft                    CDDL                       August 2018
 
    (G6)  Extraction of specific elements from CBOR data for further
          processing.
-
 
 
 
@@ -291,28 +291,29 @@ Internet-Draft                    CDDL                       August 2018
    CDDL Groups are lists of group _entries_, each of which can be a
    name/value pair or a more complex group expression (which then in
    turn stands for a sequence of name/value pairs).  A CDDL group is a
-   production in a grammar that can produce certain sequences of name/
-   value pairs but not others.
+   production in a grammar that matches certain sequences of name/value
+   pairs but not others.  The grammar is based on the concepts of
+   Parsing Expression Grammars [PEG].
 
    In an array context, only the value of the name/value pair is
    represented; the name is annotation only (and can be left off from
    the group specification if not needed).  In a map context, the names
    become the map keys ("member keys").
 
-   In an array context, the sequence of elements in the group is
+   In an array context, the actual sequence of elements in the group is
    important, as that sequence is the information that allows
    associating actual array elements with entries in the group.  In a
    map context, the sequence of entries in a group is not relevant (but
    there is still a need to write down group entries in a sequence).
 
-   An array matches a specification given as a group when the group can
-   produce a sequence of name/value pairs the value parts of which
+   An array matches a specification given as a group when the group
+   matches a sequence of name/value pairs the value parts of which
    exactly match the elements of the array in order.
 
-   A map matches a specification given as a group when the group can
-   produce a sequence of name/value pairs such that all of these name/
-   value pairs are present in the map and the map has no name/value pair
-   that is not covered by the group.
+   A map matches a specification given as a group when the group matches
+   a sequence of name/value pairs such that all of these name/value
+   pairs are present in the map and the map has no name/value pair that
+   is not covered by the group.
 
    A simple example of using a group directly in a map definition is:
 
@@ -328,7 +329,6 @@ Internet-Draft                    CDDL                       August 2018
    that create the map: Here, "age", "name", and "employer" are the
    names that turn into the map key text strings, and "int" and "tstr"
    (text string) are the types of the map values under these keys.
-
 
 
 
@@ -466,13 +466,13 @@ Internet-Draft                    CDDL                       August 2018
       documentation, see Section 3.4).
 
    A basic entry consists of a _keytype_ and a _valuetype_, both of
-   which are types (Section 2.2); this entry can produce any name-value
-   pair the name of which is in the keytype and the value of which is in
-   the valuetype.
+   which are types (Section 2.2); this entry matches any name-value pair
+   the name of which is in the keytype and the value of which is in the
+   valuetype.
 
-   A group defined as a sequence of group entries can produce any
-   sequence of name-value pairs that is composed by concatenation in
-   order of what the entries can produce.
+   A group defined as a sequence of group entries matches any sequence
+   of name-value pairs that is composed by concatenation in order of
+   what the entries match.
 
    A group definition can also contain choices between groups, see
    Section 2.2.2.
@@ -535,7 +535,7 @@ Internet-Draft                    CDDL                       August 2018
                    name: tstr, zip-code: uint
                    )
 
-   A group choice can produce the union of the sets of name-value pair
+   A group choice matches the union of the sets of name-value pair
    sequences that the alternatives in the choice can.
 
    Both for type choices and for group choices, additional alternatives
@@ -804,10 +804,10 @@ Internet-Draft                    CDDL                       August 2018
 
    If no occurrence indicator is specified, the group entry is to occur
    exactly once (as if 1*1 were specified).  A group entry with an
-   occurrence indicator can produce sequences of name-value pairs that
-   are composed by concatenating a number of sequences that the basic
-   group entry can produce, where the number needs to be allowed by the
-   occurrence indicator.
+   occurrence indicator matches sequences of name-value pairs that are
+   composed by concatenating a number of sequences that the basic group
+   entry matches, where the number needs to be allowed by the occurrence
+   indicator.
 
    Note that CDDL, outside any directives/annotations that could
    possibly be defined, does not make any prescription as to whether
@@ -1015,7 +1015,7 @@ Internet-Draft                    CDDL                       August 2018
                            "samples" => [+ float],
                          }
 
-   See Section 3.5.3 below for how the colon shortcut described here
+   See Section 3.5.4 below for how the colon shortcut described here
    also adds some implied semantics.
 
    A better way to demonstrate the double-arrow use may be:
@@ -1122,7 +1122,67 @@ Birkholz, et al.        Expires February 22, 2019              [Page 20]
 Internet-Draft                    CDDL                       August 2018
 
 
-3.5.3.  Cuts in Maps
+3.5.3.  Non-deterministic order
+
+   While the way arrays are matched is fully determined by the Parsing
+   Expression Grammar (PEG) algorithm, matching is more complicated for
+   maps, as maps do not have an inherent order.  For each candidate
+   name/value pair that the PEG algorithm would try, a match is picked
+   out of the entire map.  For certain group expressions, more than key/
+   value pair in the map may match.  Most often, this is
+   inconsequential, as the group expression tends to consume all
+   matches:
+
+   labeled-values = {
+     ? fritz: number,
+     * label => value
+   }
+   label = text
+   value = number
+
+   Here, if any key/value pair with the name "fritz" is present, this
+   will be picked by the first entry of the group; all remaining text/
+   number pairs will be picked by the second entry (and if anything
+   remains unpicked, the map does not match).
+
+   However, it is possible to construct group expressions where what is
+   actually picked is indeterminate, and does matter:
+
+   do-not-do-this = {
+     int => int,
+     int => 6,
+   }
+
+   When this expression is matched against "{3: 5, 4: 6}", the first
+   group entry might pick off the "3: 5", leaving "4: 6" for matching
+   the second one.  Or it might pick off "4: 6", leaving nothing for the
+   second entry.  This pathological non-determinism is caused by
+   specifying more general before more specific, and by having a general
+   rule that only consumes a subset of the map key/value pairs that it
+   is able to match -- both tend not to occur in real-world
+   specifications of maps.  At the time of writing, CDDL tools cannot
+   detect such cases automatically, and for the present version of the
+   CDDL specification, the specification writer is simply urged to not
+   write pathologically non-deterministic specifications.
+
+   (The astute reader will be reminded of what was called "ambiguous
+   content models" in SGML and "non-deterministic content models" in
+   XML.  That problem is related to the one described here, but the
+   problem here is specifically caused by the lack of order in maps,
+   something that the XML schema languages do not have to contend with.
+
+
+
+Birkholz, et al.        Expires February 22, 2019              [Page 21]
+
+Internet-Draft                    CDDL                       August 2018
+
+
+   Note that Relax-NG's "interleave" pattern handles lack of order
+   explicitly on the specification side, while the instances in XML
+   always have determinate order.)
+
+3.5.4.  Cuts in Maps
 
    The extensibility idiom discussed above for structs has one problem:
 
@@ -1153,16 +1213,26 @@ Internet-Draft                    CDDL                       August 2018
                        }
 
    A cut in this position means that once the map key matches the name
-   part of an entry that can be produced and carries a cut, other
-   potential matches for the key that occur in later entries in the
-   group of the map are no longer allowed.  (This rule applies
-   independent of whether the value matches, too.)  So the example above
-   no longer matches the version modified with a cut.
+   part of an entry that matches and carries a cut, other potential
+   matches for the key that occur in later entries in the group of the
+   map are no longer allowed.  (This rule applies independent of whether
+   the value matches, too.)  So the example above no longer matches the
+   version modified with a cut.
 
    Since the desire for this kind of exclusive matching is so frequent,
    the ":" shortcut is actually defined to include the cut semantics.
    So the preceding example (including the cut) can be written more
    simply as:
+
+
+
+
+
+
+Birkholz, et al.        Expires February 22, 2019              [Page 22]
+
+Internet-Draft                    CDDL                       August 2018
+
 
                         extensible-map-example = {
                           ? "optional-key": int,
@@ -1170,13 +1240,6 @@ Internet-Draft                    CDDL                       August 2018
                         }
 
    or even shorter, using a bareword for the key:
-
-
-
-Birkholz, et al.        Expires February 22, 2019              [Page 21]
-
-Internet-Draft                    CDDL                       August 2018
-
 
                         extensible-map-example = {
                           ? optional-key: int,
@@ -1220,19 +1283,15 @@ Internet-Draft                    CDDL                       August 2018
    one layer, exposing the underlying group (for maps and arrays) or
    type (for tags).
 
-   For example, an application might want to define a basic and an
-   advanced header.  Without unwrapping, this might be done as follows:
 
 
-
-
-
-
-
-Birkholz, et al.        Expires February 22, 2019              [Page 22]
+Birkholz, et al.        Expires February 22, 2019              [Page 23]
 
 Internet-Draft                    CDDL                       August 2018
 
+
+   For example, an application might want to define a basic and an
+   advanced header.  Without unwrapping, this might be done as follows:
 
    basic-header-group = (
      field1: int,
@@ -1280,16 +1339,15 @@ Internet-Draft                    CDDL                       August 2018
    by a dot.  (Note that _target_ or _controller_ might need to be
    parenthesized.)
 
-   A number of control operators are defined at this point.  Further
-   control operators may be defined by new versions of this
 
 
-
-Birkholz, et al.        Expires February 22, 2019              [Page 23]
+Birkholz, et al.        Expires February 22, 2019              [Page 24]
 
 Internet-Draft                    CDDL                       August 2018
 
 
+   A number of control operators are defined at this point.  Further
+   control operators may be defined by new versions of this
    specification or by registering them according to the procedures in
    Section 6.1.
 
@@ -1339,9 +1397,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-
-
-Birkholz, et al.        Expires February 22, 2019              [Page 24]
+Birkholz, et al.        Expires February 22, 2019              [Page 25]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1397,7 +1453,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 25]
+Birkholz, et al.        Expires February 22, 2019              [Page 26]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1453,7 +1509,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 26]
+Birkholz, et al.        Expires February 22, 2019              [Page 27]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1509,7 +1565,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 27]
+Birkholz, et al.        Expires February 22, 2019              [Page 28]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1565,7 +1621,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 28]
+Birkholz, et al.        Expires February 22, 2019              [Page 29]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1621,7 +1677,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 29]
+Birkholz, et al.        Expires February 22, 2019              [Page 30]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1677,7 +1733,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 30]
+Birkholz, et al.        Expires February 22, 2019              [Page 31]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1733,7 +1789,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 31]
+Birkholz, et al.        Expires February 22, 2019              [Page 32]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1789,7 +1845,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 32]
+Birkholz, et al.        Expires February 22, 2019              [Page 33]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1845,7 +1901,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 33]
+Birkholz, et al.        Expires February 22, 2019              [Page 34]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1901,7 +1957,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 34]
+Birkholz, et al.        Expires February 22, 2019              [Page 35]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1957,7 +2013,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 35]
+Birkholz, et al.        Expires February 22, 2019              [Page 36]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -2013,7 +2069,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 36]
+Birkholz, et al.        Expires February 22, 2019              [Page 37]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -2069,7 +2125,7 @@ Appendix A.  Examples
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 37]
+Birkholz, et al.        Expires February 22, 2019              [Page 38]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -2125,7 +2181,7 @@ A.1.  RFC 7071
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 38]
+Birkholz, et al.        Expires February 22, 2019              [Page 39]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -2181,7 +2237,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 39]
+Birkholz, et al.        Expires February 22, 2019              [Page 40]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -2237,7 +2293,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 40]
+Birkholz, et al.        Expires February 22, 2019              [Page 41]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -2293,7 +2349,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 41]
+Birkholz, et al.        Expires February 22, 2019              [Page 42]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -2349,7 +2405,7 @@ A.2.  Examples from JSON Content Rules
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 42]
+Birkholz, et al.        Expires February 22, 2019              [Page 43]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -2405,7 +2461,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 43]
+Birkholz, et al.        Expires February 22, 2019              [Page 44]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -2461,7 +2517,7 @@ Appendix B.  ABNF grammar
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 44]
+Birkholz, et al.        Expires February 22, 2019              [Page 45]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -2517,7 +2573,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 45]
+Birkholz, et al.        Expires February 22, 2019              [Page 46]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -2573,7 +2629,7 @@ Appendix C.  Matching rules
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 46]
+Birkholz, et al.        Expires February 22, 2019              [Page 47]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -2629,7 +2685,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 47]
+Birkholz, et al.        Expires February 22, 2019              [Page 48]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -2685,7 +2741,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 48]
+Birkholz, et al.        Expires February 22, 2019              [Page 49]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -2726,7 +2782,7 @@ Internet-Draft                    CDDL                       August 2018
    bareword), or a value (which stands for a type that just contains
    this value).  A key value matches its key type if the key value is a
    member of the key type, unless a cut preceding it in the group
-   applies (see Section 3.5.3 how map matching is infuenced by the
+   applies (see Section 3.5.4 how map matching is infuenced by the
    presence of the cuts denoted by "^" or ":" in previous entries).
 
    bareword = id
@@ -2741,7 +2797,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 49]
+Birkholz, et al.        Expires February 22, 2019              [Page 50]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -2797,7 +2853,7 @@ Appendix D.  Standard Prelude
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 50]
+Birkholz, et al.        Expires February 22, 2019              [Page 51]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -2853,7 +2909,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 51]
+Birkholz, et al.        Expires February 22, 2019              [Page 52]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -2909,7 +2965,7 @@ Appendix E.  Use with JSON
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 52]
+Birkholz, et al.        Expires February 22, 2019              [Page 53]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -2965,7 +3021,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 53]
+Birkholz, et al.        Expires February 22, 2019              [Page 54]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -3021,7 +3077,7 @@ Appendix G.  Extended Diagnostic Notation
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 54]
+Birkholz, et al.        Expires February 22, 2019              [Page 55]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -3077,7 +3133,7 @@ G.3.  Embedded CBOR and CBOR sequences in byte strings
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 55]
+Birkholz, et al.        Expires February 22, 2019              [Page 56]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -3133,7 +3189,7 @@ G.5.  Hexadecimal, octal, and binary numbers
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 56]
+Birkholz, et al.        Expires February 22, 2019              [Page 57]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -3189,7 +3245,7 @@ Contributors
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 57]
+Birkholz, et al.        Expires February 22, 2019              [Page 58]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -3245,4 +3301,4 @@ Authors' Addresses
 
 
 
-Birkholz, et al.        Expires February 22, 2019              [Page 58]
+Birkholz, et al.        Expires February 22, 2019              [Page 59]
