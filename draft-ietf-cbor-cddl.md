@@ -959,8 +959,8 @@ While the way arrays are matched is fully determined by the Parsing
 Expression Grammar (PEG) algorithm, matching is more complicated for
 maps, as maps do not have an inherent order.
 For each candidate name/value pair that the PEG algorithm would try, a
-match is picked out of the entire map.  For certain group expressions,
-more than key/value pair in the map may match.  Most often, this is
+matching member is picked out of the entire map.  For certain group expressions,
+more than one member in the map may match.  Most often, this is
 inconsequential, as the group expression tends to consume all matches:
 
 ~~~~ CDDL
@@ -972,9 +972,9 @@ label = text
 value = number
 ~~~~
 
-Here, if any key/value pair with the name `fritz` is present, this
+Here, if any member with the key `fritz` is present, this
 will be picked by the first entry of the group; all remaining
-text/number pairs will be picked by the second entry (and if anything
+text/number member will be picked by the second entry (and if anything
 remains unpicked, the map does not match).
 
 However, it is possible to construct group expressions where what is
@@ -1047,15 +1047,15 @@ extensible-map-example = {
 ~~~~
 {:cddl}
 
-A cut in this position means that once the map key matches the name
-part of an entry that matches and carries a cut,
-other potential matches for the key that occur in
+A cut in this position means that once the member key matches the name
+part of an entry that carries a cut,
+other potential matches for the key of the member that occur in
 later entries in the group of the map are no longer allowed.
 In other words, when a group entry would pick a key/value pair based
 on just a matching key, it "locks in" the pick — this rule applies
 independent of whether the value matches as well, so when it does not,
 the entire map fails to match.
-So the
+In summary, the
 example above no longer matches the specification as modified with the cut.
 
 Since the desire for this kind of exclusive matching is so frequent,
