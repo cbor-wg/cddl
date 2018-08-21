@@ -5,10 +5,10 @@
 Network Working Group                                        H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                               C. Vigano
-Expires: February 11, 2019                           Universitaet Bremen
+Expires: February 22, 2019                           Universitaet Bremen
                                                               C. Bormann
                                                  Universitaet Bremen TZI
-                                                         August 10, 2018
+                                                         August 21, 2018
 
 
   Concise data definition language (CDDL): a notational convention to
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on February 11, 2019.
+   This Internet-Draft will expire on February 22, 2019.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Birkholz, et al.        Expires February 11, 2019               [Page 1]
+Birkholz, et al.        Expires February 22, 2019               [Page 1]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -79,7 +79,7 @@ Table of Contents
    3.  Syntax  . . . . . . . . . . . . . . . . . . . . . . . . . . .  13
      3.1.  General conventions . . . . . . . . . . . . . . . . . . .  13
      3.2.  Occurrence  . . . . . . . . . . . . . . . . . . . . . . .  15
-     3.3.  Predefined names for types  . . . . . . . . . . . . . . .  15
+     3.3.  Predefined names for types  . . . . . . . . . . . . . . .  16
      3.4.  Arrays  . . . . . . . . . . . . . . . . . . . . . . . . .  16
      3.5.  Maps  . . . . . . . . . . . . . . . . . . . . . . . . . .  17
        3.5.1.  Structs . . . . . . . . . . . . . . . . . . . . . . .  17
@@ -109,30 +109,29 @@ Table of Contents
 
 
 
-Birkholz, et al.        Expires February 11, 2019               [Page 2]
+Birkholz, et al.        Expires February 22, 2019               [Page 2]
 
 Internet-Draft                    CDDL                       August 2018
 
 
      7.1.  Normative References  . . . . . . . . . . . . . . . . . .  35
      7.2.  Informative References  . . . . . . . . . . . . . . . . .  36
-   Appendix A.  (Not used.)  . . . . . . . . . . . . . . . . . . . .  37
-   Appendix B.  ABNF grammar . . . . . . . . . . . . . . . . . . . .  37
-   Appendix C.  Matching rules . . . . . . . . . . . . . . . . . . .  40
-   Appendix D.  Standard Prelude . . . . . . . . . . . . . . . . . .  44
-   Appendix E.  Use with JSON  . . . . . . . . . . . . . . . . . . .  46
-   Appendix F.  The CDDL tool  . . . . . . . . . . . . . . . . . . .  48
-   Appendix G.  Extended Diagnostic Notation . . . . . . . . . . . .  48
-     G.1.  White space in byte string notation . . . . . . . . . . .  49
-     G.2.  Text in byte string notation  . . . . . . . . . . . . . .  49
-     G.3.  Embedded CBOR and CBOR sequences in byte strings  . . . .  49
-     G.4.  Concatenated Strings  . . . . . . . . . . . . . . . . . .  50
-     G.5.  Hexadecimal, octal, and binary numbers  . . . . . . . . .  50
-     G.6.  Comments  . . . . . . . . . . . . . . . . . . . . . . . .  51
-   Appendix H.  Examples . . . . . . . . . . . . . . . . . . . . . .  51
-     H.1.  RFC 7071  . . . . . . . . . . . . . . . . . . . . . . . .  52
-       H.1.1.  Examples from JSON Content Rules  . . . . . . . . . .  56
-   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  58
+   Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  37
+     A.1.  RFC 7071  . . . . . . . . . . . . . . . . . . . . . . . .  38
+     A.2.  Examples from JSON Content Rules  . . . . . . . . . . . .  42
+   Appendix B.  ABNF grammar . . . . . . . . . . . . . . . . . . . .  44
+   Appendix C.  Matching rules . . . . . . . . . . . . . . . . . . .  46
+   Appendix D.  Standard Prelude . . . . . . . . . . . . . . . . . .  50
+   Appendix E.  Use with JSON  . . . . . . . . . . . . . . . . . . .  52
+   Appendix F.  The CDDL tool  . . . . . . . . . . . . . . . . . . .  54
+   Appendix G.  Extended Diagnostic Notation . . . . . . . . . . . .  54
+     G.1.  White space in byte string notation . . . . . . . . . . .  55
+     G.2.  Text in byte string notation  . . . . . . . . . . . . . .  55
+     G.3.  Embedded CBOR and CBOR sequences in byte strings  . . . .  55
+     G.4.  Concatenated Strings  . . . . . . . . . . . . . . . . . .  56
+     G.5.  Hexadecimal, octal, and binary numbers  . . . . . . . . .  56
+     G.6.  Comments  . . . . . . . . . . . . . . . . . . . . . . . .  57
+   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  57
    Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  58
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  58
 
@@ -165,7 +164,8 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019               [Page 3]
+
+Birkholz, et al.        Expires February 22, 2019               [Page 3]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -178,13 +178,13 @@ Internet-Draft                    CDDL                       August 2018
    This document has the following structure:
 
    The syntax of CDDL is defined in Section 3.  Examples of CDDL and
-   related CBOR data items ("instances") are defined in Appendix H.
-   Section 4 discusses usage of CDDL.  Examples are provided early in
-   the text to better illustrate concept definitions.  A formal
-   definition of CDDL using ABNF grammar is provided in Appendix B.
-   Finally, a _prelude_ of standard CDDL definitions that is
-   automatically prepended to and thus available in every CBOR
-   specification is listed in Appendix D.
+   related CBOR data items ("instances", which all happen to be in JSON
+   form) are given in Appendix A.  Section 4 discusses usage of CDDL.
+   Examples are provided early in the text to better illustrate concept
+   definitions.  A formal definition of CDDL using ABNF grammar is
+   provided in Appendix B.  Finally, a _prelude_ of standard CDDL
+   definitions that is automatically prepended to and thus available in
+   every CBOR specification is listed in Appendix D.
 
 1.1.  Requirements notation
 
@@ -221,7 +221,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019               [Page 4]
+Birkholz, et al.        Expires February 22, 2019               [Page 4]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -277,7 +277,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019               [Page 5]
+Birkholz, et al.        Expires February 22, 2019               [Page 5]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -289,9 +289,10 @@ Internet-Draft                    CDDL                       August 2018
 2.1.  Groups and Composition in CDDL
 
    CDDL Groups are lists of group _entries_, each of which can be a
-   name/value pair or a more complex group expression composed of name/
-   value pairs.  A CDDL group is a production in a grammar that can
-   produce certain sequences of name/value pairs but not others.
+   name/value pair or a more complex group expression (which then in
+   turn stands for a sequence of name/value pairs).  A CDDL group is a
+   production in a grammar that can produce certain sequences of name/
+   value pairs but not others.
 
    In an array context, only the value of the name/value pair is
    represented; the name is annotation only (and can be left off from
@@ -299,10 +300,10 @@ Internet-Draft                    CDDL                       August 2018
    become the map keys ("member keys").
 
    In an array context, the sequence of elements in the group is
-   important, as it is the information that allows associating actual
-   array elements with entries in the group.  In a map context, the
-   sequence of entries in a group is not relevant (but there is still a
-   need to write down group entries in a sequence).
+   important, as that sequence is the information that allows
+   associating actual array elements with entries in the group.  In a
+   map context, the sequence of entries in a group is not relevant (but
+   there is still a need to write down group entries in a sequence).
 
    An array matches a specification given as a group when the group can
    produce a sequence of name/value pairs the value parts of which
@@ -313,7 +314,7 @@ Internet-Draft                    CDDL                       August 2018
    value pairs are present in the map and the map has no name/value pair
    that is not covered by the group.
 
-   A simple example of using a group right in a map definition is:
+   A simple example of using a group directly in a map definition is:
 
                              person = {
                                age: int,
@@ -328,15 +329,17 @@ Internet-Draft                    CDDL                       August 2018
    names that turn into the map key text strings, and "int" and "tstr"
    (text string) are the types of the map values under these keys.
 
-   A group by itself (without creating a map around it) can be placed in
-   (round) parentheses, and given a name by using it in a rule:
 
 
 
-Birkholz, et al.        Expires February 11, 2019               [Page 6]
+
+Birkholz, et al.        Expires February 22, 2019               [Page 6]
 
 Internet-Draft                    CDDL                       August 2018
 
+
+   A group by itself (without creating a map around it) can be placed in
+   (round) parentheses, and given a name by using it in a rule:
 
                              pii = (
                                age: int,
@@ -386,10 +389,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-
-
-
-Birkholz, et al.        Expires February 11, 2019               [Page 7]
+Birkholz, et al.        Expires February 22, 2019               [Page 7]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -445,7 +445,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019               [Page 8]
+Birkholz, et al.        Expires February 22, 2019               [Page 8]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -454,16 +454,16 @@ Internet-Draft                    CDDL                       August 2018
 
    The composition syntax intends to be concise and easy to read:
 
-   o  The start of a group can be marked by '('
-
-   o  The end of a group can be marked by ')'
+   o  The start and end of a group can be marked by '(' and ')'
 
    o  Definitions of entries inside of a group are noted as follows:
       _keytype => valuetype,_ (read "keytype maps to valuetype").  The
       comma is actually optional (not just in the final entry), but it
       is considered good style to set it.  The double arrow can be
       replaced by a colon in the common case of directly using a text
-      string or integer literal as a key (see Section 3.5.1).
+      string or integer literal as a key (see Section 3.5.1; this is
+      also the common way of naming elements of an array just for
+      documentation, see Section 3.4).
 
    A basic entry consists of a _keytype_ and a _valuetype_, both of
    which are types (Section 2.2); this entry can produce any name-value
@@ -487,13 +487,13 @@ Internet-Draft                    CDDL                       August 2018
    this.)
 
    The value notation is based on the C language, but does not offer all
-   the syntactic variations Appendix B.  The value notation for numbers
-   inherits from C the distinction between integer values (no fractional
-   part or exponent given -- NR1 [ISO6093]) and floating point values
-   (where a fractional part and/or an exponent is present -- NR2 or
-   NR3), so the type "1" does not include any floating point numbers
-   while the types "1e3" and "1.5" are both floating point numbers and
-   do not include any integer numbers.
+   the syntactic variations (see Appendix B for details).  The value
+   notation for numbers inherits from C the distinction between integer
+   values (no fractional part or exponent given -- NR1 [ISO6093]) and
+   floating point values (where a fractional part and/or an exponent is
+   present -- NR2 or NR3), so the type "1" does not include any floating
+   point numbers while the types "1e3" and "1.5" are both floating point
+   numbers and do not include any integer numbers.
 
 
 
@@ -501,7 +501,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019               [Page 9]
+Birkholz, et al.        Expires February 22, 2019               [Page 9]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -557,7 +557,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019              [Page 10]
+Birkholz, et al.        Expires February 22, 2019              [Page 10]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -613,7 +613,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019              [Page 11]
+Birkholz, et al.        Expires February 22, 2019              [Page 11]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -637,24 +637,42 @@ Internet-Draft                    CDDL                       August 2018
    CDDL allows the specification of a data item type by referring to the
    CBOR representation (major and minor numbers).  How this is used
    should be evident from the prelude (Appendix D): a hash mark ("#")
-   optionally followed by a major type, which can be followed by
-   additional information, specifies the set of values that can be
-   serialized in CBOR (i.e., "any"), by the given major type if one is
-   given, or by the given major type with the additional information if
-   both are given.  Note that although this notation is based on the
-   CBOR serialization, it is about a set of values at the data model
-   level, e.g. "#7.25" specifies the set of values that can be
-   represented as half-precision floats; it does not mandate that these
-   values also do have to be serialized as half-precision floats: CDDL
-   does not provide any language means to restrict the choice of
-   serialization variants.  This also enables the use of CDDL with JSON,
-   which uses a fundamentally different way of serializing (some of) the
-   same values.
+   optionally followed by a number from 0 to 7 identifying the major
+   type, which then can be followed by a dot and a number specifying the
+   additional information.  This construction specifies the set of
+   values that can be serialized in CBOR (i.e., "any"), by the given
+   major type if one is given, or by the given major type with the
+   additional information if both are given.  Where a major type of 6
+   (Tag) is used, the type of the tagged item can be specified by
+   appending it in parentheses.
+
+   Note that although this notation is based on the CBOR serialization,
+   it is about a set of values at the data model level, e.g. "#7.25"
+   specifies the set of values that can be represented as half-precision
+   floats; it does not mandate that these values also do have to be
+   serialized as half-precision floats: CDDL does not provide any
+   language means to restrict the choice of serialization variants.
+   This also enables the use of CDDL with JSON, which uses a
+   fundamentally different way of serializing (some of) the same values.
 
    It may be necessary to make use of representation types outside the
    prelude, e.g., a specification could start by making use of an
    existing tag in a more specific way, or define a new tag not defined
    in the prelude:
+
+
+
+
+
+
+
+
+
+
+Birkholz, et al.        Expires February 22, 2019              [Page 12]
+
+Internet-Draft                    CDDL                       August 2018
+
 
       my_breakfast = #6.55799(breakfast)   ; cbor-any is too general!
       breakfast = cereal / porridge
@@ -664,15 +682,6 @@ Internet-Draft                    CDDL                       August 2018
       milk = 0
       water = 1
       solid = tstr
-
-
-
-
-
-Birkholz, et al.        Expires February 11, 2019              [Page 12]
-
-Internet-Draft                    CDDL                       August 2018
-
 
 2.2.4.  Root type
 
@@ -714,6 +723,13 @@ Internet-Draft                    CDDL                       August 2018
 
       *  It is preferred style to start a name with a lower case letter.
 
+
+
+Birkholz, et al.        Expires February 22, 2019              [Page 13]
+
+Internet-Draft                    CDDL                       August 2018
+
+
       *  The hyphen is preferred over the underscore (except in a
          "bareword" (Section 3.5.1), where the semantics may actually
          require an underscore).
@@ -721,14 +737,6 @@ Internet-Draft                    CDDL                       August 2018
       *  The period may be useful for larger specifications, to express
          some module structure (as in "tcp.throughput" vs.
          "udp.throughput").
-
-
-
-
-Birkholz, et al.        Expires February 11, 2019              [Page 13]
-
-Internet-Draft                    CDDL                       August 2018
-
 
       *  A number of names are predefined in the CDDL prelude, as listed
          in Appendix D.
@@ -759,14 +767,24 @@ Internet-Draft                    CDDL                       August 2018
       interpreted as with a text string, except that single quotes must
       be escaped and that the UTF-8 bytes resulting are marked as a byte
       string (major type 2).  If prefixed as "h" or "b64", the string is
-      interpreted as a sequence of hex digits or a base64(url) string,
-      respectively (as with the diagnostic notation in section 6 of
-      [RFC7049]; cf. Appendix G.2); any white space present within the
-      string (including comments) is ignored in the prefixed case.
+      interpreted as a sequence of pairs of hex digits (base16) or a
+      base64(url) string, respectively (as with the diagnostic notation
+      in section 6 of [RFC7049]; cf. Appendix G.2); any white space
+      present within the string (including comments) is ignored in the
+      prefixed case.
 
    o  CDDL uses UTF-8 [RFC3629] for its encoding.
 
    Example:
+
+
+
+
+
+Birkholz, et al.        Expires February 22, 2019              [Page 14]
+
+Internet-Draft                    CDDL                       August 2018
+
 
                     ; This is a comment
                     person = { g }
@@ -775,16 +793,6 @@ Internet-Draft                    CDDL                       August 2018
                       "name": tstr,
                       age: int,  ; "age" is a bareword
                     )
-
-
-
-
-
-
-Birkholz, et al.        Expires February 11, 2019              [Page 14]
-
-Internet-Draft                    CDDL                       August 2018
-
 
 3.2.  Occurrence
 
@@ -825,6 +833,15 @@ Internet-Draft                    CDDL                       August 2018
 
      ? bedroom: size,
 
+
+
+
+
+Birkholz, et al.        Expires February 22, 2019              [Page 15]
+
+Internet-Draft                    CDDL                       August 2018
+
+
    (Occurrence indicators beyond one still are useful in maps for groups
    that allow a variety of keys.)
 
@@ -834,13 +851,6 @@ Internet-Draft                    CDDL                       August 2018
    names, but please see Appendix D for the exact definitions.
 
    The following keywords for primitive datatypes are defined:
-
-
-
-Birkholz, et al.        Expires February 11, 2019              [Page 15]
-
-Internet-Draft                    CDDL                       August 2018
-
 
    "bool"  Boolean value (major type 7, additional information 20 or
       21).
@@ -881,6 +891,13 @@ Internet-Draft                    CDDL                       August 2018
 
    For example:
 
+
+
+Birkholz, et al.        Expires February 22, 2019              [Page 16]
+
+Internet-Draft                    CDDL                       August 2018
+
+
                      unlimited-people = [* person]
                      one-or-two-people = [1*2 person]
                      at-least-two-people = [2* person]
@@ -888,15 +905,6 @@ Internet-Draft                    CDDL                       August 2018
                          name: tstr,
                          age: uint,
                      )
-
-
-
-
-
-Birkholz, et al.        Expires February 11, 2019              [Page 16]
-
-Internet-Draft                    CDDL                       August 2018
-
 
    The group "person" is defined in such a way that repeating it in the
    array each time generates alternating names and ages, so these are
@@ -938,21 +946,15 @@ Internet-Draft                    CDDL                       August 2018
    An occurrence indicator as specified in Section 3.2 is permitted for
    each group entry.
 
-   The following is an example of a structure:
 
 
 
-
-
-
-
-
-
-
-Birkholz, et al.        Expires February 11, 2019              [Page 17]
+Birkholz, et al.        Expires February 22, 2019              [Page 17]
 
 Internet-Draft                    CDDL                       August 2018
 
+
+   The following is an example of a structure:
 
          Geography = [
            city           : tstr,
@@ -998,17 +1000,20 @@ Internet-Draft                    CDDL                       August 2018
    interpreted as a string before a colon).  A string also is a (single-
    valued) type, so another form for this example is:
 
+
+
+
+
+
+Birkholz, et al.        Expires February 22, 2019              [Page 18]
+
+Internet-Draft                    CDDL                       August 2018
+
+
                          located-samples = {
                            "sample-point" => int,
                            "samples" => [+ float],
                          }
-
-
-
-Birkholz, et al.        Expires February 11, 2019              [Page 18]
-
-Internet-Draft                    CDDL                       August 2018
-
 
    See Section 3.5.3 below for how the colon shortcut described here
    also adds some implied semantics.
@@ -1025,8 +1030,7 @@ Internet-Draft                    CDDL                       August 2018
 
    The example below defines a struct with optional entries: display
    name (as a text string), the name components first name and family
-   name (as a map of text strings), and age information (as an unsigned
-   integer).
+   name (as text strings), and age information (as an unsigned integer).
 
                           PersonalData = {
                             ? displayName: tstr,
@@ -1057,11 +1061,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-
-
-
-
-Birkholz, et al.        Expires February 11, 2019              [Page 19]
+Birkholz, et al.        Expires February 22, 2019              [Page 19]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1117,7 +1117,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019              [Page 20]
+Birkholz, et al.        Expires February 22, 2019              [Page 20]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1173,7 +1173,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019              [Page 21]
+Birkholz, et al.        Expires February 22, 2019              [Page 21]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1229,7 +1229,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019              [Page 22]
+Birkholz, et al.        Expires February 22, 2019              [Page 22]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1280,19 +1280,18 @@ Internet-Draft                    CDDL                       August 2018
    by a dot.  (Note that _target_ or _controller_ might need to be
    parenthesized.)
 
-   A number of control operators are defined at his point.  Note that
-   the CDDL tool does not currently support combining multiple controls
+   A number of control operators are defined at this point.  Further
+   control operators may be defined by new versions of this
 
 
 
-Birkholz, et al.        Expires February 11, 2019              [Page 23]
+Birkholz, et al.        Expires February 22, 2019              [Page 23]
 
 Internet-Draft                    CDDL                       August 2018
 
 
-   on a single target.  Further control operators may be defined by new
-   versions of this specification or by registering them according to
-   the procedures in Section 6.1.
+   specification or by registering them according to the procedures in
+   Section 6.1.
 
 3.8.1.  Control operator .size
 
@@ -1341,7 +1340,8 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019              [Page 24]
+
+Birkholz, et al.        Expires February 22, 2019              [Page 24]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1397,7 +1397,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019              [Page 25]
+Birkholz, et al.        Expires February 22, 2019              [Page 25]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1453,7 +1453,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019              [Page 26]
+Birkholz, et al.        Expires February 22, 2019              [Page 26]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1509,7 +1509,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019              [Page 27]
+Birkholz, et al.        Expires February 22, 2019              [Page 27]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1522,10 +1522,10 @@ Internet-Draft                    CDDL                       August 2018
 
    The controls .lt, .le, .gt, .ge, .eq, .ne specify a constraint on the
    left hand side type to be a value less than, less than or equal,
-   equal to, not equal to, greater than, or greater than or equal to a
-   value given as a (single-valued) right hand side type.  In the
-   present specification, the first four controls (.lt, .le, .gt, .ge)
-   are defined only for numeric types, as these have a natural ordering
+   greater than, greater than or equal, equal, or not equal, to a value
+   given as a (single-valued) right hand side type.  In the present
+   specification, the first four controls (.lt, .le, .gt, .ge) are
+   defined only for numeric types, as these have a natural ordering
    relationship.
 
    speed = number .ge 0  ; unit: m/s
@@ -1565,7 +1565,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019              [Page 28]
+Birkholz, et al.        Expires February 22, 2019              [Page 28]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1602,8 +1602,8 @@ Internet-Draft                    CDDL                       August 2018
    definition for a socket at all; this then means there is no way to
    satisfy the rule (i.e., the choice is empty).
 
-   All definitions (plugs) for socket names must be augmentations, i.e.,
-   they must be using "/=" and "//=", respectively.
+   As a convention, all definitions (plugs) for socket names must be
+   augmentations, i.e., they must be using "/=" and "//=", respectively.
 
    To pick up the example illustrated in Figure 7, the socket/plug
    mechanism could be used as shown in Figure 12:
@@ -1621,7 +1621,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019              [Page 29]
+Birkholz, et al.        Expires February 22, 2019              [Page 29]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1677,7 +1677,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019              [Page 30]
+Birkholz, et al.        Expires February 22, 2019              [Page 30]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1733,7 +1733,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019              [Page 31]
+Birkholz, et al.        Expires February 22, 2019              [Page 31]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1789,7 +1789,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019              [Page 32]
+Birkholz, et al.        Expires February 22, 2019              [Page 32]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1845,7 +1845,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019              [Page 33]
+Birkholz, et al.        Expires February 22, 2019              [Page 33]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1860,6 +1860,9 @@ Internet-Draft                    CDDL                       August 2018
       the security of the system ought not depend on the correctness of
       the CDDL specification or CDDL implementation without any further
       defenses in place.
+
+   o  Where the CDDL includes extension points, the impact of extensions
+      on the security of the system needs to be carefully considered.
 
    Writers of CDDL specifications are strongly encouraged to value
    simplicity and transparency of the specification over its elegance.
@@ -1898,10 +1901,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-
-
-
-Birkholz, et al.        Expires February 11, 2019              [Page 34]
+Birkholz, et al.        Expires February 22, 2019              [Page 34]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -1957,7 +1957,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019              [Page 35]
+Birkholz, et al.        Expires February 22, 2019              [Page 35]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -2013,7 +2013,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019              [Page 36]
+Birkholz, et al.        Expires February 22, 2019              [Page 36]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -2058,792 +2058,9 @@ Internet-Draft                    CDDL                       August 2018
 
    [1] https://github.com/cabo/cbor-diag
 
-Appendix A.  (Not used.)
+Appendix A.  Examples
 
-Appendix B.  ABNF grammar
-
-   The following is a formal definition of the CDDL syntax in Augmented
-   Backus-Naur Form (ABNF, [RFC5234]).
-
-      cddl = S 1*(rule S)
-
-
-
-Birkholz, et al.        Expires February 11, 2019              [Page 37]
-
-Internet-Draft                    CDDL                       August 2018
-
-
-      rule = typename [genericparm] S assign S type
-           / groupname [genericparm] S assign S grpent
-
-      typename = id
-      groupname = id
-
-      assign = "=" / "/=" / "//="
-
-      genericparm = "<" S id S *("," S id S ) ">"
-      genericarg = "<" S type1 S *("," S type1 S ) ">"
-
-      type = type1 *(S "/" S type1)
-
-      type1 = type2 [S (rangeop / ctlop) S type2]
-
-      type2 = value
-            / typename [genericarg]
-            / "(" S type S ")"
-            / "{" S group S "}"
-            / "[" S group S "]"
-            / "~" S typename [genericarg]
-            / "&" S "(" S group S ")"
-            / "&" S groupname [genericarg]
-            / "#" "6" ["." uint] "(" S type S ")" ; note no space!
-            / "#" DIGIT ["." uint]                ; major/ai
-            / "#"                                 ; any
-
-      rangeop = "..." / ".."
-
-      ctlop = "." id
-
-      group = grpchoice *(S "//" S grpchoice)
-
-      grpchoice = *(grpent optcom)
-
-      grpent = [occur S] [memberkey S] type
-             / [occur S] groupname [genericarg]  ; preempted by above
-             / [occur S] "(" S group S ")"
-
-      memberkey = type1 S ["^" S] "=>"
-                / bareword S ":"
-                / value S ":"
-
-      bareword = id
-
-      optcom = S ["," S]
-
-      occur = [uint] "*" [uint]
-
-
-
-Birkholz, et al.        Expires February 11, 2019              [Page 38]
-
-Internet-Draft                    CDDL                       August 2018
-
-
-            / "+"
-            / "?"
-
-      uint = DIGIT1 *DIGIT
-           / "0x" 1*HEXDIG
-           / "0b" 1*BINDIG
-           / "0"
-
-      value = number
-            / text
-            / bytes
-
-      int = ["-"] uint
-
-      ; This is a float if it has fraction or exponent; int otherwise
-      number = hexfloat / (int ["." fraction] ["e" exponent ])
-      hexfloat = "0x" 1*HEXDIG ["." 1*HEXDIG] "p" exponent
-      fraction = 1*DIGIT
-      exponent = ["+"/"-"] 1*DIGIT
-
-      text = %x22 *SCHAR %x22
-      SCHAR = %x20-21 / %x23-5B / %x5D-10FFFD / SESC
-      SESC = "\" %x20-10FFFD
-
-      bytes = [bsqual] %x27 *BCHAR %x27
-      BCHAR = %x20-26 / %x28-5B / %x5D-10FFFD / SESC / CRLF
-      bsqual = "h" / "b64"
-
-      id = EALPHA *(*("-" / ".") (EALPHA / DIGIT))
-      ALPHA = %x41-5A / %x61-7A
-      EALPHA = ALPHA / "@" / "_" / "$"
-      DIGIT = %x30-39
-      DIGIT1 = %x31-39
-      HEXDIG = DIGIT / "A" / "B" / "C" / "D" / "E" / "F"
-      BINDIG = %x30-31
-
-      S = *WS
-      WS = SP / NL
-      SP = %x20
-      NL = COMMENT / CRLF
-      COMMENT = ";" *PCHAR CRLF
-      PCHAR = %x20-10FFFD
-      CRLF = %x0A / %x0D.0A
-
-                           Figure 13: CDDL ABNF
-
-   Note that this ABNF does not attempt to reflect the detailed rules of
-   what can be in a prefixed byte string.
-
-
-
-Birkholz, et al.        Expires February 11, 2019              [Page 39]
-
-Internet-Draft                    CDDL                       August 2018
-
-
-Appendix C.  Matching rules
-
-   In this appendix, we go through the ABNF syntax rules defined in
-   Appendix B and briefly describe the matching semantics of each
-   syntactic feature.  In this context, an instance (data item)
-   "matches" a CDDL specification if it is allowed by the CDDL
-   specification; this is then broken down to parts of specifications
-   (type and group expressions) and parts of instances (data items).
-
-   cddl = S 1*rule
-
-   A CDDL specification is a sequence of one or more rules.  Each rule
-   gives a name to a right hand side expression, either a CDDL type or a
-   CDDL group.  Rule names can be used in the rule itself and/or other
-   rules (and tools can output warnings if that is not the case).  The
-   order of the rules is significant only in two cases, including the
-   following: The first rule defines the semantics of the entire
-   specification; hence, its name may be descriptive only (or may be
-   used in itself or other rules as with the other rule names).
-
-   rule = typename [genericparm] S assign S type S
-        / groupname [genericparm] S assign S grpent S
-
-   typename = id
-   groupname = id
-
-   A rule defines a name for a type expression (production "type") or
-   for a group expression (production "grpent"), with the intention that
-   the semantics does not change when the name is replaced by its
-   (parenthesized if needed) definition.
-
-   assign = "=" / "/=" / "//="
-
-   A plain equals sign defines the rule name as the equivalent of the
-   expression to the right.  A "/=" or "//=" extends a named type or a
-   group by additional choices; a number of these could be replaced by
-   collecting all the right hand sides and creating a single rule with a
-   type choice or a group choice built from the right hand sides in the
-   order of the rules given.  (It is not an error to extend a rule name
-   that has not yet been defined; this makes the right hand side the
-   first entry in the choice being created.)  The creation of the type
-   choices and group choices from the right hand sides of rules is the
-   other case where rule order can be significant.
-
-   genericparm = "<" S id S *("," S id S ) ">"
-   genericarg = "<" S type1 S *("," S type1 S ) ">"
-
-
-
-
-
-Birkholz, et al.        Expires February 11, 2019              [Page 40]
-
-Internet-Draft                    CDDL                       August 2018
-
-
-   Rule names can have generic parameters, which cause temporary
-   assignments within the right hand sides to the parameter names from
-   the arguments given when citing the rule name.
-
-   type = type1 S *("/" S type1 S)
-
-   A type can be given as a choice between one or more types.  The
-   choice matches a data item if the data item matches any one of the
-   types given in the choice.  The choice uses Parsing Expression
-   Grammar [PEG] semantics: The first choice that matches wins.  (As a
-   result, the order of rules that contribute to a single rule name can
-   very well matter.)
-
-   type1 = type2 [S (rangeop / ctlop) S type2]
-
-   Two types can be combined with a range operator (which see below) or
-   a control operator (see Section 3.8).
-
-   type2 = value
-
-   A type can be just a single value (such as 1 or "icecream" or
-   h'0815'), which matches only a data item with that specific value (no
-   conversions defined),
-
-         / typename [genericarg]
-
-   or be defined by a rule giving a meaning to a name (possibly after
-   supplying generic args as required by the generic parameters),
-
-         / "(" type ")"
-
-   or be defined in a parenthesized type expression (parentheses may be
-   necessary to override some operator precendence), or
-
-         / "~" S typename [genericarg]
-
-   an "unwrapped" group (see Section 3.7), which matches the group
-   inside a type defined as a map or an array by wrapping the group, or
-
-         / "#" "6" ["." uint] "(" S type S ")" ; note no space!
-
-   a tagged data item, tagged with the "uint" given and containing the
-   type given as the tagged value, or
-
-         / "#" DIGIT ["." uint]                ; major/ai
-
-   a data item of a major type (given by the DIGIT), optionally
-   constrained to the additional information given by the uint, or
-
-
-
-Birkholz, et al.        Expires February 11, 2019              [Page 41]
-
-Internet-Draft                    CDDL                       August 2018
-
-
-         / "#"                                 ; any
-
-   any data item, or
-
-         / "{" S group S "}"
-
-   a map expression, which matches a valid CBOR map the key/value pairs
-   of which can be ordered in such a way that the resulting sequence
-   matches the group expression, or
-
-         / "[" S group S "]"
-
-   an array expression, which matches a CBOR array the elements of
-   which, when taken as values and complemented by a wildcard (matches
-   anything) key each, match the group, or
-
-         / "&" S "(" S group S ")"
-         / "&" S groupname [genericarg]
-
-   an enumeration expression, which matches any a value that is within
-   the set of values that the values of the group given can take.
-
-   rangeop = "..." / ".."
-
-   A range operator can be used to join two type expressions that stand
-   for either two integer values or two floating point values; it
-   matches any value that is between the two values, where the first
-   value is always included in the matching set and the second value is
-   included for ".." and excluded for "...".
-
-   ctlop = "." id
-
-   A control operator ties a _target_ type to a _controller_ type as
-   defined in Section 3.8.  Note that control operators are an extension
-   point for CDDL; additional documents may want to define additional
-   control operators.
-
-   group = grpchoice S *("//" S grpchoice S)
-
-   A group matches any sequence of key/value pairs that matches any of
-   the choices given (again using Parsing Expression Grammar semantics).
-
-   grpchoice = *grpent
-
-   Each of the component groups is given as a sequence of group entries.
-   For a match, the sequence of key/value pairs given needs to match the
-   sequence of group entries in the sequence given.
-
-
-
-
-Birkholz, et al.        Expires February 11, 2019              [Page 42]
-
-Internet-Draft                    CDDL                       August 2018
-
-
-   grpent = [occur S] [memberkey S] type optcom
-
-   A group entry can be given by a value type, which needs to be matched
-   by the value part of a single element, and optionally a memberkey
-   type, which needs to be matched by the key part of the element, if
-   the memberkey is given.  If the memberkey is not given, the entry can
-   only be used for matching arrays, not for maps.  (See below how that
-   is modified by the occurrence indicator.)
-
-          / [occur S] groupname [genericarg] optcom ; preempted by above
-
-   A group entry can be built from a named group, or
-
-          / [occur S] "(" S group S ")" optcom
-
-   from a parenthesized group, again with a possible occurrence
-   indicator.
-
-   memberkey = type1 S ["^" S] "=>"
-             / bareword S ":"
-             / value S ":"
-
-   Key types can be given by a type expression, a bareword (which stands
-   for a type that just contains a string value created from this
-   bareword), or a value (which stands for a type that just contains
-   this value).  A key value matches its key type if the key value is a
-   member of the key type, unless a cut preceding it in the group
-   applies (see Section 3.5.3 how map matching is infuenced by the
-   presence of the cuts denoted by "^" or ":" in previous entries).
-
-   bareword = id
-
-   A bareword is an alternative way to write a type with a single text
-   string value; it can only be used in the syntactic context given
-   above.
-
-   optcom = S ["," S]
-
-   (Optional commas do not influence the matching.)
-
-   occur = [uint] "*" [uint]
-         / "+"
-         / "?"
-
-   An occurrence indicator modifies the group given to its right by
-   requiring the group to match the sequence to be matched exactly for a
-   certain number of times (see Section 3.2) in sequence, i.e. it acts
-
-
-
-
-Birkholz, et al.        Expires February 11, 2019              [Page 43]
-
-Internet-Draft                    CDDL                       August 2018
-
-
-   as a (possibly infinite) group choice that contains choices with the
-   group repeated each of the occurrences times.
-
-   The rest of the ABNF describes syntax for value notation that should
-   be familiar from programming languages, with the possible exception
-   of h'..' and b64'..' for byte strings, as well as syntactic elements
-   such as comments and line ends.
-
-Appendix D.  Standard Prelude
-
-   The following prelude is automatically added to each CDDL file.
-   (Note that technically, it is a postlude, as it does not disturb the
-   selection of the first rule as the root of the definition.)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Birkholz, et al.        Expires February 11, 2019              [Page 44]
-
-Internet-Draft                    CDDL                       August 2018
-
-
-                  any = #
-
-                  uint = #0
-                  nint = #1
-                  int = uint / nint
-
-                  bstr = #2
-                  bytes = bstr
-                  tstr = #3
-                  text = tstr
-
-                  tdate = #6.0(tstr)
-                  time = #6.1(number)
-                  number = int / float
-                  biguint = #6.2(bstr)
-                  bignint = #6.3(bstr)
-                  bigint = biguint / bignint
-                  integer = int / bigint
-                  unsigned = uint / biguint
-                  decfrac = #6.4([e10: int, m: integer])
-                  bigfloat = #6.5([e2: int, m: integer])
-                  eb64url = #6.21(any)
-                  eb64legacy = #6.22(any)
-                  eb16 = #6.23(any)
-                  encoded-cbor = #6.24(bstr)
-                  uri = #6.32(tstr)
-                  b64url = #6.33(tstr)
-                  b64legacy = #6.34(tstr)
-                  regexp = #6.35(tstr)
-                  mime-message = #6.36(tstr)
-                  cbor-any = #6.55799(any)
-
-                  float16 = #7.25
-                  float32 = #7.26
-                  float64 = #7.27
-                  float16-32 = float16 / float32
-                  float32-64 = float32 / float64
-                  float = float16-32 / float64
-
-                  false = #7.20
-                  true = #7.21
-                  bool = false / true
-                  nil = #7.22
-                  null = nil
-                  undefined = #7.23
-
-
-                          Figure 14: CDDL Prelude
-
-
-
-Birkholz, et al.        Expires February 11, 2019              [Page 45]
-
-Internet-Draft                    CDDL                       August 2018
-
-
-   Note that the prelude is deemed to be fixed.  This means, for
-   instance, that additional tags beyond [RFC7049], as registered, need
-   to be defined in each CDDL file that is using them.
-
-   A common stumbling point is that the prelude does not define a type
-   "string".  CBOR has byte strings ("bytes" in the prelude) and text
-   strings ("text"), so a type that is simply called "string" would be
-   ambiguous.
-
-Appendix E.  Use with JSON
-
-   The JSON generic data model (implicit in [RFC8259]) is a subset of
-   the generic data model of CBOR.  So one can use CDDL with JSON by
-   limiting oneself to what can be represented in JSON.  Roughly
-   speaking, this means leaving out byte strings, tags, and simple
-   values other than "false", "true", and "null", leading to the
-   following limited prelude:
-
-                      any = #
-
-                      uint = #0
-                      nint = #1
-                      int = uint / nint
-
-                      tstr = #3
-                      text = tstr
-
-                      number = int / float
-
-                      float16 = #7.25
-                      float32 = #7.26
-                      float64 = #7.27
-                      float16-32 = float16 / float32
-                      float32-64 = float32 / float64
-                      float = float16-32 / float64
-
-                      false = #7.20
-                      true = #7.21
-                      bool = false / true
-                      nil = #7.22
-                      null = nil
-
-
-             Figure 15: JSON compatible subset of CDDL Prelude
-
-   (The major types given here do not have a direct meaning in JSON, but
-   they can be interpreted as CBOR major types translated through
-   Section 4 of [RFC7049].)
-
-
-
-Birkholz, et al.        Expires February 11, 2019              [Page 46]
-
-Internet-Draft                    CDDL                       August 2018
-
-
-   There are a few fine points in using CDDL with JSON.  First, JSON
-   does not distinguish between integers and floating point numbers;
-   there is only one kind of number (which may happen to be integral).
-   In this context, specifying a type as "uint", "nint" or "int" then
-   becomes a predicate that the number be integral.  As an example, this
-   means that the following JSON numbers are all matching "uint":
-
-   10 10.0 1e1 1.0e1 100e-1
-
-   (The fact that these are all integers may be surprising to users
-   accustomed to the long tradition in programming languages of using
-   decimal points or exponents in a number to indicate a floating point
-   literal.)
-
-   CDDL distinguishes the various CBOR number types, but there is only
-   one number type in JSON.  The effect of specifying a floating point
-   precision (float16/float32/float64) is only to restrict the set of
-   permissible values to those expressible with binary16/binary32/
-   binary64; this is unlikely to be very useful when using CDDL for
-   specifying JSON data structures.
-
-   Fundamentally, the number system of JSON itself is based on decimal
-   numbers and decimal fractions and does not have limits to its
-   precision or range.  In practice, JSON numbers are often parsed into
-   a number type that is called float64 here, creating a number of
-   limitations to the generic data model [RFC7493].  In particular, this
-   means that integers can only be expressed with interoperable
-   exactness when they lie in the range [-(2**53)+1, (2**53)-1] -- a
-   smaller range than that covered by CDDL "int".
-
-   JSON applications that want to stay compatible with I-JSON therefore
-   may want to define integer types with more limited ranges, such as in
-   Figure 16.  Note that the types given here are not part of the
-   prelude; they need to be copied into the CDDL specification if
-   needed.
-
-               ij-uint = 0..9007199254740991
-               ij-nint = -9007199254740991..-1
-               ij-int = -9007199254740991..9007199254740991
-
-          Figure 16: I-JSON types for CDDL (not part of prelude)
-
-   JSON applications that do not need to stay compatible with I-JSON and
-   that actually may need to go beyond the 64-bit unsigned and negative
-   integers supported by "int" (= "uint"/"nint") may want to use the
-   following additional types from the standard prelude, which are
-   expressed in terms of tags but can straightforwardly be mapped into
-   JSON (but not I-JSON) numbers:
-
-
-
-Birkholz, et al.        Expires February 11, 2019              [Page 47]
-
-Internet-Draft                    CDDL                       August 2018
-
-
-   biguint = #6.2(bstr)
-   bignint = #6.3(bstr)
-   bigint = biguint / bignint
-   integer = int / bigint
-   unsigned = uint / biguint
-
-   CDDL at this point does not have a way to express the unlimited
-   floating point precision that is theoretically possible with JSON; at
-   the time of writing, this is rarely used in protocols in practice.
-
-   Note that a data model described in CDDL is always restricted by what
-   can be expressed in the serialization; e.g., floating point values
-   such as NaN (not a number) and the infinities cannot be represented
-   in JSON even if they are allowed in the CDDL generic data model.
-
-Appendix F.  The CDDL tool
-
-   A rough CDDL tool is available.  For CDDL specifications, it can
-   check the syntax, generate one or more instances (expressed in CBOR
-   diagnostic notation or in pretty-printed JSON), and validate an
-   existing instance against the specification:
-
-                   Usage:
-                   cddl spec.cddl generate [n]
-                   cddl spec.cddl json-generate [n]
-                   cddl spec.cddl validate instance.cbor
-                   cddl spec.cddl validate instance.json
-
-                        Figure 17: CDDL tool usage
-
-   Install on a system with a modern Ruby via:
-
-                             gem install cddl
-
-                     Figure 18: CDDL tool installation
-
-   The accompanying CBOR diagnostic tools (which are automatically
-   installed by the above) are described in https://github.com/cabo/
-   cbor-diag [1]; they can be used to convert between binary CBOR, a
-   pretty-printed form of that, CBOR diagnostic notation, JSON, and
-   YAML.
-
-Appendix G.  Extended Diagnostic Notation
-
-   Section 6 of [RFC7049] defines a "diagnostic notation" in order to be
-   able to converse about CBOR data items without having to resort to
-   binary data.  Diagnostic notation is based on JSON, with extensions
-   for representing CBOR constructs such as binary data and tags.
-
-
-
-Birkholz, et al.        Expires February 11, 2019              [Page 48]
-
-Internet-Draft                    CDDL                       August 2018
-
-
-   (Standardizing this together with the actual interchange format does
-   not serve to create another interchange format, but enables the use
-   of a shared diagnostic notation in tools for and documents about
-   CBOR.)
-
-   This section discusses a few extensions to the diagnostic notation
-   that have turned out to be useful since RFC 7049 was written.  We
-   refer to the result as extended diagnostic notation (EDN).
-
-G.1.  White space in byte string notation
-
-   Examples often benefit from some white space (spaces, line breaks) in
-   byte strings.  In extended diagnostic notation, white space is
-   ignored in prefixed byte strings; for instance, the following are
-   equivalent:
-
-     h'48656c6c6f20776f726c64'
-     h'48 65 6c 6c 6f 20 77 6f 72 6c 64'
-     h'4 86 56c 6c6f
-       20776 f726c64'
-
-G.2.  Text in byte string notation
-
-   Diagnostic notation notates Byte strings in one of the [RFC4648] base
-   encodings,, enclosed in single quotes, prefixed by >h< for base16,
-   >b32< for base32, >h32< for base32hex, >b64< for base64 or base64url.
-   Quite often, byte strings carry bytes that are meaningfully
-   interpreted as UTF-8 text.  Extended Diagnostic Notation allows the
-   use of single quotes without a prefix to express byte strings with
-   UTF-8 text; for instance, the following are equivalent:
-
-   'hello world'
-   h'68656c6c6f20776f726c64'
-
-   The escaping rules of JSON strings are applied equivalently for text-
-   based byte strings, e.g., \ stands for a single backslash and '
-   stands for a single quote.  White space is included literally, i.e.,
-   the previous section does not apply to text-based byte strings.
-
-G.3.  Embedded CBOR and CBOR sequences in byte strings
-
-   Where a byte string is to carry an embedded CBOR-encoded item, or
-   more generally a sequence of zero or more such items, the diagnostic
-   notation for these zero or more CBOR data items, separated by
-   commata, can be enclosed in << and >> to notate the byte string
-   resulting from encoding the data items and concatenating the result.
-   For instance, each pair of columns in the following are equivalent:
-
-
-
-
-Birkholz, et al.        Expires February 11, 2019              [Page 49]
-
-Internet-Draft                    CDDL                       August 2018
-
-
-   <<1>>              h'01'
-   <<1, 2>>           h'0102'
-   <<"foo", null>>    h'63666F6FF6'
-   <<>>               h''
-
-G.4.  Concatenated Strings
-
-   While the ability to include white space enables line-breaking of
-   encoded byte strings, a mechanism is needed to be able to include
-   text strings as well as byte strings in direct UTF-8 representation
-   into line-based documents (such as RFCs and source code).
-
-   We extend the diagnostic notation by allowing multiple text strings
-   or multiple byte strings to be notated separated by white space,
-   these are then concatenated into a single text or byte string,
-   respectively.  Text strings and byte strings do not mix within such a
-   concatenation, except that byte string notation can be used inside a
-   sequence of concatenated text string notation to encode characters
-   that may be better represented in an encoded way.  The following four
-   values are equivalent:
-
-   "Hello world"
-   "Hello " "world"
-   "Hello" h'20' "world"
-   "" h'48656c6c6f20776f726c64' ""
-
-   Similarly, the following byte string values are equivalent
-
-   'Hello world'
-   'Hello ' 'world'
-   'Hello ' h'776f726c64'
-   'Hello' h'20' 'world'
-   '' h'48656c6c6f20776f726c64' '' b64''
-   h'4 86 56c 6c6f' h' 20776 f726c64'
-
-   (Note that the approach of separating by whitespace, while familiar
-   from the C language, requires some attention - a single comma makes a
-   big difference here.)
-
-G.5.  Hexadecimal, octal, and binary numbers
-
-   In addition to JSON's decimal numbers, EDN provides hexadecimal,
-   octal and binary numbers in the usual C-language notation (octal with
-   0o prefix present only).
-
-   The following are equivalent:
-
-
-
-
-
-Birkholz, et al.        Expires February 11, 2019              [Page 50]
-
-Internet-Draft                    CDDL                       August 2018
-
-
-   4711
-   0x1267
-   0o11147
-   0b1001001100111
-
-   As are:
-
-   1.5
-   0x1.8p0
-   0x18p-4
-
-G.6.  Comments
-
-   Longer pieces of diagnostic notation may benefit from comments.  JSON
-   famously does not provide for comments, and basic RFC 7049 diagnostic
-   notation inherits this property.
-
-   In extended diagnostic notation, comments can be included, delimited
-   by slashes ("/").  Any text within and including a pair of slashes is
-   considered a comment.
-
-   Comments are considered white space.  Hence, they are allowed in
-   prefixed byte strings; for instance, the following are equivalent:
-
-   h'68656c6c6f20776f726c64'
-   h'68 65 6c /doubled l!/ 6c 6f /hello/
-     20 /space/
-     77 6f 72 6c 64' /world/
-
-   This can be used to annotate a CBOR structure as in:
-
-   /grasp-message/ [/M_DISCOVERY/ 1, /session-id/ 10584416,
-                    /objective/ [/objective-name/ "opsonize",
-                                 /D, N, S/ 7, /loop-count/ 105]]
-
-   (There are currently no end-of-line comments.  If we want to add
-   them, "//" sounds like a reasonable delimiter given that we already
-   use slashes for comments, but we also could go e.g. for "#".)
-
-Appendix H.  Examples
-
-   This section contains various examples of structures defined using
+   This section contains a few examples of structures defined using
    CDDL.
 
    The theme for the first example is taken from [RFC7071], which
@@ -2852,8 +2069,7 @@ Appendix H.  Examples
 
 
 
-
-Birkholz, et al.        Expires February 11, 2019              [Page 51]
+Birkholz, et al.        Expires February 22, 2019              [Page 37]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -2869,7 +2085,7 @@ Internet-Draft                    CDDL                       August 2018
    CBOR can be found in [RFC8152], [I-D.ietf-anima-grasp], or
    [I-D.ietf-core-senml].
 
-H.1.  RFC 7071
+A.1.  RFC 7071
 
    [RFC7071] defines the Reputon structure for JSON using somewhat
    formalized English text.  Here is a (somewhat verbose) equivalent
@@ -2909,7 +2125,7 @@ H.1.  RFC 7071
 
 
 
-Birkholz, et al.        Expires February 11, 2019              [Page 52]
+Birkholz, et al.        Expires February 22, 2019              [Page 38]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -2965,7 +2181,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019              [Page 53]
+Birkholz, et al.        Expires February 22, 2019              [Page 39]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -3021,7 +2237,7 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019              [Page 54]
+Birkholz, et al.        Expires February 22, 2019              [Page 40]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -3077,12 +2293,12 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019              [Page 55]
+Birkholz, et al.        Expires February 22, 2019              [Page 41]
 
 Internet-Draft                    CDDL                       August 2018
 
 
-H.1.1.  Examples from JSON Content Rules
+A.2.  Examples from JSON Content Rules
 
    Although JSON Content Rules [I-D.newton-json-content-rules] seems to
    address a more general problem than CDDL, it is still a worthwhile
@@ -3103,7 +2319,7 @@ H.1.1.  Examples from JSON Content Rules
                               Country: text
                             }]
 
-                     Figure 19: JCR, Figure 2, in CDDL
+                     Figure 13: JCR, Figure 2, in CDDL
 
    Apart from the lack of a need to quote the member names, text strings
    are called "text" or "tstr" in CDDL ("string" would be ambiguous as
@@ -3133,7 +2349,7 @@ H.1.1.  Examples from JSON Content Rules
 
 
 
-Birkholz, et al.        Expires February 11, 2019              [Page 56]
+Birkholz, et al.        Expires February 22, 2019              [Page 42]
 
 Internet-Draft                    CDDL                       August 2018
 
@@ -3189,15 +2405,794 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-Birkholz, et al.        Expires February 11, 2019              [Page 57]
+Birkholz, et al.        Expires February 22, 2019              [Page 43]
 
 Internet-Draft                    CDDL                       August 2018
 
+
+Appendix B.  ABNF grammar
+
+   The following is a formal definition of the CDDL syntax in Augmented
+   Backus-Naur Form (ABNF, [RFC5234]).
+
+      cddl = S 1*(rule S)
+      rule = typename [genericparm] S assignt S type
+           / groupname [genericparm] S assigng S grpent
+
+      typename = id
+      groupname = id
+
+      assignt = "=" / "/="
+      assigng = "=" / "//="
+
+      genericparm = "<" S id S *("," S id S ) ">"
+      genericarg = "<" S type1 S *("," S type1 S ) ">"
+
+      type = type1 *(S "/" S type1)
+
+      type1 = type2 [S (rangeop / ctlop) S type2]
+
+      type2 = value
+            / typename [genericarg]
+            / "(" S type S ")"
+            / "{" S group S "}"
+            / "[" S group S "]"
+            / "~" S typename [genericarg]
+            / "&" S "(" S group S ")"
+            / "&" S groupname [genericarg]
+            / "#" "6" ["." uint] "(" S type S ")" ; note no space!
+            / "#" DIGIT ["." uint]                ; major/ai
+            / "#"                                 ; any
+
+      rangeop = "..." / ".."
+
+      ctlop = "." id
+
+      group = grpchoice *(S "//" S grpchoice)
+
+      grpchoice = *(grpent optcom)
+
+      grpent = [occur S] [memberkey S] type
+             / [occur S] groupname [genericarg]  ; preempted by above
+             / [occur S] "(" S group S ")"
+
+      memberkey = type1 S ["^" S] "=>"
+                / bareword S ":"
+
+
+
+Birkholz, et al.        Expires February 22, 2019              [Page 44]
+
+Internet-Draft                    CDDL                       August 2018
+
+
+                / value S ":"
+
+      bareword = id
+
+      optcom = S ["," S]
+
+      occur = [uint] "*" [uint]
+            / "+"
+            / "?"
+
+      uint = DIGIT1 *DIGIT
+           / "0x" 1*HEXDIG
+           / "0b" 1*BINDIG
+           / "0"
+
+      value = number
+            / text
+            / bytes
+
+      int = ["-"] uint
+
+      ; This is a float if it has fraction or exponent; int otherwise
+      number = hexfloat / (int ["." fraction] ["e" exponent ])
+      hexfloat = "0x" 1*HEXDIG ["." 1*HEXDIG] "p" exponent
+      fraction = 1*DIGIT
+      exponent = ["+"/"-"] 1*DIGIT
+
+      text = %x22 *SCHAR %x22
+      SCHAR = %x20-21 / %x23-5B / %x5D-10FFFD / SESC
+      SESC = "\" %x20-10FFFD
+
+      bytes = [bsqual] %x27 *BCHAR %x27
+      BCHAR = %x20-26 / %x28-5B / %x5D-10FFFD / SESC / CRLF
+      bsqual = "h" / "b64"
+
+      id = EALPHA *(*("-" / ".") (EALPHA / DIGIT))
+      ALPHA = %x41-5A / %x61-7A
+      EALPHA = ALPHA / "@" / "_" / "$"
+      DIGIT = %x30-39
+      DIGIT1 = %x31-39
+      HEXDIG = DIGIT / "A" / "B" / "C" / "D" / "E" / "F"
+      BINDIG = %x30-31
+
+      S = *WS
+      WS = SP / NL
+      SP = %x20
+      NL = COMMENT / CRLF
+      COMMENT = ";" *PCHAR CRLF
+
+
+
+Birkholz, et al.        Expires February 22, 2019              [Page 45]
+
+Internet-Draft                    CDDL                       August 2018
+
+
+      PCHAR = %x20-10FFFD
+      CRLF = %x0A / %x0D.0A
+
+                           Figure 14: CDDL ABNF
+
+   Note that this ABNF does not attempt to reflect the detailed rules of
+   what can be in a prefixed byte string.
+
+Appendix C.  Matching rules
+
+   In this appendix, we go through the ABNF syntax rules defined in
+   Appendix B and briefly describe the matching semantics of each
+   syntactic feature.  In this context, an instance (data item)
+   "matches" a CDDL specification if it is allowed by the CDDL
+   specification; this is then broken down to parts of specifications
+   (type and group expressions) and parts of instances (data items).
+
+   cddl = S 1*rule
+
+   A CDDL specification is a sequence of one or more rules.  Each rule
+   gives a name to a right hand side expression, either a CDDL type or a
+   CDDL group.  Rule names can be used in the rule itself and/or other
+   rules (and tools can output warnings if that is not the case).  The
+   order of the rules is significant only in two cases, including the
+   following: The first rule defines the semantics of the entire
+   specification; hence, its name may be descriptive only (or may be
+   used in itself or other rules as with the other rule names).
+
+   rule = typename [genericparm] S assign S type S
+        / groupname [genericparm] S assign S grpent S
+
+   typename = id
+   groupname = id
+
+   A rule defines a name for a type expression (production "type") or
+   for a group expression (production "grpent"), with the intention that
+   the semantics does not change when the name is replaced by its
+   (parenthesized if needed) definition.
+
+   assign = "=" / "/=" / "//="
+
+   A plain equals sign defines the rule name as the equivalent of the
+   expression to the right.  A "/=" or "//=" extends a named type or a
+   group by additional choices; a number of these could be replaced by
+   collecting all the right hand sides and creating a single rule with a
+   type choice or a group choice built from the right hand sides in the
+   order of the rules given.  (It is not an error to extend a rule name
+   that has not yet been defined; this makes the right hand side the
+
+
+
+Birkholz, et al.        Expires February 22, 2019              [Page 46]
+
+Internet-Draft                    CDDL                       August 2018
+
+
+   first entry in the choice being created.)  The creation of the type
+   choices and group choices from the right hand sides of rules is the
+   other case where rule order can be significant.
+
+   genericparm = "<" S id S *("," S id S ) ">"
+   genericarg = "<" S type1 S *("," S type1 S ) ">"
+
+   Rule names can have generic parameters, which cause temporary
+   assignments within the right hand sides to the parameter names from
+   the arguments given when citing the rule name.
+
+   type = type1 S *("/" S type1 S)
+
+   A type can be given as a choice between one or more types.  The
+   choice matches a data item if the data item matches any one of the
+   types given in the choice.  The choice uses Parsing Expression
+   Grammar [PEG] semantics: The first choice that matches wins.  (As a
+   result, the order of rules that contribute to a single rule name can
+   very well matter.)
+
+   type1 = type2 [S (rangeop / ctlop) S type2]
+
+   Two types can be combined with a range operator (which see below) or
+   a control operator (see Section 3.8).
+
+   type2 = value
+
+   A type can be just a single value (such as 1 or "icecream" or
+   h'0815'), which matches only a data item with that specific value (no
+   conversions defined),
+
+         / typename [genericarg]
+
+   or be defined by a rule giving a meaning to a name (possibly after
+   supplying generic args as required by the generic parameters),
+
+         / "(" type ")"
+
+   or be defined in a parenthesized type expression (parentheses may be
+   necessary to override some operator precendence), or
+
+         / "~" S typename [genericarg]
+
+   an "unwrapped" group (see Section 3.7), which matches the group
+   inside a type defined as a map or an array by wrapping the group, or
+
+         / "#" "6" ["." uint] "(" S type S ")" ; note no space!
+
+
+
+
+Birkholz, et al.        Expires February 22, 2019              [Page 47]
+
+Internet-Draft                    CDDL                       August 2018
+
+
+   a tagged data item, tagged with the "uint" given and containing the
+   type given as the tagged value, or
+
+         / "#" DIGIT ["." uint]                ; major/ai
+
+   a data item of a major type (given by the DIGIT), optionally
+   constrained to the additional information given by the uint, or
+
+         / "#"                                 ; any
+
+   any data item, or
+
+         / "{" S group S "}"
+
+   a map expression, which matches a valid CBOR map the key/value pairs
+   of which can be ordered in such a way that the resulting sequence
+   matches the group expression, or
+
+         / "[" S group S "]"
+
+   an array expression, which matches a CBOR array the elements of
+   which, when taken as values and complemented by a wildcard (matches
+   anything) key each, match the group, or
+
+         / "&" S "(" S group S ")"
+         / "&" S groupname [genericarg]
+
+   an enumeration expression, which matches any a value that is within
+   the set of values that the values of the group given can take.
+
+   rangeop = "..." / ".."
+
+   A range operator can be used to join two type expressions that stand
+   for either two integer values or two floating point values; it
+   matches any value that is between the two values, where the first
+   value is always included in the matching set and the second value is
+   included for ".." and excluded for "...".
+
+   ctlop = "." id
+
+   A control operator ties a _target_ type to a _controller_ type as
+   defined in Section 3.8.  Note that control operators are an extension
+   point for CDDL; additional documents may want to define additional
+   control operators.
+
+   group = grpchoice S *("//" S grpchoice S)
+
+
+
+
+
+Birkholz, et al.        Expires February 22, 2019              [Page 48]
+
+Internet-Draft                    CDDL                       August 2018
+
+
+   A group matches any sequence of key/value pairs that matches any of
+   the choices given (again using Parsing Expression Grammar semantics).
+
+   grpchoice = *grpent
+
+   Each of the component groups is given as a sequence of group entries.
+   For a match, the sequence of key/value pairs given needs to match the
+   sequence of group entries in the sequence given.
+
+   grpent = [occur S] [memberkey S] type optcom
+
+   A group entry can be given by a value type, which needs to be matched
+   by the value part of a single element, and optionally a memberkey
+   type, which needs to be matched by the key part of the element, if
+   the memberkey is given.  If the memberkey is not given, the entry can
+   only be used for matching arrays, not for maps.  (See below how that
+   is modified by the occurrence indicator.)
+
+          / [occur S] groupname [genericarg] optcom ; preempted by above
+
+   A group entry can be built from a named group, or
+
+          / [occur S] "(" S group S ")" optcom
+
+   from a parenthesized group, again with a possible occurrence
+   indicator.
+
+   memberkey = type1 S ["^" S] "=>"
+             / bareword S ":"
+             / value S ":"
+
+   Key types can be given by a type expression, a bareword (which stands
+   for a type that just contains a string value created from this
+   bareword), or a value (which stands for a type that just contains
+   this value).  A key value matches its key type if the key value is a
+   member of the key type, unless a cut preceding it in the group
+   applies (see Section 3.5.3 how map matching is infuenced by the
+   presence of the cuts denoted by "^" or ":" in previous entries).
+
+   bareword = id
+
+   A bareword is an alternative way to write a type with a single text
+   string value; it can only be used in the syntactic context given
+   above.
+
+   optcom = S ["," S]
+
+   (Optional commas do not influence the matching.)
+
+
+
+Birkholz, et al.        Expires February 22, 2019              [Page 49]
+
+Internet-Draft                    CDDL                       August 2018
+
+
+   occur = [uint] "*" [uint]
+         / "+"
+         / "?"
+
+   An occurrence indicator modifies the group given to its right by
+   requiring the group to match the sequence to be matched exactly for a
+   certain number of times (see Section 3.2) in sequence, i.e. it acts
+   as a (possibly infinite) group choice that contains choices with the
+   group repeated each of the occurrences times.
+
+   The rest of the ABNF describes syntax for value notation that should
+   be familiar from programming languages, with the possible exception
+   of h'..' and b64'..' for byte strings, as well as syntactic elements
+   such as comments and line ends.
+
+Appendix D.  Standard Prelude
+
+   The following prelude is automatically added to each CDDL file.
+   (Note that technically, it is a postlude, as it does not disturb the
+   selection of the first rule as the root of the definition.)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Birkholz, et al.        Expires February 22, 2019              [Page 50]
+
+Internet-Draft                    CDDL                       August 2018
+
+
+                  any = #
+
+                  uint = #0
+                  nint = #1
+                  int = uint / nint
+
+                  bstr = #2
+                  bytes = bstr
+                  tstr = #3
+                  text = tstr
+
+                  tdate = #6.0(tstr)
+                  time = #6.1(number)
+                  number = int / float
+                  biguint = #6.2(bstr)
+                  bignint = #6.3(bstr)
+                  bigint = biguint / bignint
+                  integer = int / bigint
+                  unsigned = uint / biguint
+                  decfrac = #6.4([e10: int, m: integer])
+                  bigfloat = #6.5([e2: int, m: integer])
+                  eb64url = #6.21(any)
+                  eb64legacy = #6.22(any)
+                  eb16 = #6.23(any)
+                  encoded-cbor = #6.24(bstr)
+                  uri = #6.32(tstr)
+                  b64url = #6.33(tstr)
+                  b64legacy = #6.34(tstr)
+                  regexp = #6.35(tstr)
+                  mime-message = #6.36(tstr)
+                  cbor-any = #6.55799(any)
+
+                  float16 = #7.25
+                  float32 = #7.26
+                  float64 = #7.27
+                  float16-32 = float16 / float32
+                  float32-64 = float32 / float64
+                  float = float16-32 / float64
+
+                  false = #7.20
+                  true = #7.21
+                  bool = false / true
+                  nil = #7.22
+                  null = nil
+                  undefined = #7.23
+
+
+                          Figure 15: CDDL Prelude
+
+
+
+Birkholz, et al.        Expires February 22, 2019              [Page 51]
+
+Internet-Draft                    CDDL                       August 2018
+
+
+   Note that the prelude is deemed to be fixed.  This means, for
+   instance, that additional tags beyond [RFC7049], as registered, need
+   to be defined in each CDDL file that is using them.
+
+   A common stumbling point is that the prelude does not define a type
+   "string".  CBOR has byte strings ("bytes" in the prelude) and text
+   strings ("text"), so a type that is simply called "string" would be
+   ambiguous.
+
+Appendix E.  Use with JSON
+
+   The JSON generic data model (implicit in [RFC8259]) is a subset of
+   the generic data model of CBOR.  So one can use CDDL with JSON by
+   limiting oneself to what can be represented in JSON.  Roughly
+   speaking, this means leaving out byte strings, tags, and simple
+   values other than "false", "true", and "null", leading to the
+   following limited prelude:
+
+                      any = #
+
+                      uint = #0
+                      nint = #1
+                      int = uint / nint
+
+                      tstr = #3
+                      text = tstr
+
+                      number = int / float
+
+                      float16 = #7.25
+                      float32 = #7.26
+                      float64 = #7.27
+                      float16-32 = float16 / float32
+                      float32-64 = float32 / float64
+                      float = float16-32 / float64
+
+                      false = #7.20
+                      true = #7.21
+                      bool = false / true
+                      nil = #7.22
+                      null = nil
+
+
+             Figure 16: JSON compatible subset of CDDL Prelude
+
+   (The major types given here do not have a direct meaning in JSON, but
+   they can be interpreted as CBOR major types translated through
+   Section 4 of [RFC7049].)
+
+
+
+Birkholz, et al.        Expires February 22, 2019              [Page 52]
+
+Internet-Draft                    CDDL                       August 2018
+
+
+   There are a few fine points in using CDDL with JSON.  First, JSON
+   does not distinguish between integers and floating point numbers;
+   there is only one kind of number (which may happen to be integral).
+   In this context, specifying a type as "uint", "nint" or "int" then
+   becomes a predicate that the number be integral.  As an example, this
+   means that the following JSON numbers are all matching "uint":
+
+   10 10.0 1e1 1.0e1 100e-1
+
+   (The fact that these are all integers may be surprising to users
+   accustomed to the long tradition in programming languages of using
+   decimal points or exponents in a number to indicate a floating point
+   literal.)
+
+   CDDL distinguishes the various CBOR number types, but there is only
+   one number type in JSON.  The effect of specifying a floating point
+   precision (float16/float32/float64) is only to restrict the set of
+   permissible values to those expressible with binary16/binary32/
+   binary64; this is unlikely to be very useful when using CDDL for
+   specifying JSON data structures.
+
+   Fundamentally, the number system of JSON itself is based on decimal
+   numbers and decimal fractions and does not have limits to its
+   precision or range.  In practice, JSON numbers are often parsed into
+   a number type that is called float64 here, creating a number of
+   limitations to the generic data model [RFC7493].  In particular, this
+   means that integers can only be expressed with interoperable
+   exactness when they lie in the range [-(2**53)+1, (2**53)-1] -- a
+   smaller range than that covered by CDDL "int".
+
+   JSON applications that want to stay compatible with I-JSON therefore
+   may want to define integer types with more limited ranges, such as in
+   Figure 17.  Note that the types given here are not part of the
+   prelude; they need to be copied into the CDDL specification if
+   needed.
+
+               ij-uint = 0..9007199254740991
+               ij-nint = -9007199254740991..-1
+               ij-int = -9007199254740991..9007199254740991
+
+          Figure 17: I-JSON types for CDDL (not part of prelude)
+
+   JSON applications that do not need to stay compatible with I-JSON and
+   that actually may need to go beyond the 64-bit unsigned and negative
+   integers supported by "int" (= "uint"/"nint") may want to use the
+   following additional types from the standard prelude, which are
+   expressed in terms of tags but can straightforwardly be mapped into
+   JSON (but not I-JSON) numbers:
+
+
+
+Birkholz, et al.        Expires February 22, 2019              [Page 53]
+
+Internet-Draft                    CDDL                       August 2018
+
+
+   biguint = #6.2(bstr)
+   bignint = #6.3(bstr)
+   bigint = biguint / bignint
+   integer = int / bigint
+   unsigned = uint / biguint
+
+   CDDL at this point does not have a way to express the unlimited
+   floating point precision that is theoretically possible with JSON; at
+   the time of writing, this is rarely used in protocols in practice.
+
+   Note that a data model described in CDDL is always restricted by what
+   can be expressed in the serialization; e.g., floating point values
+   such as NaN (not a number) and the infinities cannot be represented
+   in JSON even if they are allowed in the CDDL generic data model.
+
+Appendix F.  The CDDL tool
+
+   A rough CDDL tool is available.  For CDDL specifications, it can
+   check the syntax, generate one or more instances (expressed in CBOR
+   diagnostic notation or in pretty-printed JSON), and validate an
+   existing instance against the specification:
+
+                   Usage:
+                   cddl spec.cddl generate [n]
+                   cddl spec.cddl json-generate [n]
+                   cddl spec.cddl validate instance.cbor
+                   cddl spec.cddl validate instance.json
+
+                        Figure 18: CDDL tool usage
+
+   Install on a system with a modern Ruby via:
+
+                             gem install cddl
+
+                     Figure 19: CDDL tool installation
+
+   The accompanying CBOR diagnostic tools (which are automatically
+   installed by the above) are described in https://github.com/cabo/
+   cbor-diag [1]; they can be used to convert between binary CBOR, a
+   pretty-printed form of that, CBOR diagnostic notation, JSON, and
+   YAML.
+
+Appendix G.  Extended Diagnostic Notation
+
+   Section 6 of [RFC7049] defines a "diagnostic notation" in order to be
+   able to converse about CBOR data items without having to resort to
+   binary data.  Diagnostic notation is based on JSON, with extensions
+   for representing CBOR constructs such as binary data and tags.
+
+
+
+Birkholz, et al.        Expires February 22, 2019              [Page 54]
+
+Internet-Draft                    CDDL                       August 2018
+
+
+   (Standardizing this together with the actual interchange format does
+   not serve to create another interchange format, but enables the use
+   of a shared diagnostic notation in tools for and documents about
+   CBOR.)
+
+   This section discusses a few extensions to the diagnostic notation
+   that have turned out to be useful since RFC 7049 was written.  We
+   refer to the result as extended diagnostic notation (EDN).
+
+G.1.  White space in byte string notation
+
+   Examples often benefit from some white space (spaces, line breaks) in
+   byte strings.  In extended diagnostic notation, white space is
+   ignored in prefixed byte strings; for instance, the following are
+   equivalent:
+
+     h'48656c6c6f20776f726c64'
+     h'48 65 6c 6c 6f 20 77 6f 72 6c 64'
+     h'4 86 56c 6c6f
+       20776 f726c64'
+
+G.2.  Text in byte string notation
+
+   Diagnostic notation notates Byte strings in one of the [RFC4648] base
+   encodings,, enclosed in single quotes, prefixed by >h< for base16,
+   >b32< for base32, >h32< for base32hex, >b64< for base64 or base64url.
+   Quite often, byte strings carry bytes that are meaningfully
+   interpreted as UTF-8 text.  Extended Diagnostic Notation allows the
+   use of single quotes without a prefix to express byte strings with
+   UTF-8 text; for instance, the following are equivalent:
+
+   'hello world'
+   h'68656c6c6f20776f726c64'
+
+   The escaping rules of JSON strings are applied equivalently for text-
+   based byte strings, e.g., \ stands for a single backslash and '
+   stands for a single quote.  White space is included literally, i.e.,
+   the previous section does not apply to text-based byte strings.
+
+G.3.  Embedded CBOR and CBOR sequences in byte strings
+
+   Where a byte string is to carry an embedded CBOR-encoded item, or
+   more generally a sequence of zero or more such items, the diagnostic
+   notation for these zero or more CBOR data items, separated by
+   commata, can be enclosed in << and >> to notate the byte string
+   resulting from encoding the data items and concatenating the result.
+   For instance, each pair of columns in the following are equivalent:
+
+
+
+
+Birkholz, et al.        Expires February 22, 2019              [Page 55]
+
+Internet-Draft                    CDDL                       August 2018
+
+
+   <<1>>              h'01'
+   <<1, 2>>           h'0102'
+   <<"foo", null>>    h'63666F6FF6'
+   <<>>               h''
+
+G.4.  Concatenated Strings
+
+   While the ability to include white space enables line-breaking of
+   encoded byte strings, a mechanism is needed to be able to include
+   text strings as well as byte strings in direct UTF-8 representation
+   into line-based documents (such as RFCs and source code).
+
+   We extend the diagnostic notation by allowing multiple text strings
+   or multiple byte strings to be notated separated by white space,
+   these are then concatenated into a single text or byte string,
+   respectively.  Text strings and byte strings do not mix within such a
+   concatenation, except that byte string notation can be used inside a
+   sequence of concatenated text string notation to encode characters
+   that may be better represented in an encoded way.  The following four
+   values are equivalent:
+
+   "Hello world"
+   "Hello " "world"
+   "Hello" h'20' "world"
+   "" h'48656c6c6f20776f726c64' ""
+
+   Similarly, the following byte string values are equivalent
+
+   'Hello world'
+   'Hello ' 'world'
+   'Hello ' h'776f726c64'
+   'Hello' h'20' 'world'
+   '' h'48656c6c6f20776f726c64' '' b64''
+   h'4 86 56c 6c6f' h' 20776 f726c64'
+
+   (Note that the approach of separating by whitespace, while familiar
+   from the C language, requires some attention - a single comma makes a
+   big difference here.)
+
+G.5.  Hexadecimal, octal, and binary numbers
+
+   In addition to JSON's decimal numbers, EDN provides hexadecimal,
+   octal and binary numbers in the usual C-language notation (octal with
+   0o prefix present only).
+
+   The following are equivalent:
+
+
+
+
+
+Birkholz, et al.        Expires February 22, 2019              [Page 56]
+
+Internet-Draft                    CDDL                       August 2018
+
+
+   4711
+   0x1267
+   0o11147
+   0b1001001100111
+
+   As are:
+
+   1.5
+   0x1.8p0
+   0x18p-4
+
+G.6.  Comments
+
+   Longer pieces of diagnostic notation may benefit from comments.  JSON
+   famously does not provide for comments, and basic RFC 7049 diagnostic
+   notation inherits this property.
+
+   In extended diagnostic notation, comments can be included, delimited
+   by slashes ("/").  Any text within and including a pair of slashes is
+   considered a comment.
+
+   Comments are considered white space.  Hence, they are allowed in
+   prefixed byte strings; for instance, the following are equivalent:
+
+   h'68656c6c6f20776f726c64'
+   h'68 65 6c /doubled l!/ 6c 6f /hello/
+     20 /space/
+     77 6f 72 6c 64' /world/
+
+   This can be used to annotate a CBOR structure as in:
+
+   /grasp-message/ [/M_DISCOVERY/ 1, /session-id/ 10584416,
+                    /objective/ [/objective-name/ "opsonize",
+                                 /D, N, S/ 7, /loop-count/ 105]]
+
+   (There are currently no end-of-line comments.  If we want to add
+   them, "//" sounds like a reasonable delimiter given that we already
+   use slashes for comments, but we also could go e.g. for "#".)
 
 Contributors
 
    CDDL was originally conceived by Bert Greevenbosch, who also wrote
    the original five versions of this document.
+
+
+
+
+
+
+
+
+Birkholz, et al.        Expires February 22, 2019              [Page 57]
+
+Internet-Draft                    CDDL                       August 2018
+
 
 Acknowledgements
 
@@ -3235,21 +3230,6 @@ Authors' Addresses
    Email: christoph.vigano@uni-bremen.de
 
 
-
-
-
-
-
-
-
-
-
-
-Birkholz, et al.        Expires February 11, 2019              [Page 58]
-
-Internet-Draft                    CDDL                       August 2018
-
-
    Carsten Bormann
    Universitaet Bremen TZI
    Bibliothekstr. 1
@@ -3265,40 +3245,4 @@ Internet-Draft                    CDDL                       August 2018
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Birkholz, et al.        Expires February 11, 2019              [Page 59]
+Birkholz, et al.        Expires February 22, 2019              [Page 58]
