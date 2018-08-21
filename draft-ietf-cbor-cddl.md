@@ -482,7 +482,7 @@ numeric-range = int-range / float-range
 
 Note that the dot is a valid name continuation character in CDDL, so
 `min..max` is not a range expression but a single name.  When using a
-name as the left hand side, use spacing as in `min .. max` to separate
+name as the left hand side of a range operator, use spacing as in `min .. max` to separate
 off the range operator.
 
 #### Turning a group into a choice
@@ -1911,8 +1911,8 @@ specification; hence, its name may be descriptive only (or may be used
 in itself or other rules as with the other rule names).
 
 ~~~ abnf
-rule = typename [genericparm] S assign S type S
-     / groupname [genericparm] S assign S grpent S
+rule = typename [genericparm] S assignt S type S
+     / groupname [genericparm] S assigng S grpent S
 
 typename = id
 groupname = id
@@ -1924,7 +1924,8 @@ semantics does not change when the name is replaced by its
 (parenthesized if needed) definition.
 
 ~~~ abnf
-assign = "=" / "/=" / "//="
+assignt = "=" / "/="
+assigng = "=" / "//="
 ~~~
 
 A plain equals sign defines the rule name as the equivalent of the
