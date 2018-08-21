@@ -14,7 +14,7 @@ title: >
 abbrev: CDDL
 area: Applications
 wg: ''
-date: 2018-08-10
+date: 2018-08-21
 author:
 - ins: H. Birkholz
   name: Henk Birkholz
@@ -121,7 +121,8 @@ structures (see {{sec-json}}).
 This document has the following structure:
 
 The syntax of CDDL is defined in {{syntax}}.
-Examples of CDDL and related CBOR data items ("instances") are defined in
+Examples of CDDL and related CBOR data items ("instances", which all
+happen to be in JSON form) are given in
 {{examples}}. {{usage}} discusses usage of CDDL. Examples are provided
 early in the text to better illustrate concept definitions.
 A formal definition of CDDL using ABNF grammar is provided in {{abnf}}.
