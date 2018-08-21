@@ -1050,9 +1050,13 @@ extensible-map-example = {
 A cut in this position means that once the map key matches the name
 part of an entry that matches and carries a cut,
 other potential matches for the key that occur in
-later entries in the group of the map are no longer allowed.  (This
-rule applies independent of whether the value matches, too.)  So the
-example above no longer matches the version modified with a cut.
+later entries in the group of the map are no longer allowed.
+In other words, when a group entry would pick a key/value pair based
+on just a matching key, it "locks in" the pick — this rule applies
+independent of whether the value matches as well, so when it does not,
+the entire map fails to match.
+So the
+example above no longer matches the specification as modified with the cut.
 
 Since the desire for this kind of exclusive matching is so frequent,
 the ":" shortcut is actually defined to include the cut semantics.  So
