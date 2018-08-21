@@ -220,12 +220,13 @@ CDDL Groups are lists of group _entries_, each of which can be a
 name/value pair or a more complex group expression (which then in turn
 stands for a sequence of name/value pairs).  A CDDL group is a
 production in a grammar that matches certain sequences of name/value pairs but not others.
+The grammar is based on the concepts of Parsing Expression Grammars {{PEG}}.
 
 In an array context, only the value of the name/value pair is represented; the name is
 annotation only (and can be left off from the group specification if not needed).
 In a map context, the names become the map keys ("member keys").
 
-In an array context, the sequence of elements in the group is
+In an array context, the actual sequence of elements in the group is
 important, as that sequence is the information that allows associating actual
 array elements with entries in the group.
 In a map context, the sequence of entries in a group is not relevant
@@ -951,6 +952,61 @@ tostring = {* mynumber => tstr}
 mynumber = int / float
 ~~~~
 {:cddl}
+
+### Non-deterministic order
+
+While the way arrays are matched is fully determined by the Parsing
+Expression Grammar (PEG) algorithm, matching is more complicated for
+maps, as maps do not have an inherent order.
+For each candidate name/value pair that the PEG algorithm would try, a
+match is picked out of the entire map.  For certain group expressions,
+more than key/value pair in the map may match.  Most often, this is
+inconsequential, as the group expression tends to consume all matches:
+
+~~~~ CDDL
+labeled-values = {
+  ? fritz: number,
+  * label => value
+}
+label = text
+value = number
+~~~~
+
+Here, if any key/value pair with the name `fritz` is present, this
+will be picked by the first entry of the group; all remaining
+text/number pairs will be picked by the second entry (and if anything
+remains unpicked, the map does not match).
+
+However, it is possible to construct group expressions where what is
+actually picked is indeterminate, and does matter:
+
+~~~~ CDDL
+do-not-do-this = {
+  int => int,
+  int => 6,
+}
+~~~~
+
+When this expression is matched against `{3: 5, 4: 6}`, the first
+group entry might pick off the `3: 5`, leaving `4: 6` for matching the
+second one.  Or it might pick off `4: 6`, leaving nothing for the
+second entry.  This pathological non-determinism is caused by
+specifying more general before more specific, and by having a general
+rule that only consumes a subset of the map key/value pairs that it is able to
+match — both tend not to occur in real-world specifications of maps.  At the time
+of writing, CDDL tools cannot detect such cases automatically, and for
+the present version of the CDDL specification, the
+specification writer is simply urged to not write pathologically
+non-deterministic specifications.
+
+(The astute reader will be reminded of what was called "ambiguous
+content models" in SGML and "non-deterministic content models" in XML.
+That problem is related to the one described here, but the problem
+here is specifically caused by the lack of order in maps, something
+that the XML schema languages do not have to contend with.  Note that
+Relax-NG's `interleave` pattern handles lack of order explicitly on the
+specification side, while the instances in XML always have determinate
+order.)
 
 ### Cuts in Maps
 
