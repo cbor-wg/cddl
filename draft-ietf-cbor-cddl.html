@@ -1017,7 +1017,7 @@ mynumber = int / float
 <h1 id="rfc.section.3.5.3">
 <a href="#rfc.section.3.5.3">3.5.3.</a> <a href="#non-deterministic-order" id="non-deterministic-order">Non-deterministic order</a>
 </h1>
-<p id="rfc.section.3.5.3.p.1">While the way arrays are matched is fully determined by the Parsing Expression Grammar (PEG) algorithm, matching is more complicated for maps, as maps do not have an inherent order.  For each candidate name/value pair that the PEG algorithm would try, a match is picked out of the entire map.  For certain group expressions, more than key/value pair in the map may match.  Most often, this is inconsequential, as the group expression tends to consume all matches:</p>
+<p id="rfc.section.3.5.3.p.1">While the way arrays are matched is fully determined by the Parsing Expression Grammar (PEG) algorithm, matching is more complicated for maps, as maps do not have an inherent order.  For each candidate name/value pair that the PEG algorithm would try, a matching member is picked out of the entire map.  For certain group expressions, more than one member in the map may match.  Most often, this is inconsequential, as the group expression tends to consume all matches:</p>
 <pre>
 labeled-values = {
   ? fritz: number,
@@ -1026,7 +1026,7 @@ labeled-values = {
 label = text
 value = number
 </pre>
-<p id="rfc.section.3.5.3.p.2">Here, if any key/value pair with the name <samp>fritz</samp> is present, this will be picked by the first entry of the group; all remaining text/number pairs will be picked by the second entry (and if anything remains unpicked, the map does not match).</p>
+<p id="rfc.section.3.5.3.p.2">Here, if any member with the key <samp>fritz</samp> is present, this will be picked by the first entry of the group; all remaining text/number member will be picked by the second entry (and if anything remains unpicked, the map does not match).</p>
 <p id="rfc.section.3.5.3.p.3">However, it is possible to construct group expressions where what is actually picked is indeterminate, and does matter:</p>
 <pre>
 do-not-do-this = {
@@ -1059,7 +1059,7 @@ extensible-map-example = {
   * tstr =&gt; any
 }
 </pre>
-<p id="rfc.section.3.5.4.p.6">A cut in this position means that once the map key matches the name part of an entry that matches and carries a cut, other potential matches for the key that occur in later entries in the group of the map are no longer allowed.  In other words, when a group entry would pick a key/value pair based on just a matching key, it &#8220;locks in&#8221; the pick &#8212; this rule applies independent of whether the value matches as well, so when it does not, the entire map fails to match.  So the example above no longer matches the specification as modified with the cut.</p>
+<p id="rfc.section.3.5.4.p.6">A cut in this position means that once the member key matches the name part of an entry that carries a cut, other potential matches for the key of the member that occur in later entries in the group of the map are no longer allowed.  In other words, when a group entry would pick a key/value pair based on just a matching key, it &#8220;locks in&#8221; the pick &#8212; this rule applies independent of whether the value matches as well, so when it does not, the entire map fails to match.  In summary, the example above no longer matches the specification as modified with the cut.</p>
 <p id="rfc.section.3.5.4.p.7">Since the desire for this kind of exclusive matching is so frequent, the &#8220;:&#8221; shortcut is actually defined to include the cut semantics.  So the preceding example (including the cut) can be written more simply as:</p>
 <pre>
 extensible-map-example = {
