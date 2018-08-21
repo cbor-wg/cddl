@@ -592,8 +592,8 @@ Internet-Draft                    CDDL                       August 2018
 
    Note that the dot is a valid name continuation character in CDDL, so
    "min..max" is not a range expression but a single name.  When using a
-   name as the left hand side, use spacing as in "min .. max" to
-   separate off the range operator.
+   name as the left hand side of a range operator, use spacing as in
+   "min .. max" to separate off the range operator.
 
 2.2.2.2.  Turning a group into a choice
 
@@ -2550,8 +2550,8 @@ Appendix C.  Matching rules
    specification; hence, its name may be descriptive only (or may be
    used in itself or other rules as with the other rule names).
 
-   rule = typename [genericparm] S assign S type S
-        / groupname [genericparm] S assign S grpent S
+   rule = typename [genericparm] S assignt S type S
+        / groupname [genericparm] S assigng S grpent S
 
    typename = id
    groupname = id
@@ -2561,7 +2561,8 @@ Appendix C.  Matching rules
    the semantics does not change when the name is replaced by its
    (parenthesized if needed) definition.
 
-   assign = "=" / "/=" / "//="
+   assignt = "=" / "/="
+   assigng = "=" / "//="
 
    A plain equals sign defines the rule name as the equivalent of the
    expression to the right.  A "/=" or "//=" extends a named type or a
@@ -2569,7 +2570,6 @@ Appendix C.  Matching rules
    collecting all the right hand sides and creating a single rule with a
    type choice or a group choice built from the right hand sides in the
    order of the rules given.  (It is not an error to extend a rule name
-   that has not yet been defined; this makes the right hand side the
 
 
 
@@ -2578,6 +2578,7 @@ Birkholz, et al.        Expires February 22, 2019              [Page 46]
 Internet-Draft                    CDDL                       August 2018
 
 
+   that has not yet been defined; this makes the right hand side the
    first entry in the choice being created.)  The creation of the type
    choices and group choices from the right hand sides of rules is the
    other case where rule order can be significant.
@@ -2625,7 +2626,6 @@ Internet-Draft                    CDDL                       August 2018
    inside a type defined as a map or an array by wrapping the group, or
 
          / "#" "6" ["." uint] "(" S type S ")" ; note no space!
-
 
 
 

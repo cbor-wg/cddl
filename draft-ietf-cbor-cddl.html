@@ -755,7 +755,7 @@ BAD-range2 = 0.0..10 ; NOT DEFINED
 numeric-range = int-range / float-range
 </pre>
 <p id="rfc.section.2.2.2.1.p.3">(See also the control operators .lt/.ge and .le/.gt in <a href="#fortran" class="xref">Section 3.8.6</a>.)</p>
-<p id="rfc.section.2.2.2.1.p.4">Note that the dot is a valid name continuation character in CDDL, so <samp>min..max</samp> is not a range expression but a single name.  When using a name as the left hand side, use spacing as in <samp>min&#160;..&#160;max</samp> to separate off the range operator.</p>
+<p id="rfc.section.2.2.2.1.p.4">Note that the dot is a valid name continuation character in CDDL, so <samp>min..max</samp> is not a range expression but a single name.  When using a name as the left hand side of a range operator, use spacing as in <samp>min&#160;..&#160;max</samp> to separate off the range operator.</p>
 <h1 id="rfc.section.2.2.2.2">
 <a href="#rfc.section.2.2.2.2">2.2.2.2.</a> <a href="#turning-a-group-into-a-choice" id="turning-a-group-into-a-choice">Turning a group into a choice</a>
 </h1>
@@ -1986,15 +1986,16 @@ cddl = S 1*rule
 </pre>
 <p id="rfc.section.C.p.2">A CDDL specification is a sequence of one or more rules.  Each rule gives a name to a right hand side expression, either a CDDL type or a CDDL group.  Rule names can be used in the rule itself and/or other rules (and tools can output warnings if that is not the case).  The order of the rules is significant only in two cases, including the following: The first rule defines the semantics of the entire specification; hence, its name may be descriptive only (or may be used in itself or other rules as with the other rule names).</p>
 <pre>
-rule = typename [genericparm] S assign S type S
-     / groupname [genericparm] S assign S grpent S
+rule = typename [genericparm] S assignt S type S
+     / groupname [genericparm] S assigng S grpent S
 
 typename = id
 groupname = id
 </pre>
 <p id="rfc.section.C.p.3">A rule defines a name for a type expression (production <samp>type</samp>) or for a group expression (production <samp>grpent</samp>), with the intention that the semantics does not change when the name is replaced by its (parenthesized if needed) definition.</p>
 <pre>
-assign = "=" / "/=" / "//="
+assignt = "=" / "/="
+assigng = "=" / "//="
 </pre>
 <p id="rfc.section.C.p.4">A plain equals sign defines the rule name as the equivalent of the expression to the right.  A <samp>/=</samp> or <samp>//=</samp> extends a named type or a group by additional choices; a number of these could be replaced by collecting all the right hand sides and creating a single rule with a type choice or a group choice built from the right hand sides in the order of the rules given.  (It is not an error to extend a rule name that has not yet been defined; this makes the right hand side the first entry in the choice being created.)  The creation of the type choices and group choices from the right hand sides of rules is the other case where rule order can be significant.</p>
 <pre>
