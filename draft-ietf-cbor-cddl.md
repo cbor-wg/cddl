@@ -216,8 +216,9 @@ CDDL, and section {{syntax}} defines additional syntax.
 ## Groups and Composition in CDDL {#group}
 
 CDDL Groups are lists of group _entries_, each of which can be a
-name/value pair or a more complex group expression composed of
-name/value pairs.  A CDDL group is a production in a grammar that can
+name/value pair or a more complex group expression (which then in turn
+stands for a sequence of name/value pairs).  A CDDL group is a
+production in a grammar that can
 produce certain sequences of name/value pairs but not others.
 
 In an array context, only the value of the name/value pair is represented; the name is
@@ -225,7 +226,7 @@ annotation only (and can be left off from the group specification if not needed)
 In a map context, the names become the map keys ("member keys").
 
 In an array context, the sequence of elements in the group is
-important, as it is the information that allows associating actual
+important, as that sequence is the information that allows associating actual
 array elements with entries in the group.
 In a map context, the sequence of entries in a group is not relevant
 (but there is still a need to write down group entries in a sequence).
@@ -239,7 +240,7 @@ produce a sequence of name/value pairs such that all of these
 name/value pairs are present in the map and the map has no name/value
 pair that is not covered by the group.
 
-A simple example of using a group right in a map definition is:
+A simple example of using a group directly in a map definition is:
 
 {:cddl: artwork-align="center"}
 
@@ -354,14 +355,14 @@ protocol data unit that has all definitions ad hoc where needed.
 
 The composition syntax intends to be concise and easy to read:
 
-* The start of a group can be marked by '('
-* The end of a group can be marked by ')'
+* The start and end of a group can be marked by '(' and ')'
 * Definitions of entries inside of a group are noted as follows:
 *keytype => valuetype,* (read "keytype maps to valuetype").
 The comma is actually optional (not just in the final entry), but it is
 considered good style to set it.  The double arrow can be replaced by a colon
 in the common case of directly using a text string or integer literal as a
-key (see {{structs}}).
+key (see {{structs}}; this is also the common way of naming elements
+of an array just for documentation, see {{arrays}}).
 
 A basic entry consists of a *keytype* and a *valuetype*, both of which
 are types ({{types}}); this entry can produce any name-value pair the
@@ -382,7 +383,7 @@ Values such as numbers and strings can be used in place of a type.
 enough that CDDL provides additional convenience syntax for this.)
 
 The value notation is based on the C language, but does not offer all
-the syntactic variations {{abnf}}.  The value notation for numbers
+the syntactic variations (see {{abnf}} for details).  The value notation for numbers
 inherits from C the distinction between integer values (no fractional
 part or exponent given — NR1 {{ISO6093}}) and floating point values
 (where a fractional part and/or an exponent is present — NR2 or NR3),
@@ -514,11 +515,15 @@ when displaying integers that are taken from that choice).
 CDDL allows the specification of a data item type by referring to the
 CBOR representation (major and minor numbers).  How this is used
 should be evident from the prelude ({{prelude}}): a hash mark (`#`)
-optionally followed by a major type, which can be followed by
-additional information, specifies the set of values that can be
+optionally followed by a number from 0 to 7 identifying the major
+type, which then can be followed by a dot and a number specifying the
+additional information.  This construction specifies the set of values that can be
 serialized in CBOR (i.e., `any`), by the given major type if one is
 given, or by the given major type with the additional information if
-both are given.  Note that although this notation is based on the CBOR
+both are given.  Where a major type of 6 (Tag) is used, the type of
+the tagged item can be specified by appending it in parentheses.
+
+Note that although this notation is based on the CBOR
 serialization, it is about a set of values at the data model level,
 e.g. `#7.25` specifies the set of values that can be represented as
 half-precision floats; it does not mandate that these values also do
@@ -617,7 +622,7 @@ as with a text string, except that single quotes must be escaped and
 that the UTF-8 bytes resulting are marked as a byte string (major type
 2).
 If prefixed as "h" or "b64", the string is interpreted as a sequence
-of hex digits or a base64(url) string, respectively (as with the
+of pairs of hex digits (base16) or a base64(url) string, respectively (as with the
 diagnostic notation in section 6 of {{RFC7049}}; cf. {{textbin}}); any white space
 present within the string (including comments) is ignored in the prefixed case.
 
@@ -866,8 +871,8 @@ equipment-tolerances = [+ [float, float]]
 {:cddl}
 
 The example below defines a struct with optional entries: display name
-(as a text string), the name components first name and family name (as a
-map of text strings), and age information (as an unsigned integer).
+(as a text string), the name components first name and family name (as
+text strings), and age information (as an unsigned integer).
 
 ~~~~ CDDL
 PersonalData = {
@@ -1115,9 +1120,8 @@ The syntax for a control type is `target .control-operator controller`,
 where control operators are special identifiers prefixed by a dot.
 (Note that _target_ or _controller_ might need to be parenthesized.)
 
-A number of control operators are defined at his point.  Note that
-the CDDL tool does not currently support combining multiple controls
-on a single target.  Further control operators may be defined by new
+A number of control operators are defined at this point.
+Further control operators may be defined by new
 versions of this specification or by registering them according to the
 procedures in {{sec-controlreg}}.
 
@@ -1330,7 +1334,7 @@ expectation that type1 already is a subset of type2.
 
 The controls .lt, .le, .gt, .ge, .eq, .ne specify a constraint on
 the left hand side type to be a value less than, less than or equal,
-equal to, not equal to, greater than, or greater than or equal to a
+greater than, greater than or equal, equal, or not equal, to a
 value given as a (single-valued) right hand side type.
 In the present specification, the first four controls (.lt, .le,
 .gt, .ge) are defined only for numeric types, as these have a natural
@@ -1408,7 +1412,7 @@ double "$$" are "group sockets".  It is not an error if there is no
 definition for a socket at all; this then means there is no way to
 satisfy the rule (i.e., the choice is empty).
 
-All definitions (plugs) for socket names must be augmentations, i.e., they
+As a convention, all definitions (plugs) for socket names must be augmentations, i.e., they
 must be using "/=" and "//=", respectively.
 
 To pick up the example illustrated in {{xmp-personaldata}}, the
@@ -1907,6 +1911,9 @@ uses CDDL to define CBOR structures include the following:
   CDDL specification or CDDL implementation without any further
   defenses in place.
 
+* Where the CDDL includes extension points, the impact of extensions
+  on the security of the system needs to be carefully considered.
+
 Writers of CDDL specifications are strongly encouraged to value
 simplicity and transparency of the specification over its elegance.
 Keep it as simple as possible while still expressing the needed
@@ -2260,7 +2267,7 @@ slashes for comments, but we also could go e.g. for "#".)
 
 # Examples {#examples}
 
-This section contains various examples of structures defined using
+This section contains a few examples of structures defined using
 CDDL.
 
 The theme for the first example is taken from {{RFC7071}}, which
@@ -2408,7 +2415,7 @@ says:
 ~~~~
 {:cddl}
 
-### Examples from JSON Content Rules ###
+## Examples from JSON Content Rules ##
 
 Although [JSON Content Rules](#I-D.newton-json-content-rules) seems to
 address a more general problem than CDDL, it is still a worthwhile

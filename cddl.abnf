@@ -1,11 +1,12 @@
 cddl = S 1*(rule S)
-rule = typename [genericparm] S assign S type
-     / groupname [genericparm] S assign S grpent
+rule = typename [genericparm] S assignt S type
+     / groupname [genericparm] S assigng S grpent
 
 typename = id
 groupname = id
 
-assign = "=" / "/=" / "//="
+assignt = "=" / "/="
+assigng = "=" / "//="
 
 genericparm = "<" S id S *("," S id S ) ">"
 genericarg = "<" S type1 S *("," S type1 S ) ">"
