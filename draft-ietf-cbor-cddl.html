@@ -545,17 +545,17 @@ address {
 
 <dl>
 <dt>(G1)   </dt>
-<dd>Provide an unambiguous description of the overall structure of a CBOR data structure.</dd>
+<dd>Provide an unambiguous description of the overall structure of a CBOR data item.</dd>
 <dt>(G2)   </dt>
-<dd>Flexibility to express the freedoms of choice in the CBOR data format.</dd>
+<dd>Be flexible in expressing the multiple ways in which data can be represented in the CBOR data format.</dd>
 <dt>(G3)   </dt>
 <dd>Able to express common CBOR datatypes and structures.</dd>
 <dt>(G4)   </dt>
-<dd>Human and machine readable and processable.</dd>
+<dd>Provide a single format that is both readable and editable for humans and processable by machine.</dd>
 <dt>(G5)   </dt>
-<dd>Automatic checking of data format compliance.</dd>
+<dd>Enable automatic checking of CBOR data items for data format compliance.</dd>
 <dt>(G6)   </dt>
-<dd>Extraction of specific elements from CBOR data for further processing.</dd>
+<dd>Enable extraction of specific elements from CBOR data for further processing.</dd>
 </dl>
 <p id="rfc.section.1.p.5">Not an original goal per se, but a convenient side effect of the JSON generic data model being a subset of the CBOR generic data model, is the fact that CDDL can also be used for describing JSON data structures (see <a href="#sec-json" class="xref">Appendix E</a>).</p>
 <p id="rfc.section.1.p.6">This document has the following structure:</p>
@@ -563,7 +563,7 @@ address {
 <h1 id="rfc.section.1.1">
 <a href="#rfc.section.1.1">1.1.</a> <a href="#requirements-notation" id="requirements-notation">Requirements notation</a>
 </h1>
-<p id="rfc.section.1.1.p.1">The key words &#8220;MUST&#8221;, &#8220;MUST NOT&#8221;, &#8220;REQUIRED&#8221;, &#8220;SHALL&#8221;, &#8220;SHALL NOT&#8221;, &#8220;SHOULD&#8221;, &#8220;SHOULD NOT&#8221;, &#8220;RECOMMENDED&#8221;, &#8220;NOT RECOMMENDED&#8221;, &#8220;MAY&#8221;, and &#8220;OPTIONAL&#8221; in this document are to be interpreted as described in RFC 2119, BCP 14 <a href="#RFC2119" class="xref">[RFC2119]</a>.</p>
+<p id="rfc.section.1.1.p.1">The key words &#8220;MUST&#8221;, &#8220;MUST NOT&#8221;, &#8220;REQUIRED&#8221;, &#8220;SHALL&#8221;, &#8220;SHALL NOT&#8221;, &#8220;SHOULD&#8221;, &#8220;SHOULD NOT&#8221;, &#8220;RECOMMENDED&#8221;, &#8220;NOT RECOMMENDED&#8221;, &#8220;MAY&#8221;, and &#8220;OPTIONAL&#8221; in this document are to be interpreted as described in BCP&#160;14 <a href="#RFC2119" class="xref">[RFC2119]</a> <a href="#RFC8174" class="xref">[RFC8174]</a> when, and only when, they appear in all capitals, as shown here.</p>
 <h1 id="rfc.section.1.2">
 <a href="#rfc.section.1.2">1.2.</a> <a href="#terminology" id="terminology">Terminology</a>
 </h1>
@@ -1628,6 +1628,11 @@ a = 1 b = 2 c = 3
 <td class="reference"><b id="RFC8126">[RFC8126]</b></td>
 <td class="top">
 <a>Cotton, M.</a>, <a>Leiba, B.</a> and <a>T. Narten</a>, "<a href="https://tools.ietf.org/html/rfc8126">Guidelines for Writing an IANA Considerations Section in RFCs</a>", BCP 26, RFC 8126, DOI 10.17487/RFC8126, June 2017.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8174">[RFC8174]</b></td>
+<td class="top">
+<a>Leiba, B.</a>, "<a href="https://tools.ietf.org/html/rfc8174">Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</a>", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017.</td>
 </tr>
 <tr>
 <td class="reference"><b id="RFC8259">[RFC8259]</b></td>

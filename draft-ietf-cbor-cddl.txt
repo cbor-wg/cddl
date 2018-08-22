@@ -117,7 +117,7 @@ Internet-Draft                    CDDL                       August 2018
    7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  36
      7.1.  Normative References  . . . . . . . . . . . . . . . . . .  36
      7.2.  Informative References  . . . . . . . . . . . . . . . . .  37
-   Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  38
+   Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  39
      A.1.  RFC 7071  . . . . . . . . . . . . . . . . . . . . . . . .  39
      A.2.  Examples from JSON Content Rules  . . . . . . . . . . . .  43
    Appendix B.  ABNF grammar . . . . . . . . . . . . . . . . . . . .  45
@@ -148,19 +148,19 @@ Internet-Draft                    CDDL                       August 2018
    The CBOR notational convention has the following goals:
 
    (G1)  Provide an unambiguous description of the overall structure of
-         a CBOR data structure.
+         a CBOR data item.
 
-   (G2)  Flexibility to express the freedoms of choice in the CBOR data
-         format.
+   (G2)  Be flexible in expressing the multiple ways in which data can
+         be represented in the CBOR data format.
 
    (G3)  Able to express common CBOR datatypes and structures.
 
-   (G4)  Human and machine readable and processable.
+   (G4)  Provide a single format that is both readable and editable for
+         humans and processable by machine.
 
-   (G5)  Automatic checking of data format compliance.
+   (G5)  Enable automatic checking of CBOR data items for data format
+         compliance.
 
-   (G6)  Extraction of specific elements from CBOR data for further
-         processing.
 
 
 
@@ -169,6 +169,9 @@ Birkholz, et al.        Expires February 22, 2019               [Page 3]
 
 Internet-Draft                    CDDL                       August 2018
 
+
+   (G6)  Enable extraction of specific elements from CBOR data for
+         further processing.
 
    Not an original goal per se, but a convenient side effect of the JSON
    generic data model being a subset of the CBOR generic data model, is
@@ -190,8 +193,9 @@ Internet-Draft                    CDDL                       August 2018
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in RFC
-   2119, BCP 14 [RFC2119].
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
 
 1.2.  Terminology
 
@@ -214,10 +218,6 @@ Internet-Draft                    CDDL                       August 2018
 
    The more important components of a data structure definition language
    are the data types used for composition: arrays and maps in CBOR
-   (called arrays and objects in JSON).  While these are only two
-   representation formats, they are used to specify four loosely
-   distinguishable styles of composition:
-
 
 
 
@@ -225,6 +225,10 @@ Birkholz, et al.        Expires February 22, 2019               [Page 4]
 
 Internet-Draft                    CDDL                       August 2018
 
+
+   (called arrays and objects in JSON).  While these are only two
+   representation formats, they are used to specify four loosely
+   distinguishable styles of composition:
 
    o  A _vector_, an array of elements that are mostly of the same
       semantics.  The set of signatures associated with a signed data
@@ -270,10 +274,6 @@ Internet-Draft                    CDDL                       August 2018
        predefines a number of basic types such as "uint" (unsigned
        integer) or "tstr" (text string), often making use of a simple
        formal notation for CBOR data items.  Each value that can be
-       expressed as a CBOR data item also is a type in its own right,
-       e.g. "1".  A type can be built as a _choice_ of other types,
-       e.g., an "int" is either a "uint" or a "nint" (negative integer).
-       Finally, a type can be built as an array or a map from a group.
 
 
 
@@ -281,6 +281,11 @@ Birkholz, et al.        Expires February 22, 2019               [Page 5]
 
 Internet-Draft                    CDDL                       August 2018
 
+
+       expressed as a CBOR data item also is a type in its own right,
+       e.g. "1".  A type can be built as a _choice_ of other types,
+       e.g., an "int" is either a "uint" or a "nint" (negative integer).
+       Finally, a type can be built as an array or a map from a group.
 
    The rest of this section introduces a number of basic concepts of
    CDDL, and section Section 3 defines additional syntax.  Appendix C
@@ -325,11 +330,6 @@ Internet-Draft                    CDDL                       August 2018
 
                  Figure 1: Using a group directly in a map
 
-   The three entries of the group are written between the curly braces
-   that create the map: Here, "age", "name", and "employer" are the
-   names that turn into the map key text strings, and "int" and "tstr"
-   (text string) are the types of the map values under these keys.
-
 
 
 
@@ -337,6 +337,11 @@ Birkholz, et al.        Expires February 22, 2019               [Page 6]
 
 Internet-Draft                    CDDL                       August 2018
 
+
+   The three entries of the group are written between the curly braces
+   that create the map: Here, "age", "name", and "employer" are the
+   names that turn into the map key text strings, and "int" and "tstr"
+   (text string) are the types of the map values under these keys.
 
    A group by itself (without creating a map around it) can be placed in
    (round) parentheses, and given a name by using it in a rule:
@@ -380,11 +385,6 @@ Internet-Draft                    CDDL                       August 2018
    Figure 5, one can factor out the common subgroup, choose a name for
    it, and write only the specific parts into the individual maps
    (Figure 6).
-
-
-
-
-
 
 
 
@@ -2036,6 +2036,10 @@ Internet-Draft                    CDDL                       August 2018
               RFC 8126, DOI 10.17487/RFC8126, June 2017,
               <https://www.rfc-editor.org/info/rfc8126>.
 
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/info/rfc8174>.
+
    [RFC8259]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
               Interchange Format", STD 90, RFC 8259,
               DOI 10.17487/RFC8259, December 2017,
@@ -2059,10 +2063,6 @@ Internet-Draft                    CDDL                       August 2018
               Autonomic Signaling Protocol (GRASP)", draft-ietf-anima-
               grasp-15 (work in progress), July 2017.
 
-   [I-D.ietf-core-senml]
-              Jennings, C., Shelby, Z., Arkko, J., Keranen, A., and C.
-              Bormann, "Sensor Measurement Lists (SenML)", draft-ietf-
-              core-senml-16 (work in progress), May 2018.
 
 
 
@@ -2073,6 +2073,11 @@ Birkholz, et al.        Expires February 22, 2019              [Page 37]
 
 Internet-Draft                    CDDL                       August 2018
 
+
+   [I-D.ietf-core-senml]
+              Jennings, C., Shelby, Z., Arkko, J., Keranen, A., and C.
+              Bormann, "Sensor Measurement Lists (SenML)", draft-ietf-
+              core-senml-16 (work in progress), May 2018.
 
    [I-D.newton-json-content-rules]
               Newton, A. and P. Cordell, "A Language for Rules
@@ -2114,14 +2119,9 @@ Internet-Draft                    CDDL                       August 2018
 
    [1] https://github.com/cabo/cbor-diag
 
-Appendix A.  Examples
 
-   This section contains a few examples of structures defined using
-   CDDL.
 
-   The theme for the first example is taken from [RFC7071], which
-   defines certain JSON structures in English.  For a similar example,
-   it may also be of interest to examine Appendix A of [RFC8007], which
+
 
 
 
@@ -2130,6 +2130,14 @@ Birkholz, et al.        Expires February 22, 2019              [Page 38]
 Internet-Draft                    CDDL                       August 2018
 
 
+Appendix A.  Examples
+
+   This section contains a few examples of structures defined using
+   CDDL.
+
+   The theme for the first example is taken from [RFC7071], which
+   defines certain JSON structures in English.  For a similar example,
+   it may also be of interest to examine Appendix A of [RFC8007], which
    contains a CDDL definition for a JSON structure defined in the main
    body of the RFC.
 
@@ -2146,14 +2154,6 @@ A.1.  RFC 7071
    [RFC7071] defines the Reputon structure for JSON using somewhat
    formalized English text.  Here is a (somewhat verbose) equivalent
    definition using the same terms, but notated in CDDL:
-
-
-
-
-
-
-
-
 
 
 
