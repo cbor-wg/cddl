@@ -628,7 +628,7 @@ Internet-Draft                    CDDL                       August 2018
                 orange: 8,  pink: 9,  purple: 10,  brown: 11,
               )
 
-   As with the use of groups in arrays (Section 3.4), the membernames
+   As with the use of groups in arrays (Section 3.4), the member names
    have only documentary value (in particular, they might be used by a
    tool when displaying integers that are taken from that choice).
 
@@ -987,7 +987,8 @@ Internet-Draft                    CDDL                       August 2018
    by a colon can be directly used as the text string for a member key
    (we speak of a "bareword" member key), as can a double-quoted string
    or a number.  (When other types, in particular multi-valued ones, are
-   used as keytypes, they are followed by a double arrow, see below.)
+   used as the types of keys, they are followed by a double arrow, see
+   below.)
 
    If a text string key does not match the syntax for an identifier (or
    if the specifier just happens to prefer using double quotes), the
@@ -999,7 +1000,6 @@ Internet-Draft                    CDDL                       August 2018
    is necessary if a type is named by an identifier (which would be
    interpreted as a string before a colon).  A string also is a (single-
    valued) type, so another form for this example is:
-
 
 
 
@@ -1589,7 +1589,7 @@ Internet-Draft                    CDDL                       August 2018
    .ne and .eq are defined both for numeric values and values of other
    types.  If one of the values is not of a numeric type, equality is
    determined as follows: Text strings are equal (satisfy .eq/do not
-   satisfy .ne) if they are bytewise identical; the same applies for
+   satisfy .ne) if they are byte-wise identical; the same applies for
    byte strings.  Arrays are equal if they have the same number of
    elements, all of which are equal pairwise in order between the
    arrays.  Maps are equal if they have the same number of key/value
@@ -1825,7 +1825,7 @@ Internet-Draft                    CDDL                       August 2018
            |    /     |  2 | type / type               |    6 |
            |    ..    |  2 | type..type                |    7 |
            |   ...    |  2 | type...type               |    7 |
-           |  .anno   |  2 | type .anno type           |    7 |
+           |  .ctrl   |  2 | type .ctrl type           |    7 |
            |    &     |  1 | &group                    |    8 |
            |    ~     |  1 | ~type                     |    8 |
            +----------+----+---------------------------+------+
@@ -2601,10 +2601,18 @@ Appendix C.  Matching rules
    gives a name to a right hand side expression, either a CDDL type or a
    CDDL group.  Rule names can be used in the rule itself and/or other
    rules (and tools can output warnings if that is not the case).  The
-   order of the rules is significant only in two cases, including the
-   following: The first rule defines the semantics of the entire
-   specification; hence, its name may be descriptive only (or may be
-   used in itself or other rules as with the other rule names).
+   order of the rules is significant only in two cases:
+
+   1.  The first rule defines the semantics of the entire specification;
+       hence, there is no need to give that root rule a special name or
+       special syntax in the language (as, e.g., with "start" in Relax-
+       NG); its name can be therefore chosen to be descriptive.  (As
+       with all other rule names, the name of the initial rule may be
+       used in itself or in other rules).
+
+   2.  Where a rule contributes to a type or group choice (using "/=" or
+       "//="), that choice is populated in the order the rules are
+       given; see below.
 
    rule = typename [genericparm] S assignt S type S
         / groupname [genericparm] S assigng S grpent S
@@ -2617,6 +2625,15 @@ Appendix C.  Matching rules
    the semantics does not change when the name is replaced by its
    (parenthesized if needed) definition.
 
+
+
+
+
+Birkholz, et al.        Expires February 22, 2019              [Page 47]
+
+Internet-Draft                    CDDL                       August 2018
+
+
    assignt = "=" / "/="
    assigng = "=" / "//="
 
@@ -2626,18 +2643,8 @@ Appendix C.  Matching rules
    collecting all the right hand sides and creating a single rule with a
    type choice or a group choice built from the right hand sides in the
    order of the rules given.  (It is not an error to extend a rule name
-
-
-
-Birkholz, et al.        Expires February 22, 2019              [Page 47]
-
-Internet-Draft                    CDDL                       August 2018
-
-
    that has not yet been defined; this makes the right hand side the
-   first entry in the choice being created.)  The creation of the type
-   choices and group choices from the right hand sides of rules is the
-   other case where rule order can be significant.
+   first entry in the choice being created.)
 
    genericparm = "<" S id S *("," S id S ) ">"
    genericarg = "<" S type1 S *("," S type1 S ) ">"
@@ -2669,19 +2676,12 @@ Internet-Draft                    CDDL                       August 2018
          / typename [genericarg]
 
    or be defined by a rule giving a meaning to a name (possibly after
-   supplying generic args as required by the generic parameters),
+   supplying generic arguments as required by the generic parameters),
 
          / "(" type ")"
 
    or be defined in a parenthesized type expression (parentheses may be
-   necessary to override some operator precendence), or
-
-         / "~" S typename [genericarg]
-
-   an "unwrapped" group (see Section 3.7), which matches the group
-   inside a type defined as a map or an array by wrapping the group, or
-
-         / "#" "6" ["." uint] "(" S type S ")" ; note no space!
+   necessary to override some operator precedence), or
 
 
 
@@ -2689,6 +2689,13 @@ Birkholz, et al.        Expires February 22, 2019              [Page 48]
 
 Internet-Draft                    CDDL                       August 2018
 
+
+         / "~" S typename [genericarg]
+
+   an "unwrapped" group (see Section 3.7), which matches the group
+   inside a type defined as a map or an array by wrapping the group, or
+
+         / "#" "6" ["." uint] "(" S type S ")" ; note no space!
 
    a tagged data item, tagged with the "uint" given and containing the
    type given as the tagged value, or
@@ -2730,13 +2737,6 @@ Internet-Draft                    CDDL                       August 2018
 
    ctlop = "." id
 
-   A control operator ties a _target_ type to a _controller_ type as
-   defined in Section 3.8.  Note that control operators are an extension
-   point for CDDL; additional documents may want to define additional
-   control operators.
-
-   group = grpchoice S *("//" S grpchoice S)
-
 
 
 
@@ -2745,6 +2745,13 @@ Birkholz, et al.        Expires February 22, 2019              [Page 49]
 
 Internet-Draft                    CDDL                       August 2018
 
+
+   A control operator ties a _target_ type to a _controller_ type as
+   defined in Section 3.8.  Note that control operators are an extension
+   point for CDDL; additional documents may want to define additional
+   control operators.
+
+   group = grpchoice S *("//" S grpchoice S)
 
    A group matches any sequence of key/value pairs that matches any of
    the choices given (again using Parsing Expression Grammar semantics).
@@ -2782,10 +2789,18 @@ Internet-Draft                    CDDL                       August 2018
    bareword), or a value (which stands for a type that just contains
    this value).  A key value matches its key type if the key value is a
    member of the key type, unless a cut preceding it in the group
-   applies (see Section 3.5.4 how map matching is infuenced by the
+   applies (see Section 3.5.4 how map matching is influenced by the
    presence of the cuts denoted by "^" or ":" in previous entries).
 
    bareword = id
+
+
+
+
+Birkholz, et al.        Expires February 22, 2019              [Page 50]
+
+Internet-Draft                    CDDL                       August 2018
+
 
    A bareword is an alternative way to write a type with a single text
    string value; it can only be used in the syntactic context given
@@ -2794,13 +2809,6 @@ Internet-Draft                    CDDL                       August 2018
    optcom = S ["," S]
 
    (Optional commas do not influence the matching.)
-
-
-
-Birkholz, et al.        Expires February 22, 2019              [Page 50]
-
-Internet-Draft                    CDDL                       August 2018
-
 
    occur = [uint] "*" [uint]
          / "+"
@@ -2822,14 +2830,6 @@ Appendix D.  Standard Prelude
    The following prelude is automatically added to each CDDL file.
    (Note that technically, it is a postlude, as it does not disturb the
    selection of the first rule as the root of the definition.)
-
-
-
-
-
-
-
-
 
 
 
@@ -3259,12 +3259,12 @@ Acknowledgements
    [I-D.newton-json-content-rules].
 
    Lots of highly useful feedback came from members of the IETF CBOR WG,
-   in particular Brian Carpenter, Burt Harris, Jeffrey Yasskin, Jim
-   Hague, Jim Schaad, Joe Hildebrand, Max Pritikin, Michael Richardson,
-   Pete Cordell, Sean Leonard, and Yaron Sheffer.  Also, Francesca
-   Palombini and Joe volunteered to chair the WG when it was created,
-   providing the framework for generating and processing this feedback;
-   with Barry Leiba having taken over from Joe since.
+   in particular Ari Keraenen, Brian Carpenter, Burt Harris, Jeffrey
+   Yasskin, Jim Hague, Jim Schaad, Joe Hildebrand, Max Pritikin, Michael
+   Richardson, Pete Cordell, Sean Leonard, and Yaron Sheffer.  Also,
+   Francesca Palombini and Joe volunteered to chair the WG when it was
+   created, providing the framework for generating and processing this
+   feedback; with Barry Leiba having taken over from Joe since.
 
    The CDDL tool was written by Carsten Bormann, building on previous
    work by Troy Heninger and Tom Lord.

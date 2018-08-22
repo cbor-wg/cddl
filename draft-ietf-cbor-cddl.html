@@ -774,7 +774,7 @@ extended-color = &amp;(
   orange: 8,  pink: 9,  purple: 10,  brown: 11,
 )
 </pre>
-<p id="rfc.section.2.2.2.2.p.2">As with the use of groups in arrays (<a href="#arrays" class="xref">Section 3.4</a>), the membernames have only documentary value (in particular, they might be used by a tool when displaying integers that are taken from that choice).</p>
+<p id="rfc.section.2.2.2.2.p.2">As with the use of groups in arrays (<a href="#arrays" class="xref">Section 3.4</a>), the member names have only documentary value (in particular, they might be used by a tool when displaying integers that are taken from that choice).</p>
 <h1 id="rfc.section.2.2.3">
 <a href="#rfc.section.2.2.3">2.2.3.</a> <a href="#representation-types" id="representation-types">Representation Types</a>
 </h1>
@@ -940,7 +940,7 @@ located-samples = {
 }
 
 </pre>
-<p id="rfc.section.3.5.1.p.7">where <samp>located-samples</samp> is the datatype to be used when referring to the struct, and <samp>sample-point</samp> and <samp>samples</samp> are the keys to be used.  This is actually a complete example: an identifier that is followed by a colon can be directly used as the text string for a member key (we speak of a &#8220;bareword&#8221; member key), as can a double-quoted string or a number.  (When other types, in particular multi-valued ones, are used as keytypes, they are followed by a double arrow, see below.)</p>
+<p id="rfc.section.3.5.1.p.7">where <samp>located-samples</samp> is the datatype to be used when referring to the struct, and <samp>sample-point</samp> and <samp>samples</samp> are the keys to be used.  This is actually a complete example: an identifier that is followed by a colon can be directly used as the text string for a member key (we speak of a &#8220;bareword&#8221; member key), as can a double-quoted string or a number.  (When other types, in particular multi-valued ones, are used as the types of keys, they are followed by a double arrow, see below.)</p>
 <p id="rfc.section.3.5.1.p.8">If a text string key does not match the syntax for an identifier (or if the specifier just happens to prefer using double quotes), the text string syntax can also be used in the member key position, followed by a colon.  The above example could therefore have been written with quoted strings in the member key positions.  More generally, all the types defined can be used in a keytype position by following them with a double arrow &#8212; in particular, the double arrow is necessary if a type is named by an identifier (which would be interpreted as a string before a colon).  A string also is a (single-valued) type, so another form for this example is:</p>
 <pre>
 located-samples = {
@@ -1253,7 +1253,7 @@ $message /= [4, noodles: text, sauce: text, parmesan: bool]
 <pre>
 speed = number .ge 0  ; unit: m/s
 </pre>
-<p id="rfc.section.3.8.6.p.2">.ne and .eq are defined both for numeric values and values of other types.  If one of the values is not of a numeric type, equality is determined as follows: Text strings are equal (satisfy .eq/do not satisfy .ne) if they are bytewise identical; the same applies for byte strings.  Arrays are equal if they have the same number of elements, all of which are equal pairwise in order between the arrays.  Maps are equal if they have the same number of key/value pairs, and there is pairwise equality between the key/value pairs between the two maps.  Tagged values are equal if they both have the same tag and the values are equal.  Values of simple types match if they are the same values.  Numeric types that occur within arrays, maps, or tagged values are equal if their numeric value is equal and they are both integers or both floating point values.  All other cases are not equal (e.g., comparing a text string with a byte string).</p>
+<p id="rfc.section.3.8.6.p.2">.ne and .eq are defined both for numeric values and values of other types.  If one of the values is not of a numeric type, equality is determined as follows: Text strings are equal (satisfy .eq/do not satisfy .ne) if they are byte-wise identical; the same applies for byte strings.  Arrays are equal if they have the same number of elements, all of which are equal pairwise in order between the arrays.  Maps are equal if they have the same number of key/value pairs, and there is pairwise equality between the key/value pairs between the two maps.  Tagged values are equal if they both have the same tag and the values are equal.  Values of simple types match if they are the same values.  Numeric types that occur within arrays, maps, or tagged values are equal if their numeric value is equal and they are both integers or both floating point values.  All other cases are not equal (e.g., comparing a text string with a byte string).</p>
 <p id="rfc.section.3.8.6.p.3">A variant of the <samp>.ne</samp> control is the <samp>.default</samp> control, which expresses an additional intent: the value specified by the right-hand-side type is intended as a default value for the left hand side type given, and the implied .ne control is there to prevent this value from being sent over the wire.  This control is only meaningful when the control type is used in an optional context; otherwise there would be no way to express the default value.</p>
 <pre>
 timer = {
@@ -1458,9 +1458,9 @@ a = 1 b = 2 c = 3
 <td class="right">7</td>
 </tr>
 <tr>
-<td class="center">.anno</td>
+<td class="center">.ctrl</td>
 <td class="right">2</td>
-<td class="left">type .anno type</td>
+<td class="left">type .ctrl type</td>
 <td class="right">7</td>
 </tr>
 <tr>
@@ -2014,7 +2014,13 @@ CRLF = %x0A / %x0D.0A
 <pre>
 cddl = S 1*rule
 </pre>
-<p id="rfc.section.C.p.2">A CDDL specification is a sequence of one or more rules.  Each rule gives a name to a right hand side expression, either a CDDL type or a CDDL group.  Rule names can be used in the rule itself and/or other rules (and tools can output warnings if that is not the case).  The order of the rules is significant only in two cases, including the following: The first rule defines the semantics of the entire specification; hence, its name may be descriptive only (or may be used in itself or other rules as with the other rule names).</p>
+<p id="rfc.section.C.p.2">A CDDL specification is a sequence of one or more rules.  Each rule gives a name to a right hand side expression, either a CDDL type or a CDDL group.  Rule names can be used in the rule itself and/or other rules (and tools can output warnings if that is not the case).  The order of the rules is significant only in two cases:</p>
+<p></p>
+
+<ol>
+<li>The first rule defines the semantics of the entire specification; hence, there is no need to give that root rule a special name or special syntax in the language (as, e.g., with &#8220;start&#8221; in Relax-NG); its name can be therefore chosen to be descriptive.  (As with all other rule names, the name of the initial rule may be used in itself or in other rules).</li>
+<li>Where a rule contributes to a type or group choice (using <samp>/=</samp> or <samp>//=</samp>), that choice is populated in the order the rules are given; see below.</li>
+</ol>
 <pre>
 rule = typename [genericparm] S assignt S type S
      / groupname [genericparm] S assigng S grpent S
@@ -2022,115 +2028,115 @@ rule = typename [genericparm] S assignt S type S
 typename = id
 groupname = id
 </pre>
-<p id="rfc.section.C.p.3">A rule defines a name for a type expression (production <samp>type</samp>) or for a group expression (production <samp>grpent</samp>), with the intention that the semantics does not change when the name is replaced by its (parenthesized if needed) definition.</p>
+<p id="rfc.section.C.p.4">A rule defines a name for a type expression (production <samp>type</samp>) or for a group expression (production <samp>grpent</samp>), with the intention that the semantics does not change when the name is replaced by its (parenthesized if needed) definition.</p>
 <pre>
 assignt = "=" / "/="
 assigng = "=" / "//="
 </pre>
-<p id="rfc.section.C.p.4">A plain equals sign defines the rule name as the equivalent of the expression to the right.  A <samp>/=</samp> or <samp>//=</samp> extends a named type or a group by additional choices; a number of these could be replaced by collecting all the right hand sides and creating a single rule with a type choice or a group choice built from the right hand sides in the order of the rules given.  (It is not an error to extend a rule name that has not yet been defined; this makes the right hand side the first entry in the choice being created.)  The creation of the type choices and group choices from the right hand sides of rules is the other case where rule order can be significant.</p>
+<p id="rfc.section.C.p.5">A plain equals sign defines the rule name as the equivalent of the expression to the right.  A <samp>/=</samp> or <samp>//=</samp> extends a named type or a group by additional choices; a number of these could be replaced by collecting all the right hand sides and creating a single rule with a type choice or a group choice built from the right hand sides in the order of the rules given.  (It is not an error to extend a rule name that has not yet been defined; this makes the right hand side the first entry in the choice being created.)</p>
 <pre>
 genericparm = "&lt;" S id S *("," S id S ) "&gt;"
 genericarg = "&lt;" S type1 S *("," S type1 S ) "&gt;"
 </pre>
-<p id="rfc.section.C.p.5">Rule names can have generic parameters, which cause temporary assignments within the right hand sides to the parameter names from the arguments given when citing the rule name.</p>
+<p id="rfc.section.C.p.6">Rule names can have generic parameters, which cause temporary assignments within the right hand sides to the parameter names from the arguments given when citing the rule name.</p>
 <pre>
 type = type1 S *("/" S type1 S)
 </pre>
-<p id="rfc.section.C.p.6">A type can be given as a choice between one or more types.  The choice matches a data item if the data item matches any one of the types given in the choice.  The choice uses Parsing Expression Grammar <a href="#PEG" class="xref">[PEG]</a> semantics: The first choice that matches wins.  (As a result, the order of rules that contribute to a single rule name can very well matter.)</p>
+<p id="rfc.section.C.p.7">A type can be given as a choice between one or more types.  The choice matches a data item if the data item matches any one of the types given in the choice.  The choice uses Parsing Expression Grammar <a href="#PEG" class="xref">[PEG]</a> semantics: The first choice that matches wins.  (As a result, the order of rules that contribute to a single rule name can very well matter.)</p>
 <pre>
 type1 = type2 [S (rangeop / ctlop) S type2]
 </pre>
-<p id="rfc.section.C.p.7">Two types can be combined with a range operator (which see below) or a control operator (see <a href="#controls" class="xref">Section 3.8</a>).</p>
+<p id="rfc.section.C.p.8">Two types can be combined with a range operator (which see below) or a control operator (see <a href="#controls" class="xref">Section 3.8</a>).</p>
 <pre>
 type2 = value
 </pre>
-<p id="rfc.section.C.p.8">A type can be just a single value (such as 1 or &#8220;icecream&#8221; or h&#8217;0815&#8217;), which matches only a data item with that specific value (no conversions defined),</p>
+<p id="rfc.section.C.p.9">A type can be just a single value (such as 1 or &#8220;icecream&#8221; or h&#8217;0815&#8217;), which matches only a data item with that specific value (no conversions defined),</p>
 <pre>
       / typename [genericarg]
 </pre>
-<p id="rfc.section.C.p.9">or be defined by a rule giving a meaning to a name (possibly after supplying generic args as required by the generic parameters),</p>
+<p id="rfc.section.C.p.10">or be defined by a rule giving a meaning to a name (possibly after supplying generic arguments as required by the generic parameters),</p>
 <pre>
       / "(" type ")"
 </pre>
-<p id="rfc.section.C.p.10">or be defined in a parenthesized type expression (parentheses may be necessary to override some operator precendence), or</p>
+<p id="rfc.section.C.p.11">or be defined in a parenthesized type expression (parentheses may be necessary to override some operator precedence), or</p>
 <pre>
       / "~" S typename [genericarg]
 </pre>
-<p id="rfc.section.C.p.11">an &#8220;unwrapped&#8221; group (see <a href="#unwrapping" class="xref">Section 3.7</a>), which matches the group inside a type defined as a map or an array by wrapping the group, or</p>
+<p id="rfc.section.C.p.12">an &#8220;unwrapped&#8221; group (see <a href="#unwrapping" class="xref">Section 3.7</a>), which matches the group inside a type defined as a map or an array by wrapping the group, or</p>
 <pre>
       / "#" "6" ["." uint] "(" S type S ")" ; note no space!
 </pre>
-<p id="rfc.section.C.p.12">a tagged data item, tagged with the <samp>uint</samp> given and containing the type given as the tagged value, or</p>
+<p id="rfc.section.C.p.13">a tagged data item, tagged with the <samp>uint</samp> given and containing the type given as the tagged value, or</p>
 <pre>
       / "#" DIGIT ["." uint]                ; major/ai
 </pre>
-<p id="rfc.section.C.p.13">a data item of a major type (given by the DIGIT), optionally constrained to the additional information given by the uint, or</p>
+<p id="rfc.section.C.p.14">a data item of a major type (given by the DIGIT), optionally constrained to the additional information given by the uint, or</p>
 <pre>
       / "#"                                 ; any
 </pre>
-<p id="rfc.section.C.p.14">any data item, or</p>
+<p id="rfc.section.C.p.15">any data item, or</p>
 <pre>
       / "{" S group S "}"
 </pre>
-<p id="rfc.section.C.p.15">a map expression, which matches a valid CBOR map the key/value pairs of which can be ordered in such a way that the resulting sequence matches the group expression, or</p>
+<p id="rfc.section.C.p.16">a map expression, which matches a valid CBOR map the key/value pairs of which can be ordered in such a way that the resulting sequence matches the group expression, or</p>
 <pre>
       / "[" S group S "]"
 </pre>
-<p id="rfc.section.C.p.16">an array expression, which matches a CBOR array the elements of which, when taken as values and complemented by a wildcard (matches anything) key each, match the group, or</p>
+<p id="rfc.section.C.p.17">an array expression, which matches a CBOR array the elements of which, when taken as values and complemented by a wildcard (matches anything) key each, match the group, or</p>
 <pre>
       / "&amp;" S "(" S group S ")"
       / "&amp;" S groupname [genericarg]
 </pre>
-<p id="rfc.section.C.p.17">an enumeration expression, which matches any a value that is within the set of values that the values of the group given can take.</p>
+<p id="rfc.section.C.p.18">an enumeration expression, which matches any a value that is within the set of values that the values of the group given can take.</p>
 <pre>
 rangeop = "..." / ".."
 </pre>
-<p id="rfc.section.C.p.18">A range operator can be used to join two type expressions that stand for either two integer values or two floating point values; it matches any value that is between the two values, where the first value is always included in the matching set and the second value is included for <samp>..</samp> and excluded for <samp>...</samp>.</p>
+<p id="rfc.section.C.p.19">A range operator can be used to join two type expressions that stand for either two integer values or two floating point values; it matches any value that is between the two values, where the first value is always included in the matching set and the second value is included for <samp>..</samp> and excluded for <samp>...</samp>.</p>
 <pre>
 ctlop = "." id
 </pre>
-<p id="rfc.section.C.p.19">A control operator ties a <em>target</em> type to a <em>controller</em> type as defined in <a href="#controls" class="xref">Section 3.8</a>.  Note that control operators are an extension point for CDDL; additional documents may want to define additional control operators.</p>
+<p id="rfc.section.C.p.20">A control operator ties a <em>target</em> type to a <em>controller</em> type as defined in <a href="#controls" class="xref">Section 3.8</a>.  Note that control operators are an extension point for CDDL; additional documents may want to define additional control operators.</p>
 <pre>
 group = grpchoice S *("//" S grpchoice S)
 </pre>
-<p id="rfc.section.C.p.20">A group matches any sequence of key/value pairs that matches any of the choices given (again using Parsing Expression Grammar semantics).</p>
+<p id="rfc.section.C.p.21">A group matches any sequence of key/value pairs that matches any of the choices given (again using Parsing Expression Grammar semantics).</p>
 <pre>
 grpchoice = *grpent
 </pre>
-<p id="rfc.section.C.p.21">Each of the component groups is given as a sequence of group entries.  For a match, the sequence of key/value pairs given needs to match the sequence of group entries in the sequence given.</p>
+<p id="rfc.section.C.p.22">Each of the component groups is given as a sequence of group entries.  For a match, the sequence of key/value pairs given needs to match the sequence of group entries in the sequence given.</p>
 <pre>
 grpent = [occur S] [memberkey S] type optcom
 </pre>
-<p id="rfc.section.C.p.22">A group entry can be given by a value type, which needs to be matched by the value part of a single element, and optionally a memberkey type, which needs to be matched by the key part of the element, if the memberkey is given.  If the memberkey is not given, the entry can only be used for matching arrays, not for maps.  (See below how that is modified by the occurrence indicator.)</p>
+<p id="rfc.section.C.p.23">A group entry can be given by a value type, which needs to be matched by the value part of a single element, and optionally a memberkey type, which needs to be matched by the key part of the element, if the memberkey is given.  If the memberkey is not given, the entry can only be used for matching arrays, not for maps.  (See below how that is modified by the occurrence indicator.)</p>
 <pre>
        / [occur S] groupname [genericarg] optcom ; preempted by above
 </pre>
-<p id="rfc.section.C.p.23">A group entry can be built from a named group, or</p>
+<p id="rfc.section.C.p.24">A group entry can be built from a named group, or</p>
 <pre>
        / [occur S] "(" S group S ")" optcom
 </pre>
-<p id="rfc.section.C.p.24">from a parenthesized group, again with a possible occurrence indicator.</p>
+<p id="rfc.section.C.p.25">from a parenthesized group, again with a possible occurrence indicator.</p>
 <pre>
 memberkey = type1 S ["^" S] "=&gt;"
           / bareword S ":"
           / value S ":"
 </pre>
-<p id="rfc.section.C.p.25">Key types can be given by a type expression, a bareword (which stands for a type that just contains a string value created from this bareword), or a value (which stands for a type that just contains this value).  A key value matches its key type if the key value is a member of the key type, unless a cut preceding it in the group applies (see <a href="#cuts-in-maps" class="xref">Section 3.5.4</a> how map matching is infuenced by the presence of the cuts denoted by &#8220;^&#8221; or &#8220;:&#8221; in previous entries).</p>
+<p id="rfc.section.C.p.26">Key types can be given by a type expression, a bareword (which stands for a type that just contains a string value created from this bareword), or a value (which stands for a type that just contains this value).  A key value matches its key type if the key value is a member of the key type, unless a cut preceding it in the group applies (see <a href="#cuts-in-maps" class="xref">Section 3.5.4</a> how map matching is influenced by the presence of the cuts denoted by &#8220;^&#8221; or &#8220;:&#8221; in previous entries).</p>
 <pre>
 bareword = id
 </pre>
-<p id="rfc.section.C.p.26">A bareword is an alternative way to write a type with a single text string value; it can only be used in the syntactic context given above.</p>
+<p id="rfc.section.C.p.27">A bareword is an alternative way to write a type with a single text string value; it can only be used in the syntactic context given above.</p>
 <pre>
 optcom = S ["," S]
 </pre>
-<p id="rfc.section.C.p.27">(Optional commas do not influence the matching.)</p>
+<p id="rfc.section.C.p.28">(Optional commas do not influence the matching.)</p>
 <pre>
 occur = [uint] "*" [uint]
       / "+"
       / "?"
 </pre>
-<p id="rfc.section.C.p.28">An occurrence indicator modifies the group given to its right by requiring the group to match the sequence to be matched exactly for a certain number of times (see <a href="#occurrence" class="xref">Section 3.2</a>) in sequence, i.e. it acts as a (possibly infinite) group choice that contains choices with the group repeated each of the occurrences times.</p>
-<p id="rfc.section.C.p.29">The rest of the ABNF describes syntax for value notation that should be familiar from programming languages, with the possible exception of h&#8217;..&#8217; and b64&#8217;..&#8217; for byte strings, as well as syntactic elements such as comments and line ends.</p>
+<p id="rfc.section.C.p.29">An occurrence indicator modifies the group given to its right by requiring the group to match the sequence to be matched exactly for a certain number of times (see <a href="#occurrence" class="xref">Section 3.2</a>) in sequence, i.e. it acts as a (possibly infinite) group choice that contains choices with the group repeated each of the occurrences times.</p>
+<p id="rfc.section.C.p.30">The rest of the ABNF describes syntax for value notation that should be familiar from programming languages, with the possible exception of h&#8217;..&#8217; and b64&#8217;..&#8217; for byte strings, as well as syntactic elements such as comments and line ends.</p>
 <h1 id="rfc.appendix.D">
 <a href="#rfc.appendix.D">Appendix D.</a> <a href="#prelude" id="prelude">Standard Prelude</a>
 </h1>
@@ -2366,7 +2372,7 @@ h'68 65 6c /doubled l!/ 6c 6f /hello/
 <p id="rfc.section.H.p.1">CDDL was originally conceived by Bert Greevenbosch, who also wrote the original five versions of this document.</p>
 <h1 id="rfc.acknowledgements"><a href="#rfc.acknowledgements">Acknowledgements</a></h1>
 <p id="rfc.section.I.p.1">Inspiration was taken from the C and Pascal languages, MPEG&#8217;s conventions for describing structures in the ISO base media file format, Relax-NG and its compact syntax <a href="#RELAXNG" class="xref">[RELAXNG]</a>, and in particular from Andrew Lee Newton&#8217;s <a href="#I-D.newton-json-content-rules" class="xref">&#8220;JSON Content Rules&#8221;</a>.</p>
-<p id="rfc.section.I.p.2">Lots of highly useful feedback came from members of the IETF CBOR WG, in particular Brian Carpenter, Burt Harris, Jeffrey Yasskin, Jim Hague, Jim Schaad, Joe Hildebrand, Max Pritikin, Michael Richardson, Pete Cordell, Sean Leonard, and Yaron Sheffer.  Also, Francesca Palombini and Joe volunteered to chair the WG when it was created, providing the framework for generating and processing this feedback; with Barry Leiba having taken over from Joe since.</p>
+<p id="rfc.section.I.p.2">Lots of highly useful feedback came from members of the IETF CBOR WG, in particular Ari Ker&#228;nen, Brian Carpenter, Burt Harris, Jeffrey Yasskin, Jim Hague, Jim Schaad, Joe Hildebrand, Max Pritikin, Michael Richardson, Pete Cordell, Sean Leonard, and Yaron Sheffer.  Also, Francesca Palombini and Joe volunteered to chair the WG when it was created, providing the framework for generating and processing this feedback; with Barry Leiba having taken over from Joe since.</p>
 <p id="rfc.section.I.p.3">The CDDL tool was written by Carsten Bormann, building on previous work by Troy Heninger and Tom Lord.</p>
 <h1 id="rfc.authors"><a href="#rfc.authors">Authors' Addresses</a></h1>
 <div class="avoidbreak">
