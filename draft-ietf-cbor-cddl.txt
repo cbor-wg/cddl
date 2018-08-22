@@ -2638,10 +2638,12 @@ Internet-Draft                    CDDL                       August 2018
    be used as a type if "b" is a type, or as a group both when "b" is a
    group and when "b" is a type (a good convention to make the latter
    case stand out to the human reader is to write "a = (b,)").  (Note
-   also that it may not be clear immediately either whether "b" stands
-   for a group or a type -- this semantic processing may need to span
-   several levels of rule definitions before a determination can be
-   made.)
+   that the same dual meaning of parentheses applies within an
+   expression, but often can be resolved by the context of the
+   parenthesized expression.  On the more general point, it may not be
+   clear immediately either whether "b" stands for a group or a type --
+   this semantic processing may need to span several levels of rule
+   definitions before a determination can be made.)
 
    assignt = "=" / "/="
    assigng = "=" / "//="
@@ -2678,9 +2680,7 @@ Internet-Draft                    CDDL                       August 2018
 
    type2 = value
 
-   A type can be just a single value (such as 1 or "icecream" or
-   h'0815'), which matches only a data item with that specific value (no
-   conversions defined),
+
 
 
 
@@ -2689,6 +2689,10 @@ Birkholz, et al.        Expires February 22, 2019              [Page 48]
 
 Internet-Draft                    CDDL                       August 2018
 
+
+   A type can be just a single value (such as 1 or "icecream" or
+   h'0815'), which matches only a data item with that specific value (no
+   conversions defined),
 
          / typename [genericarg]
 
@@ -2735,16 +2739,16 @@ Internet-Draft                    CDDL                       August 2018
 
          / "#"                                 ; any
 
-   any data item.
-
-   rangeop = "..." / ".."
-
 
 
 Birkholz, et al.        Expires February 22, 2019              [Page 49]
 
 Internet-Draft                    CDDL                       August 2018
 
+
+   any data item.
+
+   rangeop = "..." / ".."
 
    A range operator can be used to join two type expressions that stand
    for either two integer values or two floating point values; it
@@ -2788,12 +2792,8 @@ Internet-Draft                    CDDL                       August 2018
    from a parenthesized group, again with a possible occurrence
    indicator.
 
-   memberkey = type1 S ["^" S] "=>"
-             / bareword S ":"
-             / value S ":"
 
-   Key types can be given by a type expression, a bareword (which stands
-   for a type that just contains a string value created from this
+
 
 
 
@@ -2802,6 +2802,12 @@ Birkholz, et al.        Expires February 22, 2019              [Page 50]
 Internet-Draft                    CDDL                       August 2018
 
 
+   memberkey = type1 S ["^" S] "=>"
+             / bareword S ":"
+             / value S ":"
+
+   Key types can be given by a type expression, a bareword (which stands
+   for a type that just contains a string value created from this
    bareword), or a value (which stands for a type that just contains
    this value).  A key value matches its key type if the key value is a
    member of the key type, unless a cut preceding it in the group
@@ -2838,12 +2844,6 @@ Appendix D.  Standard Prelude
    The following prelude is automatically added to each CDDL file.
    (Note that technically, it is a postlude, as it does not disturb the
    selection of the first rule as the root of the definition.)
-
-
-
-
-
-
 
 
 
