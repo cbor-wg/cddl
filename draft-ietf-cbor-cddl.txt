@@ -2623,9 +2623,9 @@ Appendix C.  Matching rules
    A rule defines a name for a type expression (production "type") or
    for a group expression (production "grpent"), with the intention that
    the semantics does not change when the name is replaced by its
-   (parenthesized if needed) definition.
-
-
+   (parenthesized if needed) definition.  Note that whether the name
+   defined by a rule stands for a type or a group isn't always
+   determined by syntax alone: e.g., "a = b" can make "a" a type if "b"
 
 
 
@@ -2633,6 +2633,15 @@ Birkholz, et al.        Expires February 22, 2019              [Page 47]
 
 Internet-Draft                    CDDL                       August 2018
 
+
+   is one, or a group if "b" is one.  More subtly, in "a = (b)", "a" may
+   be used as a type if "b" is a type, or as a group both when "b" is a
+   group and when "b" is a type (a good convention to make the latter
+   case stand out to the human reader is to write "a = (b,)").  (Note
+   also that it may not be clear immediately either whether "b" stands
+   for a group or a type -- this semantic processing may need to span
+   several levels of rule definitions before a determination can be
+   made.)
 
    assignt = "=" / "/="
    assigng = "=" / "//="
@@ -2673,15 +2682,6 @@ Internet-Draft                    CDDL                       August 2018
    h'0815'), which matches only a data item with that specific value (no
    conversions defined),
 
-         / typename [genericarg]
-
-   or be defined by a rule giving a meaning to a name (possibly after
-   supplying generic arguments as required by the generic parameters),
-
-         / "(" type ")"
-
-   or be defined in a parenthesized type expression (parentheses may be
-   necessary to override some operator precedence), or
 
 
 
@@ -2690,24 +2690,15 @@ Birkholz, et al.        Expires February 22, 2019              [Page 48]
 Internet-Draft                    CDDL                       August 2018
 
 
-         / "~" S typename [genericarg]
+         / typename [genericarg]
 
-   an "unwrapped" group (see Section 3.7), which matches the group
-   inside a type defined as a map or an array by wrapping the group, or
+   or be defined by a rule giving a meaning to a name (possibly after
+   supplying generic arguments as required by the generic parameters),
 
-         / "#" "6" ["." uint] "(" S type S ")" ; note no space!
+         / "(" S type S ")"
 
-   a tagged data item, tagged with the "uint" given and containing the
-   type given as the tagged value, or
-
-         / "#" DIGIT ["." uint]                ; major/ai
-
-   a data item of a major type (given by the DIGIT), optionally
-   constrained to the additional information given by the uint, or
-
-         / "#"                                 ; any
-
-   any data item, or
+   or be defined in a parenthesized type expression (parentheses may be
+   necessary to override some operator precedence), or
 
          / "{" S group S "}"
 
@@ -2721,13 +2712,39 @@ Internet-Draft                    CDDL                       August 2018
    which, when taken as values and complemented by a wildcard (matches
    anything) key each, match the group, or
 
+         / "~" S typename [genericarg]
+
+   an "unwrapped" group (see Section 3.7), which matches the group
+   inside a type defined as a map or an array by wrapping the group, or
+
          / "&" S "(" S group S ")"
          / "&" S groupname [genericarg]
 
    an enumeration expression, which matches any a value that is within
-   the set of values that the values of the group given can take.
+   the set of values that the values of the group given can take, or
+
+         / "#" "6" ["." uint] "(" S type S ")" ; note no space!
+
+   a tagged data item, tagged with the "uint" given and containing the
+   type given as the tagged value, or
+
+         / "#" DIGIT ["." uint]                ; major/ai
+
+   a data item of a major type (given by the DIGIT), optionally
+   constrained to the additional information given by the uint, or
+
+         / "#"                                 ; any
+
+   any data item.
 
    rangeop = "..." / ".."
+
+
+
+Birkholz, et al.        Expires February 22, 2019              [Page 49]
+
+Internet-Draft                    CDDL                       August 2018
+
 
    A range operator can be used to join two type expressions that stand
    for either two integer values or two floating point values; it
@@ -2736,15 +2753,6 @@ Internet-Draft                    CDDL                       August 2018
    included for ".." and excluded for "...".
 
    ctlop = "." id
-
-
-
-
-
-Birkholz, et al.        Expires February 22, 2019              [Page 49]
-
-Internet-Draft                    CDDL                       August 2018
-
 
    A control operator ties a _target_ type to a _controller_ type as
    defined in Section 3.8.  Note that control operators are an extension
@@ -2786,14 +2794,6 @@ Internet-Draft                    CDDL                       August 2018
 
    Key types can be given by a type expression, a bareword (which stands
    for a type that just contains a string value created from this
-   bareword), or a value (which stands for a type that just contains
-   this value).  A key value matches its key type if the key value is a
-   member of the key type, unless a cut preceding it in the group
-   applies (see Section 3.5.4 how map matching is influenced by the
-   presence of the cuts denoted by "^" or ":" in previous entries).
-
-   bareword = id
-
 
 
 
@@ -2801,6 +2801,14 @@ Birkholz, et al.        Expires February 22, 2019              [Page 50]
 
 Internet-Draft                    CDDL                       August 2018
 
+
+   bareword), or a value (which stands for a type that just contains
+   this value).  A key value matches its key type if the key value is a
+   member of the key type, unless a cut preceding it in the group
+   applies (see Section 3.5.4 how map matching is influenced by the
+   presence of the cuts denoted by "^" or ":" in previous entries).
+
+   bareword = id
 
    A bareword is an alternative way to write a type with a single text
    string value; it can only be used in the syntactic context given
@@ -2830,14 +2838,6 @@ Appendix D.  Standard Prelude
    The following prelude is automatically added to each CDDL file.
    (Note that technically, it is a postlude, as it does not disturb the
    selection of the first rule as the root of the definition.)
-
-
-
-
-
-
-
-
 
 
 

@@ -2028,7 +2028,7 @@ rule = typename [genericparm] S assignt S type S
 typename = id
 groupname = id
 </pre>
-<p id="rfc.section.C.p.4">A rule defines a name for a type expression (production <samp>type</samp>) or for a group expression (production <samp>grpent</samp>), with the intention that the semantics does not change when the name is replaced by its (parenthesized if needed) definition.</p>
+<p id="rfc.section.C.p.4">A rule defines a name for a type expression (production <samp>type</samp>) or for a group expression (production <samp>grpent</samp>), with the intention that the semantics does not change when the name is replaced by its (parenthesized if needed) definition.  Note that whether the name defined by a rule stands for a type or a group isn&#8217;t always determined by syntax alone: e.g., <samp>a = b</samp> can make <samp>a</samp> a type if <samp>b</samp> is one, or a group if <samp>b</samp> is one.  More subtly, in <samp>a = (b)</samp>, <samp>a</samp> may be used as a type if <samp>b</samp> is a type, or as a group both when <samp>b</samp> is a group and when <samp>b</samp> is a type (a good convention to make the latter case stand out to the human reader is to write <samp>a = (b,)</samp>).  (Note also that it may not be clear immediately either whether <samp>b</samp> stands for a group or a type &#8212; this semantic processing may need to span several levels of rule definitions before a determination can be made.)</p>
 <pre>
 assignt = "=" / "/="
 assigng = "=" / "//="
@@ -2056,38 +2056,38 @@ type2 = value
 </pre>
 <p id="rfc.section.C.p.10">or be defined by a rule giving a meaning to a name (possibly after supplying generic arguments as required by the generic parameters),</p>
 <pre>
-      / "(" type ")"
+      / "(" S type S ")"
 </pre>
 <p id="rfc.section.C.p.11">or be defined in a parenthesized type expression (parentheses may be necessary to override some operator precedence), or</p>
 <pre>
-      / "~" S typename [genericarg]
-</pre>
-<p id="rfc.section.C.p.12">an &#8220;unwrapped&#8221; group (see <a href="#unwrapping" class="xref">Section 3.7</a>), which matches the group inside a type defined as a map or an array by wrapping the group, or</p>
-<pre>
-      / "#" "6" ["." uint] "(" S type S ")" ; note no space!
-</pre>
-<p id="rfc.section.C.p.13">a tagged data item, tagged with the <samp>uint</samp> given and containing the type given as the tagged value, or</p>
-<pre>
-      / "#" DIGIT ["." uint]                ; major/ai
-</pre>
-<p id="rfc.section.C.p.14">a data item of a major type (given by the DIGIT), optionally constrained to the additional information given by the uint, or</p>
-<pre>
-      / "#"                                 ; any
-</pre>
-<p id="rfc.section.C.p.15">any data item, or</p>
-<pre>
       / "{" S group S "}"
 </pre>
-<p id="rfc.section.C.p.16">a map expression, which matches a valid CBOR map the key/value pairs of which can be ordered in such a way that the resulting sequence matches the group expression, or</p>
+<p id="rfc.section.C.p.12">a map expression, which matches a valid CBOR map the key/value pairs of which can be ordered in such a way that the resulting sequence matches the group expression, or</p>
 <pre>
       / "[" S group S "]"
 </pre>
-<p id="rfc.section.C.p.17">an array expression, which matches a CBOR array the elements of which, when taken as values and complemented by a wildcard (matches anything) key each, match the group, or</p>
+<p id="rfc.section.C.p.13">an array expression, which matches a CBOR array the elements of which, when taken as values and complemented by a wildcard (matches anything) key each, match the group, or</p>
+<pre>
+      / "~" S typename [genericarg]
+</pre>
+<p id="rfc.section.C.p.14">an &#8220;unwrapped&#8221; group (see <a href="#unwrapping" class="xref">Section 3.7</a>), which matches the group inside a type defined as a map or an array by wrapping the group, or</p>
 <pre>
       / "&amp;" S "(" S group S ")"
       / "&amp;" S groupname [genericarg]
 </pre>
-<p id="rfc.section.C.p.18">an enumeration expression, which matches any a value that is within the set of values that the values of the group given can take.</p>
+<p id="rfc.section.C.p.15">an enumeration expression, which matches any a value that is within the set of values that the values of the group given can take, or</p>
+<pre>
+      / "#" "6" ["." uint] "(" S type S ")" ; note no space!
+</pre>
+<p id="rfc.section.C.p.16">a tagged data item, tagged with the <samp>uint</samp> given and containing the type given as the tagged value, or</p>
+<pre>
+      / "#" DIGIT ["." uint]                ; major/ai
+</pre>
+<p id="rfc.section.C.p.17">a data item of a major type (given by the DIGIT), optionally constrained to the additional information given by the uint, or</p>
+<pre>
+      / "#"                                 ; any
+</pre>
+<p id="rfc.section.C.p.18">any data item.</p>
 <pre>
 rangeop = "..." / ".."
 </pre>
