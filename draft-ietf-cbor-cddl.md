@@ -41,7 +41,6 @@ author:
   phone: +49-421-218-63921
   email: cabo@tzi.org
 normative:
-  RFC2119: bcp14
   RFC3629: utf8
   RFC5234: abnf
   RFC7049: cbor
@@ -132,10 +131,7 @@ CBOR specification is listed in {{prelude}}.
 
 ## Requirements notation
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-"SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-"OPTIONAL" in this document are to be interpreted as described in RFC
-2119, BCP 14 {{RFC2119}}.
+{::boilerplate bcp14}
 
 ## Terminology
 
