@@ -2045,11 +2045,28 @@ or be defined by a rule giving a meaning to a name (possibly after
 supplying generic arguments as required by the generic parameters),
 
 ~~~ abnf
-      / "(" type ")"
+      / "(" S type S ")"
 ~~~
 
 or be defined in a parenthesized type expression (parentheses may be
 necessary to override some operator precedence), or
+
+~~~ abnf
+      / "{" S group S "}"
+~~~
+
+a map expression, which matches a valid CBOR map the key/value pairs
+of which can be ordered in such a way that the resulting sequence
+matches the group expression, or
+
+~~~ abnf
+      / "[" S group S "]"
+~~~
+
+an array expression, which matches a CBOR array the elements of which,
+when taken as values and complemented by a wildcard (matches anything)
+key each, match the group, or
+
 
 ~~~ abnf
       / "~" S typename [genericarg]
@@ -2057,6 +2074,14 @@ necessary to override some operator precedence), or
 
 an "unwrapped" group (see {{unwrapping}}), which matches the group
 inside a type defined as a map or an array by wrapping the group, or
+
+~~~ abnf
+      / "&" S "(" S group S ")"
+      / "&" S groupname [genericarg]
+~~~
+
+an enumeration expression, which matches any a value that is within
+the set of values that the values of the group given can take, or
 
 ~~~ abnf
       / "#" "6" ["." uint] "(" S type S ")" ; note no space!
@@ -2076,31 +2101,7 @@ constrained to the additional information given by the uint, or
       / "#"                                 ; any
 ~~~
 
-any data item, or
-
-~~~ abnf
-      / "{" S group S "}"
-~~~
-
-a map expression, which matches a valid CBOR map the key/value pairs
-of which can be ordered in such a way that the resulting sequence
-matches the group expression, or
-
-~~~ abnf
-      / "[" S group S "]"
-~~~
-
-an array expression, which matches a CBOR array the elements of which,
-when taken as values and complemented by a wildcard (matches anything)
-key each, match the group, or
-
-~~~ abnf
-      / "&" S "(" S group S ")"
-      / "&" S groupname [genericarg]
-~~~
-
-an enumeration expression, which matches any a value that is within
-the set of values that the values of the group given can take.
+any data item.
 
 ~~~ abnf
 rangeop = "..." / ".."
