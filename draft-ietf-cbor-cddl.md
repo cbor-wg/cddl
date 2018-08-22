@@ -505,7 +505,7 @@ extended-color = &(
 ~~~~
 {:cddl}
 
-As with the use of groups in arrays ({{arrays}}), the membernames have
+As with the use of groups in arrays ({{arrays}}), the member names have
 only documentary value (in particular, they might be used by a tool
 when displaying integers that are taken from that choice).
 
@@ -832,7 +832,7 @@ This is actually a complete example: an identifier that is followed by a
 colon can be directly used as the text string for a member key (we speak of a
 "bareword" member key), as can a double-quoted string or a number.
 (When other types, in particular multi-valued ones, are used as
-keytypes, they are followed by a double arrow, see below.)
+the types of keys, they are followed by a double arrow, see below.)
 
 If a text string key does not match the syntax for an identifier (or
 if the specifier just happens to prefer using double quotes), the text
@@ -1405,7 +1405,7 @@ speed = number .ge 0  ; unit: m/s
 .ne and .eq are defined both for numeric values and values of other types.
 If one of the values is not of a numeric type, equality is determined as follows:
 Text strings are equal (satisfy .eq/do not satisfy .ne) if
-they are bytewise identical; the same applies for byte strings.
+they are byte-wise identical; the same applies for byte strings.
 Arrays are equal if they have the same number
 of elements, all of which are equal pairwise in order between the arrays.
 Maps are equal if they have the same number of key/value pairs, and there
@@ -1616,7 +1616,7 @@ for unary prefix operators and 2 for binary infix operators.)
 | /        |  2 | type / type               |    6 |
 | ..       |  2 | type..type                |    7 |
 | ...      |  2 | type...type               |    7 |
-| .anno    |  2 | type .anno type           |    7 |
+| .ctrl    |  2 | type .ctrl type           |    7 |
 | &        |  1 | &group                    |    8 |
 | ~        |  1 | ~type                     |    8 |
 {: #prec cols="c r l r" title="Summary of operator precedences"}
@@ -2042,14 +2042,14 @@ conversions defined),
 ~~~
 
 or be defined by a rule giving a meaning to a name (possibly after
-supplying generic args as required by the generic parameters),
+supplying generic arguments as required by the generic parameters),
 
 ~~~ abnf
       / "(" type ")"
 ~~~
 
 or be defined in a parenthesized type expression (parentheses may be
-necessary to override some operator precendence), or
+necessary to override some operator precedence), or
 
 ~~~ abnf
       / "~" S typename [genericarg]
@@ -2171,7 +2171,7 @@ for a type that just contains a string value created from this bareword), or a v
 for a type that just contains this value).  A key value matches its
 key type if the key value is a member of the key type, unless a cut
 preceding it in the group applies (see {{cuts-in-maps}} how map
-matching is infuenced by the presence of the cuts denoted by "^" or
+matching is influenced by the presence of the cuts denoted by "^" or
 ":" in previous entries).
 
 ~~~ abnf
@@ -2579,7 +2579,7 @@ slashes for comments, but we also could go e.g. for "#".)
  -->
 <!--  LocalWords:  bareword barewords UTF bool IEEE reputon analysis
  -->
-<!--  LocalWords:  wildcard validator IANA
+<!--  LocalWords:  wildcard validator IANA implementers prepended JCR
  -->
 
 
@@ -2599,6 +2599,7 @@ from Andrew Lee Newton's ["JSON Content Rules"](#I-D.newton-json-content-rules).
 
 Lots of highly useful feedback came from members of the IETF CBOR WG,
 in particular
+Ari Keränen,
 Brian Carpenter,
 Burt Harris,
 Jeffrey Yasskin,
@@ -2618,3 +2619,5 @@ feedback; with Barry Leiba having taken over from Joe since.
 The CDDL tool was written by Carsten Bormann, building on previous
 work by Troy Heninger and Tom Lord.
 
+<!--  LocalWords:  representable precedences Arities unary Naur
+ -->
