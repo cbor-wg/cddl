@@ -1992,7 +1992,10 @@ by syntax alone: e.g., `a = b` can make `a` a type if `b` is one, or a
 group if `b` is one.  More subtly, in `a = (b)`, `a` may be used as a
 type if `b` is a type, or as a group both when `b` is a group and when
 `b` is a type (a good convention to make the latter case stand out to
-the human reader is to write `a = (b,)`).  (Note also that it may not
+the human reader is to write `a = (b,)`).  (Note that the same dual
+meaning of parentheses applies within an expression, but often can be
+resolved by the context of the parenthesized expression.  On the more
+general point, it may not
 be clear immediately either whether `b` stands for a group or a type —
 this semantic processing may need to span several levels of rule
 definitions before a determination can be made.)
