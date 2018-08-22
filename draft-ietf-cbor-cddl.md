@@ -100,17 +100,19 @@ be used when defining protocols that use CBOR.  We term the convention
 The CBOR notational convention has the following goals:
 
 {: style="format (G%d)"}
-* Provide an unambiguous description of the overall structure of a CBOR data structure.
+* Provide an unambiguous description of the overall structure of a CBOR data item.
 
-* Flexibility to express the freedoms of choice in the CBOR data format.
+* Be flexible in expressing the multiple ways in which data can be
+  represented in the CBOR data format.
 
 * Able to express common CBOR datatypes and structures.
 
-* Human and machine readable and processable.
+* Provide a single format that is both readable and editable for
+  humans and processable by machine.
 
-* Automatic checking of data format compliance.
+* Enable automatic checking of CBOR data items for data format compliance.
 
-* Extraction of specific elements from CBOR data for further processing.
+* Enable extraction of specific elements from CBOR data for further processing.
 
 Not an original goal per se, but a convenient side effect of the JSON
 generic data model being a subset of the CBOR generic data model, is
