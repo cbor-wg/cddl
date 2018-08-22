@@ -1962,10 +1962,18 @@ A CDDL specification is a sequence of one or more rules.  Each rule
 gives a name to a right hand side expression, either a CDDL type or a
 CDDL group.  Rule names can be used in the rule itself and/or other
 rules (and tools can output warnings if that is not the case).  The
-order of the rules is significant only in two cases, including the
-following: The first rule defines the semantics of the entire
-specification; hence, its name may be descriptive only (or may be used
-in itself or other rules as with the other rule names).
+order of the rules is significant only in two cases:
+
+1. The first rule defines the semantics of the entire specification;
+   hence, there is no need to give that root rule a special name or
+   special syntax in the language (as, e.g., with "start" in
+   Relax-NG); its name can be therefore chosen to be descriptive.
+   (As with all other rule names, the name of the initial rule may be
+   used in itself or in other rules).
+
+2. Where a rule contributes to a type or group choice (using `/=` or
+   `//=`), that choice is populated in the order the rules are given;
+   see below.
 
 ~~~ abnf
 rule = typename [genericparm] S assignt S type S
@@ -1993,8 +2001,7 @@ type choice or a group choice built from the right hand sides in the
 order of the rules given.  (It is
 not an error to extend a rule name that has not yet been defined; this
 makes the right hand side the first entry in the choice being
-created.)  The creation of the type choices and group choices from the
-right hand sides of rules is the other case where rule order can be significant.
+created.)
 
 ~~~ abnf
 genericparm = "<" S id S *("," S id S ) ">"
