@@ -14,7 +14,7 @@ title: >
 abbrev: CDDL
 area: Applications
 wg: CBOR
-date: 2018-08-21
+date: 2018-11-07
 author:
 - ins: H. Birkholz
   name: Henk Birkholz
@@ -41,6 +41,7 @@ author:
   phone: +49-421-218-63921
   email: cabo@tzi.org
 normative:
+  RFC3552: secconssec
   RFC3629: utf8
   RFC5234: abnf
   RFC7049: cbor
@@ -2227,11 +2228,16 @@ This document presents a content rules language for expressing CBOR data
 structures.
 As such,
 it does not bring any security issues on itself,
-although specification of protocols that use CBOR naturally need security
-analysis when defined.
+although specifications of protocols that use CBOR naturally need security
+analyses when defined.
+General guidelines for writing security considerations are defined in
 
-Topics that could be considered in a security considerations section that
-uses CDDL to define CBOR structures include the following:
+Security Considerations Guidelines {{-secconssec}} (BCP 72).
+Specifications using CDDL to define CBOR structures in protocols need to
+follow those guidelines.
+Additional topics that could be considered in a security
+considerations section for a specification that uses CDDL to define
+CBOR structures include the following:
 
 * Where could the language maybe cause confusion in a way that will
   enable security issues?
@@ -2628,9 +2634,12 @@ Yaron Sheffer.
 Also, Francesca Palombini and Joe volunteered to chair the WG when it
 was created, providing the framework for generating and processing this
 feedback; with Barry Leiba having taken over from Joe since.
+Chris Lonvick and Ines Robles provided additional reviews during IESG
+processing, and Alexey Melnikov steered the process as the responsible
+area director.
 
-The CDDL tool was written by Carsten Bormann, building on previous
-work by Troy Heninger and Tom Lord.
+The CDDL tool reported on in {{tool}} was written by Carsten Bormann,
+building on previous work by Troy Heninger and Tom Lord.
 
 <!--  LocalWords:  representable precedences Arities unary Naur
  -->
