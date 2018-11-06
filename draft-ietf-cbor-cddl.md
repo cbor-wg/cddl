@@ -2385,7 +2385,8 @@ this means that integers can only be expressed with interoperable
 exactness when they lie in the range \[-(2\*\*53)+1, (2\*\*53)-1] --- a
 smaller range than that covered by CDDL `int`.
 
-JSON applications that want to stay compatible with I-JSON therefore
+JSON applications that want to stay compatible with I-JSON ({{-i-json}},
+"Internet JSON") therefore
 may want to define integer types with more limited ranges, such as in
 {{fig-json-types}}.  Note that the types given here are not part of
 the prelude; they need to be copied into the CDDL specification if
