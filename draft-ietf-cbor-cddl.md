@@ -480,9 +480,15 @@ numeric-range = int-range / float-range
 (See also the control operators .lt/.ge and .le/.gt in {{fortran}}.)
 
 Note that the dot is a valid name continuation character in CDDL, so
-`min..max` is not a range expression but a single name.  When using a
-name as the left hand side of a range operator, use spacing as in `min .. max` to separate
-off the range operator.
+
+>    min..max
+
+is not a range expression but a single name.  When using a
+name as the left hand side of a range operator, use spacing as in
+
+>    min .. max
+
+to separate off the range operator.
 
 #### Turning a group into a choice
 
