@@ -339,12 +339,12 @@ address {
 <link href="#rfc.authors" rel="Chapter">
 
 
-  <meta name="generator" content="xml2rfc version 2.10.0 - https://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.12.3 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Birkholz, H., Vigano, C., and C. Bormann" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-cbor-cddl-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2018-08-21" />
+  <meta name="dct.issued" scheme="ISO8601" content="2018-11-07" />
   <meta name="dct.abstract" content="This document proposes a notational convention to express CBOR data structures (RFC 7049).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR or JSON." />
   <meta name="description" content="This document proposes a notational convention to express CBOR data structures (RFC 7049).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR or JSON." />
 
@@ -368,7 +368,7 @@ address {
 <td class="right">C. Vigano</td>
 </tr>
 <tr>
-<td class="left">Expires: February 22, 2019</td>
+<td class="left">Expires: May 11, 2019</td>
 <td class="right">Universit&#228;t Bremen</td>
 </tr>
 <tr>
@@ -381,7 +381,7 @@ address {
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">August 21, 2018</td>
+<td class="right">November 07, 2018</td>
 </tr>
 
     	
@@ -397,7 +397,7 @@ address {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on February 22, 2019.</p>
+<p>This Internet-Draft will expire on May 11, 2019.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2018 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -1503,8 +1503,8 @@ a = 1 b = 2 c = 3
 <h1 id="rfc.section.5">
 <a href="#rfc.section.5">5.</a> <a href="#security-considerations" id="security-considerations">Security considerations</a>
 </h1>
-<p id="rfc.section.5.p.1">This document presents a content rules language for expressing CBOR data structures.  As such, it does not bring any security issues on itself, although specification of protocols that use CBOR naturally need security analysis when defined.</p>
-<p id="rfc.section.5.p.2">Topics that could be considered in a security considerations section that uses CDDL to define CBOR structures include the following:</p>
+<p id="rfc.section.5.p.1">This document presents a content rules language for expressing CBOR data structures.  As such, it does not bring any security issues on itself, although specifications of protocols that use CBOR naturally need security analyses when defined.  General guidelines for writing security considerations are defined in</p>
+<p id="rfc.section.5.p.2">Security Considerations Guidelines <a href="#RFC3552" class="xref">[RFC3552]</a> (BCP 72).  Specifications using CDDL to define CBOR structures in protocols need to follow those guidelines.  Additional topics that could be considered in a security considerations section for a specification that uses CDDL to define CBOR structures include the following:</p>
 <p></p>
 
 <ul>
@@ -1603,6 +1603,11 @@ a = 1 b = 2 c = 3
 <td class="reference"><b id="RFC2119">[RFC2119]</b></td>
 <td class="top">
 <a>Bradner, S.</a>, "<a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC3552">[RFC3552]</b></td>
+<td class="top">
+<a>Rescorla, E.</a> and <a>B. Korver</a>, "<a href="https://tools.ietf.org/html/rfc3552">Guidelines for Writing RFC Text on Security Considerations</a>", BCP 72, RFC 3552, DOI 10.17487/RFC3552, July 2003.</td>
 </tr>
 <tr>
 <td class="reference"><b id="RFC3629">[RFC3629]</b></td>
@@ -2372,8 +2377,8 @@ h'68 65 6c /doubled l!/ 6c 6f /hello/
 <p id="rfc.section.H.p.1">CDDL was originally conceived by Bert Greevenbosch, who also wrote the original five versions of this document.</p>
 <h1 id="rfc.acknowledgements"><a href="#rfc.acknowledgements">Acknowledgements</a></h1>
 <p id="rfc.section.I.p.1">Inspiration was taken from the C and Pascal languages, MPEG&#8217;s conventions for describing structures in the ISO base media file format, Relax-NG and its compact syntax <a href="#RELAXNG" class="xref">[RELAXNG]</a>, and in particular from Andrew Lee Newton&#8217;s <a href="#I-D.newton-json-content-rules" class="xref">&#8220;JSON Content Rules&#8221;</a>.</p>
-<p id="rfc.section.I.p.2">Lots of highly useful feedback came from members of the IETF CBOR WG, in particular Ari Ker&#228;nen, Brian Carpenter, Burt Harris, Jeffrey Yasskin, Jim Hague, Jim Schaad, Joe Hildebrand, Max Pritikin, Michael Richardson, Pete Cordell, Sean Leonard, and Yaron Sheffer.  Also, Francesca Palombini and Joe volunteered to chair the WG when it was created, providing the framework for generating and processing this feedback; with Barry Leiba having taken over from Joe since.</p>
-<p id="rfc.section.I.p.3">The CDDL tool was written by Carsten Bormann, building on previous work by Troy Heninger and Tom Lord.</p>
+<p id="rfc.section.I.p.2">Lots of highly useful feedback came from members of the IETF CBOR WG, in particular Ari Ker&#228;nen, Brian Carpenter, Burt Harris, Jeffrey Yasskin, Jim Hague, Jim Schaad, Joe Hildebrand, Max Pritikin, Michael Richardson, Pete Cordell, Sean Leonard, and Yaron Sheffer.  Also, Francesca Palombini and Joe volunteered to chair the WG when it was created, providing the framework for generating and processing this feedback; with Barry Leiba having taken over from Joe since.  Chris Lonvick and Ines Robles provided additional reviews during IESG processing, and Alexey Melnikov steered the process as the responsible area director.</p>
+<p id="rfc.section.I.p.3">The CDDL tool reported on in <a href="#tool" class="xref">Appendix F</a> was written by Carsten Bormann, building on previous work by Troy Heninger and Tom Lord.</p>
 <h1 id="rfc.authors"><a href="#rfc.authors">Authors' Addresses</a></h1>
 <div class="avoidbreak">
   <address class="vcard">
