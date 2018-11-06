@@ -83,7 +83,7 @@ informative:
 
 
 This document proposes a notational convention to express CBOR data
-structures (RFC 7049).
+structures (RFC 7049, Concise Binary Object Representation).
 Its main goal is to provide an easy and unambiguous way to express structures
 for protocol messages and data formats that use CBOR or JSON.
 
