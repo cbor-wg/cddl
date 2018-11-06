@@ -1962,7 +1962,7 @@ to parts of specifications (type and group expressions) and parts of
 instances (data items).
 
 ~~~ abnf
-cddl = S 1*rule
+cddl = S 1*(rule S)
 ~~~
 
 A CDDL specification is a sequence of one or more rules.  Each rule
@@ -1983,8 +1983,8 @@ order of the rules is significant only in two cases:
    see below.
 
 ~~~ abnf
-rule = typename [genericparm] S assignt S type S
-     / groupname [genericparm] S assigng S grpent S
+rule = typename [genericparm] S assignt S type
+     / groupname [genericparm] S assigng S grpent
 
 typename = id
 groupname = id
@@ -2032,7 +2032,7 @@ assignments within the right hand sides to the parameter names from
 the arguments given when citing the rule name.
 
 ~~~ abnf
-type = type1 S *("/" S type1 S)
+type = type1 *(S "/" S type1)
 ~~~
 
 A type can be given as a choice between one or more types.  The choice
@@ -2142,14 +2142,14 @@ point for CDDL; additional documents may want to define additional
 control operators.
 
 ~~~ abnf
-group = grpchoice S *("//" S grpchoice S)
+group = grpchoice *(S "//" S grpchoice)
 ~~~
 
 A group matches any sequence of key/value pairs that matches any of
 the choices given (again using Parsing Expression Grammar semantics).
 
 ~~~ abnf
-grpchoice = *grpent
+grpchoice = *(grpent optcom)
 ~~~
 
 Each of the component groups is given as a sequence of group entries.
@@ -2157,7 +2157,7 @@ For a match, the sequence of key/value pairs given needs to match the sequence o
 group entries in the sequence given.
 
 ~~~ abnf
-grpent = [occur S] [memberkey S] type optcom
+grpent = [occur S] [memberkey S] type
 ~~~
 
 A group entry can be given by a value type, which needs to be matched by
@@ -2169,13 +2169,13 @@ arrays, not for maps.
 (See below how that is modified by the occurrence indicator.)
 
 ~~~ abnf
-       / [occur S] groupname [genericarg] optcom ; preempted by above
+       / [occur S] groupname [genericarg]  ; preempted by above
 ~~~
 
 A group entry can be built from a named group, or
 
 ~~~ abnf
-       / [occur S] "(" S group S ")" optcom
+       / [occur S] "(" S group S ")"
 ~~~
 
 from a parenthesized group, again with a possible occurrence indicator.
