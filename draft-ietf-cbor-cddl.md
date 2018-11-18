@@ -519,7 +519,7 @@ when displaying integers that are taken from that choice).
 ### Representation Types
 
 CDDL allows the specification of a data item type by referring to the
-CBOR representation (major and minor numbers).  How this is used
+CBOR representation (major types and additional information, Section 2 of {{-cbor}}).  How this is used
 should be evident from the prelude ({{prelude}}): a hash mark (`#`)
 optionally followed by a number from 0 to 7 identifying the major
 type, which then can be followed by a dot and a number specifying the
@@ -567,11 +567,7 @@ however, except for the root type, there is no need to strictly follow
 this sequence.
 
 (Note that there is no way to use a group as a root -- it must be a
-type.
-Using a group as the root might be employed as a way to specify a CBOR
-sequence in a future version of this specification; this would act as
-if that group is used in an array and the data items in that fictional
-array form the members of the CBOR sequence.)
+type.)
 
 # Syntax {#syntax}
 
@@ -1279,7 +1275,7 @@ nai = tstr .regexp "[A-Za-z0-9]+@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)+"
 ~~~~
 {:cddl #control-regexp title="Control with an XSD regexp"}
 
-The CDDL tool proposes:
+An example matching this regular expression:
 
 ~~~~ CBORdiag
 "N1@CH57HF.4Znqe0.dYJRN.igjf"
@@ -1301,8 +1297,8 @@ XSD regular expressions support character class subtraction, a feature
 often not found in regular expression libraries; specification writers
 may want to use this feature sparingly.
 Similar considerations apply to Unicode character classes; where these
-are used, the specification SHOULD identify which Unicode versions are
-addressed.
+are used, the specification that employs CDDL SHOULD identify which
+Unicode versions are addressed.
 
 Other surprises for infrequent users of XSD regular expressions may
 include:
