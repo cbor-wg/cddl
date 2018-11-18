@@ -339,14 +339,14 @@ address {
 <link href="#rfc.authors" rel="Chapter">
 
 
-  <meta name="generator" content="xml2rfc version 2.12.3 - https://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.13.1 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Birkholz, H., Vigano, C., and C. Bormann" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-cbor-cddl-latest" />
   <meta name="dct.issued" scheme="ISO8601" content="2018-11-07" />
-  <meta name="dct.abstract" content="This document proposes a notational convention to express CBOR data structures (RFC 7049).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR or JSON." />
-  <meta name="description" content="This document proposes a notational convention to express CBOR data structures (RFC 7049).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR or JSON." />
+  <meta name="dct.abstract" content="This document proposes a notational convention to express CBOR data structures (RFC 7049, Concise Binary Object Representation).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR or JSON." />
+  <meta name="description" content="This document proposes a notational convention to express CBOR data structures (RFC 7049, Concise Binary Object Representation).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR or JSON." />
 
 </head>
 
@@ -392,7 +392,7 @@ address {
   <span class="filename">draft-ietf-cbor-cddl-latest</span></p>
   
   <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
-<p>This document proposes a notational convention to express CBOR data structures (RFC 7049).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR or JSON.</p>
+<p>This document proposes a notational convention to express CBOR data structures (RFC 7049, Concise Binary Object Representation).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR or JSON.</p>
 <h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
@@ -758,7 +758,15 @@ BAD-range2 = 0.0..10 ; NOT DEFINED
 numeric-range = int-range / float-range
 </pre>
 <p id="rfc.section.2.2.2.1.p.3">(See also the control operators .lt/.ge and .le/.gt in <a href="#fortran" class="xref">Section 3.8.6</a>.)</p>
-<p id="rfc.section.2.2.2.1.p.4">Note that the dot is a valid name continuation character in CDDL, so <samp>min..max</samp> is not a range expression but a single name.  When using a name as the left hand side of a range operator, use spacing as in <samp>min&#160;..&#160;max</samp> to separate off the range operator.</p>
+<p id="rfc.section.2.2.2.1.p.4">Note that the dot is a valid name continuation character in CDDL, so</p>
+<p></p>
+
+<ul class="empty"><li>min..max</li></ul>
+<p id="rfc.section.2.2.2.1.p.6">is not a range expression but a single name.  When using a name as the left hand side of a range operator, use spacing as in</p>
+<p></p>
+
+<ul class="empty"><li>min&#160;..&#160;max</li></ul>
+<p id="rfc.section.2.2.2.1.p.8">to separate off the range operator.</p>
 <h1 id="rfc.section.2.2.2.2">
 <a href="#rfc.section.2.2.2.2">2.2.2.2.</a> <a href="#turning-a-group-into-a-choice" id="turning-a-group-into-a-choice">Turning a group into a choice</a>
 </h1>
@@ -778,7 +786,7 @@ extended-color = &amp;(
 <h1 id="rfc.section.2.2.3">
 <a href="#rfc.section.2.2.3">2.2.3.</a> <a href="#representation-types" id="representation-types">Representation Types</a>
 </h1>
-<p id="rfc.section.2.2.3.p.1">CDDL allows the specification of a data item type by referring to the CBOR representation (major and minor numbers).  How this is used should be evident from the prelude (<a href="#prelude" class="xref">Appendix D</a>): a hash mark (<samp>#</samp>) optionally followed by a number from 0 to 7 identifying the major type, which then can be followed by a dot and a number specifying the additional information.  This construction specifies the set of values that can be serialized in CBOR (i.e., <samp>any</samp>), by the given major type if one is given, or by the given major type with the additional information if both are given.  Where a major type of 6 (Tag) is used, the type of the tagged item can be specified by appending it in parentheses.</p>
+<p id="rfc.section.2.2.3.p.1">CDDL allows the specification of a data item type by referring to the CBOR representation (major types and additional information, Section 2 of <a href="#RFC7049" class="xref">[RFC7049]</a>).  How this is used should be evident from the prelude (<a href="#prelude" class="xref">Appendix D</a>): a hash mark (<samp>#</samp>) optionally followed by a number from 0 to 7 identifying the major type, which then can be followed by a dot and a number specifying the additional information.  This construction specifies the set of values that can be serialized in CBOR (i.e., <samp>any</samp>), by the given major type if one is given, or by the given major type with the additional information if both are given.  Where a major type of 6 (Tag) is used, the type of the tagged item can be specified by appending it in parentheses.</p>
 <p id="rfc.section.2.2.3.p.2">Note that although this notation is based on the CBOR serialization, it is about a set of values at the data model level, e.g. <samp>#7.25</samp> specifies the set of values that can be represented as half-precision floats; it does not mandate that these values also do have to be serialized as half-precision floats: CDDL does not provide any language means to restrict the choice of serialization variants.  This also enables the use of CDDL with JSON, which uses a fundamentally different way of serializing (some of) the same values.</p>
 <p id="rfc.section.2.2.3.p.3">It may be necessary to make use of representation types outside the prelude, e.g., a specification could start by making use of an existing tag in a more specific way, or define a new tag not defined in the prelude:</p>
 <pre>
@@ -796,7 +804,7 @@ solid = tstr
 </h1>
 <p id="rfc.section.2.2.4.p.1">There is no special syntax to identify the root of a CDDL data structure definition: that role is simply taken by the first rule defined in the file.</p>
 <p id="rfc.section.2.2.4.p.2">This is motivated by the usual top-down approach for defining data structures, decomposing a big data structure unit into smaller parts; however, except for the root type, there is no need to strictly follow this sequence.</p>
-<p id="rfc.section.2.2.4.p.3">(Note that there is no way to use a group as a root &#8211; it must be a type.  Using a group as the root might be employed as a way to specify a CBOR sequence in a future version of this specification; this would act as if that group is used in an array and the data items in that fictional array form the members of the CBOR sequence.)</p>
+<p id="rfc.section.2.2.4.p.3">(Note that there is no way to use a group as a root &#8211; it must be a type.)</p>
 <h1 id="rfc.section.3">
 <a href="#rfc.section.3">3.</a> <a href="#syntax" id="syntax">Syntax</a>
 </h1>
@@ -1191,7 +1199,7 @@ h'01fa' h'01fe'
 nai = tstr .regexp "[A-Za-z0-9]+@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)+"
 </pre>
 <p class="figure">Figure 11: Control with an XSD regexp</p>
-<p id="rfc.section.3.8.3.p.2">The CDDL tool proposes:</p>
+<p id="rfc.section.3.8.3.p.2">An example matching this regular expression:</p>
 <pre>
 "N1@CH57HF.4Znqe0.dYJRN.igjf"
 </pre>
@@ -1199,7 +1207,7 @@ nai = tstr .regexp "[A-Za-z0-9]+@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)+"
 <a href="#rfc.section.3.8.3.1">3.8.3.1.</a> <a href="#usage-considerations" id="usage-considerations">Usage considerations</a>
 </h1>
 <p id="rfc.section.3.8.3.1.p.1">Note that XSD regular expressions do not support the usual \x or \u escapes for hexadecimal expression of bytes or unicode code points.  However, in CDDL the XSD regular expressions are contained in text strings, the literal notation for which provides \u escapes; this should suffice for most applications that use regular expressions for text strings.  (Note that this also means that there is one level of string escaping before the XSD escaping rules are applied.)</p>
-<p id="rfc.section.3.8.3.1.p.2">XSD regular expressions support character class subtraction, a feature often not found in regular expression libraries; specification writers may want to use this feature sparingly.  Similar considerations apply to Unicode character classes; where these are used, the specification SHOULD identify which Unicode versions are addressed.</p>
+<p id="rfc.section.3.8.3.1.p.2">XSD regular expressions support character class subtraction, a feature often not found in regular expression libraries; specification writers may want to use this feature sparingly.  Similar considerations apply to Unicode character classes; where these are used, the specification that employs CDDL SHOULD identify which Unicode versions are addressed.</p>
 <p id="rfc.section.3.8.3.1.p.3">Other surprises for infrequent users of XSD regular expressions may include:</p>
 <p></p>
 
@@ -2017,7 +2025,7 @@ CRLF = %x0A / %x0D.0A
 </h1>
 <p id="rfc.section.C.p.1">In this appendix, we go through the ABNF syntax rules defined in <a href="#abnf" class="xref">Appendix B</a> and briefly describe the matching semantics of each syntactic feature.  In this context, an instance (data item) &#8220;matches&#8221; a CDDL specification if it is allowed by the CDDL specification; this is then broken down to parts of specifications (type and group expressions) and parts of instances (data items).</p>
 <pre>
-cddl = S 1*rule
+cddl = S 1*(rule S)
 </pre>
 <p id="rfc.section.C.p.2">A CDDL specification is a sequence of one or more rules.  Each rule gives a name to a right hand side expression, either a CDDL type or a CDDL group.  Rule names can be used in the rule itself and/or other rules (and tools can output warnings if that is not the case).  The order of the rules is significant only in two cases:</p>
 <p></p>
@@ -2027,8 +2035,8 @@ cddl = S 1*rule
 <li>Where a rule contributes to a type or group choice (using <samp>/=</samp> or <samp>//=</samp>), that choice is populated in the order the rules are given; see below.</li>
 </ol>
 <pre>
-rule = typename [genericparm] S assignt S type S
-     / groupname [genericparm] S assigng S grpent S
+rule = typename [genericparm] S assignt S type
+     / groupname [genericparm] S assigng S grpent
 
 typename = id
 groupname = id
@@ -2045,7 +2053,7 @@ genericarg = "&lt;" S type1 S *("," S type1 S ) "&gt;"
 </pre>
 <p id="rfc.section.C.p.6">Rule names can have generic parameters, which cause temporary assignments within the right hand sides to the parameter names from the arguments given when citing the rule name.</p>
 <pre>
-type = type1 S *("/" S type1 S)
+type = type1 *(S "/" S type1)
 </pre>
 <p id="rfc.section.C.p.7">A type can be given as a choice between one or more types.  The choice matches a data item if the data item matches any one of the types given in the choice.  The choice uses Parsing Expression Grammar <a href="#PEG" class="xref">[PEG]</a> semantics: The first choice that matches wins.  (As a result, the order of rules that contribute to a single rule name can very well matter.)</p>
 <pre>
@@ -2102,23 +2110,23 @@ ctlop = "." id
 </pre>
 <p id="rfc.section.C.p.20">A control operator ties a <em>target</em> type to a <em>controller</em> type as defined in <a href="#controls" class="xref">Section 3.8</a>.  Note that control operators are an extension point for CDDL; additional documents may want to define additional control operators.</p>
 <pre>
-group = grpchoice S *("//" S grpchoice S)
+group = grpchoice *(S "//" S grpchoice)
 </pre>
 <p id="rfc.section.C.p.21">A group matches any sequence of key/value pairs that matches any of the choices given (again using Parsing Expression Grammar semantics).</p>
 <pre>
-grpchoice = *grpent
+grpchoice = *(grpent optcom)
 </pre>
 <p id="rfc.section.C.p.22">Each of the component groups is given as a sequence of group entries.  For a match, the sequence of key/value pairs given needs to match the sequence of group entries in the sequence given.</p>
 <pre>
-grpent = [occur S] [memberkey S] type optcom
+grpent = [occur S] [memberkey S] type
 </pre>
 <p id="rfc.section.C.p.23">A group entry can be given by a value type, which needs to be matched by the value part of a single element, and optionally a memberkey type, which needs to be matched by the key part of the element, if the memberkey is given.  If the memberkey is not given, the entry can only be used for matching arrays, not for maps.  (See below how that is modified by the occurrence indicator.)</p>
 <pre>
-       / [occur S] groupname [genericarg] optcom ; preempted by above
+       / [occur S] groupname [genericarg]  ; preempted by above
 </pre>
 <p id="rfc.section.C.p.24">A group entry can be built from a named group, or</p>
 <pre>
-       / [occur S] "(" S group S ")" optcom
+       / [occur S] "(" S group S ")"
 </pre>
 <p id="rfc.section.C.p.25">from a parenthesized group, again with a possible occurrence indicator.</p>
 <pre>
@@ -2240,7 +2248,7 @@ null = nil
 <p id="rfc.section.E.p.4">(The fact that these are all integers may be surprising to users accustomed to the long tradition in programming languages of using decimal points or exponents in a number to indicate a floating point literal.)</p>
 <p id="rfc.section.E.p.5">CDDL distinguishes the various CBOR number types, but there is only one number type in JSON.  The effect of specifying a floating point precision (float16/float32/float64) is only to restrict the set of permissible values to those expressible with binary16/binary32/binary64; this is unlikely to be very useful when using CDDL for specifying JSON data structures.</p>
 <p id="rfc.section.E.p.6">Fundamentally, the number system of JSON itself is based on decimal numbers and decimal fractions and does not have limits to its precision or range.  In practice, JSON numbers are often parsed into a number type that is called float64 here, creating a number of limitations to the generic data model <a href="#RFC7493" class="xref">[RFC7493]</a>.  In particular, this means that integers can only be expressed with interoperable exactness when they lie in the range [-(2**53)+1, (2**53)-1] &#8212; a smaller range than that covered by CDDL <samp>int</samp>.</p>
-<p id="rfc.section.E.p.7">JSON applications that want to stay compatible with I-JSON therefore may want to define integer types with more limited ranges, such as in <a href="#fig-json-types" class="xref">Figure 17</a>.  Note that the types given here are not part of the prelude; they need to be copied into the CDDL specification if needed.</p>
+<p id="rfc.section.E.p.7">JSON applications that want to stay compatible with I-JSON (<a href="#RFC7493" class="xref">[RFC7493]</a>, &#8220;Internet JSON&#8221;) therefore may want to define integer types with more limited ranges, such as in <a href="#fig-json-types" class="xref">Figure 17</a>.  Note that the types given here are not part of the prelude; they need to be copied into the CDDL specification if needed.</p>
 <div id="rfc.figure.17"></div>
 <div id="fig-json-types"></div>
 <pre>

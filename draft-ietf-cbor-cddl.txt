@@ -18,9 +18,10 @@ Expires: May 11, 2019                                Universitaet Bremen
 Abstract
 
    This document proposes a notational convention to express CBOR data
-   structures (RFC 7049).  Its main goal is to provide an easy and
-   unambiguous way to express structures for protocol messages and data
-   formats that use CBOR or JSON.
+   structures (RFC 7049, Concise Binary Object Representation).  Its
+   main goal is to provide an easy and unambiguous way to express
+   structures for protocol messages and data formats that use CBOR or
+   JSON.
 
 Status of This Memo
 
@@ -49,7 +50,6 @@ Copyright Notice
    (https://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
-   to this document.  Code Components extracted from this document must
 
 
 
@@ -58,6 +58,7 @@ Birkholz, et al.          Expires May 11, 2019                  [Page 1]
 Internet-Draft                    CDDL                     November 2018
 
 
+   to this document.  Code Components extracted from this document must
    include Simplified BSD License text as described in Section 4.e of
    the Trust Legal Provisions and are provided without warranty as
    described in the Simplified BSD License.
@@ -105,7 +106,6 @@ Table of Contents
      4.3.  For data analysis tools . . . . . . . . . . . . . . . . .  34
    5.  Security considerations . . . . . . . . . . . . . . . . . . .  34
    6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  35
-     6.1.  CDDL control operator registry  . . . . . . . . . . . . .  35
 
 
 
@@ -114,6 +114,7 @@ Birkholz, et al.          Expires May 11, 2019                  [Page 2]
 Internet-Draft                    CDDL                     November 2018
 
 
+     6.1.  CDDL control operator registry  . . . . . . . . . . . . .  35
    7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  36
      7.1.  Normative References  . . . . . . . . . . . . . . . . . .  36
      7.2.  Informative References  . . . . . . . . . . . . . . . . .  37
@@ -160,7 +161,6 @@ Internet-Draft                    CDDL                     November 2018
 
    (G5)  Enable automatic checking of CBOR data items for data format
          compliance.
-
 
 
 
@@ -591,9 +591,15 @@ Internet-Draft                    CDDL                     November 2018
    Section 3.8.6.)
 
    Note that the dot is a valid name continuation character in CDDL, so
-   "min..max" is not a range expression but a single name.  When using a
-   name as the left hand side of a range operator, use spacing as in
-   "min .. max" to separate off the range operator.
+
+      min..max
+
+   is not a range expression but a single name.  When using a name as
+   the left hand side of a range operator, use spacing as in
+
+      min .. max
+
+   to separate off the range operator.
 
 2.2.2.2.  Turning a group into a choice
 
@@ -602,12 +608,6 @@ Internet-Draft                    CDDL                     November 2018
    specification.  Instead of naming each of these integers and then
    accumulating these into a choice, CDDL allows building a choice from
    a group by prefixing it with a "&" character:
-
-
-
-
-
-
 
 
 
@@ -635,16 +635,16 @@ Internet-Draft                    CDDL                     November 2018
 2.2.3.  Representation Types
 
    CDDL allows the specification of a data item type by referring to the
-   CBOR representation (major and minor numbers).  How this is used
-   should be evident from the prelude (Appendix D): a hash mark ("#")
-   optionally followed by a number from 0 to 7 identifying the major
-   type, which then can be followed by a dot and a number specifying the
-   additional information.  This construction specifies the set of
-   values that can be serialized in CBOR (i.e., "any"), by the given
-   major type if one is given, or by the given major type with the
-   additional information if both are given.  Where a major type of 6
-   (Tag) is used, the type of the tagged item can be specified by
-   appending it in parentheses.
+   CBOR representation (major types and additional information,
+   Section 2 of [RFC7049]).  How this is used should be evident from the
+   prelude (Appendix D): a hash mark ("#") optionally followed by a
+   number from 0 to 7 identifying the major type, which then can be
+   followed by a dot and a number specifying the additional information.
+   This construction specifies the set of values that can be serialized
+   in CBOR (i.e., "any"), by the given major type if one is given, or by
+   the given major type with the additional information if both are
+   given.  Where a major type of 6 (Tag) is used, the type of the tagged
+   item can be specified by appending it in parentheses.
 
    Note that although this notation is based on the CBOR serialization,
    it is about a set of values at the data model level, e.g. "#7.25"
@@ -695,10 +695,7 @@ Internet-Draft                    CDDL                     November 2018
    follow this sequence.
 
    (Note that there is no way to use a group as a root - it must be a
-   type.  Using a group as the root might be employed as a way to
-   specify a CBOR sequence in a future version of this specification;
-   this would act as if that group is used in an array and the data
-   items in that fictional array form the members of the CBOR sequence.)
+   type.)
 
 3.  Syntax
 
@@ -722,6 +719,9 @@ Internet-Draft                    CDDL                     November 2018
       *  Names are case sensitive.
 
       *  It is preferred style to start a name with a lower case letter.
+
+
+
 
 
 
@@ -1442,7 +1442,7 @@ Internet-Draft                    CDDL                     November 2018
 
                    Figure 11: Control with an XSD regexp
 
-   The CDDL tool proposes:
+   An example matching this regular expression:
 
                        "N1@CH57HF.4Znqe0.dYJRN.igjf"
 
@@ -1472,8 +1472,8 @@ Internet-Draft                    CDDL                     November 2018
    feature often not found in regular expression libraries;
    specification writers may want to use this feature sparingly.
    Similar considerations apply to Unicode character classes; where
-   these are used, the specification SHOULD identify which Unicode
-   versions are addressed.
+   these are used, the specification that employs CDDL SHOULD identify
+   which Unicode versions are addressed.
 
    Other surprises for infrequent users of XSD regular expressions may
    include:
@@ -2595,7 +2595,7 @@ Appendix C.  Matching rules
    specification; this is then broken down to parts of specifications
    (type and group expressions) and parts of instances (data items).
 
-   cddl = S 1*rule
+   cddl = S 1*(rule S)
 
    A CDDL specification is a sequence of one or more rules.  Each rule
    gives a name to a right hand side expression, either a CDDL type or a
@@ -2614,8 +2614,8 @@ Appendix C.  Matching rules
        "//="), that choice is populated in the order the rules are
        given; see below.
 
-   rule = typename [genericparm] S assignt S type S
-        / groupname [genericparm] S assigng S grpent S
+   rule = typename [genericparm] S assignt S type
+        / groupname [genericparm] S assigng S grpent
 
    typename = id
    groupname = id
@@ -2664,7 +2664,7 @@ Internet-Draft                    CDDL                     November 2018
    assignments within the right hand sides to the parameter names from
    the arguments given when citing the rule name.
 
-   type = type1 S *("/" S type1 S)
+   type = type1 *(S "/" S type1)
 
    A type can be given as a choice between one or more types.  The
    choice matches a data item if the data item matches any one of the
@@ -2763,18 +2763,18 @@ Internet-Draft                    CDDL                     November 2018
    point for CDDL; additional documents may want to define additional
    control operators.
 
-   group = grpchoice S *("//" S grpchoice S)
+   group = grpchoice *(S "//" S grpchoice)
 
    A group matches any sequence of key/value pairs that matches any of
    the choices given (again using Parsing Expression Grammar semantics).
 
-   grpchoice = *grpent
+   grpchoice = *(grpent optcom)
 
    Each of the component groups is given as a sequence of group entries.
    For a match, the sequence of key/value pairs given needs to match the
    sequence of group entries in the sequence given.
 
-   grpent = [occur S] [memberkey S] type optcom
+   grpent = [occur S] [memberkey S] type
 
    A group entry can be given by a value type, which needs to be matched
    by the value part of a single element, and optionally a memberkey
@@ -2783,11 +2783,11 @@ Internet-Draft                    CDDL                     November 2018
    only be used for matching arrays, not for maps.  (See below how that
    is modified by the occurrence indicator.)
 
-          / [occur S] groupname [genericarg] optcom ; preempted by above
+          / [occur S] groupname [genericarg]  ; preempted by above
 
    A group entry can be built from a named group, or
 
-          / [occur S] "(" S group S ")" optcom
+          / [occur S] "(" S group S ")"
 
    from a parenthesized group, again with a possible occurrence
    indicator.
@@ -3000,11 +3000,11 @@ Internet-Draft                    CDDL                     November 2018
    exactness when they lie in the range [-(2**53)+1, (2**53)-1] -- a
    smaller range than that covered by CDDL "int".
 
-   JSON applications that want to stay compatible with I-JSON therefore
-   may want to define integer types with more limited ranges, such as in
-   Figure 17.  Note that the types given here are not part of the
-   prelude; they need to be copied into the CDDL specification if
-   needed.
+   JSON applications that want to stay compatible with I-JSON
+   ([RFC7493], "Internet JSON") therefore may want to define integer
+   types with more limited ranges, such as in Figure 17.  Note that the
+   types given here are not part of the prelude; they need to be copied
+   into the CDDL specification if needed.
 
                ij-uint = 0..9007199254740991
                ij-nint = -9007199254740991..-1
