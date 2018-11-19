@@ -75,7 +75,7 @@ informative:
   I-D.newton-json-content-rules: jcr
   RFC8152: cose
   I-D.ietf-anima-grasp: grasp
-  I-D.ietf-core-senml: senml
+  RFC8428: senml
   I-D.bormann-cbor-cddl-freezer: freezer
   PEG: DOI.10.1145_964001.964011
 
