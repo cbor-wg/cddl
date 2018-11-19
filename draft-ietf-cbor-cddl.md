@@ -1683,6 +1683,8 @@ An interesting use would thus be automated analysis of sensor data.
 
 # Examples {#examples}
 
+This appendix is for information only.
+
 This section contains a few examples of structures defined using
 CDDL.
 
@@ -1936,6 +1938,8 @@ The CDDL tool creates the below example instance for this:
 
 # ABNF grammar {#abnf}
 
+This appendix is normative.
+
 The following is a formal definition of the CDDL syntax in Augmented Backus-Naur Form
 (ABNF, {{RFC5234}}).
 
@@ -1949,6 +1953,8 @@ Note that this ABNF does not attempt to reflect the detailed rules of
 what can be in a prefixed byte string.
 
 # Matching rules {#matching}
+
+This appendix is normative.
 
 In this appendix, we go through the ABNF syntax rules defined in
 {{abnf}} and briefly describe the matching semantics of each syntactic
@@ -2311,6 +2317,8 @@ an undertaking.
 
 # Standard Prelude {#prelude}
 
+This appendix is normative.
+
 The following prelude is automatically added to each CDDL file.
 (Note that technically, it is a postlude, as it does not disturb the
 selection of the first rule as the root of the definition.)
@@ -2333,6 +2341,8 @@ ambiguous.
 <!--         control on tdate, but we probably do want to have one. -->
 
 # Use with JSON {#sec-json}
+
+This appendix is normative.
 
 The JSON generic data model (implicit in {{-json}}) is a subset of the
 generic data model of CBOR.  So one can use CDDL with JSON by limiting
@@ -2421,6 +2431,8 @@ JSON even if they are allowed in the CDDL generic data model.
 
 # The CDDL tool {#tool}
 
+This appendix is for information only.
+
 A rough CDDL tool is available.  For CDDL specifications, it can check
 the syntax, generate one or more instances
 (expressed in CBOR diagnostic notation or in pretty-printed JSON), and
@@ -2450,6 +2462,8 @@ binary CBOR, a pretty-printed form of that, CBOR diagnostic notation,
 JSON, and YAML.
 
 # Extended Diagnostic Notation
+
+This appendix is normative.
 
 Section 6 of {{RFC7049}} defines a "diagnostic notation" in order to
 be able to converse about CBOR data items without having to resort to
