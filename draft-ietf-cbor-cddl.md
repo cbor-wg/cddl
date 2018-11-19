@@ -449,10 +449,13 @@ It is not an error if a name is first used with a "/=" or "//="
 
 Instead of naming all the values that make up a choice, CDDL allows
 building a _range_ out of two values that are in an ordering
-relationship.
-A range can be inclusive of both ends given (denoted by joining two
-values by ".."), or include the first and exclude the second (denoted
+relationship: A lower bound (first value) and an upper bound (second value).
+A range can be inclusive of both bounds given (denoted by joining two
+values by ".."), or include the lower bound and exclude the upper bound (denoted
 by instead using "...").
+If the lower bound exceeds the upper bound, the resulting type is
+the empty set (this behavior can be desirable when generics,
+{{generics}}, are being used).
 
 ~~~~ CDDL
 device-address = byte
