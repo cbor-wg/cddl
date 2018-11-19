@@ -918,7 +918,7 @@ NameComponents = (
 ~~~~
 {:cddl #xmp-personaldata title="Personal Data: Example for extensibility"}
 
-The cddl tool ({{tool}}) generated as one acceptable instance for this specification:
+The CDDL tool reported on in {{tool}} generated as one acceptable instance for this specification:
 
 ~~~~ CBORdiag
 {"familyName": "agust", "antiforeignism": "pretzel",
@@ -1252,7 +1252,7 @@ rwx = &(r: 2, w: 1, x: 0)
 ~~~~
 {:cddl #control-bits title="Control for what bits can be set"}
 
-The CDDL tool generates the following ten example instances for `tcpflagbytes`:
+The CDDL tool reported on in {{tool}} generates the following ten example instances for `tcpflagbytes`:
 
 ~~~~ CBORdiags
 h'906d' h'01fc' h'8145' h'01b7' h'013d' h'409f' h'018e' h'c05f'
@@ -1782,8 +1782,8 @@ allowed (by definition with different member names); RFC 7071 could be
 read to forbid the repetition of ext-value ("A specific
 reputon-element MUST NOT appear more than once" is ambiguous.)
 
-The CDDL tool (which hasn't quite been trained for polite conversation)
-says:
+The CDDL tool reported on in {{tool}} (which hasn't quite been trained
+for polite conversation) says:
 
 ~~~~ JSON
 {
@@ -1864,7 +1864,7 @@ Apart from the lack of a need to quote the member names, text strings
 are called `text` or `tstr` in CDDL (`string` would be ambiguous as
 CBOR also provides byte strings).
 
-The CDDL tool creates the below example instance for this:
+The CDDL tool reported on in {{tool}} creates the below example instance for this:
 
 ~~~~ CBORdiag
 [{"precision": "pyrosphere", "Latitude": 0.5399712314350172,
@@ -1929,7 +1929,7 @@ size = (
 {:cddl}
 
 
-The CDDL tool creates the below example instance for this:
+The CDDL tool reported on in {{tool}} creates the below example instance for this:
 
 ~~~~ CBORdiag
 {"Image": {"Width": 566, "Height": 516, "Title": "leisterer",
@@ -2432,7 +2432,7 @@ can be expressed in the serialization; e.g., floating point values
 such as NaN (not a number) and the infinities cannot be represented in
 JSON even if they are allowed in the CDDL generic data model.
 
-# The CDDL tool {#tool}
+# A CDDL tool {#tool}
 
 This appendix is for information only.
 
