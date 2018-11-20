@@ -588,7 +588,7 @@ The basic syntax is inspired by ABNF {{RFC5234}}, with
   to the respective syntactic rules of that definition.
 
 *   A name can consist of any of the characters from the set
-    {'A', ..., 'Z', 'a', ..., 'z', '0', ..., '9', '\_', '-', '@', '.',
+    {'A' to 'Z', 'a' to 'z', '0' to '9', '\_', '-', '@', '.',
     '$'}, starting with
     an alphabetic character (including '@', '\_', '$') and ending in one
     or a digit.
