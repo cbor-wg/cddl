@@ -608,7 +608,7 @@ The basic syntax is inspired by ABNF {{RFC5234}}, with
 
 *   outside strings, whitespace (spaces, newlines, and comments) is used
     to separate syntactic elements for readability (and to separate
-    identifiers or numbers that follow each other); it is otherwise
+    identifiers, range operators, or numbers that follow each other); it is otherwise
     completely optional.
 
 *   Hexadecimal numbers are preceded by '0x' (without quotes, lower case
