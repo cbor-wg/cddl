@@ -43,6 +43,7 @@ author:
 normative:
   RFC3552: secconssec
   RFC3629: utf8
+  RFC4648: base
   RFC5234: abnf
   RFC7049: cbor
   RFC8126: ianapol
@@ -627,7 +628,9 @@ as with a text string, except that single quotes must be escaped and
 that the UTF-8 bytes resulting are marked as a byte string (major type
 2).
 If prefixed as "h" or "b64", the string is interpreted as a sequence
-of pairs of hex digits (base16) or a base64(url) string, respectively (as with the
+of pairs of hex digits (base16, Section 8 of {{-base}}) or a
+base64(url) string (Sections 4 or 5 of {{-base}}),
+respectively (as with the
 diagnostic notation in section 6 of {{RFC7049}}; cf. {{textbin}}); any white space
 present within the string (including comments) is ignored in the prefixed case.
 
@@ -2495,7 +2498,7 @@ equivalent:
 
 ## Text in byte string notation {#textbin}
 
-Diagnostic notation notates Byte strings in one of the {{?RFC4648}}
+Diagnostic notation notates Byte strings in one of the {{-base}}
 base encodings,, enclosed in single quotes, prefixed by >h< for
 base16, >b32< for base32, >h32< for base32hex, >b64< for base64 or
 base64url.  Quite often, byte strings carry bytes that are
