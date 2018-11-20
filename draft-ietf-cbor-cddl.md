@@ -2023,7 +2023,8 @@ assigng = "=" / "//="
 ~~~
 
 A plain equals sign defines the rule name as the equivalent of the
-expression to the right.  A `/=` or `//=` extends a named type or a
+expression to the right; it is an error if the name already was
+defined with a different expression.  A `/=` or `//=` extends a named type or a
 group by additional choices; a number of these could be replaced by
 collecting all the right hand sides and creating a single rule with a
 type choice or a group choice built from the right hand sides in the
