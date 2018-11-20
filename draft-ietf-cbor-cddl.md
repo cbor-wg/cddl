@@ -591,7 +591,8 @@ The basic syntax is inspired by ABNF {{RFC5234}}, with
 *   A name can consist of any of the characters from the set
     {'A' to 'Z', 'a' to 'z', '0' to '9', '\_', '-', '@', '.',
     '$'}, starting with
-    an alphabetic character (including '@', '\_', '$') and ending in one
+    an alphabetic character (including '@', '\_', '$') and ending in
+    such a character or
     or a digit.
     *     Names are case sensitive.
     *     It is preferred style to start a name with a lower case letter.
