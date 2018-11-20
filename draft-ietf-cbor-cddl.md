@@ -1215,7 +1215,7 @@ In other words, `uint .size N` is equivalent to `0...BYTES_N`, where
 BYTES_N == 256**N.
 
 ~~~~ CDDL
-audio_sample = uint .size 3 ; 24-bit, equivalent to 0..16777215
+audio_sample = uint .size 3 ; 24-bit, equivalent to 0...16777216
 ~~~~
 {:cddl #control-int-size title="Control for integer size in bytes"}
 
