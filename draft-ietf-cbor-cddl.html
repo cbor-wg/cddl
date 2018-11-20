@@ -688,7 +688,7 @@ identity = (
 <h1 id="rfc.section.2.1.2">
 <a href="#rfc.section.2.1.2">2.1.2.</a> <a href="#composition_syntax" id="composition_syntax">Syntax</a>
 </h1>
-<p id="rfc.section.2.1.2.p.1">The composition syntax intends to be concise and easy to read:</p>
+<p id="rfc.section.2.1.2.p.1">The composition syntax is intended to be concise and easy to read:</p>
 <p></p>
 
 <ul>
@@ -817,7 +817,7 @@ solid = tstr
 
 <ul>
 <li>rules, whether they define groups or types, are defined with a name, followed by an equals sign &#8220;=&#8221; and the actual definition according to the respective syntactic rules of that definition.</li>
-<li>A name can consist of any of the characters from the set {&#8216;A&#8217; to &#8216;Z&#8217;, &#8216;a&#8217; to &#8216;z&#8217;, &#8216;0&#8217; to &#8216;9&#8217;, &#8216;_&#8217;, &#8216;-&#8216;, &#8216;@&#8217;, &#8216;.&#8217;, &#8216;$&#8217;}, starting with an alphabetic character (including &#8216;@&#8217;, &#8216;_&#8217;, &#8216;$&#8217;) and ending in one or a digit.  <ul>
+<li>A name can consist of any of the characters from the set {&#8216;A&#8217; to &#8216;Z&#8217;, &#8216;a&#8217; to &#8216;z&#8217;, &#8216;0&#8217; to &#8216;9&#8217;, &#8216;_&#8217;, &#8216;-&#8216;, &#8216;@&#8217;, &#8216;.&#8217;, &#8216;$&#8217;}, starting with an alphabetic character (including &#8216;@&#8217;, &#8216;_&#8217;, &#8216;$&#8217;) and ending in such a character or or a digit.  <ul>
 <li>Names are case sensitive.</li>
 <li>It is preferred style to start a name with a lower case letter.</li>
 <li>The hyphen is preferred over the underscore (except in a &#8220;bareword&#8221; (<a href="#structs" class="xref">Section 3.5.1</a>), where the semantics may actually require an underscore).</li>
@@ -2045,7 +2045,7 @@ rule = typename [genericparm] S assignt S type
 typename = id
 groupname = id
 </pre>
-<p id="rfc.section.C.p.5">A rule defines a name for a type expression (production <samp>type</samp>) or for a group expression (production <samp>grpent</samp>), with the intention that the semantics does not change when the name is replaced by its (parenthesized if needed) definition.  Note that whether the name defined by a rule stands for a type or a group isn&#8217;t always determined by syntax alone: e.g., <samp>a = b</samp> can make <samp>a</samp> a type if <samp>b</samp> is one, or a group if <samp>b</samp> is one.  More subtly, in <samp>a = (b)</samp>, <samp>a</samp> may be used as a type if <samp>b</samp> is a type, or as a group both when <samp>b</samp> is a group and when <samp>b</samp> is a type (a good convention to make the latter case stand out to the human reader is to write <samp>a = (b,)</samp>).  (Note that the same dual meaning of parentheses applies within an expression, but often can be resolved by the context of the parenthesized expression.  On the more general point, it may not be clear immediately either whether <samp>b</samp> stands for a group or a type &#8212; this semantic processing may need to span several levels of rule definitions before a determination can be made.)</p>
+<p id="rfc.section.C.p.5">A rule defines a name for a type expression (production <samp>type</samp>) or for a group expression (production <samp>grpent</samp>), with the intention that the semantics does not change when the name is replaced by its (parenthesized if needed) definition.  Note that whether the name defined by a rule stands for a type or a group isn&#8217;t always determined by syntax alone: e.g., <samp>a = b</samp> can make <samp>a</samp> a type if <samp>b</samp> is a type, or a group if <samp>b</samp> is a group.  More subtly, in <samp>a = (b)</samp>, <samp>a</samp> may be used as a type if <samp>b</samp> is a type, or as a group both when <samp>b</samp> is a group and when <samp>b</samp> is a type (a good convention to make the latter case stand out to the human reader is to write <samp>a = (b,)</samp>).  (Note that the same dual meaning of parentheses applies within an expression, but often can be resolved by the context of the parenthesized expression.  On the more general point, it may not be clear immediately either whether <samp>b</samp> stands for a group or a type &#8212; this semantic processing may need to span several levels of rule definitions before a determination can be made.)</p>
 <pre>
 assignt = "=" / "/="
 assigng = "=" / "//="
