@@ -851,7 +851,8 @@ quoted strings in the member key positions.
 More generally, all the types defined can be used in a keytype position by following them with a
 double arrow — in particular, the double arrow is necessary if a type
 is named by an identifier (which would be interpreted as a string
-before a colon).  A string also is a (single-valued) type, so another
+before a colon).  A string also is a type (that contains a single
+value only — the given string), so another
 form for this example is:
 
 ~~~~ CDDL
