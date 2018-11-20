@@ -2007,8 +2007,8 @@ a group expression (production `grpent`), with the intention that the
 semantics does not change when the name is replaced by its
 (parenthesized if needed) definition.  Note that whether the name
 defined by a rule stands for a type or a group isn't always determined
-by syntax alone: e.g., `a = b` can make `a` a type if `b` is one, or a
-group if `b` is one.  More subtly, in `a = (b)`, `a` may be used as a
+by syntax alone: e.g., `a = b` can make `a` a type if `b` is a type, or a
+group if `b` is a group.  More subtly, in `a = (b)`, `a` may be used as a
 type if `b` is a type, or as a group both when `b` is a group and when
 `b` is a type (a good convention to make the latter case stand out to
 the human reader is to write `a = (b,)`).  (Note that the same dual
