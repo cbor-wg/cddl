@@ -70,8 +70,8 @@ fraction = 1*DIGIT
 exponent = ["+"/"-"] 1*DIGIT
 
 text = %x22 *SCHAR %x22
-SCHAR = %x20-21 / %x23-5B / %x5D-10FFFD / SESC
-SESC = "\" %x20-10FFFD
+SCHAR = %x20-21 / %x23-5B / %x5D-7E / %x80-10FFFD / SESC
+SESC = "\" (%x20-7E / %x80-10FFFD)
 
 bytes = [bsqual] %x27 *BCHAR %x27
 BCHAR = %x20-26 / %x28-5B / %x5D-10FFFD / SESC / CRLF
@@ -90,5 +90,5 @@ WS = SP / NL
 SP = %x20
 NL = COMMENT / CRLF
 COMMENT = ";" *PCHAR CRLF
-PCHAR = %x20-10FFFD
+PCHAR = %x20-7E / %x80-10FFFD
 CRLF = %x0A / %x0D.0A
