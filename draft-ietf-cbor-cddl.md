@@ -354,7 +354,7 @@ protocol data unit that has all definitions ad hoc where needed.
 
 ### Syntax {#composition_syntax}
 
-The composition syntax intends to be concise and easy to read:
+The composition syntax is intended to be concise and easy to read:
 
 * The start and end of a group can be marked by '(' and ')'
 * Definitions of entries inside of a group are noted as follows:
