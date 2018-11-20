@@ -407,7 +407,7 @@ protocol = 6 / 17
 {:cddl}
 
 Similarly as for types, CDDL also allows choices between groups,
-delimited by a "//" (double slash).  Note that the "//" operators
+delimited by a "//" (double slash).  Note that the "//" operator
 binds much more weakly than the other CDDL operators, so each line
 within `delivery` in
 the following example is its own alternative in the group choice:
