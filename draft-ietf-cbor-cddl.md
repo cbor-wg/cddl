@@ -1946,8 +1946,10 @@ The CDDL tool reported on in {{tool}} creates the below example instance for thi
 
 This appendix is normative.
 
-The following is a formal definition of the CDDL syntax in Augmented Backus-Naur Form
-(ABNF, {{RFC5234}}).
+The following is a formal definition of the CDDL syntax in Augmented
+Backus-Naur Form (ABNF, {{RFC5234}}).  Note that, as is defined in
+ABNF, the quote-delimited strings below are case-insensitive (while
+string values and names are case-sensitive in CDDL).
 
 
 ~~~~ ABNF
@@ -2111,7 +2113,7 @@ an enumeration expression, which matches any a value that is within
 the set of values that the values of the group given can take, or
 
 ~~~ abnf
-      / "#" "6" ["." uint] "(" S type S ")" ; note no space!
+      / "#" "6" ["." uint] "(" S type S ")"
 ~~~
 
 a tagged data item, tagged with the `uint` given and containing the

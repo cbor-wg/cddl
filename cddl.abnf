@@ -14,6 +14,7 @@ genericarg = "<" S type1 S *("," S type1 S ) ">"
 type = type1 *(S "/" S type1)
 
 type1 = type2 [S (rangeop / ctlop) S type2]
+; space may be needed before the operator if type2 ends in a name
 
 type2 = value
       / typename [genericarg]
@@ -23,7 +24,7 @@ type2 = value
       / "~" S typename [genericarg]
       / "&" S "(" S group S ")"
       / "&" S groupname [genericarg]
-      / "#" "6" ["." uint] "(" S type S ")" ; note no space!
+      / "#" "6" ["." uint] "(" S type S ")"
       / "#" DIGIT ["." uint]                ; major/ai
       / "#"                                 ; any
 
