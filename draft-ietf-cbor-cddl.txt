@@ -2471,49 +2471,49 @@ Appendix B.  ABNF grammar
    This appendix is normative.
 
    The following is a formal definition of the CDDL syntax in Augmented
-   Backus-Naur Form (ABNF, [RFC5234]).
+   Backus-Naur Form (ABNF, [RFC5234]).  Note that, as is defined in
+   ABNF, the quote-delimited strings below are case-insensitive (while
+   string values and names are case-sensitive in CDDL).
 
-      cddl = S 1*(rule S)
-      rule = typename [genericparm] S assignt S type
-           / groupname [genericparm] S assigng S grpent
+     cddl = S 1*(rule S)
+     rule = typename [genericparm] S assignt S type
+          / groupname [genericparm] S assigng S grpent
 
-      typename = id
-      groupname = id
+     typename = id
+     groupname = id
 
-      assignt = "=" / "/="
-      assigng = "=" / "//="
+     assignt = "=" / "/="
+     assigng = "=" / "//="
 
-      genericparm = "<" S id S *("," S id S ) ">"
-      genericarg = "<" S type1 S *("," S type1 S ) ">"
+     genericparm = "<" S id S *("," S id S ) ">"
+     genericarg = "<" S type1 S *("," S type1 S ) ">"
 
-      type = type1 *(S "/" S type1)
+     type = type1 *(S "/" S type1)
 
-      type1 = type2 [S (rangeop / ctlop) S type2]
+     type1 = type2 [S (rangeop / ctlop) S type2]
+     ; space may be needed before the operator if type2 ends in a name
 
-      type2 = value
-            / typename [genericarg]
-            / "(" S type S ")"
-            / "{" S group S "}"
-            / "[" S group S "]"
-            / "~" S typename [genericarg]
-            / "&" S "(" S group S ")"
-            / "&" S groupname [genericarg]
-            / "#" "6" ["." uint] "(" S type S ")" ; note no space!
-            / "#" DIGIT ["." uint]                ; major/ai
-            / "#"                                 ; any
+     type2 = value
+           / typename [genericarg]
+           / "(" S type S ")"
+           / "{" S group S "}"
+           / "[" S group S "]"
+           / "~" S typename [genericarg]
+           / "&" S "(" S group S ")"
+           / "&" S groupname [genericarg]
+           / "#" "6" ["." uint] "(" S type S ")"
+           / "#" DIGIT ["." uint]                ; major/ai
+           / "#"                                 ; any
 
-      rangeop = "..." / ".."
+     rangeop = "..." / ".."
 
-      ctlop = "." id
+     ctlop = "." id
 
-      group = grpchoice *(S "//" S grpchoice)
+     group = grpchoice *(S "//" S grpchoice)
 
-      grpchoice = *(grpent optcom)
+     grpchoice = *(grpent optcom)
 
-      grpent = [occur S] [memberkey S] type
-             / [occur S] groupname [genericarg]  ; preempted by above
-             / [occur S] "(" S group S ")"
-
+     grpent = [occur S] [memberkey S] type
 
 
 
@@ -2522,54 +2522,54 @@ Birkholz, et al.          Expires May 23, 2019                 [Page 45]
 Internet-Draft                    CDDL                     November 2018
 
 
-      memberkey = type1 S ["^" S] "=>"
-                / bareword S ":"
-                / value S ":"
+            / [occur S] groupname [genericarg]  ; preempted by above
+            / [occur S] "(" S group S ")"
 
-      bareword = id
+     memberkey = type1 S ["^" S] "=>"
+               / bareword S ":"
+               / value S ":"
 
-      optcom = S ["," S]
+     bareword = id
 
-      occur = [uint] "*" [uint]
-            / "+"
-            / "?"
+     optcom = S ["," S]
 
-      uint = DIGIT1 *DIGIT
-           / "0x" 1*HEXDIG
-           / "0b" 1*BINDIG
-           / "0"
+     occur = [uint] "*" [uint]
+           / "+"
+           / "?"
 
-      value = number
-            / text
-            / bytes
+     uint = DIGIT1 *DIGIT
+          / "0x" 1*HEXDIG
+          / "0b" 1*BINDIG
+          / "0"
 
-      int = ["-"] uint
+     value = number
+           / text
+           / bytes
 
-      ; This is a float if it has fraction or exponent; int otherwise
-      number = hexfloat / (int ["." fraction] ["e" exponent ])
-      hexfloat = "0x" 1*HEXDIG ["." 1*HEXDIG] "p" exponent
-      fraction = 1*DIGIT
-      exponent = ["+"/"-"] 1*DIGIT
+     int = ["-"] uint
 
-      text = %x22 *SCHAR %x22
-      SCHAR = %x20-21 / %x23-5B / %x5D-10FFFD / SESC
-      SESC = "\" %x20-10FFFD
+     ; This is a float if it has fraction or exponent; int otherwise
+     number = hexfloat / (int ["." fraction] ["e" exponent ])
+     hexfloat = "0x" 1*HEXDIG ["." 1*HEXDIG] "p" exponent
+     fraction = 1*DIGIT
+     exponent = ["+"/"-"] 1*DIGIT
 
-      bytes = [bsqual] %x27 *BCHAR %x27
-      BCHAR = %x20-26 / %x28-5B / %x5D-10FFFD / SESC / CRLF
-      bsqual = "h" / "b64"
+     text = %x22 *SCHAR %x22
+     SCHAR = %x20-21 / %x23-5B / %x5D-7E / %x80-10FFFD / SESC
+     SESC = "\" (%x20-7E / %x80-10FFFD)
 
-      id = EALPHA *(*("-" / ".") (EALPHA / DIGIT))
-      ALPHA = %x41-5A / %x61-7A
-      EALPHA = ALPHA / "@" / "_" / "$"
-      DIGIT = %x30-39
-      DIGIT1 = %x31-39
-      HEXDIG = DIGIT / "A" / "B" / "C" / "D" / "E" / "F"
-      BINDIG = %x30-31
+     bytes = [bsqual] %x27 *BCHAR %x27
+     BCHAR = %x20-26 / %x28-5B / %x5D-10FFFD / SESC / CRLF
+     bsqual = "h" / "b64"
 
-      S = *WS
-      WS = SP / NL
-      SP = %x20
+     id = EALPHA *(*("-" / ".") (EALPHA / DIGIT))
+     ALPHA = %x41-5A / %x61-7A
+     EALPHA = ALPHA / "@" / "_" / "$"
+     DIGIT = %x30-39
+     DIGIT1 = %x31-39
+     HEXDIG = DIGIT / "A" / "B" / "C" / "D" / "E" / "F"
+     BINDIG = %x30-31
+
 
 
 
@@ -2578,10 +2578,13 @@ Birkholz, et al.          Expires May 23, 2019                 [Page 46]
 Internet-Draft                    CDDL                     November 2018
 
 
-      NL = COMMENT / CRLF
-      COMMENT = ";" *PCHAR CRLF
-      PCHAR = %x20-10FFFD
-      CRLF = %x0A / %x0D.0A
+     S = *WS
+     WS = SP / NL
+     SP = %x20
+     NL = COMMENT / CRLF
+     COMMENT = ";" *PCHAR CRLF
+     PCHAR = %x20-7E / %x80-10FFFD
+     CRLF = %x0A / %x0D.0A
 
                            Figure 14: CDDL ABNF
 
@@ -2624,9 +2627,6 @@ Appendix C.  Matching rules
    typename = id
    groupname = id
 
-   A rule defines a name for a type expression (production "type") or
-   for a group expression (production "grpent"), with the intention that
-
 
 
 Birkholz, et al.          Expires May 23, 2019                 [Page 47]
@@ -2634,6 +2634,8 @@ Birkholz, et al.          Expires May 23, 2019                 [Page 47]
 Internet-Draft                    CDDL                     November 2018
 
 
+   A rule defines a name for a type expression (production "type") or
+   for a group expression (production "grpent"), with the intention that
    the semantics does not change when the name is replaced by its
    (parenthesized if needed) definition.  Note that whether the name
    defined by a rule stands for a type or a group isn't always
@@ -2653,13 +2655,14 @@ Internet-Draft                    CDDL                     November 2018
    assigng = "=" / "//="
 
    A plain equals sign defines the rule name as the equivalent of the
-   expression to the right.  A "/=" or "//=" extends a named type or a
-   group by additional choices; a number of these could be replaced by
-   collecting all the right hand sides and creating a single rule with a
-   type choice or a group choice built from the right hand sides in the
-   order of the rules given.  (It is not an error to extend a rule name
-   that has not yet been defined; this makes the right hand side the
-   first entry in the choice being created.)
+   expression to the right; it is an error if the name already was
+   defined with a different expression.  A "/=" or "//=" extends a named
+   type or a group by additional choices; a number of these could be
+   replaced by collecting all the right hand sides and creating a single
+   rule with a type choice or a group choice built from the right hand
+   sides in the order of the rules given.  (It is not an error to extend
+   a rule name that has not yet been defined; this makes the right hand
+   side the first entry in the choice being created.)
 
    genericparm = "<" S id S *("," S id S ) ">"
    genericarg = "<" S type1 S *("," S type1 S ) ">"
@@ -2679,9 +2682,6 @@ Internet-Draft                    CDDL                     November 2018
 
    type1 = type2 [S (rangeop / ctlop) S type2]
 
-   Two types can be combined with a range operator (which see below) or
-   a control operator (see Section 3.8).
-
 
 
 
@@ -2689,6 +2689,9 @@ Birkholz, et al.          Expires May 23, 2019                 [Page 48]
 
 Internet-Draft                    CDDL                     November 2018
 
+
+   Two types can be combined with a range operator (which see below) or
+   a control operator (see Section 3.8).
 
    type2 = value
 
@@ -2729,15 +2732,12 @@ Internet-Draft                    CDDL                     November 2018
    an enumeration expression, which matches any a value that is within
    the set of values that the values of the group given can take, or
 
-         / "#" "6" ["." uint] "(" S type S ")" ; note no space!
+         / "#" "6" ["." uint] "(" S type S ")"
 
    a tagged data item, tagged with the "uint" given and containing the
    type given as the tagged value, or
 
          / "#" DIGIT ["." uint]                ; major/ai
-
-   a data item of a major type (given by the DIGIT), optionally
-   constrained to the additional information given by the uint, or
 
 
 
@@ -2745,6 +2745,9 @@ Birkholz, et al.          Expires May 23, 2019                 [Page 49]
 
 Internet-Draft                    CDDL                     November 2018
 
+
+   a data item of a major type (given by the DIGIT), optionally
+   constrained to the additional information given by the uint, or
 
          / "#"                                 ; any
 
@@ -2791,9 +2794,6 @@ Internet-Draft                    CDDL                     November 2018
 
           / [occur S] "(" S group S ")"
 
-   from a parenthesized group, again with a possible occurrence
-   indicator.
-
 
 
 
@@ -2801,6 +2801,9 @@ Birkholz, et al.          Expires May 23, 2019                 [Page 50]
 
 Internet-Draft                    CDDL                     November 2018
 
+
+   from a parenthesized group, again with a possible occurrence
+   indicator.
 
    memberkey = type1 S ["^" S] "=>"
              / bareword S ":"
@@ -2846,9 +2849,6 @@ Appendix D.  Standard Prelude
    The following prelude is automatically added to each CDDL file.
    (Note that technically, it is a postlude, as it does not disturb the
    selection of the first rule as the root of the definition.)
-
-
-
 
 
 
