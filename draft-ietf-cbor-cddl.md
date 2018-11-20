@@ -14,7 +14,7 @@ title: >
 abbrev: CDDL
 area: Applications
 wg: CBOR
-date: 2018-11-07
+date: 2018-11-19
 author:
 - ins: H. Birkholz
   name: Henk Birkholz
@@ -210,7 +210,7 @@ e.g. `1`.  A type can be built as a _choice_ of other types, e.g., an
 Finally, a type can be built as an array or a map from a group.
 
 The rest of this section introduces a number of basic concepts of
-CDDL, and section {{syntax}} defines additional syntax.
+CDDL, and {{syntax}} defines additional syntax.
 {{matching}} gives a concise summary of the semantics of CDDL.
 
 ## Groups and Composition in CDDL {#group}
