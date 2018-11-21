@@ -854,10 +854,13 @@ if the specifier just happens to prefer using double quotes), the text
 string syntax can also be used in the member key position, followed by
 a colon.  The above example could therefore have been written with
 quoted strings in the member key positions.
-More generally, all the types defined can be used in a keytype position by following them with a
+
+More generally, types specified in other ways than the cases described
+above can be used in a keytype position by following them with a
 double arrow — in particular, the double arrow is necessary if a type
-is named by an identifier (which would be interpreted as a string
-before a colon).  A string also is a type (that contains a single
+is named by an identifier (which, when followed by a colon, would
+be interpreted as a "bareword" and turned into a text string).
+A literal text string also gives rise to a type (which contains a single
 value only — the given string), so another
 form for this example is:
 
