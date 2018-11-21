@@ -567,14 +567,14 @@ address {
 <h1 id="rfc.section.1.2">
 <a href="#rfc.section.1.2">1.2.</a> <a href="#terminology" id="terminology">Terminology</a>
 </h1>
-<p id="rfc.section.1.2.p.1">New terms are introduced in <em>cursive</em>.  CDDL text in the running text is in <samp>typewriter</samp>.</p>
+<p id="rfc.section.1.2.p.1">New terms are introduced in <em>cursive</em>, which is rendered in plain text as the new term surrouded by underscores.  CDDL text in the running text is in <samp>typewriter</samp>, which is rendered in plain text as the CDDL text in double quotes (double quotes are also used in the usual English sense; the reader is expected to disambiguate this by context).</p>
 <p id="rfc.section.1.2.p.2">In this specification, the term &#8220;byte&#8221; is used in its now customary sense as a synonym for &#8220;octet&#8221;.</p>
 <h1 id="rfc.section.2">
 <a href="#rfc.section.2">2.</a> <a href="#the-style-of-data-structure-specification" id="the-style-of-data-structure-specification">The Style of Data Structure Specification</a>
 </h1>
 <p id="rfc.section.2.p.1">CDDL focuses on styles of specification that are in use in the community employing the data model as pioneered by JSON and now refined in CBOR.</p>
 <p id="rfc.section.2.p.2">There are a number of more or less atomic elements of a CBOR data model, such as numbers, simple values (false, true, nil), text and byte strings; CDDL does not focus on specifying their structure.  CDDL of course also allows adding a CBOR tag to a data item.</p>
-<p id="rfc.section.2.p.3">The more important components of a data structure definition language are the data types used for composition: arrays and maps in CBOR (called arrays and objects in JSON).  While these are only two representation formats, they are used to specify four loosely distinguishable styles of composition:</p>
+<p id="rfc.section.2.p.3">Beyond those atomic elements, further components of a data structure definition language are the data types used for composition: arrays and maps in CBOR (called arrays and objects in JSON).  While these are only two representation formats, they are used to specify four loosely distinguishable styles of composition:</p>
 <p></p>
 
 <ul>
@@ -948,16 +948,17 @@ located-samples = {
 }
 
 </pre>
-<p id="rfc.section.3.5.1.p.7">where <samp>located-samples</samp> is the datatype to be used when referring to the struct, and <samp>sample-point</samp> and <samp>samples</samp> are the keys to be used.  This is actually a complete example: an identifier that is followed by a colon can be directly used as the text string for a member key (we speak of a &#8220;bareword&#8221; member key), as can a double-quoted string or a number.  (When other types, in particular multi-valued ones, are used as the types of keys, they are followed by a double arrow, see below.)</p>
-<p id="rfc.section.3.5.1.p.8">If a text string key does not match the syntax for an identifier (or if the specifier just happens to prefer using double quotes), the text string syntax can also be used in the member key position, followed by a colon.  The above example could therefore have been written with quoted strings in the member key positions.  More generally, all the types defined can be used in a keytype position by following them with a double arrow &#8212; in particular, the double arrow is necessary if a type is named by an identifier (which would be interpreted as a string before a colon).  A string also is a type (that contains a single value only &#8212; the given string), so another form for this example is:</p>
+<p id="rfc.section.3.5.1.p.7">where <samp>located-samples</samp> is the datatype to be used when referring to the struct, and <samp>sample-point</samp> and <samp>samples</samp> are the keys to be used.  This is actually a complete example: an identifier that is followed by a colon can be directly used as the text string for a member key (we speak of a &#8220;bareword&#8221; member key), as can a double-quoted string or a number.  (When other types, in particular ones that contain more than one value, are used as the types of keys, they are followed by a double arrow, see below.)</p>
+<p id="rfc.section.3.5.1.p.8">If a text string key does not match the syntax for an identifier (or if the specifier just happens to prefer using double quotes), the text string syntax can also be used in the member key position, followed by a colon.  The above example could therefore have been written with quoted strings in the member key positions.</p>
+<p id="rfc.section.3.5.1.p.9">More generally, types specified in other ways than the cases described above can be used in a keytype position by following them with a double arrow &#8212; in particular, the double arrow is necessary if a type is named by an identifier (which, when followed by a colon, would be interpreted as a &#8220;bareword&#8221; and turned into a text string).  A literal text string also gives rise to a type (which contains a single value only &#8212; the given string), so another form for this example is:</p>
 <pre>
 located-samples = {
   "sample-point" =&gt; int,
   "samples" =&gt; [+ float],
 }
 </pre>
-<p id="rfc.section.3.5.1.p.9">See <a href="#cuts-in-maps" class="xref">Section 3.5.4</a> below for how the colon shortcut described here also adds some implied semantics.</p>
-<p id="rfc.section.3.5.1.p.10">A better way to demonstrate the double-arrow use may be:</p>
+<p id="rfc.section.3.5.1.p.10">See <a href="#cuts-in-maps" class="xref">Section 3.5.4</a> below for how the colon shortcut described here also adds some implied semantics.</p>
+<p id="rfc.section.3.5.1.p.11">A better way to demonstrate the double-arrow use may be:</p>
 <pre>
 located-samples = {
   sample-point: int,
@@ -967,7 +968,7 @@ located-samples = {
 equipment-type = [name: tstr, manufacturer: tstr]
 equipment-tolerances = [+ [float, float]]
 </pre>
-<p id="rfc.section.3.5.1.p.11">The example below defines a struct with optional entries: display name (as a text string), the name components first name and family name (as text strings), and age information (as an unsigned integer).</p>
+<p id="rfc.section.3.5.1.p.12">The example below defines a struct with optional entries: display name (as a text string), the name components first name and family name (as text strings), and age information (as an unsigned integer).</p>
 <pre>
 PersonalData = {
   ? displayName: tstr,
@@ -980,9 +981,9 @@ NameComponents = (
   ? familyName: tstr,
 )
 </pre>
-<p id="rfc.section.3.5.1.p.12">Note that the group definition for NameComponents does not generate another map; instead, all four keys are directly in the struct built by PersonalData.</p>
-<p id="rfc.section.3.5.1.p.13">In this example, all key/value pairs are optional from the perspective of CDDL.  With no occurrence indicator, an entry is mandatory.</p>
-<p id="rfc.section.3.5.1.p.14">If the addition of more entries not specified by the current specification is desired, one can add this possibility explicitly:</p>
+<p id="rfc.section.3.5.1.p.13">Note that the group definition for NameComponents does not generate another map; instead, all four keys are directly in the struct built by PersonalData.</p>
+<p id="rfc.section.3.5.1.p.14">In this example, all key/value pairs are optional from the perspective of CDDL.  With no occurrence indicator, an entry is mandatory.</p>
+<p id="rfc.section.3.5.1.p.15">If the addition of more entries not specified by the current specification is desired, one can add this possibility explicitly:</p>
 <div id="rfc.figure.7"></div>
 <div id="xmp-personaldata"></div>
 <pre>
@@ -999,17 +1000,17 @@ NameComponents = (
 )
 </pre>
 <p class="figure">Figure 7: Personal Data: Example for extensibility</p>
-<p id="rfc.section.3.5.1.p.15">The CDDL tool reported on in <a href="#tool" class="xref">Appendix F</a> generated as one acceptable instance for this specification:</p>
+<p id="rfc.section.3.5.1.p.16">The CDDL tool reported on in <a href="#tool" class="xref">Appendix F</a> generated as one acceptable instance for this specification:</p>
 <pre>
 {"familyName": "agust", "antiforeignism": "pretzel",
  "springbuck": "illuminatingly", "exuviae": "ephemeris",
  "kilometrage": "frogfish"}
 </pre>
-<p id="rfc.section.3.5.1.p.16">(See <a href="#socketplug" class="xref">Section 3.9</a> for one way to explicitly identify an extension point.)</p>
+<p id="rfc.section.3.5.1.p.17">(See <a href="#socketplug" class="xref">Section 3.9</a> for one way to explicitly identify an extension point.)</p>
 <h1 id="rfc.section.3.5.2">
 <a href="#rfc.section.3.5.2">3.5.2.</a> <a href="#tables" id="tables">Tables</a>
 </h1>
-<p id="rfc.section.3.5.2.p.1">A table can be specified by defining a map with entries where the keytype is not single-valued, e.g.:</p>
+<p id="rfc.section.3.5.2.p.1">A table can be specified by defining a map with entries where the keytype allows more than just a single value, e.g.:</p>
 <pre>
 square-roots = {* x =&gt; y}
 x = int
@@ -1257,7 +1258,7 @@ $message /= [4, noodles: text, sauce: text, parmesan: bool]
 <h1 id="rfc.section.3.8.6">
 <a href="#rfc.section.3.8.6">3.8.6.</a> <a href="#fortran" id="fortran">Control operators .lt, .le, .gt, .ge, .eq, .ne, and .default</a>
 </h1>
-<p id="rfc.section.3.8.6.p.1">The controls .lt, .le, .gt, .ge, .eq, .ne specify a constraint on the left hand side type to be a value less than, less than or equal, greater than, greater than or equal, equal, or not equal, to a value given as a (single-valued) right hand side type.  In the present specification, the first four controls (.lt, .le, .gt, .ge) are defined only for numeric types, as these have a natural ordering relationship.</p>
+<p id="rfc.section.3.8.6.p.1">The controls .lt, .le, .gt, .ge, .eq, .ne specify a constraint on the left hand side type to be a value less than, less than or equal, greater than, greater than or equal, equal, or not equal, to a value given as a right hand side type (containing just that single value).  In the present specification, the first four controls (.lt, .le, .gt, .ge) are defined only for numeric types, as these have a natural ordering relationship.</p>
 <pre>
 speed = number .ge 0  ; unit: m/s
 </pre>
@@ -1289,7 +1290,7 @@ $$tcp-option //= (
 sack-permitted: true
 )
 </pre>
-<p id="rfc.section.3.9.p.3">Names that start with a single &#8220;$&#8221; are &#8220;type sockets&#8221;, names with a double &#8220;$$&#8221; are &#8220;group sockets&#8221;.  It is not an error if there is no definition for a socket at all; this then means there is no way to satisfy the rule (i.e., the choice is empty).</p>
+<p id="rfc.section.3.9.p.3">Names that start with a single &#8220;$&#8221; are &#8220;type sockets&#8221;, starting out as an empty type, and intended to be extended via &#8220;/=&#8221;.  Names that start with a double &#8220;$$&#8221; are &#8220;group sockets&#8221;, starting out as an empty group choice, and intended to be extended via &#8220;//=&#8221;.  In either case, it is not an error if there is no definition for a socket at all; this then means there is no way to satisfy the rule (i.e., the choice is empty).</p>
 <p id="rfc.section.3.9.p.4">As a convention, all definitions (plugs) for socket names must be augmentations, i.e., they must be using &#8220;/=&#8221; and &#8220;//=&#8221;, respectively.</p>
 <p id="rfc.section.3.9.p.5">To pick up the example illustrated in <a href="#xmp-personaldata" class="xref">Figure 7</a>, the socket/plug mechanism could be used as shown in <a href="#xmp-personaldata-sp" class="xref">Figure 12</a>:</p>
 <div id="rfc.figure.12"></div>
@@ -1790,52 +1791,42 @@ reputon = {
 }
 </pre>
 <p id="rfc.section.A.1.p.3">Note how this rather clearly delineates the structure somewhat shrouded by so many words in section 6.2.2. of <a href="#RFC7071" class="xref">[RFC7071]</a>.  Also, this definition makes it clear that several ext-values are allowed (by definition with different member names); RFC 7071 could be read to forbid the repetition of ext-value (&#8220;A specific reputon-element MUST NOT appear more than once&#8221; is ambiguous.)</p>
-<p id="rfc.section.A.1.p.4">The CDDL tool reported on in <a href="#tool" class="xref">Appendix F</a> (which hasn&#8217;t quite been trained for polite conversation) says:</p>
+<p id="rfc.section.A.1.p.4">The CDDL tool reported on in <a href="#tool" class="xref">Appendix F</a> generates as one example:</p>
 <pre>
 {
-  "application": "tridentiferous",
+  "application": "conchometry",
   "reputons": [
     {
-      "rater": "loamily",
-      "assertion": "Dasyprocta",
-      "rated": "uncommensurableness",
-      "rating": 0.05055809746548934,
-      "confidence": 0.7484706448605812,
-      "normal-rating": 0.8677887734049299,
-      "sample-size": 4059,
-      "expires": 3969,
-      "bearer": "nitty",
-      "faucal": "postulnar",
-      "naturalism": "sarcotic"
+      "rater": "Ephthianura",
+      "assertion": "codding",
+      "rated": "sphaerolitic",
+      "rating": 0.34133473256800795,
+      "confidence": 0.9481983064298332,
+      "expires": 1568,
+      "unplaster": "grassy"
     },
     {
-      "rater": "precreed",
-      "assertion": "xanthosis",
-      "rated": "balsamy",
-      "rating": 0.36091333590593955,
-      "confidence": 0.3700759808403371,
-      "sample-size": 3904
+      "rater": "nonchargeable",
+      "assertion": "raglan",
+      "rated": "alienage",
+      "rating": 0.5724646875815566,
+      "sample-size": 3514,
+      "Aldebaran": "unchurched",
+      "puruloid": "impersonable",
+      "uninfracted": "pericarpoidal",
+      "schorl": "Caro"
     },
     {
-      "rater": "urinosexual",
-      "assertion": "malacostracous",
-      "rated": "arenariae",
-      "rating": 0.9210673488013762,
-      "normal-rating": 0.4778762617112776,
-      "sample-size": 4428,
-      "generated": 3294,
-      "backfurrow": "enterable",
-      "fruitgrower": "flannelflower"
-    },
-    {
-      "rater": "pedologistically",
-      "assertion": "unmetaphysical",
-      "rated": "elocutionist",
-      "rating": 0.42073613384304287,
-      "misimagine": "retinaculum",
-      "snobbish": "contradict",
-      "Bosporanic": "periostotomy",
-      "dayworker": "intragyral"
+      "rater": "precollectable",
+      "assertion": "Merat",
+      "rated": "thermonatrite",
+      "rating": 0.19164006323936977,
+      "confidence": 0.6065252103391268,
+      "normal-rating": 0.5187773690879303,
+      "generated": 899,
+      "speedy": "solidungular",
+      "noviceship": "medicine",
+      "checkrow": "epidictic"
     }
   ]
 }

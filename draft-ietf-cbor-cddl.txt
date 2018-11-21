@@ -70,7 +70,7 @@ Table of Contents
      1.2.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   4
    2.  The Style of Data Structure Specification . . . . . . . . . .   4
      2.1.  Groups and Composition in CDDL  . . . . . . . . . . . . .   6
-       2.1.1.  Usage . . . . . . . . . . . . . . . . . . . . . . . .   8
+       2.1.1.  Usage . . . . . . . . . . . . . . . . . . . . . . . .   9
        2.1.2.  Syntax  . . . . . . . . . . . . . . . . . . . . . . .   9
      2.2.  Types . . . . . . . . . . . . . . . . . . . . . . . . . .   9
        2.2.1.  Values  . . . . . . . . . . . . . . . . . . . . . . .   9
@@ -120,7 +120,7 @@ Internet-Draft                    CDDL                     November 2018
      7.2.  Informative References  . . . . . . . . . . . . . . . . .  37
    Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  39
      A.1.  RFC 7071  . . . . . . . . . . . . . . . . . . . . . . . .  39
-     A.2.  Examples from JSON Content Rules  . . . . . . . . . . . .  43
+     A.2.  Examples from JSON Content Rules  . . . . . . . . . . . .  42
    Appendix B.  ABNF grammar . . . . . . . . . . . . . . . . . . . .  45
    Appendix C.  Matching rules . . . . . . . . . . . . . . . . . . .  47
    Appendix D.  Standard Prelude . . . . . . . . . . . . . . . . . .  51
@@ -199,8 +199,12 @@ Internet-Draft                    CDDL                     November 2018
 
 1.2.  Terminology
 
-   New terms are introduced in _cursive_.  CDDL text in the running text
-   is in "typewriter".
+   New terms are introduced in _cursive_, which is rendered in plain
+   text as the new term surrouded by underscores.  CDDL text in the
+   running text is in "typewriter", which is rendered in plain text as
+   the CDDL text in double quotes (double quotes are also used in the
+   usual English sense; the reader is expected to disambiguate this by
+   context).
 
    In this specification, the term "byte" is used in its now customary
    sense as a synonym for "octet".
@@ -213,11 +217,7 @@ Internet-Draft                    CDDL                     November 2018
 
    There are a number of more or less atomic elements of a CBOR data
    model, such as numbers, simple values (false, true, nil), text and
-   byte strings; CDDL does not focus on specifying their structure.
-   CDDL of course also allows adding a CBOR tag to a data item.
 
-   The more important components of a data structure definition language
-   are the data types used for composition: arrays and maps in CBOR
 
 
 
@@ -226,9 +226,14 @@ Birkholz, et al.          Expires May 23, 2019                  [Page 4]
 Internet-Draft                    CDDL                     November 2018
 
 
-   (called arrays and objects in JSON).  While these are only two
-   representation formats, they are used to specify four loosely
-   distinguishable styles of composition:
+   byte strings; CDDL does not focus on specifying their structure.
+   CDDL of course also allows adding a CBOR tag to a data item.
+
+   Beyond those atomic elements, further components of a data structure
+   definition language are the data types used for composition: arrays
+   and maps in CBOR (called arrays and objects in JSON).  While these
+   are only two representation formats, they are used to specify four
+   loosely distinguishable styles of composition:
 
    o  A _vector_, an array of elements that are mostly of the same
       semantics.  The set of signatures associated with a signed data
@@ -269,11 +274,6 @@ Internet-Draft                    CDDL                     November 2018
 
    2.  The other important concept is that of a _type_.  The entire CDDL
        specification defines a type (the one defined by its first
-       _rule_), which formally is the set of CBOR data items that are
-       acceptable as "instances" for this specification.  CDDL
-       predefines a number of basic types such as "uint" (unsigned
-       integer) or "tstr" (text string), often making use of a simple
-       formal notation for CBOR data items.  Each value that can be
 
 
 
@@ -282,6 +282,11 @@ Birkholz, et al.          Expires May 23, 2019                  [Page 5]
 Internet-Draft                    CDDL                     November 2018
 
 
+       _rule_), which formally is the set of CBOR data items that are
+       acceptable as "instances" for this specification.  CDDL
+       predefines a number of basic types such as "uint" (unsigned
+       integer) or "tstr" (text string), often making use of a simple
+       formal notation for CBOR data items.  Each value that can be
        expressed as a CBOR data item also is a type in its own right,
        e.g. "1".  A type can be built as a _choice_ of other types,
        e.g., an "int" is either a "uint" or a "nint" (negative integer).
@@ -322,13 +327,8 @@ Internet-Draft                    CDDL                     November 2018
 
    A simple example of using a group directly in a map definition is:
 
-                             person = {
-                               age: int,
-                               name: tstr,
-                               employer: tstr,
-                             }
 
-                 Figure 1: Using a group directly in a map
+
 
 
 
@@ -337,6 +337,14 @@ Birkholz, et al.          Expires May 23, 2019                  [Page 6]
 
 Internet-Draft                    CDDL                     November 2018
 
+
+                             person = {
+                               age: int,
+                               name: tstr,
+                               employer: tstr,
+                             }
+
+                 Figure 1: Using a group directly in a map
 
    The three entries of the group are written between the curly braces
    that create the map: Here, "age", "name", and "employer" are the
@@ -372,6 +380,20 @@ Internet-Draft                    CDDL                     November 2018
    still be used, leading to the not so realistic, but perfectly valid
    example:
 
+
+
+
+
+
+
+
+
+
+Birkholz, et al.          Expires May 23, 2019                  [Page 7]
+
+Internet-Draft                    CDDL                     November 2018
+
+
                              person = {(
                                age: int,
                                name: tstr,
@@ -385,14 +407,6 @@ Internet-Draft                    CDDL                     November 2018
    Figure 5, one can factor out the common subgroup, choose a name for
    it, and write only the specific parts into the individual maps
    (Figure 6).
-
-
-
-
-Birkholz, et al.          Expires May 23, 2019                  [Page 7]
-
-Internet-Draft                    CDDL                     November 2018
-
 
                           person = {
                             age: int,
@@ -428,6 +442,14 @@ Internet-Draft                    CDDL                     November 2018
    Note that the lists inside the braces in the above definitions
    constitute (anonymous) groups, while "identity" is a named group.
 
+
+
+
+Birkholz, et al.          Expires May 23, 2019                  [Page 8]
+
+Internet-Draft                    CDDL                     November 2018
+
+
 2.1.1.  Usage
 
    Groups are the instrument used in composing data structures with
@@ -440,15 +462,6 @@ Internet-Draft                    CDDL                     November 2018
    structures and compose bigger protocol units with those or to have
    only one big protocol data unit that has all definitions ad hoc where
    needed.
-
-
-
-
-
-Birkholz, et al.          Expires May 23, 2019                  [Page 8]
-
-Internet-Draft                    CDDL                     November 2018
-
 
 2.1.2.  Syntax
 
@@ -486,6 +499,13 @@ Internet-Draft                    CDDL                     November 2018
    common enough that CDDL provides additional convenience syntax for
    this.)
 
+
+
+Birkholz, et al.          Expires May 23, 2019                  [Page 9]
+
+Internet-Draft                    CDDL                     November 2018
+
+
    The value notation is based on the C language, but does not offer all
    the syntactic variations (see Appendix B for details).  The value
    notation for numbers inherits from C the distinction between integer
@@ -494,17 +514,6 @@ Internet-Draft                    CDDL                     November 2018
    present -- NR2 or NR3), so the type "1" does not include any floating
    point numbers while the types "1e3" and "1.5" are both floating point
    numbers and do not include any integer numbers.
-
-
-
-
-
-
-
-Birkholz, et al.          Expires May 23, 2019                  [Page 9]
-
-Internet-Draft                    CDDL                     November 2018
-
 
 2.2.2.  Choices
 
@@ -542,15 +551,6 @@ Internet-Draft                    CDDL                     November 2018
    can be added to a rule later in separate rules by using "/=" and
    "//=", respectively, instead of "=":
 
-                 attire /= "swimwear"
-
-                 delivery //= (
-                 lat: float, long: float, drone-type: tstr
-                 )
-
-   It is not an error if a name is first used with a "/=" or "//="
-   (there is no need to "create it" with "=").
-
 
 
 
@@ -561,6 +561,15 @@ Birkholz, et al.          Expires May 23, 2019                 [Page 10]
 
 Internet-Draft                    CDDL                     November 2018
 
+
+                 attire /= "swimwear"
+
+                 delivery //= (
+                 lat: float, long: float, drone-type: tstr
+                 )
+
+   It is not an error if a name is first used with a "/=" or "//="
+   (there is no need to "create it" with "=").
 
 2.2.2.1.  Ranges
 
@@ -601,6 +610,14 @@ Internet-Draft                    CDDL                     November 2018
    is not a range expression but a single name.  When using a name as
    the left hand side of a range operator, use spacing as in
 
+
+
+
+Birkholz, et al.          Expires May 23, 2019                 [Page 11]
+
+Internet-Draft                    CDDL                     November 2018
+
+
       min .. max
 
    to separate off the range operator.
@@ -610,14 +627,6 @@ Internet-Draft                    CDDL                     November 2018
    Some choices are built out of large numbers of values, often
    integers, each of which is best given a semantic name in the
    specification.  Instead of naming each of these integers and then
-
-
-
-Birkholz, et al.          Expires May 23, 2019                 [Page 11]
-
-Internet-Draft                    CDDL                     November 2018
-
-
    accumulating these into a choice, CDDL allows building a choice from
    a group by prefixing it with a "&" character:
 
@@ -658,21 +667,17 @@ Internet-Draft                    CDDL                     November 2018
    This also enables the use of CDDL with JSON, which uses a
    fundamentally different way of serializing (some of) the same values.
 
-   It may be necessary to make use of representation types outside the
-   prelude, e.g., a specification could start by making use of an
-   existing tag in a more specific way, or define a new tag not defined
-   in the prelude:
-
-
-
-
-
 
 
 Birkholz, et al.          Expires May 23, 2019                 [Page 12]
 
 Internet-Draft                    CDDL                     November 2018
 
+
+   It may be necessary to make use of representation types outside the
+   prelude, e.g., a specification could start by making use of an
+   existing tag in a more specific way, or define a new tag not defined
+   in the prelude:
 
       my_breakfast = #6.55799(breakfast)   ; cbor-any is too general!
       breakfast = cereal / porridge
@@ -718,17 +723,14 @@ Internet-Draft                    CDDL                     November 2018
 
       *  Names are case sensitive.
 
-      *  It is preferred style to start a name with a lower case letter.
-
-
-
-
 
 
 Birkholz, et al.          Expires May 23, 2019                 [Page 13]
 
 Internet-Draft                    CDDL                     November 2018
 
+
+      *  It is preferred style to start a name with a lower case letter.
 
       *  The hyphen is preferred over the underscore (except in a
          "bareword" (Section 3.5.1), where the semantics may actually
@@ -776,8 +778,6 @@ Internet-Draft                    CDDL                     November 2018
 
    o  CDDL uses UTF-8 [RFC3629] for its encoding.
 
-   Example:
-
 
 
 
@@ -785,6 +785,8 @@ Birkholz, et al.          Expires May 23, 2019                 [Page 14]
 
 Internet-Draft                    CDDL                     November 2018
 
+
+   Example:
 
                     ; This is a comment
                     person = { g }
@@ -832,8 +834,6 @@ Internet-Draft                    CDDL                     November 2018
    much turns into:
 
      ? bedroom: size,
-
-
 
 
 
@@ -986,22 +986,22 @@ Internet-Draft                    CDDL                     November 2018
    This is actually a complete example: an identifier that is followed
    by a colon can be directly used as the text string for a member key
    (we speak of a "bareword" member key), as can a double-quoted string
-   or a number.  (When other types, in particular multi-valued ones, are
-   used as the types of keys, they are followed by a double arrow, see
-   below.)
+   or a number.  (When other types, in particular ones that contain more
+   than one value, are used as the types of keys, they are followed by a
+   double arrow, see below.)
 
    If a text string key does not match the syntax for an identifier (or
    if the specifier just happens to prefer using double quotes), the
    text string syntax can also be used in the member key position,
    followed by a colon.  The above example could therefore have been
-   written with quoted strings in the member key positions.  More
-   generally, all the types defined can be used in a keytype position by
-   following them with a double arrow -- in particular, the double arrow
-   is necessary if a type is named by an identifier (which would be
-   interpreted as a string before a colon).  A string also is a type
-   (that contains a single value only -- the given string), so another
-   form for this example is:
+   written with quoted strings in the member key positions.
 
+   More generally, types specified in other ways than the cases
+   described above can be used in a keytype position by following them
+   with a double arrow -- in particular, the double arrow is necessary
+   if a type is named by an identifier (which, when followed by a colon,
+   would be interpreted as a "bareword" and turned into a text string).
+   A literal text string also gives rise to a type (which contains a
 
 
 
@@ -1009,6 +1009,9 @@ Birkholz, et al.          Expires May 23, 2019                 [Page 18]
 
 Internet-Draft                    CDDL                     November 2018
 
+
+   single value only -- the given string), so another form for this
+   example is:
 
                          located-samples = {
                            "sample-point" => int,
@@ -1058,9 +1061,6 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-
-
-
 Birkholz, et al.          Expires May 23, 2019                 [Page 19]
 
 Internet-Draft                    CDDL                     November 2018
@@ -1093,7 +1093,7 @@ Internet-Draft                    CDDL                     November 2018
 3.5.2.  Tables
 
    A table can be specified by defining a map with entries where the
-   keytype is not single-valued, e.g.:
+   keytype allows more than just a single value, e.g.:
 
                          square-roots = {* x => y}
                          x = int
@@ -1579,10 +1579,10 @@ Internet-Draft                    CDDL                     November 2018
    The controls .lt, .le, .gt, .ge, .eq, .ne specify a constraint on the
    left hand side type to be a value less than, less than or equal,
    greater than, greater than or equal, equal, or not equal, to a value
-   given as a (single-valued) right hand side type.  In the present
-   specification, the first four controls (.lt, .le, .gt, .ge) are
-   defined only for numeric types, as these have a natural ordering
-   relationship.
+   given as a right hand side type (containing just that single value).
+   In the present specification, the first four controls (.lt, .le, .gt,
+   .ge) are defined only for numeric types, as these have a natural
+   ordering relationship.
 
    speed = number .ge 0  ; unit: m/s
 
@@ -1653,19 +1653,19 @@ Internet-Draft                    CDDL                     November 2018
             sack-permitted: true
             )
 
-   Names that start with a single "$" are "type sockets", names with a
-   double "$$" are "group sockets".  It is not an error if there is no
-   definition for a socket at all; this then means there is no way to
-   satisfy the rule (i.e., the choice is empty).
+   Names that start with a single "$" are "type sockets", starting out
+   as an empty type, and intended to be extended via "/=".  Names that
+   start with a double "$$" are "group sockets", starting out as an
+   empty group choice, and intended to be extended via "//=".  In either
+   case, it is not an error if there is no definition for a socket at
+   all; this then means there is no way to satisfy the rule (i.e., the
+   choice is empty).
 
    As a convention, all definitions (plugs) for socket names must be
    augmentations, i.e., they must be using "/=" and "//=", respectively.
 
    To pick up the example illustrated in Figure 7, the socket/plug
    mechanism could be used as shown in Figure 12:
-
-
-
 
 
 
@@ -2267,8 +2267,8 @@ Internet-Draft                    CDDL                     November 2018
    forbid the repetition of ext-value ("A specific reputon-element MUST
    NOT appear more than once" is ambiguous.)
 
-   The CDDL tool reported on in Appendix F (which hasn't quite been
-   trained for polite conversation) says:
+   The CDDL tool reported on in Appendix F generates as one example:
+
 
 
 
@@ -2299,60 +2299,42 @@ Internet-Draft                    CDDL                     November 2018
 
 
                 {
-                  "application": "tridentiferous",
+                  "application": "conchometry",
                   "reputons": [
                     {
-                      "rater": "loamily",
-                      "assertion": "Dasyprocta",
-                      "rated": "uncommensurableness",
-                      "rating": 0.05055809746548934,
-                      "confidence": 0.7484706448605812,
-                      "normal-rating": 0.8677887734049299,
-                      "sample-size": 4059,
-                      "expires": 3969,
-                      "bearer": "nitty",
-                      "faucal": "postulnar",
-                      "naturalism": "sarcotic"
+                      "rater": "Ephthianura",
+                      "assertion": "codding",
+                      "rated": "sphaerolitic",
+                      "rating": 0.34133473256800795,
+                      "confidence": 0.9481983064298332,
+                      "expires": 1568,
+                      "unplaster": "grassy"
                     },
                     {
-                      "rater": "precreed",
-                      "assertion": "xanthosis",
-                      "rated": "balsamy",
-                      "rating": 0.36091333590593955,
-                      "confidence": 0.3700759808403371,
-                      "sample-size": 3904
+                      "rater": "nonchargeable",
+                      "assertion": "raglan",
+                      "rated": "alienage",
+                      "rating": 0.5724646875815566,
+                      "sample-size": 3514,
+                      "Aldebaran": "unchurched",
+                      "puruloid": "impersonable",
+                      "uninfracted": "pericarpoidal",
+                      "schorl": "Caro"
                     },
                     {
-                      "rater": "urinosexual",
-                      "assertion": "malacostracous",
-                      "rated": "arenariae",
-                      "rating": 0.9210673488013762,
-                      "normal-rating": 0.4778762617112776,
-                      "sample-size": 4428,
-                      "generated": 3294,
-                      "backfurrow": "enterable",
-                      "fruitgrower": "flannelflower"
-                    },
-                    {
-                      "rater": "pedologistically",
-                      "assertion": "unmetaphysical",
-                      "rated": "elocutionist",
-                      "rating": 0.42073613384304287,
-                      "misimagine": "retinaculum",
-                      "snobbish": "contradict",
-                      "Bosporanic": "periostotomy",
-                      "dayworker": "intragyral"
+                      "rater": "precollectable",
+                      "assertion": "Merat",
+                      "rated": "thermonatrite",
+                      "rating": 0.19164006323936977,
+                      "confidence": 0.6065252103391268,
+                      "normal-rating": 0.5187773690879303,
+                      "generated": 899,
+                      "speedy": "solidungular",
+                      "noviceship": "medicine",
+                      "checkrow": "epidictic"
                     }
                   ]
                 }
-
-
-
-
-Birkholz, et al.          Expires May 23, 2019                 [Page 42]
-
-Internet-Draft                    CDDL                     November 2018
-
 
 A.2.  Examples from JSON Content Rules
 
@@ -2363,6 +2345,14 @@ A.2.  Examples from JSON Content Rules
 
    Figure 2 of the JCR I-D looks very similar, if slightly less noisy,
    in CDDL:
+
+
+
+
+Birkholz, et al.          Expires May 23, 2019                 [Page 42]
+
+Internet-Draft                    CDDL                     November 2018
+
 
                             root = [2*2 {
                               precision: text,
@@ -2394,6 +2384,16 @@ A.2.  Examples from JSON Content Rules
       "Country": "wimple"}]
 
    Figure 4 of the JCR I-D in CDDL:
+
+
+
+
+
+
+
+
+
+
 
 
 
