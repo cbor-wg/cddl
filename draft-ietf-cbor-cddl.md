@@ -1476,8 +1476,11 @@ sack-permitted: true
 ~~~~
 {:cddl}
 
-Names that start with a single "$" are "type sockets", names with a
-double "$$" are "group sockets".  It is not an error if there is no
+Names that start with a single "$" are "type sockets", starting out as
+an empty type, and intended to be extended via "/=".
+Names that start with a double "$$" are "group sockets", starting out
+as an empty group choice, and intended to be extended via "//=".
+In either case, it is not an error if there is no
 definition for a socket at all; this then means there is no way to
 satisfy the rule (i.e., the choice is empty).
 
