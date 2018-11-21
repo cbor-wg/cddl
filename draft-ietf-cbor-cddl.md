@@ -841,7 +841,7 @@ and `sample-point` and `samples` are the keys to be used.
 This is actually a complete example: an identifier that is followed by a
 colon can be directly used as the text string for a member key (we speak of a
 "bareword" member key), as can a double-quoted string or a number.
-(When other types, in particular multi-valued ones, are used as
+(When other types, in particular ones that contain more than one value, are used as
 the types of keys, they are followed by a double arrow, see below.)
 
 If a text string key does not match the syntax for an identifier (or
@@ -937,7 +937,7 @@ The CDDL tool reported on in {{tool}} generated as one acceptable instance for t
 ### Tables
 
 A table can be specified by defining a map with entries where the
-keytype is not single-valued, e.g.:
+keytype allows more than just a single value, e.g.:
 
 ~~~~ CDDL
 square-roots = {* x => y}
@@ -1404,7 +1404,7 @@ expectation that type1 already is a subset of type2.
 The controls .lt, .le, .gt, .ge, .eq, .ne specify a constraint on
 the left hand side type to be a value less than, less than or equal,
 greater than, greater than or equal, equal, or not equal, to a
-value given as a (single-valued) right hand side type.
+value given as a right hand side type (containing just that single value).
 In the present specification, the first four controls (.lt, .le,
 .gt, .ge) are defined only for numeric types, as these have a natural
 ordering relationship.
