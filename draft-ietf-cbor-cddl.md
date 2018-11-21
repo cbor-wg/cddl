@@ -1798,54 +1798,43 @@ allowed (by definition with different member names); RFC 7071 could be
 read to forbid the repetition of ext-value ("A specific
 reputon-element MUST NOT appear more than once" is ambiguous.)
 
-The CDDL tool reported on in {{tool}} (which hasn't quite been trained
-for polite conversation) says:
+The CDDL tool reported on in {{tool}} generates as one example:
 
 ~~~~ JSON
 {
-  "application": "tridentiferous",
+  "application": "conchometry",
   "reputons": [
     {
-      "rater": "loamily",
-      "assertion": "Dasyprocta",
-      "rated": "uncommensurableness",
-      "rating": 0.05055809746548934,
-      "confidence": 0.7484706448605812,
-      "normal-rating": 0.8677887734049299,
-      "sample-size": 4059,
-      "expires": 3969,
-      "bearer": "nitty",
-      "faucal": "postulnar",
-      "naturalism": "sarcotic"
+      "rater": "Ephthianura",
+      "assertion": "codding",
+      "rated": "sphaerolitic",
+      "rating": 0.34133473256800795,
+      "confidence": 0.9481983064298332,
+      "expires": 1568,
+      "unplaster": "grassy"
     },
     {
-      "rater": "precreed",
-      "assertion": "xanthosis",
-      "rated": "balsamy",
-      "rating": 0.36091333590593955,
-      "confidence": 0.3700759808403371,
-      "sample-size": 3904
+      "rater": "nonchargeable",
+      "assertion": "raglan",
+      "rated": "alienage",
+      "rating": 0.5724646875815566,
+      "sample-size": 3514,
+      "Aldebaran": "unchurched",
+      "puruloid": "impersonable",
+      "uninfracted": "pericarpoidal",
+      "schorl": "Caro"
     },
     {
-      "rater": "urinosexual",
-      "assertion": "malacostracous",
-      "rated": "arenariae",
-      "rating": 0.9210673488013762,
-      "normal-rating": 0.4778762617112776,
-      "sample-size": 4428,
-      "generated": 3294,
-      "backfurrow": "enterable",
-      "fruitgrower": "flannelflower"
-    },
-    {
-      "rater": "pedologistically",
-      "assertion": "unmetaphysical",
-      "rated": "elocutionist",
-      "rating": 0.42073613384304287,
-      "misimagine": "retinaculum",
-      "snobbish": "contradict",
-      "Bosporanic": "periostotomy",
-      "dayworker": "intragyral"
+      "rater": "precollectable",
+      "assertion": "Merat",
+      "rated": "thermonatrite",
+      "rating": 0.19164006323936977,
+      "confidence": 0.6065252103391268,
+      "normal-rating": 0.5187773690879303,
+      "generated": 899,
+      "speedy": "solidungular",
+      "noviceship": "medicine",
+      "checkrow": "epidictic"
     }
   ]
 }
