@@ -139,8 +139,12 @@ CBOR specification is listed in {{prelude}}.
 
 ## Terminology
 
-New terms are introduced in _cursive_.
-CDDL text in the running text is in `typewriter`.
+New terms are introduced in _cursive_, which is rendered in plain text
+as the new term surrouded by underscores.
+CDDL text in the running text is in `typewriter`, which is rendered in
+plain text as the CDDL text in double quotes (double quotes are also
+used in the usual English sense; the reader is expected to
+disambiguate this by context).
 
 In this specification, the term "byte" is used in its now customary
 sense as a synonym for "octet".
