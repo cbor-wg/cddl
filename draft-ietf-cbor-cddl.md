@@ -161,7 +161,8 @@ byte strings;
 CDDL does not focus on specifying their structure.  CDDL of course
 also allows adding a CBOR tag to a data item.
 
-The more important components of a data structure definition language
+Beyond those atomic elements, further components of a
+data structure definition language
 are the data types used for composition: arrays and maps in CBOR
 (called arrays and objects in JSON).  While these are only two
 representation formats, they are used to specify four loosely
