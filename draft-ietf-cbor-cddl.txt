@@ -118,24 +118,25 @@ Internet-Draft                    CDDL                     November 2018
    7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  36
      7.1.  Normative References  . . . . . . . . . . . . . . . . . .  36
      7.2.  Informative References  . . . . . . . . . . . . . . . . .  37
-   Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  39
-     A.1.  RFC 7071  . . . . . . . . . . . . . . . . . . . . . . . .  39
-     A.2.  Examples from JSON Content Rules  . . . . . . . . . . . .  42
-   Appendix B.  ABNF grammar . . . . . . . . . . . . . . . . . . . .  45
-   Appendix C.  Matching rules . . . . . . . . . . . . . . . . . . .  47
-   Appendix D.  Standard Prelude . . . . . . . . . . . . . . . . . .  51
-   Appendix E.  Use with JSON  . . . . . . . . . . . . . . . . . . .  53
-   Appendix F.  A CDDL tool  . . . . . . . . . . . . . . . . . . . .  55
-   Appendix G.  Extended Diagnostic Notation . . . . . . . . . . . .  56
-     G.1.  White space in byte string notation . . . . . . . . . . .  56
-     G.2.  Text in byte string notation  . . . . . . . . . . . . . .  56
-     G.3.  Embedded CBOR and CBOR sequences in byte strings  . . . .  57
-     G.4.  Concatenated Strings  . . . . . . . . . . . . . . . . . .  57
-     G.5.  Hexadecimal, octal, and binary numbers  . . . . . . . . .  58
-     G.6.  Comments  . . . . . . . . . . . . . . . . . . . . . . . .  58
-   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  59
-   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  59
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  59
+   Appendix A.  Parsing Expression Grammars (PEG)  . . . . . . . . .  39
+   Appendix B.  ABNF grammar . . . . . . . . . . . . . . . . . . . .  40
+   Appendix C.  Matching rules . . . . . . . . . . . . . . . . . . .  43
+   Appendix D.  Standard Prelude . . . . . . . . . . . . . . . . . .  47
+   Appendix E.  Use with JSON  . . . . . . . . . . . . . . . . . . .  49
+   Appendix F.  A CDDL tool  . . . . . . . . . . . . . . . . . . . .  51
+   Appendix G.  Extended Diagnostic Notation . . . . . . . . . . . .  52
+     G.1.  White space in byte string notation . . . . . . . . . . .  52
+     G.2.  Text in byte string notation  . . . . . . . . . . . . . .  52
+     G.3.  Embedded CBOR and CBOR sequences in byte strings  . . . .  53
+     G.4.  Concatenated Strings  . . . . . . . . . . . . . . . . . .  53
+     G.5.  Hexadecimal, octal, and binary numbers  . . . . . . . . .  54
+     G.6.  Comments  . . . . . . . . . . . . . . . . . . . . . . . .  54
+   Appendix H.  Examples . . . . . . . . . . . . . . . . . . . . . .  55
+     H.1.  RFC 7071  . . . . . . . . . . . . . . . . . . . . . . . .  55
+     H.2.  Examples from JSON Content Rules  . . . . . . . . . . . .  58
+   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  61
+   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  61
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  61
 
 1.  Introduction
 
@@ -164,7 +165,6 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-
 Birkholz, et al.          Expires May 23, 2019                  [Page 3]
 
 Internet-Draft                    CDDL                     November 2018
@@ -182,7 +182,7 @@ Internet-Draft                    CDDL                     November 2018
 
    The syntax of CDDL is defined in Section 3.  Examples of CDDL and
    related CBOR data items ("instances", which all happen to be in JSON
-   form) are given in Appendix A.  Section 4 discusses usage of CDDL.
+   form) are given in Appendix H.  Section 4 discusses usage of CDDL.
    Examples are provided early in the text to better illustrate concept
    definitions.  A formal definition of CDDL using ABNF grammar is
    provided in Appendix B.  Finally, a _prelude_ of standard CDDL
@@ -303,7 +303,7 @@ Internet-Draft                    CDDL                     November 2018
    turn stands for a sequence of name/value pairs).  A CDDL group is a
    production in a grammar that matches certain sequences of name/value
    pairs but not others.  The grammar is based on the concepts of
-   Parsing Expression Grammars [PEG].
+   Parsing Expression Grammars (see Appendix A).
 
    In an array context, only the value of the name/value pair is
    represented; the name is annotation only (and can be left off from
@@ -1125,12 +1125,12 @@ Internet-Draft                    CDDL                     November 2018
 3.5.3.  Non-deterministic order
 
    While the way arrays are matched is fully determined by the Parsing
-   Expression Grammar (PEG) algorithm, matching is more complicated for
-   maps, as maps do not have an inherent order.  For each candidate
-   name/value pair that the PEG algorithm would try, a matching member
-   is picked out of the entire map.  For certain group expressions, more
-   than one member in the map may match.  Most often, this is
-   inconsequential, as the group expression tends to consume all
+   Expression Grammar (PEG) formalism (see Appendix A), matching is more
+   complicated for maps, as maps do not have an inherent order.  For
+   each candidate name/value pair that the PEG algorithm would try, a
+   matching member is picked out of the entire map.  For certain group
+   expressions, more than one member in the map may match.  Most often,
+   this is inconsequential, as the group expression tends to consume all
    matches:
 
    labeled-values = {
@@ -2130,53 +2130,53 @@ Birkholz, et al.          Expires May 23, 2019                 [Page 38]
 Internet-Draft                    CDDL                     November 2018
 
 
-Appendix A.  Examples
+Appendix A.  Parsing Expression Grammars (PEG)
 
-   This appendix is for information only.
+   This appendix is normative.
 
-   This section contains a few examples of structures defined using
-   CDDL.
+   Since the 1950s, many grammar notations are based on Backus-Naur Form
+   (BNF), a notation for context-free grammars (CFGs) within Chomsky's
+   generative system of grammars.  ABNF [RFC5234], the Augmented Backus-
+   Naur Form widely used in IETF specifications and also inspiring the
+   syntax of CDDL, is an example of this.
 
-   The theme for the first example is taken from [RFC7071], which
-   defines certain JSON structures in English.  For a similar example,
-   it may also be of interest to examine Appendix A of [RFC8007], which
-   contains a CDDL definition for a JSON structure defined in the main
-   body of the RFC.
+   Generative grammars can express ambiguity well, but this very
+   property may make them hard to use in recognition systems, spawning a
+   number of subdialects that pose constraints on generative grammars to
+   be used with parser generators, which may be hard to manage for the
+   specification writer.
 
-   The second subsection in this appendix translates examples from
-   [I-D.newton-json-content-rules] into CDDL.
+   Parsing Expression Grammars [PEG] provide an alternative formal
+   foundation for describing grammars that emphasizes recognition over
+   generation, and resolves what would have been ambiguity in generative
+   systems by introducing the concept of "prioritized choice".
 
-   These examples all happen to describe data that is interchanged in
-   JSON.  Examples for CDDL definitions of data that is interchanged in
-   CBOR can be found in [RFC8152], [I-D.ietf-anima-grasp], or [RFC8428].
+   The notation for Parsing Expression Grammars is quite close to BNF,
+   with the usual "Extended BNF" features such as repetition added.
+   However, where BNF uses the unordered (symmetrical) choice operator
+   "|" (incidentally notated as "/" in ABNF), PEG provides a prioritized
+   choice operator "/".  The two alternatives listed are to be tested in
+   left-to-right order, locking in the first successful match and
+   disregarding any further potential matches within the choice (but not
+   disabling alternatives in choices containing this choice, as a "cut"
+   would - Section 3.5.4}.
 
-A.1.  RFC 7071
+   For example, the ABNF expressions
 
-   [RFC7071] defines the Reputon structure for JSON using somewhat
-   formalized English text.  Here is a (somewhat verbose) equivalent
-   definition using the same terms, but notated in CDDL:
+   A = "a" "b" / "a"    (1)
 
+   and
 
+   A = "a" / "a" "b"    (2)
 
+   are equivalent in ABNF's generative framework, but very different in
+   PEG: In (2), the second alternative will never match, as any input
+   string starting with an "a" will already succeed in the first
+   alternative, locking in the match.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   Similarly, the occurrence indicators ("?", "*", "+") are "greedy" in
+   PEG, i.e., they consume as much input as they match (and, as a
+   consequence, "a* a" in PEG notation or "*a a" in CDDL syntax never
 
 
 
@@ -2186,54 +2186,54 @@ Birkholz, et al.          Expires May 23, 2019                 [Page 39]
 Internet-Draft                    CDDL                     November 2018
 
 
-                 reputation-object = {
-                   reputation-context,
-                   reputon-list
-                 }
+   can match anything as all input matching "a" is already consumed by
+   the initial "a*", leaving nothing to match the second "a").
 
-                 reputation-context = (
-                   application: text
-                 )
+   Incidentally, the grammar of the CDDL language itself, as written in
+   ABNF in Appendix B, can be interpreted both in the generative
+   framework on which RFC 5234 is based, and as a PEG.  This was made
+   possible by ordering the choices in the grammar such that a
+   successful match made on the left hand side of a "/" operator is
+   always the intended match, and no ambiguity is used.
 
-                 reputon-list = (
-                   reputons: reputon-array
-                 )
+   The syntax used for expressing the PEG component of CDDL is based on
+   ABNF, interpreted in the obvious way with PEG semantics.  The ABNF
+   convention of notating occurrence indicators before the controlled
+   primary, and of allowing numeric values for minimum and maximum
+   occurrence around a "*" sign, is copied.  While PEG is only about
+   characters, CDDL has a richer set of elements, such as types and
+   groups.  Specifically, the following constructs map:
 
-                 reputon-array = [* reputon]
+       +-------+-------+-------------------------------------------+
+       | CDDL  | PEG   | Remark                                    |
+       +-------+-------+-------------------------------------------+
+       | "="   | "<-"  | /= and //= are abbreviations              |
+       | "//"  | "/"   | prioritized choice                        |
+       | "/"   | "/"   | prioritized choice, limited to types only |
+       | "?" P | P "?" | zero or one                               |
+       | "*" P | P "*" | zero or more                              |
+       | "+" P | P "+" | one or more                               |
+       | A B   | A B   | sequence                                  |
+       | A, B  | A B   | sequence, comma is decoration only        |
+       +-------+-------+-------------------------------------------+
 
-                 reputon = {
-                   rater-value,
-                   assertion-value,
-                   rated-value,
-                   rating-value,
-                   ? conf-value,
-                   ? normal-value,
-                   ? sample-value,
-                   ? gen-value,
-                   ? expire-value,
-                   * ext-value,
-                 }
+   The literal notation and the use of square brackets, curly braces,
+   tildes, ampersands, and hash marks is specific to CDDL and unrelated
+   to the conventional PEG notation.  The DOT (".") is replaced by the
+   unadorned "#" or its alias "any".  Also, CDDL does not provide the
+   syntactic predicate operators NOT ("!") or AND ("&") from PEG,
+   reducing expressiveness as well as complexity.
 
-                 rater-value = ( rater: text )
-                 assertion-value = ( assertion: text )
-                 rated-value = ( rated: text )
-                 rating-value = ( rating: float16 )
-                 conf-value = ( confidence: float16 )
-                 normal-value = ( normal-rating: float16 )
-                 sample-value = ( sample-size: uint )
-                 gen-value = ( generated: uint )
-                 expire-value = ( expires: uint )
-                 ext-value = ( text => any )
+   For more details about PEG's theoretical foundation and interesting
+   properties of the operators such as associativity and distributivity,
+   the reader is referred to [PEG].
 
-   An equivalent, more compact form of this example would be:
+Appendix B.  ABNF grammar
 
+   This appendix is normative.
 
-
-
-
-
-
-
+   The following is a formal definition of the CDDL syntax in Augmented
+   Backus-Naur Form (ABNF, [RFC5234]).  Note that, as is defined in
 
 
 
@@ -2242,236 +2242,6 @@ Birkholz, et al.          Expires May 23, 2019                 [Page 40]
 Internet-Draft                    CDDL                     November 2018
 
 
-                        reputation-object = {
-                          application: text
-                          reputons: [* reputon]
-                        }
-
-                        reputon = {
-                          rater: text
-                          assertion: text
-                          rated: text
-                          rating: float16
-                          ? confidence: float16
-                          ? normal-rating: float16
-                          ? sample-size: uint
-                          ? generated: uint
-                          ? expires: uint
-                          * text => any
-                        }
-
-   Note how this rather clearly delineates the structure somewhat
-   shrouded by so many words in section 6.2.2. of [RFC7071].  Also, this
-   definition makes it clear that several ext-values are allowed (by
-   definition with different member names); RFC 7071 could be read to
-   forbid the repetition of ext-value ("A specific reputon-element MUST
-   NOT appear more than once" is ambiguous.)
-
-   The CDDL tool reported on in Appendix F generates as one example:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Birkholz, et al.          Expires May 23, 2019                 [Page 41]
-
-Internet-Draft                    CDDL                     November 2018
-
-
-                {
-                  "application": "conchometry",
-                  "reputons": [
-                    {
-                      "rater": "Ephthianura",
-                      "assertion": "codding",
-                      "rated": "sphaerolitic",
-                      "rating": 0.34133473256800795,
-                      "confidence": 0.9481983064298332,
-                      "expires": 1568,
-                      "unplaster": "grassy"
-                    },
-                    {
-                      "rater": "nonchargeable",
-                      "assertion": "raglan",
-                      "rated": "alienage",
-                      "rating": 0.5724646875815566,
-                      "sample-size": 3514,
-                      "Aldebaran": "unchurched",
-                      "puruloid": "impersonable",
-                      "uninfracted": "pericarpoidal",
-                      "schorl": "Caro"
-                    },
-                    {
-                      "rater": "precollectable",
-                      "assertion": "Merat",
-                      "rated": "thermonatrite",
-                      "rating": 0.19164006323936977,
-                      "confidence": 0.6065252103391268,
-                      "normal-rating": 0.5187773690879303,
-                      "generated": 899,
-                      "speedy": "solidungular",
-                      "noviceship": "medicine",
-                      "checkrow": "epidictic"
-                    }
-                  ]
-                }
-
-A.2.  Examples from JSON Content Rules
-
-   Although JSON Content Rules [I-D.newton-json-content-rules] seems to
-   address a more general problem than CDDL, it is still a worthwhile
-   resource to explore for examples (beyond all the inspiration the
-   format itself has had for CDDL).
-
-   Figure 2 of the JCR I-D looks very similar, if slightly less noisy,
-   in CDDL:
-
-
-
-
-Birkholz, et al.          Expires May 23, 2019                 [Page 42]
-
-Internet-Draft                    CDDL                     November 2018
-
-
-                            root = [2*2 {
-                              precision: text,
-                              Latitude: float,
-                              Longitude: float,
-                              Address: text,
-                              City: text,
-                              State: text,
-                              Zip: text,
-                              Country: text
-                            }]
-
-                     Figure 13: JCR, Figure 2, in CDDL
-
-   Apart from the lack of a need to quote the member names, text strings
-   are called "text" or "tstr" in CDDL ("string" would be ambiguous as
-   CBOR also provides byte strings).
-
-   The CDDL tool reported on in Appendix F creates the below example
-   instance for this:
-
-    [{"precision": "pyrosphere", "Latitude": 0.5399712314350172,
-      "Longitude": 0.5157523963028087, "Address": "resow",
-      "City": "problemwise", "State": "martyrlike", "Zip": "preprove",
-      "Country": "Pace"},
-     {"precision": "unrigging", "Latitude": 0.10422704368372193,
-      "Longitude": 0.6279808663725834, "Address": "picturedom",
-      "City": "decipherability", "State": "autometry", "Zip": "pout",
-      "Country": "wimple"}]
-
-   Figure 4 of the JCR I-D in CDDL:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Birkholz, et al.          Expires May 23, 2019                 [Page 43]
-
-Internet-Draft                    CDDL                     November 2018
-
-
-                             root = { image }
-
-                             image = (
-                               Image: {
-                                 size,
-                                 Title: text,
-                                 thumbnail,
-                                 IDs: [* int]
-                               }
-                             )
-
-                             size = (
-                               Width: 0..1280
-                               Height: 0..1024
-                             )
-
-                             thumbnail = (
-                               Thumbnail: {
-                                 size,
-                                 Url: ~uri
-                               }
-                             )
-
-   This shows how the group concept can be used to keep related elements
-   (here: width, height) together, and to emulate the JCR style of
-   specification.  (It also shows referencing a type by unwrapping a tag
-   from the prelude, "uri" - this could be done differently.)  The more
-   compact form of Figure 5 of the JCR I-D could be emulated like this:
-
-                    root = {
-                      Image: {
-                        size, Title: text,
-                        Thumbnail: { size, Url: ~uri },
-                        IDs: [* int]
-                      }
-                    }
-
-                    size = (
-                      Width: 0..1280,
-                      Height: 0..1024,
-                    )
-
-   The CDDL tool reported on in Appendix F creates the below example
-   instance for this:
-
-    {"Image": {"Width": 566, "Height": 516, "Title": "leisterer",
-      "Thumbnail": {"Width": 1111, "Height": 176, "Url": 32("scrog")},
-      "IDs": []}}
-
-
-
-Birkholz, et al.          Expires May 23, 2019                 [Page 44]
-
-Internet-Draft                    CDDL                     November 2018
-
-
-Appendix B.  ABNF grammar
-
-   This appendix is normative.
-
-   The following is a formal definition of the CDDL syntax in Augmented
-   Backus-Naur Form (ABNF, [RFC5234]).  Note that, as is defined in
    ABNF, the quote-delimited strings below are case-insensitive (while
    string values and names are case-sensitive in CDDL).
 
@@ -2514,20 +2284,19 @@ Appendix B.  ABNF grammar
      grpchoice = *(grpent optcom)
 
      grpent = [occur S] [memberkey S] type
-
-
-
-Birkholz, et al.          Expires May 23, 2019                 [Page 45]
-
-Internet-Draft                    CDDL                     November 2018
-
-
             / [occur S] groupname [genericarg]  ; preempted by above
             / [occur S] "(" S group S ")"
 
      memberkey = type1 S ["^" S] "=>"
                / bareword S ":"
                / value S ":"
+
+
+
+Birkholz, et al.          Expires May 23, 2019                 [Page 41]
+
+Internet-Draft                    CDDL                     November 2018
+
 
      bareword = id
 
@@ -2570,14 +2339,6 @@ Internet-Draft                    CDDL                     November 2018
      HEXDIG = DIGIT / "A" / "B" / "C" / "D" / "E" / "F"
      BINDIG = %x30-31
 
-
-
-
-Birkholz, et al.          Expires May 23, 2019                 [Page 46]
-
-Internet-Draft                    CDDL                     November 2018
-
-
      S = *WS
      WS = SP / NL
      SP = %x20
@@ -2586,7 +2347,14 @@ Internet-Draft                    CDDL                     November 2018
      PCHAR = %x20-7E / %x80-10FFFD
      CRLF = %x0A / %x0D.0A
 
-                           Figure 14: CDDL ABNF
+
+
+Birkholz, et al.          Expires May 23, 2019                 [Page 42]
+
+Internet-Draft                    CDDL                     November 2018
+
+
+                           Figure 13: CDDL ABNF
 
    Note that this ABNF does not attempt to reflect the detailed rules of
    what can be in a prefixed byte string.
@@ -2627,13 +2395,6 @@ Appendix C.  Matching rules
    typename = id
    groupname = id
 
-
-
-Birkholz, et al.          Expires May 23, 2019                 [Page 47]
-
-Internet-Draft                    CDDL                     November 2018
-
-
    A rule defines a name for a type expression (production "type") or
    for a group expression (production "grpent"), with the intention that
    the semantics does not change when the name is replaced by its
@@ -2641,6 +2402,14 @@ Internet-Draft                    CDDL                     November 2018
    defined by a rule stands for a type or a group isn't always
    determined by syntax alone: e.g., "a = b" can make "a" a type if "b"
    is a type, or a group if "b" is a group.  More subtly, in "a = (b)",
+
+
+
+Birkholz, et al.          Expires May 23, 2019                 [Page 43]
+
+Internet-Draft                    CDDL                     November 2018
+
+
    "a" may be used as a type if "b" is a type, or as a group both when
    "b" is a group and when "b" is a type (a good convention to make the
    latter case stand out to the human reader is to write "a = (b,)").
@@ -2676,24 +2445,26 @@ Internet-Draft                    CDDL                     November 2018
    A type can be given as a choice between one or more types.  The
    choice matches a data item if the data item matches any one of the
    types given in the choice.  The choice uses Parsing Expression
-   Grammar [PEG] semantics: The first choice that matches wins.  (As a
-   result, the order of rules that contribute to a single rule name can
-   very well matter.)
+   Grammar semantics as discussed in Appendix A: The first choice that
+   matches wins.  (As a result, the order of rules that contribute to a
+   single rule name can very well matter.)
 
    type1 = type2 [S (rangeop / ctlop) S type2]
-
-
-
-
-Birkholz, et al.          Expires May 23, 2019                 [Page 48]
-
-Internet-Draft                    CDDL                     November 2018
-
 
    Two types can be combined with a range operator (which see below) or
    a control operator (see Section 3.8).
 
    type2 = value
+
+
+
+
+
+
+Birkholz, et al.          Expires May 23, 2019                 [Page 44]
+
+Internet-Draft                    CDDL                     November 2018
+
 
    A type can be just a single value (such as 1 or "icecream" or
    h'0815'), which matches only a data item with that specific value (no
@@ -2739,17 +2510,17 @@ Internet-Draft                    CDDL                     November 2018
 
          / "#" DIGIT ["." uint]                ; major/ai
 
-
-
-Birkholz, et al.          Expires May 23, 2019                 [Page 49]
-
-Internet-Draft                    CDDL                     November 2018
-
-
    a data item of a major type (given by the DIGIT), optionally
    constrained to the additional information given by the uint, or
 
          / "#"                                 ; any
+
+
+
+Birkholz, et al.          Expires May 23, 2019                 [Page 45]
+
+Internet-Draft                    CDDL                     November 2018
+
 
    any data item.
 
@@ -2794,16 +2565,18 @@ Internet-Draft                    CDDL                     November 2018
 
           / [occur S] "(" S group S ")"
 
+   from a parenthesized group, again with a possible occurrence
+   indicator.
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 50]
+
+
+
+Birkholz, et al.          Expires May 23, 2019                 [Page 46]
 
 Internet-Draft                    CDDL                     November 2018
 
-
-   from a parenthesized group, again with a possible occurrence
-   indicator.
 
    memberkey = type1 S ["^" S] "=>"
              / bareword S ":"
@@ -2853,7 +2626,10 @@ Appendix D.  Standard Prelude
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 51]
+
+
+
+Birkholz, et al.          Expires May 23, 2019                 [Page 47]
 
 Internet-Draft                    CDDL                     November 2018
 
@@ -2905,11 +2681,11 @@ Internet-Draft                    CDDL                     November 2018
                   undefined = #7.23
 
 
-                          Figure 15: CDDL Prelude
+                          Figure 14: CDDL Prelude
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 52]
+Birkholz, et al.          Expires May 23, 2019                 [Page 48]
 
 Internet-Draft                    CDDL                     November 2018
 
@@ -2959,13 +2735,13 @@ Appendix E.  Use with JSON
                       null = nil
 
 
-             Figure 16: JSON compatible subset of CDDL Prelude
+             Figure 15: JSON compatible subset of CDDL Prelude
 
 
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 53]
+Birkholz, et al.          Expires May 23, 2019                 [Page 49]
 
 Internet-Draft                    CDDL                     November 2018
 
@@ -3006,7 +2782,7 @@ Internet-Draft                    CDDL                     November 2018
 
    JSON applications that want to stay compatible with I-JSON
    ([RFC7493], "Internet JSON") therefore may want to define integer
-   types with more limited ranges, such as in Figure 17.  Note that the
+   types with more limited ranges, such as in Figure 16.  Note that the
    types given here are not part of the prelude; they need to be copied
    into the CDDL specification if needed.
 
@@ -3014,14 +2790,14 @@ Internet-Draft                    CDDL                     November 2018
                ij-nint = -9007199254740991..-1
                ij-int = -9007199254740991..9007199254740991
 
-          Figure 17: I-JSON types for CDDL (not part of prelude)
+          Figure 16: I-JSON types for CDDL (not part of prelude)
 
    JSON applications that do not need to stay compatible with I-JSON and
    that actually may need to go beyond the 64-bit unsigned and negative
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 54]
+Birkholz, et al.          Expires May 23, 2019                 [Page 50]
 
 Internet-Draft                    CDDL                     November 2018
 
@@ -3061,13 +2837,13 @@ Appendix F.  A CDDL tool
                    cddl spec.cddl validate instance.cbor
                    cddl spec.cddl validate instance.json
 
-                        Figure 18: CDDL tool usage
+                        Figure 17: CDDL tool usage
 
    Install on a system with a modern Ruby via:
 
                              gem install cddl
 
-                     Figure 19: CDDL tool installation
+                     Figure 18: CDDL tool installation
 
    The accompanying CBOR diagnostic tools (which are automatically
    installed by the above) are described in https://github.com/cabo/
@@ -3077,7 +2853,7 @@ Appendix F.  A CDDL tool
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 55]
+Birkholz, et al.          Expires May 23, 2019                 [Page 51]
 
 Internet-Draft                    CDDL                     November 2018
 
@@ -3133,7 +2909,7 @@ G.2.  Text in byte string notation
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 56]
+Birkholz, et al.          Expires May 23, 2019                 [Page 52]
 
 Internet-Draft                    CDDL                     November 2018
 
@@ -3189,7 +2965,7 @@ G.4.  Concatenated Strings
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 57]
+Birkholz, et al.          Expires May 23, 2019                 [Page 53]
 
 Internet-Draft                    CDDL                     November 2018
 
@@ -3245,7 +3021,343 @@ G.6.  Comments
 
 
 
+Birkholz, et al.          Expires May 23, 2019                 [Page 54]
+
+Internet-Draft                    CDDL                     November 2018
+
+
+Appendix H.  Examples
+
+   This appendix is for information only.
+
+   This section contains a few examples of structures defined using
+   CDDL.
+
+   The theme for the first example is taken from [RFC7071], which
+   defines certain JSON structures in English.  For a similar example,
+   it may also be of interest to examine Appendix A of [RFC8007], which
+   contains a CDDL definition for a JSON structure defined in the main
+   body of the RFC.
+
+   The second subsection in this appendix translates examples from
+   [I-D.newton-json-content-rules] into CDDL.
+
+   These examples all happen to describe data that is interchanged in
+   JSON.  Examples for CDDL definitions of data that is interchanged in
+   CBOR can be found in [RFC8152], [I-D.ietf-anima-grasp], or [RFC8428].
+
+H.1.  RFC 7071
+
+   [RFC7071] defines the Reputon structure for JSON using somewhat
+   formalized English text.  Here is a (somewhat verbose) equivalent
+   definition using the same terms, but notated in CDDL:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Birkholz, et al.          Expires May 23, 2019                 [Page 55]
+
+Internet-Draft                    CDDL                     November 2018
+
+
+                 reputation-object = {
+                   reputation-context,
+                   reputon-list
+                 }
+
+                 reputation-context = (
+                   application: text
+                 )
+
+                 reputon-list = (
+                   reputons: reputon-array
+                 )
+
+                 reputon-array = [* reputon]
+
+                 reputon = {
+                   rater-value,
+                   assertion-value,
+                   rated-value,
+                   rating-value,
+                   ? conf-value,
+                   ? normal-value,
+                   ? sample-value,
+                   ? gen-value,
+                   ? expire-value,
+                   * ext-value,
+                 }
+
+                 rater-value = ( rater: text )
+                 assertion-value = ( assertion: text )
+                 rated-value = ( rated: text )
+                 rating-value = ( rating: float16 )
+                 conf-value = ( confidence: float16 )
+                 normal-value = ( normal-rating: float16 )
+                 sample-value = ( sample-size: uint )
+                 gen-value = ( generated: uint )
+                 expire-value = ( expires: uint )
+                 ext-value = ( text => any )
+
+   An equivalent, more compact form of this example would be:
+
+
+
+
+
+
+
+
+
+
+
+Birkholz, et al.          Expires May 23, 2019                 [Page 56]
+
+Internet-Draft                    CDDL                     November 2018
+
+
+                        reputation-object = {
+                          application: text
+                          reputons: [* reputon]
+                        }
+
+                        reputon = {
+                          rater: text
+                          assertion: text
+                          rated: text
+                          rating: float16
+                          ? confidence: float16
+                          ? normal-rating: float16
+                          ? sample-size: uint
+                          ? generated: uint
+                          ? expires: uint
+                          * text => any
+                        }
+
+   Note how this rather clearly delineates the structure somewhat
+   shrouded by so many words in section 6.2.2. of [RFC7071].  Also, this
+   definition makes it clear that several ext-values are allowed (by
+   definition with different member names); RFC 7071 could be read to
+   forbid the repetition of ext-value ("A specific reputon-element MUST
+   NOT appear more than once" is ambiguous.)
+
+   The CDDL tool reported on in Appendix F generates as one example:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Birkholz, et al.          Expires May 23, 2019                 [Page 57]
+
+Internet-Draft                    CDDL                     November 2018
+
+
+                {
+                  "application": "conchometry",
+                  "reputons": [
+                    {
+                      "rater": "Ephthianura",
+                      "assertion": "codding",
+                      "rated": "sphaerolitic",
+                      "rating": 0.34133473256800795,
+                      "confidence": 0.9481983064298332,
+                      "expires": 1568,
+                      "unplaster": "grassy"
+                    },
+                    {
+                      "rater": "nonchargeable",
+                      "assertion": "raglan",
+                      "rated": "alienage",
+                      "rating": 0.5724646875815566,
+                      "sample-size": 3514,
+                      "Aldebaran": "unchurched",
+                      "puruloid": "impersonable",
+                      "uninfracted": "pericarpoidal",
+                      "schorl": "Caro"
+                    },
+                    {
+                      "rater": "precollectable",
+                      "assertion": "Merat",
+                      "rated": "thermonatrite",
+                      "rating": 0.19164006323936977,
+                      "confidence": 0.6065252103391268,
+                      "normal-rating": 0.5187773690879303,
+                      "generated": 899,
+                      "speedy": "solidungular",
+                      "noviceship": "medicine",
+                      "checkrow": "epidictic"
+                    }
+                  ]
+                }
+
+H.2.  Examples from JSON Content Rules
+
+   Although JSON Content Rules [I-D.newton-json-content-rules] seems to
+   address a more general problem than CDDL, it is still a worthwhile
+   resource to explore for examples (beyond all the inspiration the
+   format itself has had for CDDL).
+
+   Figure 2 of the JCR I-D looks very similar, if slightly less noisy,
+   in CDDL:
+
+
+
+
 Birkholz, et al.          Expires May 23, 2019                 [Page 58]
+
+Internet-Draft                    CDDL                     November 2018
+
+
+                            root = [2*2 {
+                              precision: text,
+                              Latitude: float,
+                              Longitude: float,
+                              Address: text,
+                              City: text,
+                              State: text,
+                              Zip: text,
+                              Country: text
+                            }]
+
+                     Figure 19: JCR, Figure 2, in CDDL
+
+   Apart from the lack of a need to quote the member names, text strings
+   are called "text" or "tstr" in CDDL ("string" would be ambiguous as
+   CBOR also provides byte strings).
+
+   The CDDL tool reported on in Appendix F creates the below example
+   instance for this:
+
+    [{"precision": "pyrosphere", "Latitude": 0.5399712314350172,
+      "Longitude": 0.5157523963028087, "Address": "resow",
+      "City": "problemwise", "State": "martyrlike", "Zip": "preprove",
+      "Country": "Pace"},
+     {"precision": "unrigging", "Latitude": 0.10422704368372193,
+      "Longitude": 0.6279808663725834, "Address": "picturedom",
+      "City": "decipherability", "State": "autometry", "Zip": "pout",
+      "Country": "wimple"}]
+
+   Figure 4 of the JCR I-D in CDDL:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Birkholz, et al.          Expires May 23, 2019                 [Page 59]
+
+Internet-Draft                    CDDL                     November 2018
+
+
+                             root = { image }
+
+                             image = (
+                               Image: {
+                                 size,
+                                 Title: text,
+                                 thumbnail,
+                                 IDs: [* int]
+                               }
+                             )
+
+                             size = (
+                               Width: 0..1280
+                               Height: 0..1024
+                             )
+
+                             thumbnail = (
+                               Thumbnail: {
+                                 size,
+                                 Url: ~uri
+                               }
+                             )
+
+   This shows how the group concept can be used to keep related elements
+   (here: width, height) together, and to emulate the JCR style of
+   specification.  (It also shows referencing a type by unwrapping a tag
+   from the prelude, "uri" - this could be done differently.)  The more
+   compact form of Figure 5 of the JCR I-D could be emulated like this:
+
+                    root = {
+                      Image: {
+                        size, Title: text,
+                        Thumbnail: { size, Url: ~uri },
+                        IDs: [* int]
+                      }
+                    }
+
+                    size = (
+                      Width: 0..1280,
+                      Height: 0..1024,
+                    )
+
+   The CDDL tool reported on in Appendix F creates the below example
+   instance for this:
+
+    {"Image": {"Width": 566, "Height": 516, "Title": "leisterer",
+      "Thumbnail": {"Width": 1111, "Height": 176, "Url": 32("scrog")},
+      "IDs": []}}
+
+
+
+Birkholz, et al.          Expires May 23, 2019                 [Page 60]
 
 Internet-Draft                    CDDL                     November 2018
 
@@ -3301,7 +3413,7 @@ Authors' Addresses
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 59]
+Birkholz, et al.          Expires May 23, 2019                 [Page 61]
 
 Internet-Draft                    CDDL                     November 2018
 
@@ -3357,4 +3469,4 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 60]
+Birkholz, et al.          Expires May 23, 2019                 [Page 62]
