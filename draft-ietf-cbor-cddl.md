@@ -14,7 +14,7 @@ title: >
 abbrev: CDDL
 area: Applications
 wg: CBOR
-date: 2018-11-19
+date: 2019-02-12
 author:
 - ins: H. Birkholz
   name: Henk Birkholz
