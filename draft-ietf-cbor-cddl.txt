@@ -5,10 +5,10 @@
 CBOR                                                         H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                               C. Vigano
-Expires: May 23, 2019                                Universitaet Bremen
+Expires: August 16, 2019                             Universitaet Bremen
                                                               C. Bormann
                                                  Universitaet Bremen TZI
-                                                       November 19, 2018
+                                                       February 12, 2019
 
 
   Concise data definition language (CDDL): a notational convention to
@@ -38,11 +38,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on May 23, 2019.
+   This Internet-Draft will expire on August 16, 2019.
 
 Copyright Notice
 
-   Copyright (c) 2018 IETF Trust and the persons identified as the
+   Copyright (c) 2019 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Birkholz, et al.          Expires May 23, 2019                  [Page 1]
+Birkholz, et al.         Expires August 16, 2019                [Page 1]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    to this document.  Code Components extracted from this document must
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Birkholz, et al.          Expires May 23, 2019                  [Page 2]
+Birkholz, et al.         Expires August 16, 2019                [Page 2]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
      6.1.  CDDL control operator registry  . . . . . . . . . . . . .  35
@@ -165,9 +165,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                  [Page 3]
+Birkholz, et al.         Expires August 16, 2019                [Page 3]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    (G6)  Enable extraction of specific elements from CBOR data for
@@ -221,9 +221,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                  [Page 4]
+Birkholz, et al.         Expires August 16, 2019                [Page 4]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    byte strings; CDDL does not focus on specifying their structure.
@@ -277,9 +277,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                  [Page 5]
+Birkholz, et al.         Expires August 16, 2019                [Page 5]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
        _rule_), which formally is the set of CBOR data items that are
@@ -333,9 +333,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                  [Page 6]
+Birkholz, et al.         Expires August 16, 2019                [Page 6]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
                              person = {
@@ -389,9 +389,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                  [Page 7]
+Birkholz, et al.         Expires August 16, 2019                [Page 7]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
                              person = {(
@@ -445,9 +445,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                  [Page 8]
+Birkholz, et al.         Expires August 16, 2019                [Page 8]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
 2.1.1.  Usage
@@ -501,9 +501,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                  [Page 9]
+Birkholz, et al.         Expires August 16, 2019                [Page 9]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    The value notation is based on the C language, but does not offer all
@@ -557,9 +557,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 10]
+Birkholz, et al.         Expires August 16, 2019               [Page 10]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
                  attire /= "swimwear"
@@ -613,9 +613,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 11]
+Birkholz, et al.         Expires August 16, 2019               [Page 11]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
       min .. max
@@ -669,9 +669,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 12]
+Birkholz, et al.         Expires August 16, 2019               [Page 12]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    It may be necessary to make use of representation types outside the
@@ -725,9 +725,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 13]
+Birkholz, et al.         Expires August 16, 2019               [Page 13]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
       *  It is preferred style to start a name with a lower case letter.
@@ -781,9 +781,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 14]
+Birkholz, et al.         Expires August 16, 2019               [Page 14]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    Example:
@@ -837,9 +837,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 15]
+Birkholz, et al.         Expires August 16, 2019               [Page 15]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    (Occurrence indicators beyond one still are useful in maps for groups
@@ -893,9 +893,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 16]
+Birkholz, et al.         Expires August 16, 2019               [Page 16]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
                      unlimited-people = [* person]
@@ -949,9 +949,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 17]
+Birkholz, et al.         Expires August 16, 2019               [Page 17]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    The following is an example of a structure:
@@ -1005,9 +1005,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 18]
+Birkholz, et al.         Expires August 16, 2019               [Page 18]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    single value only -- the given string), so another form for this
@@ -1061,9 +1061,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 19]
+Birkholz, et al.         Expires August 16, 2019               [Page 19]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
                           PersonalData = {
@@ -1117,9 +1117,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 20]
+Birkholz, et al.         Expires August 16, 2019               [Page 20]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
 3.5.3.  Non-deterministic order
@@ -1173,9 +1173,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 21]
+Birkholz, et al.         Expires August 16, 2019               [Page 21]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    Note that Relax-NG's "interleave" pattern handles lack of order
@@ -1229,9 +1229,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 22]
+Birkholz, et al.         Expires August 16, 2019               [Page 22]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
                         extensible-map-example = {
@@ -1285,9 +1285,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 23]
+Birkholz, et al.         Expires August 16, 2019               [Page 23]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    For example, an application might want to define a basic and an
@@ -1341,9 +1341,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 24]
+Birkholz, et al.         Expires August 16, 2019               [Page 24]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    A number of control operators are defined at this point.  Further
@@ -1397,9 +1397,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 25]
+Birkholz, et al.         Expires August 16, 2019               [Page 25]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
                       tcpflagbytes = bstr .bits flags
@@ -1453,9 +1453,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 26]
+Birkholz, et al.         Expires August 16, 2019               [Page 26]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
 3.8.3.1.  Usage considerations
@@ -1509,9 +1509,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 27]
+Birkholz, et al.         Expires August 16, 2019               [Page 27]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
 3.8.4.  Control operators .cbor and .cborseq
@@ -1565,9 +1565,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 28]
+Birkholz, et al.         Expires August 16, 2019               [Page 28]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    For ".within", a tool might flag an error if type1 allows data items
@@ -1621,9 +1621,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 29]
+Birkholz, et al.         Expires August 16, 2019               [Page 29]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
 3.9.  Socket/Plug
@@ -1677,9 +1677,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 30]
+Birkholz, et al.         Expires August 16, 2019               [Page 30]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
                      PersonalData = {
@@ -1733,9 +1733,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 31]
+Birkholz, et al.         Expires August 16, 2019               [Page 31]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
 3.11.  Operator Precedence
@@ -1789,9 +1789,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 32]
+Birkholz, et al.         Expires August 16, 2019               [Page 32]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    group4 is a group choice between a repeatable a and a single b or c.
@@ -1845,9 +1845,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 33]
+Birkholz, et al.         Expires August 16, 2019               [Page 33]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    Since CDDL maps parts of the CBOR data to human readable names, tools
@@ -1901,9 +1901,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 34]
+Birkholz, et al.         Expires August 16, 2019               [Page 34]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    need security analyses when defined.  General guidelines for writing
@@ -1957,9 +1957,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 35]
+Birkholz, et al.         Expires August 16, 2019               [Page 35]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
                        +----------+---------------+
@@ -2013,9 +2013,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 36]
+Birkholz, et al.         Expires August 16, 2019               [Page 36]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    [RFC3629]  Yergeau, F., "UTF-8, a transformation format of ISO
@@ -2069,9 +2069,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 37]
+Birkholz, et al.         Expires August 16, 2019               [Page 37]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    [I-D.ietf-anima-grasp]
@@ -2125,9 +2125,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 38]
+Birkholz, et al.         Expires August 16, 2019               [Page 38]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
 Appendix A.  Parsing Expression Grammars (PEG)
@@ -2181,9 +2181,9 @@ Appendix A.  Parsing Expression Grammars (PEG)
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 39]
+Birkholz, et al.         Expires August 16, 2019               [Page 39]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    can match anything as all input matching "a" is already consumed by
@@ -2237,9 +2237,9 @@ Appendix B.  ABNF grammar
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 40]
+Birkholz, et al.         Expires August 16, 2019               [Page 40]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    ABNF, the quote-delimited strings below are case-insensitive (while
@@ -2293,9 +2293,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 41]
+Birkholz, et al.         Expires August 16, 2019               [Page 41]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
      bareword = id
@@ -2349,9 +2349,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 42]
+Birkholz, et al.         Expires August 16, 2019               [Page 42]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
                            Figure 13: CDDL ABNF
@@ -2405,9 +2405,9 @@ Appendix C.  Matching rules
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 43]
+Birkholz, et al.         Expires August 16, 2019               [Page 43]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    "a" may be used as a type if "b" is a type, or as a group both when
@@ -2461,9 +2461,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 44]
+Birkholz, et al.         Expires August 16, 2019               [Page 44]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    A type can be just a single value (such as 1 or "icecream" or
@@ -2517,9 +2517,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 45]
+Birkholz, et al.         Expires August 16, 2019               [Page 45]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    any data item.
@@ -2573,9 +2573,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 46]
+Birkholz, et al.         Expires August 16, 2019               [Page 46]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    memberkey = type1 S ["^" S] "=>"
@@ -2629,9 +2629,9 @@ Appendix D.  Standard Prelude
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 47]
+Birkholz, et al.         Expires August 16, 2019               [Page 47]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
                   any = #
@@ -2685,9 +2685,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 48]
+Birkholz, et al.         Expires August 16, 2019               [Page 48]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    Note that the prelude is deemed to be fixed.  This means, for
@@ -2741,9 +2741,9 @@ Appendix E.  Use with JSON
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 49]
+Birkholz, et al.         Expires August 16, 2019               [Page 49]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    (The major types given here do not have a direct meaning in JSON, but
@@ -2797,9 +2797,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 50]
+Birkholz, et al.         Expires August 16, 2019               [Page 50]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    integers supported by "int" (= "uint"/"nint") may want to use the
@@ -2853,9 +2853,9 @@ Appendix F.  A CDDL tool
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 51]
+Birkholz, et al.         Expires August 16, 2019               [Page 51]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
 Appendix G.  Extended Diagnostic Notation
@@ -2909,9 +2909,9 @@ G.2.  Text in byte string notation
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 52]
+Birkholz, et al.         Expires August 16, 2019               [Page 52]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
 G.3.  Embedded CBOR and CBOR sequences in byte strings
@@ -2965,9 +2965,9 @@ G.4.  Concatenated Strings
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 53]
+Birkholz, et al.         Expires August 16, 2019               [Page 53]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
 G.5.  Hexadecimal, octal, and binary numbers
@@ -3021,9 +3021,9 @@ G.6.  Comments
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 54]
+Birkholz, et al.         Expires August 16, 2019               [Page 54]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
 Appendix H.  Examples
@@ -3077,9 +3077,9 @@ H.1.  RFC 7071
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 55]
+Birkholz, et al.         Expires August 16, 2019               [Page 55]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
                  reputation-object = {
@@ -3133,9 +3133,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 56]
+Birkholz, et al.         Expires August 16, 2019               [Page 56]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
                         reputation-object = {
@@ -3189,9 +3189,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 57]
+Birkholz, et al.         Expires August 16, 2019               [Page 57]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
                 {
@@ -3245,9 +3245,9 @@ H.2.  Examples from JSON Content Rules
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 58]
+Birkholz, et al.         Expires August 16, 2019               [Page 58]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
                             root = [2*2 {
@@ -3301,9 +3301,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 59]
+Birkholz, et al.         Expires August 16, 2019               [Page 59]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
                              root = { image }
@@ -3357,9 +3357,9 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 60]
+Birkholz, et al.         Expires August 16, 2019               [Page 60]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
 Contributors
@@ -3413,9 +3413,9 @@ Authors' Addresses
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 61]
+Birkholz, et al.         Expires August 16, 2019               [Page 61]
 
-Internet-Draft                    CDDL                     November 2018
+Internet-Draft                    CDDL                     February 2019
 
 
    Carsten Bormann
@@ -3469,4 +3469,4 @@ Internet-Draft                    CDDL                     November 2018
 
 
 
-Birkholz, et al.          Expires May 23, 2019                 [Page 62]
+Birkholz, et al.         Expires August 16, 2019               [Page 62]
