@@ -225,7 +225,8 @@ CDDL Groups are lists of group _entries_, each of which can be a
 name/value pair or a more complex group expression (which then in turn
 stands for a sequence of name/value pairs).  A CDDL group is a
 production in a grammar that matches certain sequences of name/value pairs but not others.
-The grammar is based on the concepts of Parsing Expression Grammars {{PEG}}.
+The grammar is based on the concepts of Parsing Expression Grammars
+(see {{sec-peg}}).
 
 In an array context, only the value of the name/value pair is represented; the name is
 annotation only (and can be left off from the group specification if not needed).
@@ -973,7 +974,7 @@ mynumber = int / float
 ### Non-deterministic order
 
 While the way arrays are matched is fully determined by the Parsing
-Expression Grammar (PEG) algorithm, matching is more complicated for
+Expression Grammar (PEG) formalism (see {{sec-peg}}), matching is more complicated for
 maps, as maps do not have an inherent order.
 For each candidate name/value pair that the PEG algorithm would try, a
 matching member is picked out of the entire map.  For certain group expressions,
@@ -1702,7 +1703,89 @@ An interesting use would thus be automated analysis of sensor data.
 
 # Parsing Expression Grammars (PEG) {#sec-peg}
 
+This appendix is normative.
 
+Since the 1950s, many grammar notations are based on Backus-Naur Form
+(BNF), a notation for context-free grammars (CFGs) within Chomsky's
+generative system of grammars.  ABNF {{RFC5234}}, the Augmented Backus-Naur Form
+widely used in IETF specifications and also inspiring the syntax of
+CDDL, is an example of this.
+
+Generative grammars can express ambiguity well, but this very property
+may make them hard to use in recognition systems, spawning a number of
+subdialects that pose constraints on generative grammars to be used
+with parser generators, which may be hard to manage for the
+specification writer.
+
+Parsing Expression Grammars {{PEG}} provide an alternative formal
+foundation for describing grammars that emphasizes recognition over
+generation, and resolves what would have been ambiguity in generative
+systems by introducing the concept of "prioritized choice".
+
+The notation for Parsing Expression Grammars is quite close to BNF,
+with the usual "Extended BNF" features such as repetition added.
+However, where BNF uses the unordered (symmetrical) choice operator
+`|` (incidentally notated as `/` in ABNF), PEG provides a prioritized
+choice operator `/`.  The two alternatives listed are to be tested in
+left-to-right order, locking in the first successful match and
+disregarding any further potential matches within the choice (but not
+disabling alternatives in choices containing this choice, as a "cut"
+would -- {{cuts-in-maps}}}.
+
+For example, the ABNF expressions
+
+    A = "a" "b" / "a"    (1)
+
+and
+
+    A = "a" / "a" "b"    (2)
+
+are equivalent in ABNF's generative framework, but very different in
+PEG: In (2), the second alternative will never match, as any input
+string starting with an "a" will already succeed in the first
+alternative, locking in the match.
+
+Similarly, the occurrence indicators (`?`, `*`, `+`) are "greedy" in
+PEG, i.e., they consume as much input as they match (and, as a
+consequence, `a* a` in PEG notation or `*a a` in CDDL syntax
+never can match anything as all input matching `a` is already consumed
+by the initial `a*`, leaving nothing to match the second `a`).
+
+Incidentally, the grammar of the CDDL language itself, as written in
+ABNF in {{abnf}}, can be interpreted both in the generative framework
+on which RFC 5234 is based, and as a PEG.  This was made possible by
+ordering the choices in the grammar such that a successful match made
+on the left hand side of a `/` operator is always the intended match,
+and no ambiguity is used.
+
+The syntax used for expressing the PEG component of CDDL is based on
+ABNF, interpreted in the obvious way with PEG semantics.  The ABNF
+convention of notating occurrence indicators before the controlled
+primary, and of allowing numeric values for minimum and maximum
+occurrence around a `*` sign, is copied.  While PEG is only about
+characters, CDDL has a richer set of elements, such as types and
+groups.  Specifically, the following constructs map:
+
+| CDDL  | PEG   | Remark                                    |
+| `=`   | `<-`  | /= and //= are abbreviations              |
+| `//`  | `/`   | prioritized choice                        |
+| `/`   | `/`   | prioritized choice, limited to types only |
+| `?` P | P `?` | zero or one                               |
+| `*` P | P `*` | zero or more                              |
+| `+` P | P `+` | one or more                               |
+| A B   | A B   | sequence                                  |
+| A, B  | A B   | sequence, comma is decoration only        |
+
+The literal notation and the use of square brackets, curly braces,
+tildes, ampersands, and hash marks is specific to CDDL and unrelated
+to the conventional PEG notation.  The DOT (`.`) is replaced by the
+unadorned `#` or its alias `any`.  Also, CDDL does not provide the
+syntactic predicate operators NOT (`!`) or AND (`&`) from PEG,
+reducing expressiveness as well as complexity.
+
+For more details about PEG's theoretical foundation and interesting
+properties of the operators such as associativity and distributivity,
+the reader is referred to {{PEG}}.
 
 # ABNF grammar {#abnf}
 
@@ -1810,7 +1893,8 @@ type = type1 *(S "/" S type1)
 
 A type can be given as a choice between one or more types.  The choice
 matches a data item if the data item matches any one of the types given
-in the choice.  The choice uses Parsing Expression Grammar {{PEG}} semantics:
+in the choice.  The choice uses Parsing Expression Grammar semantics
+as discussed in {{sec-peg}}:
 The first choice that matches wins.  (As a result, the order of rules
 that contribute to a single rule name can very well matter.)
 
@@ -2433,5 +2517,7 @@ area director.
 The CDDL tool reported on in {{tool}} was written by Carsten Bormann,
 building on previous work by Troy Heninger and Tom Lord.
 
-<!--  LocalWords:  representable precedences Arities unary Naur
+<!--  LocalWords:  representable precedences Arities unary Naur CFGs
+ -->
+<!--  LocalWords:  Chomsky's subdialects unordered
  -->
