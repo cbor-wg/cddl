@@ -14,7 +14,7 @@ title: >
 abbrev: CDDL
 area: Applications
 wg: CBOR
-date: 2019-02-12
+date: 2019-02-13
 author:
 - ins: H. Birkholz
   name: Henk Birkholz
@@ -1740,7 +1740,7 @@ and
 
     A = "a" / "a" "b"    (2)
 
-are equivalent in ABNF's generative framework, but very different in
+are equivalent in ABNF's original generative framework, but very different in
 PEG: In (2), the second alternative will never match, as any input
 string starting with an "a" will already succeed in the first
 alternative, locking in the match.
@@ -1758,7 +1758,7 @@ ordering the choices in the grammar such that a successful match made
 on the left hand side of a `/` operator is always the intended match,
 instead of relying on the power of symmetrical choices (for example,
 note the sequence of alternatives in the rule for `uint`, where the
-lone zero is behind the longer match alternatives starting with a
+lone zero is behind the longer match alternatives that start with a
 zero).
 
 The syntax used for expressing the PEG component of CDDL is based on
