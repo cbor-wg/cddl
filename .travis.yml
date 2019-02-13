@@ -1,6 +1,6 @@
 language: python
 sudo: false
-dist: trusty
+dist: xenial
 
 addons:
   apt:
@@ -19,4 +19,14 @@ install:
  - if head -1 -q *.md | grep '^\-\-\-' >/dev/null 2>&1; then gem install --no-doc kramdown-rfc2629; fi
  - if head -1 -q *.md | grep '^%%%' >/dev/null 2>&1; then go get "$mmark_src" && go build "$mmark_src"; fi
 
-script: make ghpages
+script:
+ - make
+ - make issues || make issues DISABLE_ISSUE_FETCH=true && make gh-issues
+ - make gh-pages
+
+deploy:
+  provider: script
+  script: make upload
+  skip_cleanup: true
+  on:
+    tags: true
