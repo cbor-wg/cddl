@@ -1756,7 +1756,10 @@ ABNF in {{abnf}}, can be interpreted both in the generative framework
 on which RFC 5234 is based, and as a PEG.  This was made possible by
 ordering the choices in the grammar such that a successful match made
 on the left hand side of a `/` operator is always the intended match,
-and no ambiguity is used.
+instead of relying on the power of symmetrical choices (for example,
+note the sequence of alternatives in the rule for `uint`, where the
+lone zero is behind the longer match alternatives starting with a
+zero).
 
 The syntax used for expressing the PEG component of CDDL is based on
 ABNF, interpreted in the obvious way with PEG semantics.  The ABNF
