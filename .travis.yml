@@ -5,7 +5,7 @@ dist: xenial
 addons:
   apt:
     packages:
-     - python-pip
+     - python3-pip
      - xsltproc
 
 env:
