@@ -140,7 +140,7 @@ CBOR specification is listed in {{prelude}}.
 ## Terminology
 
 New terms are introduced in _cursive_, which is rendered in plain text
-as the new term surrouded by underscores.
+as the new term surrounded by underscores.
 CDDL text in the running text is in `typewriter`, which is rendered in
 plain text as the CDDL text in double quotes (double quotes are also
 used in the usual English sense; the reader is expected to
