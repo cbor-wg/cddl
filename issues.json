@@ -1,6 +1,60 @@
 [
 
   {
+    "url": "https://api.github.com/repos/cbor-wg/cddl/issues/28",
+    "repository_url": "https://api.github.com/repos/cbor-wg/cddl",
+    "labels_url": "https://api.github.com/repos/cbor-wg/cddl/issues/28/labels{/name}",
+    "comments_url": "https://api.github.com/repos/cbor-wg/cddl/issues/28/comments",
+    "events_url": "https://api.github.com/repos/cbor-wg/cddl/issues/28/events",
+    "html_url": "https://github.com/cbor-wg/cddl/pull/28",
+    "id": 424611169,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0MjYzOTA0Mjkw",
+    "number": 28,
+    "title": "Prepare -08, mostly based on Benjamin Kaduk's comments.",
+    "user": {
+      "login": "cabo",
+      "id": 23118,
+      "node_id": "MDQ6VXNlcjIzMTE4",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/23118?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/cabo",
+      "html_url": "https://github.com/cabo",
+      "followers_url": "https://api.github.com/users/cabo/followers",
+      "following_url": "https://api.github.com/users/cabo/following{/other_user}",
+      "gists_url": "https://api.github.com/users/cabo/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/cabo/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/cabo/subscriptions",
+      "organizations_url": "https://api.github.com/users/cabo/orgs",
+      "repos_url": "https://api.github.com/users/cabo/repos",
+      "events_url": "https://api.github.com/users/cabo/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/cabo/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2019-03-24T13:08:44Z",
+    "updated_at": "2019-03-24T13:08:44Z",
+    "closed_at": null,
+    "author_association": "CONTRIBUTOR",
+    "pull_request": {
+      "url": "https://api.github.com/repos/cbor-wg/cddl/pulls/28",
+      "html_url": "https://github.com/cbor-wg/cddl/pull/28",
+      "diff_url": "https://github.com/cbor-wg/cddl/pull/28.diff",
+      "patch_url": "https://github.com/cbor-wg/cddl/pull/28.patch"
+    },
+    "body": ""
+  },
+  {
     "url": "https://api.github.com/repos/cbor-wg/cddl/issues/27",
     "repository_url": "https://api.github.com/repos/cbor-wg/cddl",
     "labels_url": "https://api.github.com/repos/cbor-wg/cddl/issues/27/labels{/name}",
