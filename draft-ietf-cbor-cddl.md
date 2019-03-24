@@ -14,7 +14,7 @@ title: >
 abbrev: CDDL
 area: Applications
 wg: CBOR
-date: 2019-02-13
+date: 2019-03-24
 author:
 - ins: H. Birkholz
   name: Henk Birkholz
@@ -107,7 +107,7 @@ The CBOR notational convention has the following goals:
 * Be flexible in expressing the multiple ways in which data can be
   represented in the CBOR data format.
 
-* Able to express common CBOR datatypes and structures.
+* Be able to express common CBOR datatypes and structures.
 
 * Provide a single format that is both readable and editable for
   humans and processable by machine.
@@ -344,7 +344,9 @@ identity = (
 {:cddl #group_factorization title="Using a group for factorization"}
 
 Note that the lists inside the braces in the above definitions
-constitute (anonymous) groups, while `identity` is a named group.
+constitute (anonymous) groups, while `identity` is a named group,
+which can then be included as part of other groups (anonymous as in
+the example, or themselves named).
 
 ### Usage {#composition_usage}
 
@@ -642,7 +644,8 @@ diagnostic notation in section 6 of {{RFC7049}}; cf. {{textbin}}); any white spa
 present within the string (including comments) is ignored in the prefixed case.
 
 
-*   CDDL uses UTF-8 {{RFC3629}} for its encoding.
+*   CDDL uses UTF-8 {{RFC3629}} for its encoding.  Processing of CDDL
+    does not involve Unicode normalization processes.
 
 Example:
 
@@ -809,7 +812,7 @@ for using curly braces "{}" instead of square brackets "\[]".
 An occurrence indicator as specified in {{occurrence}} is permitted for each
 group entry.
 
-The following is an example of a structure:
+The following is an example of a record with a structure enbedded:
 
 ~~~~ CDDL
 Geography = [
@@ -818,16 +821,16 @@ Geography = [
 ]
 
 GpsCoordinates = {
-  longitude      : uint,            ; multiplied by 10^7
-  latitude       : uint,            ; multiplied by 10^7
+  longitude      : uint,            ; degrees, scaled by 10^7
+  latitude       : uint,            ; degreed, scaled by 10^7
 }
 ~~~~
 {:cddl}
 
-When encoding, the Geography structure is encoded using a CBOR array
-with two entries (the keys for the group entries are ignored),
-whereas the GpsCoordinates are encoded as a CBOR map with two
-key/value pairs.
+When encoding, the Geography record is encoded using a CBOR array with
+two members (the keys for the group entries are ignored), whereas the
+GpsCoordinates structure is encoded as a CBOR map with two key/value
+pairs.
 
 Types used in a structure can be defined in separate rules or just in
 place (potentially placed inside parentheses, such as for choices).
@@ -1445,8 +1448,8 @@ right-hand-side type is intended as a default value for the left hand
 side type given, and the implied .ne control is there to prevent
 this value from being sent over the wire.
 This control is only meaningful when the control type is used in
-an optional context; otherwise there would be no way to express the
-default value.
+an optional context; otherwise there would be no way to make use of
+the default value.
 
 ~~~~ CDDL
 timer = {
@@ -2117,7 +2120,7 @@ CBOR structures include the following:
   on the security of the system needs to be carefully considered.
 
 Writers of CDDL specifications are strongly encouraged to value
-simplicity and transparency of the specification over its elegance.
+clarity and transparency of the specification over its elegance.
 Keep it as simple as possible while still expressing the needed
 data model.
 
