@@ -346,7 +346,7 @@ ul.toc li {
 <link href="#rfc.authors" rel="Chapter">
 
 
-  <meta name="generator" content="xml2rfc version 2.22.0 - https://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.22.3 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Birkholz, H., Vigano, C., and C. Bormann" />
@@ -1879,7 +1879,7 @@ int = ["-"] uint
 
 ; This is a float if it has fraction or exponent; int otherwise
 number = hexfloat / (int ["." fraction] ["e" exponent ])
-hexfloat = "0x" 1*HEXDIG ["." 1*HEXDIG] "p" exponent
+hexfloat = ["-"] "0x" 1*HEXDIG ["." 1*HEXDIG] "p" exponent
 fraction = 1*DIGIT
 exponent = ["+"/"-"] 1*DIGIT
 
