@@ -346,12 +346,12 @@ ul.toc li {
 <link href="#rfc.authors" rel="Chapter">
 
 
-  <meta name="generator" content="xml2rfc version 2.19.0 - https://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.23.0 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Birkholz, H., Vigano, C., and C. Bormann" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-cbor-cddl-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2019-02-13" />
+  <meta name="dct.issued" scheme="ISO8601" content="2019-03-24" />
   <meta name="dct.abstract" content="This document proposes a notational convention to express CBOR data structures (RFC 7049, Concise Binary Object Representation).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR or JSON." />
   <meta name="description" content="This document proposes a notational convention to express CBOR data structures (RFC 7049, Concise Binary Object Representation).  Its main goal is to provide an easy and unambiguous way to express structures for protocol messages and data formats that use CBOR or JSON." />
 
@@ -375,7 +375,7 @@ ul.toc li {
 <td class="right">C. Vigano</td>
 </tr>
 <tr>
-<td class="left">Expires: August 17, 2019</td>
+<td class="left">Expires: September 25, 2019</td>
 <td class="right">Universit&#228;t Bremen</td>
 </tr>
 <tr>
@@ -388,7 +388,7 @@ ul.toc li {
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">February 13, 2019</td>
+<td class="right">March 24, 2019</td>
 </tr>
 
     	
@@ -404,7 +404,7 @@ ul.toc li {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on August 17, 2019.</p>
+<p>This Internet-Draft will expire on September 25, 2019.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2019 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -558,7 +558,7 @@ ul.toc li {
 <dt>(G2)   </dt>
 <dd>Be flexible in expressing the multiple ways in which data can be represented in the CBOR data format.</dd>
 <dt>(G3)   </dt>
-<dd>Able to express common CBOR datatypes and structures.</dd>
+<dd>Be able to express common CBOR datatypes and structures.</dd>
 <dt>(G4)   </dt>
 <dd>Provide a single format that is both readable and editable for humans and processable by machine.</dd>
 <dt>(G5)   </dt>
@@ -688,7 +688,7 @@ identity = (
 )
 </pre>
 <p class="figure">Figure 6: Using a group for factorization</p>
-<p id="rfc.section.2.1.p.13">Note that the lists inside the braces in the above definitions constitute (anonymous) groups, while <samp>identity</samp> is a named group.</p>
+<p id="rfc.section.2.1.p.13">Note that the lists inside the braces in the above definitions constitute (anonymous) groups, while <samp>identity</samp> is a named group, which can then be included as part of other groups (anonymous as in the example, or themselves named).</p>
 <h1 id="rfc.section.2.1.1">
 <a href="#rfc.section.2.1.1">2.1.1.</a> <a href="#composition_usage" id="composition_usage">Usage</a>
 </h1>
@@ -840,7 +840,7 @@ solid = tstr
 <li>Hexadecimal numbers are preceded by &#8216;0x&#8217; (without quotes, lower case x), and are case insensitive.  Similarly, binary numbers are preceded by &#8216;0b&#8217;. </li>
 <li>Text strings are enclosed by double quotation &#8216;&#8221;&#8217; characters.  They follow the conventions for strings as defined in section 7 of <a href="#RFC8259" class="xref">[RFC8259]</a>.  (ABNF users may want to note that there is no support in CDDL for the concept of case insensitivity in text strings; if necessary, regular expressions can be used (<a href="#regexp" class="xref">Section 3.8.3</a>).)</li>
 <li>Byte strings are enclosed by single quotation &#8220;&#8217;&#8221; characters and may be prefixed by &#8220;h&#8221; or &#8220;b64&#8221;.  If unprefixed, the string is interpreted as with a text string, except that single quotes must be escaped and that the UTF-8 bytes resulting are marked as a byte string (major type 2).  If prefixed as &#8220;h&#8221; or &#8220;b64&#8221;, the string is interpreted as a sequence of pairs of hex digits (base16, Section 8 of <a href="#RFC4648" class="xref">[RFC4648]</a>) or a base64(url) string (Sections 4 or 5 of <a href="#RFC4648" class="xref">[RFC4648]</a>), respectively (as with the diagnostic notation in section 6 of <a href="#RFC7049" class="xref">[RFC7049]</a>; cf. <a href="#textbin" class="xref">Appendix G.2</a>); any white space present within the string (including comments) is ignored in the prefixed case.</li>
-<li>CDDL uses UTF-8 <a href="#RFC3629" class="xref">[RFC3629]</a> for its encoding.</li>
+<li>CDDL uses UTF-8 <a href="#RFC3629" class="xref">[RFC3629]</a> for its encoding.  Processing of CDDL does not involve Unicode normalization processes.</li>
 </ul>
 <p id="rfc.section.3.1.p.3">Example:</p>
 <pre>
@@ -936,7 +936,7 @@ person = (
 <p id="rfc.section.3.5.1.p.1">The &#8220;struct&#8221; usage of maps is similar to the way JSON objects are used in many JSON applications.</p>
 <p id="rfc.section.3.5.1.p.2">A map is defined in the same way as defining an array (see <a href="#arrays" class="xref">Section 3.4</a>), except for using curly braces &#8220;{}&#8221; instead of square brackets &#8220;[]&#8221;.</p>
 <p id="rfc.section.3.5.1.p.3">An occurrence indicator as specified in <a href="#occurrence" class="xref">Section 3.2</a> is permitted for each group entry.</p>
-<p id="rfc.section.3.5.1.p.4">The following is an example of a structure:</p>
+<p id="rfc.section.3.5.1.p.4">The following is an example of a record with a structure enbedded:</p>
 <pre>
 Geography = [
   city           : tstr,
@@ -944,11 +944,11 @@ Geography = [
 ]
 
 GpsCoordinates = {
-  longitude      : uint,            ; multiplied by 10^7
-  latitude       : uint,            ; multiplied by 10^7
+  longitude      : uint,            ; degrees, scaled by 10^7
+  latitude       : uint,            ; degreed, scaled by 10^7
 }
 </pre>
-<p id="rfc.section.3.5.1.p.5">When encoding, the Geography structure is encoded using a CBOR array with two entries (the keys for the group entries are ignored), whereas the GpsCoordinates are encoded as a CBOR map with two key/value pairs.</p>
+<p id="rfc.section.3.5.1.p.5">When encoding, the Geography record is encoded using a CBOR array with two members (the keys for the group entries are ignored), whereas the GpsCoordinates structure is encoded as a CBOR map with two key/value pairs.</p>
 <p id="rfc.section.3.5.1.p.6">Types used in a structure can be defined in separate rules or just in place (potentially placed inside parentheses, such as for choices).  E.g.:</p>
 <pre>
 located-samples = {
@@ -1272,7 +1272,7 @@ $message /= [4, noodles: text, sauce: text, parmesan: bool]
 speed = number .ge 0  ; unit: m/s
 </pre>
 <p id="rfc.section.3.8.6.p.2">.ne and .eq are defined both for numeric values and values of other types.  If one of the values is not of a numeric type, equality is determined as follows: Text strings are equal (satisfy .eq/do not satisfy .ne) if they are byte-wise identical; the same applies for byte strings.  Arrays are equal if they have the same number of elements, all of which are equal pairwise in order between the arrays.  Maps are equal if they have the same number of key/value pairs, and there is pairwise equality between the key/value pairs between the two maps.  Tagged values are equal if they both have the same tag and the values are equal.  Values of simple types match if they are the same values.  Numeric types that occur within arrays, maps, or tagged values are equal if their numeric value is equal and they are both integers or both floating point values.  All other cases are not equal (e.g., comparing a text string with a byte string).</p>
-<p id="rfc.section.3.8.6.p.3">A variant of the <samp>.ne</samp> control is the <samp>.default</samp> control, which expresses an additional intent: the value specified by the right-hand-side type is intended as a default value for the left hand side type given, and the implied .ne control is there to prevent this value from being sent over the wire.  This control is only meaningful when the control type is used in an optional context; otherwise there would be no way to express the default value.</p>
+<p id="rfc.section.3.8.6.p.3">A variant of the <samp>.ne</samp> control is the <samp>.default</samp> control, which expresses an additional intent: the value specified by the right-hand-side type is intended as a default value for the left hand side type given, and the implied .ne control is there to prevent this value from being sent over the wire.  This control is only meaningful when the control type is used in an optional context; otherwise there would be no way to make use of the default value.</p>
 <pre>
 timer = {
   time: uint,
@@ -1530,7 +1530,7 @@ a = 1 b = 2 c = 3
 <li>Where a CDDL matcher is part of the implementation of a system, the security of the system ought not depend on the correctness of the CDDL specification or CDDL implementation without any further defenses in place.</li>
 <li>Where the CDDL includes extension points, the impact of extensions on the security of the system needs to be carefully considered.</li>
 </ul>
-<p id="rfc.section.5.p.4">Writers of CDDL specifications are strongly encouraged to value simplicity and transparency of the specification over its elegance.  Keep it as simple as possible while still expressing the needed data model.</p>
+<p id="rfc.section.5.p.4">Writers of CDDL specifications are strongly encouraged to value clarity and transparency of the specification over its elegance.  Keep it as simple as possible while still expressing the needed data model.</p>
 <p id="rfc.section.5.p.5">A related observation about formal description techniques in general that is strongly recommended to be kept in mind by writers of CDDL specifications: Just because CDDL makes it easier to handle complexity in a specification, that does not make that complexity somehow less bad (except maybe on the level of the humans having to grasp the complex structure while reading the spec).</p>
 <h1 id="rfc.section.6">
 <a href="#rfc.section.6">6.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
@@ -1879,7 +1879,7 @@ int = ["-"] uint
 
 ; This is a float if it has fraction or exponent; int otherwise
 number = hexfloat / (int ["." fraction] ["e" exponent ])
-hexfloat = "0x" 1*HEXDIG ["." 1*HEXDIG] "p" exponent
+hexfloat = ["-"] "0x" 1*HEXDIG ["." 1*HEXDIG] "p" exponent
 fraction = 1*DIGIT
 exponent = ["+"/"-"] 1*DIGIT
 
