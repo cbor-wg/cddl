@@ -65,7 +65,7 @@ int = ["-"] uint
 
 ; This is a float if it has fraction or exponent; int otherwise
 number = hexfloat / (int ["." fraction] ["e" exponent ])
-hexfloat = "0x" 1*HEXDIG ["." 1*HEXDIG] "p" exponent
+hexfloat = ["-"] "0x" 1*HEXDIG ["." 1*HEXDIG] "p" exponent
 fraction = 1*DIGIT
 exponent = ["+"/"-"] 1*DIGIT
 
